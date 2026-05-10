@@ -1,0 +1,40 @@
+---
+interface Props {
+  publishedAt: string;
+  updatedAt: string;
+  author: string;
+  reviewedBy: string;
+}
+
+const { publishedAt, updatedAt, author, reviewedBy } = Astro.props;
+const fmt = new Intl.DateTimeFormat('th-TH', { dateStyle: 'long' });
+---
+
+<aside
+  class="mt-8 rounded-2xl border border-slate-200 bg-slate-50/85 p-5 sm:p-6"
+  aria-label="ข้อมูลผู้เขียนและการตรวจทานบทความ"
+>
+  <h2 class="text-lg font-bold tracking-tight text-slate-950">ผู้เขียน ผู้ตรวจทาน และวันอัปเดตบทความ</h2>
+  <dl class="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+    <div class="rounded-2xl border border-slate-200 bg-white px-4 py-3">
+      <dt class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">เผยแพร่ครั้งแรก</dt>
+      <dd class="mt-2 text-sm font-semibold leading-7 text-slate-950">{fmt.format(new Date(publishedAt))}</dd>
+    </div>
+    <div class="rounded-2xl border border-slate-200 bg-white px-4 py-3">
+      <dt class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">อัปเดตล่าสุด</dt>
+      <dd class="mt-2 text-sm font-semibold leading-7 text-slate-950">{fmt.format(new Date(updatedAt))}</dd>
+    </div>
+    <div class="rounded-2xl border border-slate-200 bg-white px-4 py-3">
+      <dt class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">ผู้เขียน</dt>
+      <dd class="mt-2 text-sm font-semibold leading-7 text-slate-950">{author}</dd>
+    </div>
+    <div class="rounded-2xl border border-slate-200 bg-white px-4 py-3">
+      <dt class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">ตรวจทานโดย</dt>
+      <dd class="mt-2 text-sm font-semibold leading-7 text-slate-950">{reviewedBy}</dd>
+    </div>
+  </dl>
+  <p class="mt-4 text-sm leading-7 text-slate-700">
+    บทความชุดนี้ตั้งใจช่วยตอบคำถามก่อนขายสินค้าไอทีมือสองในภาษาที่ใช้งานได้จริง และจะผูกกับขั้นตอนประเมินของ BuyHub
+    มากกว่าการสรุปเชิงทฤษฎีอย่างเดียว
+  </p>
+</aside>

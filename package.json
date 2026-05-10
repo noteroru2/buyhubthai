@@ -11,9 +11,10 @@
     "content:longform": "node scripts/enrich-longform-content.mjs",
     "check:wordcount": "node scripts/check-public-word-count.mjs",
     "check:blog-unique": "node scripts/check-blog-uniqueness.mjs",
+    "check:page-unique": "node scripts/check-page-cluster-uniqueness.mjs",
     "check:links": "node scripts/check-internal-links.mjs",
     "check:seo": "node scripts/check-seo-head.mjs",
-    "qa": "npm run build && npm run check:wordcount && npm run check:blog-unique && npm run check:links && npm run check:seo",
+    "qa": "npm run build && npm run check:wordcount && npm run check:blog-unique && npm run check:page-unique && npm run check:links && npm run check:seo",
     "preview": "astro preview",
     "astro": "astro"
   },

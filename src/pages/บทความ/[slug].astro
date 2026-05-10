@@ -1,6 +1,7 @@
 ---
 import { getCollection, getEntry, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleEditorialMeta from '../../components/ArticleEditorialMeta.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import FaqAccordion from '../../components/FaqAccordion.astro';
 import KeywordIntentPanel from '../../components/KeywordIntentPanel.astro';
@@ -12,6 +13,7 @@ import {
   articleIntroOverrides,
   articleQuickAnswerOverrides
 } from '../../data/articleQuickAnswers';
+import { EDITORIAL_REVIEWED_AT, EDITORIAL_REVIEWER } from '../../lib/constants';
 import { buildArticleKeywordCluster, joinThaiKeywordList } from '../../lib/keywordClusters';
 import { articleJsonLd, breadcrumbJsonLd, faqPageJsonLd } from '../../lib/schema';
 
@@ -49,9 +51,10 @@ const quickAnswerBody =
   `${data.description} หากต้องการใช้งานบทความนี้ให้คุ้มที่สุด แนะนำให้อ่านสารบัญด้านล่างแล้วไล่ตามหัวข้อที่ตรงกับเคสของคุณก่อน จากนั้นค่อยส่งรูปพร้อมรายละเอียดเครื่องมาประเมินต่อได้ทันที`;
 const quickAnswerBullets = quickAnswerOverride?.bullets ?? [];
 const tocItems = buildArticleTocItems(headings, Boolean(data.faqs?.length));
+const authorLabel = data.author ?? 'ทีมเนื้อหา BuyHub';
 
 const datePublished = data.pubDate.toISOString();
-const dateModified = (data.updatedDate ?? data.pubDate).toISOString();
+const dateModified = new Date(data.updatedDate ?? EDITORIAL_REVIEWED_AT).toISOString();
 
 const jsonLd = [
   breadcrumbJsonLd([
@@ -65,7 +68,7 @@ const jsonLd = [
     url: path,
     datePublished,
     dateModified,
-    author: data.author
+    author: authorLabel
   }),
   ...(data.faqs?.length ? [faqPageJsonLd(data.faqs)] : [])
 ];
@@ -153,6 +156,12 @@ function buildArticleTocItems(
           </ul>
         ) : null
       }
+      <ArticleEditorialMeta
+        publishedAt={datePublished}
+        updatedAt={dateModified}
+        author={authorLabel}
+        reviewedBy={EDITORIAL_REVIEWER}
+      />
       <KeywordIntentPanel
         sectionId="article-keywords"
         title="บทความนี้เหมาะกับคนที่ค้นหาคำแบบไหน"
