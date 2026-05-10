@@ -5,10 +5,12 @@ import PhoneCtaButton from '../components/PhoneCtaButton.astro';
 import CtaBand from '../components/CtaBand.astro';
 import EditorialTrustPanel from '../components/EditorialTrustPanel.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
+import KeywordIntentPanel from '../components/KeywordIntentPanel.astro';
 import LongformSections from '../components/LongformSections.astro';
 import ServiceCategoryIcon from '../components/ServiceCategoryIcon.astro';
 import { homeFaqs } from '../data/faqs';
 import { EDITORIAL_REVIEWED_AT, EDITORIAL_REVIEWER, LINE_AT, LINE_URL, PHONE_DISPLAY, PHONE_E164 } from '../lib/constants';
+import { buildHomeKeywordCluster, joinThaiKeywordList } from '../lib/keywordClusters';
 import { breadcrumbJsonLd, faqPageJsonLd, webPageJsonLd } from '../lib/schema';
 
 const title = 'BuyHub — ศูนย์รับซื้อสินค้าไอทีมือสองในภาคอีสาน ประเมินไว โอนเงินทันที';
@@ -251,6 +253,10 @@ const homeEditorialSignals = {
     { href: '/ผลงานรับซื้อจริง', label: 'ดูผลงานรับซื้อจริง' }
   ]
 } as const;
+const homeKeywordCluster = buildHomeKeywordCluster();
+const homeKeywordLead = joinThaiKeywordList(homeKeywordCluster.localIntent ?? [], true);
+const homeKeywordSupport = joinThaiKeywordList(homeKeywordCluster.modelIntent ?? [], true);
+const homeKeywordQuestions = joinThaiKeywordList(homeKeywordCluster.issueIntent ?? [], true);
 
 const jsonLd = [
   webPageJsonLd({
@@ -431,6 +437,36 @@ const homeLongSections = [
         scope={homeEditorialSignals.scope}
         notes={[...homeEditorialSignals.notes]}
         links={[...homeEditorialSignals.links]}
+      />
+    </div>
+  </section>
+
+  <section class="border-b border-slate-200/80 bg-white py-12 sm:py-14" aria-label="คำค้นหลักและคำค้นรองหน้าแรก">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <KeywordIntentPanel
+        sectionId="home-keywords"
+        title="คำค้นหลักและคำค้นรองที่หน้าแรกของ BuyHub ตั้งใจตอบ"
+        intro={[
+          `หน้าแรกถูกวางให้ตอบคำค้นหลักอย่าง “${homeKeywordCluster.primary}” พร้อมคำค้นรองอย่าง ${homeKeywordLead} เพื่อให้คนที่เริ่มจากคำค้นกว้างเกี่ยวกับการขายสินค้าไอทีในภาคอีสานเจอจุดเริ่มต้นที่ชัดขึ้น`,
+          `ถ้าคุณกำลังค้นหาทั้ง ${homeKeywordSupport || 'คำค้นตามหมวดสินค้าหลัก'} และ ${homeKeywordQuestions || 'คำค้นก่อนส่งรูปประเมิน'} ส่วนนี้จะช่วยพาคุณไปยังหมวดรับซื้อ พื้นที่ให้บริการ และหน้าบทความที่ตรงกับสถานการณ์ของตัวเองได้เร็วขึ้น`
+        ]}
+        groups={[
+          {
+            title: 'คำค้นก่อนเริ่มขายสินค้าไอทีในภาคอีสาน',
+            blurb: 'เหมาะกับคนที่ยังเริ่มจากคำค้นกว้างและต้องการรู้ก่อนว่าบริการครอบคลุมอะไรบ้าง',
+            items: homeKeywordCluster.localIntent ?? []
+          },
+          {
+            title: 'คำค้นตามหมวดสินค้าที่คนมักหาในหน้าแรก',
+            blurb: 'ช่วยเชื่อมหน้าแรกไปยังกลุ่ม Apple, คอมพิวเตอร์, เกมมิ่ง และงานองค์กรที่เป็นหมวดหลักของเว็บ',
+            items: homeKeywordCluster.modelIntent ?? []
+          },
+          {
+            title: 'คำค้นก่อนส่งรูปเช็กราคาหรือขายหลายชิ้น',
+            blurb: 'กลุ่มนี้ช่วยตอบ intent ของคนที่อยากเช็กราคาไว, อยู่ต่างจังหวัด หรือมีหลายรายการในรอบเดียว',
+            items: homeKeywordCluster.issueIntent ?? []
+          }
+        ]}
       />
     </div>
   </section>

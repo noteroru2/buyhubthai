@@ -1,10 +1,12 @@
 ---
 import EditorialTrustPanel from './EditorialTrustPanel.astro';
+import KeywordIntentPanel from './KeywordIntentPanel.astro';
 import { getAreaCoverageProfile } from '../data/areaCoverageProfiles';
 import { getAreaEditorialProfile } from '../data/areaEditorialProfiles';
 import { getAreaDecisionProfile } from '../data/areaDecisionProfiles';
 import { buildAreaFaqItems, buildAreaServiceSignals } from '../data/areaServiceSignals';
 import { EDITORIAL_REVIEWED_AT, EDITORIAL_REVIEWER } from '../lib/constants';
+import { buildAreaKeywordCluster, joinThaiKeywordList } from '../lib/keywordClusters';
 
 interface Props {
   areaId: string;
@@ -26,6 +28,10 @@ const joinThaiList = (items: string[]) => {
 const coverageLead = coverage ? joinThaiList(coverage.districts.slice(0, 4)) : '';
 const faqItems = profile ? buildAreaFaqItems(areaId, provinceName) : [];
 const serviceSignals = profile ? buildAreaServiceSignals(areaId, provinceName) : [];
+const areaKeywordCluster = buildAreaKeywordCluster(provinceName);
+const areaKeywordLead = joinThaiKeywordList(areaKeywordCluster.localIntent ?? [], true);
+const areaKeywordSupport = joinThaiKeywordList(areaKeywordCluster.modelIntent ?? [], true);
+const areaKeywordQuestions = joinThaiKeywordList(areaKeywordCluster.issueIntent ?? [], true);
 
 const readMoreLinks = [
   { href: '/รับซื้อ', label: 'ดูหน้ารับซื้อทั้งหมด' },
@@ -56,6 +62,32 @@ const readMoreLinks = [
         links={[
           { href: '/ผลงานรับซื้อจริง', label: 'ดูตัวอย่างผลงานรับซื้อจริง' },
           { href: '/รีวิวลูกค้า', label: 'ดูรีวิวและหลักฐานประกอบ' }
+        ]}
+      />
+
+      <KeywordIntentPanel
+        sectionId="area-keywords"
+        title={`คำค้นที่คนใน ${provinceName} มักใช้ก่อนหาแหล่งรับซื้อสินค้าไอทีมือสอง`}
+        intro={[
+          `หน้านี้ถูกวางให้ตอบคำค้นหลักอย่าง “${areaKeywordCluster.primary}” พร้อมคำค้นรองอย่าง ${areaKeywordLead} เพื่อให้คนใน ${provinceName} ที่กำลังมองหาจุดเริ่มต้นสำหรับขายสินค้าไอทีมือสอง เจอคำตอบระดับจังหวัดได้ง่ายขึ้น`,
+          `ถ้าคุณกำลังค้นหาทั้ง ${areaKeywordSupport || 'คำค้นหมวดสินค้าที่เจอบ่อยในจังหวัดนี้'} และ ${areaKeywordQuestions || 'คำค้นเชิงสถานการณ์ก่อนเริ่มขาย'} เนื้อหาด้านล่างจะช่วยเชื่อมจากคำค้นกว้าง ๆ ไปสู่ขั้นตอนใช้งานจริง เช่น ควรเริ่มจากหน้าหมวดไหน ควรแจ้งพื้นที่อย่างไร และควรส่งข้อมูลอะไรในข้อความแรก`
+        ]}
+        groups={[
+          {
+            title: 'คำค้นก่อนเริ่มหาบริการในจังหวัดนี้',
+            blurb: `กลุ่มนี้ช่วยจับ intent ของคนที่เริ่มจากคำค้นกว้าง ๆ ใน ${provinceName} ก่อนเลือกหมวดสินค้า`,
+            items: areaKeywordCluster.localIntent ?? []
+          },
+          {
+            title: 'คำค้นตามหมวดสินค้าที่คนในจังหวัดนี้ค้นหาบ่อย',
+            blurb: `เหมาะกับเคสที่รู้แล้วว่าสินค้าหลักเป็น iPhone, iPad, MacBook, โน๊ตบุ๊ค หรือคอมบริษัท`,
+            items: areaKeywordCluster.modelIntent ?? []
+          },
+          {
+            title: 'คำค้นก่อนตัดสินใจขายจากต่างอำเภอหรือหลายชิ้น',
+            blurb: `กลุ่มนี้ช่วยตอบคำถามที่มักเกิดก่อนเริ่มคุยงานจริง เช่น ขายหลายชิ้น, อยู่ต่างอำเภอ หรืออยากเช็กราคาก่อน`,
+            items: areaKeywordCluster.issueIntent ?? []
+          }
         ]}
       />
 

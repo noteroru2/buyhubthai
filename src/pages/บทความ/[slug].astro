@@ -3,6 +3,7 @@ import { getCollection, getEntry, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import FaqAccordion from '../../components/FaqAccordion.astro';
+import KeywordIntentPanel from '../../components/KeywordIntentPanel.astro';
 import LineCtaButton from '../../components/LineCtaButton.astro';
 import PhoneCtaButton from '../../components/PhoneCtaButton.astro';
 import TableOfContents from '../../components/TableOfContents.astro';
@@ -11,6 +12,7 @@ import {
   articleIntroOverrides,
   articleQuickAnswerOverrides
 } from '../../data/articleQuickAnswers';
+import { buildArticleKeywordCluster, joinThaiKeywordList } from '../../lib/keywordClusters';
 import { articleJsonLd, breadcrumbJsonLd, faqPageJsonLd } from '../../lib/schema';
 
 export async function getStaticPaths() {
@@ -34,6 +36,10 @@ const firstFaq = data.faqs?.[0];
 const introOverride = articleIntroOverrides[entry.id];
 const quickAnswerOverride = articleQuickAnswerOverrides[entry.id];
 const ctaOverride = articleCtaOverrides[entry.id];
+const articleKeywordCluster = buildArticleKeywordCluster({ title, tags: data.tags ?? [], slug: entry.id });
+const articleKeywordLead = joinThaiKeywordList(articleKeywordCluster.localIntent ?? [], true);
+const articleKeywordSupport = joinThaiKeywordList(articleKeywordCluster.modelIntent ?? [], true);
+const articleKeywordQuestions = joinThaiKeywordList(articleKeywordCluster.issueIntent ?? [], true);
 const quickAnswerHeading =
   quickAnswerOverride?.heading ??
   (firstFaq?.question ? `คำตอบสั้น: ${stripQuickAnswerLabel(firstFaq.question)}` : 'คำตอบสั้นสำหรับหัวข้อนี้');
@@ -147,6 +153,32 @@ function buildArticleTocItems(
           </ul>
         ) : null
       }
+      <KeywordIntentPanel
+        sectionId="article-keywords"
+        title="บทความนี้เหมาะกับคนที่ค้นหาคำแบบไหน"
+        className="mt-8"
+        intro={[
+          `หน้านี้ตั้งใจตอบคำค้นหลักอย่าง “${articleKeywordCluster.primary}” พร้อมคำค้นรองอย่าง ${articleKeywordLead} เพื่อให้คนที่กำลังหาข้อมูลก่อนขายจริงเจอทั้งคำตอบสั้น วิธีเตรียมข้อมูล และแนวทางประเมินในบทความเดียว`,
+          `ถ้าคุณกำลังค้นหาทั้ง ${articleKeywordSupport || 'คำค้นต่อยอดจากหัวข้อนี้'} และ ${articleKeywordQuestions || 'คำถามย่อยที่ใกล้กับสถานการณ์ของคุณ'} หัวข้อด้านล่างจะช่วยเชื่อมจากคำค้นในเสิร์ชไปสู่ขั้นตอนที่ต้องทำจริงได้เร็วขึ้น`
+        ]}
+        groups={[
+          {
+            title: 'คำค้นก่อนตัดสินใจขาย',
+            blurb: 'กลุ่มนี้มักเกิดตอนคนอ่านยังอยากเช็กภาพรวมก่อนว่าจะขายได้ไหมและควรเริ่มยังไง',
+            items: articleKeywordCluster.localIntent ?? []
+          },
+          {
+            title: 'คำค้นที่ต่อยอดจากหัวข้อนี้โดยตรง',
+            blurb: 'เหมาะกับคนที่รู้แล้วว่าตัวเองติดปัญหาหรือสนใจสินค้าใกล้กับหัวข้อของบทความนี้',
+            items: articleKeywordCluster.modelIntent ?? []
+          },
+          {
+            title: 'คำค้นปัญหาย่อยและคำถามใกล้เคียง',
+            blurb: 'ช่วยครอบคลุมคำถามต่อเนื่องที่มักเกิดหลังจากได้คำตอบสั้นแล้ว',
+            items: articleKeywordCluster.issueIntent ?? []
+          }
+        ]}
+      />
       {
         introOverride ? (
           <section

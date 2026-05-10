@@ -4,9 +4,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import CtaBand from '../components/CtaBand.astro';
 import EditorialTrustPanel from '../components/EditorialTrustPanel.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
+import KeywordIntentPanel from '../components/KeywordIntentPanel.astro';
 import LineCtaButton from '../components/LineCtaButton.astro';
 import LongformSections from '../components/LongformSections.astro';
 import PhoneCtaButton from '../components/PhoneCtaButton.astro';
+import { buildSellHubKeywordCluster, joinThaiKeywordList } from '../lib/keywordClusters';
 import { breadcrumbJsonLd, faqPageJsonLd, webPageJsonLd } from '../lib/schema';
 import { EDITORIAL_REVIEWED_AT, EDITORIAL_REVIEWER, LINE_AT } from '../lib/constants';
 import { sellThaiHref } from '../lib/thaiRoutes';
@@ -111,6 +113,10 @@ const featuredSellLinks = sorted.slice(0, 12).map((entry) => ({
   href: sellThaiHref(entry.id),
   label: entry.data.title
 }));
+const sellHubKeywordCluster = buildSellHubKeywordCluster();
+const sellHubKeywordLead = joinThaiKeywordList(sellHubKeywordCluster.localIntent ?? [], true);
+const sellHubKeywordSupport = joinThaiKeywordList(sellHubKeywordCluster.modelIntent ?? [], true);
+const sellHubKeywordQuestions = joinThaiKeywordList(sellHubKeywordCluster.issueIntent ?? [], true);
 
 const sellHubLongSections = [
   {
@@ -234,6 +240,32 @@ sellHubLongSections.push({
         <LineCtaButton variant="primary" label={`ประเมินราคาทาง LINE ${LINE_AT}`} />
         <PhoneCtaButton variant="light" />
       </div>
+      <KeywordIntentPanel
+        sectionId="sell-hub-keywords"
+        title="คำค้นหลักและคำค้นรองที่หน้ารับซื้อรวมตั้งใจตอบ"
+        className="mt-12"
+        intro={[
+          `หน้านี้ถูกวางให้ตอบคำค้นหลักอย่าง “${sellHubKeywordCluster.primary}” พร้อมคำค้นรองอย่าง ${sellHubKeywordLead} เพื่อให้คนที่ยังไม่แน่ใจว่าควรเริ่มจากหมวดไหนมีจุดเริ่มต้นที่ชัดขึ้น`,
+          `ถ้าคุณกำลังค้นหาทั้ง ${sellHubKeywordSupport || 'คำค้นตามหมวดสินค้า'} และ ${sellHubKeywordQuestions || 'คำค้นก่อนตัดสินใจประเมิน'} หน้านี้จะช่วยเชื่อมจากคำค้นกว้างไปสู่หน้าหมวดที่ตรงกับสินค้าจริงของคุณได้เร็วขึ้น`
+        ]}
+        groups={[
+          {
+            title: 'คำค้นก่อนเริ่มเลือกหมวดรับซื้อ',
+            blurb: 'เหมาะกับคนที่รู้เพียงว่าต้องการขายสินค้า IT มือสอง แต่ยังไม่แน่ใจว่าควรเข้าหน้าไหนก่อน',
+            items: sellHubKeywordCluster.localIntent ?? []
+          },
+          {
+            title: 'คำค้นตามหมวดสินค้าที่คนมักหาต่อ',
+            blurb: 'กลุ่มนี้ช่วยครอบคลุมคำค้นที่โยงไปยัง Apple, คอมพิวเตอร์, เกมมิ่ง และหมวดองค์กรที่สำคัญ',
+            items: sellHubKeywordCluster.modelIntent ?? []
+          },
+          {
+            title: 'คำค้นก่อนส่งรูปประเมินหรือขายหลายชิ้น',
+            blurb: 'ใช้ตอบคำถามที่มักเกิดก่อนเริ่มคุยจริง เช่น เครื่องมีตำหนิ, มีหลายชิ้น หรือยังไม่รู้ว่าจะเลือกหน้าหมวดไหนดี',
+            items: sellHubKeywordCluster.issueIntent ?? []
+          }
+        ]}
+      />
 
       <div class="mt-14 space-y-14">
         {groups.map((g) => (

@@ -4,9 +4,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import EditorialTrustPanel from '../../components/EditorialTrustPanel.astro';
 import FaqAccordion from '../../components/FaqAccordion.astro';
+import KeywordIntentPanel from '../../components/KeywordIntentPanel.astro';
 import LineCtaButton from '../../components/LineCtaButton.astro';
 import LongformSections from '../../components/LongformSections.astro';
 import PhoneCtaButton from '../../components/PhoneCtaButton.astro';
+import { buildAreaHubKeywordCluster, joinThaiKeywordList } from '../../lib/keywordClusters';
 import { breadcrumbJsonLd, faqPageJsonLd, webPageJsonLd } from '../../lib/schema';
 import { EDITORIAL_REVIEWED_AT, EDITORIAL_REVIEWER, LINE_AT } from '../../lib/constants';
 import { areaThaiHref } from '../../lib/thaiRoutes';
@@ -107,6 +109,10 @@ const areaOverviewLinks = sorted.slice(0, 12).map((entry) => ({
   href: areaThaiHref(entry.id),
   label: `รับซื้อสินค้า IT มือสอง ${entry.data.province}`
 }));
+const areaHubKeywordCluster = buildAreaHubKeywordCluster();
+const areaHubKeywordLead = joinThaiKeywordList(areaHubKeywordCluster.localIntent ?? [], true);
+const areaHubKeywordSupport = joinThaiKeywordList(areaHubKeywordCluster.modelIntent ?? [], true);
+const areaHubKeywordQuestions = joinThaiKeywordList(areaHubKeywordCluster.issueIntent ?? [], true);
 
 const geoLongSections = [
   {
@@ -260,6 +266,32 @@ geoLongSections.push({
         <LineCtaButton variant="primary" label="สอบถามคิวรับซื้อภาคอีสานทาง LINE" />
         <PhoneCtaButton variant="light" />
       </div>
+      <KeywordIntentPanel
+        sectionId="area-hub-keywords"
+        title="คำค้นหลักและคำค้นรองที่หน้าพื้นที่ให้บริการตั้งใจครอบคลุม"
+        className="mt-12"
+        intro={[
+          `หน้านี้ถูกวางให้ตอบคำค้นหลักอย่าง “${areaHubKeywordCluster.primary}” พร้อมคำค้นรองอย่าง ${areaHubKeywordLead} เพื่อช่วยให้คนที่ค้นหาจากจังหวัดต่าง ๆ ในภาคอีสานเจอทางเข้าที่ชัดก่อนเลือกหน้าจังหวัด`,
+          `ถ้าคุณกำลังค้นหาทั้ง ${areaHubKeywordSupport || 'คำค้นจังหวัด x สินค้า'} และ ${areaHubKeywordQuestions || 'คำค้นเรื่องต่างอำเภอหรือการนัดรับ'} เนื้อหาหน้านี้จะช่วยพาไปยังหน้าจังหวัดที่เกี่ยวข้องและทำให้รู้ว่าควรแจ้งข้อมูลพื้นที่แบบไหนตั้งแต่ข้อความแรก`
+        ]}
+        groups={[
+          {
+            title: 'คำค้นระดับภาคและจังหวัดหลัก',
+            blurb: 'ใช้จับ intent ของคนที่เริ่มจากคำค้นกว้างเกี่ยวกับภาคอีสานหรือจังหวัดหลักก่อนลงลึก',
+            items: areaHubKeywordCluster.localIntent ?? []
+          },
+          {
+            title: 'คำค้นจังหวัด x หมวดสินค้าที่ค้นหาบ่อย',
+            blurb: 'ช่วยดัน topical coverage ระหว่างหน้าพื้นที่กับหน้าหมวดสินค้าหลักที่คนมักขายในแต่ละจังหวัด',
+            items: areaHubKeywordCluster.modelIntent ?? []
+          },
+          {
+            title: 'คำค้นก่อนเริ่มขายจากต่างอำเภอหรือจังหวัดใกล้เคียง',
+            blurb: 'กลุ่มนี้ตอบคำถามก่อนเริ่มคุยเรื่องคิว พื้นที่จริง และการนัดรับส่งมอบ',
+            items: areaHubKeywordCluster.issueIntent ?? []
+          }
+        ]}
+      />
 
       <div class="mt-14 space-y-16">
         {

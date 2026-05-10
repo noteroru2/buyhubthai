@@ -1,0 +1,55 @@
+---
+interface KeywordGroup {
+  title: string;
+  blurb?: string;
+  items: string[];
+}
+
+interface Props {
+  sectionId: string;
+  title: string;
+  intro?: string[];
+  groups: KeywordGroup[];
+  className?: string;
+}
+
+const { sectionId, title, intro = [], groups, className = '' } = Astro.props;
+const visibleGroups = groups.filter((group) => group.items?.length);
+---
+
+<section
+  aria-labelledby={sectionId}
+  class:list={[
+    'rounded-3xl border border-emerald-200 bg-emerald-50/70 p-6',
+    className
+  ]}
+>
+  <h2 id={sectionId} class="text-2xl font-bold tracking-tight text-slate-950">
+    {title}
+  </h2>
+  {
+    intro.length ? (
+      <div class="mt-4 space-y-4 text-base leading-8 text-slate-700">
+        {intro.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+    ) : null
+  }
+  <div class="mt-6 grid gap-4 lg:grid-cols-3">
+    {visibleGroups.map((group) => (
+      <section class="rounded-2xl border border-emerald-200 bg-white/85 p-5">
+        <h3 class="text-base font-semibold leading-7 text-slate-950">{group.title}</h3>
+        {group.blurb ? <p class="mt-2 text-sm leading-7 text-slate-600">{group.blurb}</p> : null}
+        <ul class="mt-4 space-y-2 text-sm leading-7 text-slate-700">
+          {group.items.map((item) => (
+            <li class="flex items-start gap-2">
+              <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-600" aria-hidden="true"></span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </div>
+</section>
