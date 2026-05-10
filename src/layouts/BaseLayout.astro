@@ -1,0 +1,81 @@
+---
+import '../styles/global.css';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import LineMobileDock from '../components/LineMobileDock.astro';
+import DesktopLineFab from '../components/DesktopLineFab.astro';
+import JsonLd from '../components/JsonLd.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { DEFAULT_DESCRIPTION, SITE_NAME, SITE_URL } from '../lib/constants';
+import { orgJsonLd, localBusinessJsonLd, websiteJsonLd } from '../lib/schema';
+import type { BreadcrumbItem } from '../lib/types';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogType?: 'website' | 'article';
+  ogImage?: string;
+  breadcrumbs?: BreadcrumbItem[];
+  jsonLd?: Record<string, unknown>[];
+}
+
+const {
+  title,
+  description = DEFAULT_DESCRIPTION,
+  ogType = 'website',
+  ogImage = '/images/hero/buyhub-hero.png',
+  breadcrumbs,
+  jsonLd = []
+} = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, SITE_URL).href;
+const ogImageAbs = new URL(ogImage, SITE_URL).href;
+const titleAlreadyIncludesSiteName =
+  title === SITE_NAME ||
+  title.startsWith(`${SITE_NAME} `) ||
+  title.startsWith(`${SITE_NAME} -`) ||
+  title.startsWith(`${SITE_NAME}-`) ||
+  title.endsWith(` | ${SITE_NAME}`) ||
+  title.endsWith(` - ${SITE_NAME}`) ||
+  title.endsWith(` — ${SITE_NAME}`);
+const fullTitle = titleAlreadyIncludesSiteName ? title : `${title} | ${SITE_NAME}`;
+
+const baseGraph = [orgJsonLd(), localBusinessJsonLd(), websiteJsonLd(), ...jsonLd];
+---
+
+<!doctype html>
+<html lang="th" class="min-w-0 overflow-x-hidden">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:locale" content="th_TH" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:image" content={ogImageAbs} />
+    <meta property="og:image:alt" content={fullTitle} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageAbs} />
+    <JsonLd data={baseGraph} />
+  </head>
+  <body class="min-h-screen min-w-0 overflow-x-hidden pb-0">
+    <a href="#main-content" class="skip-link">ข้ามไปยังเนื้อหา</a>
+    <SiteHeader />
+    {breadcrumbs?.length ? <Breadcrumbs items={breadcrumbs} /> : null}
+    <main id="main-content" class="min-w-0 pb-40 md:pb-0">
+      <slot />
+    </main>
+    <SiteFooter />
+    <LineMobileDock />
+    <DesktopLineFab />
+  </body>
+</html>

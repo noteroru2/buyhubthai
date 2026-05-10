@@ -1,0 +1,386 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaBand from '../components/CtaBand.astro';
+import EditorialTrustPanel from '../components/EditorialTrustPanel.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import LineCtaButton from '../components/LineCtaButton.astro';
+import LongformSections from '../components/LongformSections.astro';
+import PhoneCtaButton from '../components/PhoneCtaButton.astro';
+import { breadcrumbJsonLd, faqPageJsonLd, webPageJsonLd } from '../lib/schema';
+import { EDITORIAL_REVIEWED_AT, EDITORIAL_REVIEWER, LINE_AT } from '../lib/constants';
+import { sellThaiHref } from '../lib/thaiRoutes';
+
+const entries = await getCollection('sell', ({ data }) => !data.draft);
+const sorted = entries.sort((a, b) => a.data.title.localeCompare(b.data.title, 'th'));
+const byId = Object.fromEntries(entries.map((e) => [e.id, e]));
+
+const title = 'รับซื้อสินค้าไอทีมือสองทุกประเภท';
+const description =
+  `BuyHub รับซื้อสินค้าไอทีมือสองทุกประเภท โน๊ตบุ๊ค คอมพิวเตอร์ MacBook iPhone iPad กล้อง จอคอม การ์ดจอ อุปกรณ์เกมมิ่ง และคอมบริษัท ส่งรูปประเมินราคาฟรีผ่าน LINE ${LINE_AT}`;
+
+const groups = [
+  {
+    title: 'กลุ่มสินค้า Apple',
+    sub: 'เหมาะกับ iPhone iPad MacBook Apple Watch AirPods และอุปกรณ์เสริม Apple',
+    ids: ['iphone', 'ipad', 'macbook', 'apple-watch', 'airpods', 'apple-pencil'] as const
+  },
+  {
+    title: 'กลุ่มโน๊ตบุ๊คและคอมพิวเตอร์',
+    sub: 'รวมโน๊ตบุ๊ค คอมตั้งโต๊ะ คอมประกอบ คอมเกมมิ่ง และอุปกรณ์ที่เกี่ยวข้อง',
+    ids: ['notebook', 'desktop-pc', 'gaming-pc', 'pc-assembled', 'monitor', 'gpu'] as const
+  },
+  {
+    title: 'กลุ่มมือถือและแท็บเล็ต',
+    sub: 'มือถือ Android และแท็บเล็ตหลายยี่ห้อ ประเมินตามรุ่น/สเปก/สภาพจริง',
+    ids: ['mobile-phone', 'tablet', 'samsung'] as const
+  },
+  {
+    title: 'กลุ่มกล้องและอุปกรณ์ถ่ายภาพ',
+    sub: 'กล้อง เลนส์ อุปกรณ์ประกอบ ประเมินตามรุ่นและสภาพการใช้งาน',
+    ids: ['camera'] as const
+  },
+  {
+    title: 'กลุ่มเกมมิ่งและอุปกรณ์เสริม',
+    sub: 'เครื่องเกมและอุปกรณ์เกมมิ่ง รวมถึงอุปกรณ์เสริม IT ที่ขายต่อได้',
+    ids: ['game-console', 'playstation', 'nintendo-switch', 'gaming-gear', 'it-accessories'] as const
+  },
+  {
+    title: 'กลุ่มคอมบริษัทและอุปกรณ์สำนักงาน',
+    sub: 'รับประเมินงานจำนวนมากจากบริษัท/สำนักงาน/หน่วยงาน และอุปกรณ์สำนักงาน IT ที่เกี่ยวข้อง',
+    ids: ['corporate-it', 'printer', 'office-it'] as const
+  }
+] as const;
+
+const hubFaqs = [
+  {
+    question: 'BuyHub รับซื้อสินค้าไอทีมือสองอะไรบ้าง?',
+    answer:
+      'รับซื้อหลายหมวด เช่น โน๊ตบุ๊ค คอมพิวเตอร์ MacBook iPhone iPad มือถือ Android แท็บเล็ต กล้อง จอคอม การ์ดจอ อุปกรณ์เกมมิ่ง คอมบริษัท และอุปกรณ์เสริม IT'
+  },
+  {
+    question: 'ประเมินราคาฟรีไหม และต้องส่งอะไรบ้าง?',
+    answer:
+      `ฟรี แนะนำส่งรูปหลายมุม + รุ่น/สเปก + ตำหนิ/สภาพ + อุปกรณ์ที่มี และจังหวัดทาง LINE ${LINE_AT} เพื่อให้ประเมินได้เร็วและใกล้เคียง`
+  },
+  {
+    question: 'รับซื้อสินค้าจำนวนมากจากบริษัท/หน่วยงานไหม?',
+    answer:
+      'รับประเมินได้ แนะนำส่งรายการคร่าว ๆ จำนวน และรูปประกอบ เพื่อให้ทีมงานประเมินเป็นก้อนและวางแผนคิวรับซื้อ'
+  },
+  {
+    question: 'อยู่ต่างจังหวัดในภาคอีสานขายได้ไหม?',
+    answer:
+      'ได้ BuyHub ให้บริการภาคอีสาน ลูกค้าสามารถส่งรูปประเมินก่อน แล้วค่อยคุยนัดรับ/ส่งมอบตามจังหวัดและคิวงาน'
+  }
+] as const;
+
+const editorialSignals = {
+  scope:
+    'หน้ารวมหมวดรับซื้อของ BuyHub ใช้เป็นทางเข้าไปยังหน้าสินค้าแต่ละประเภท พร้อมอธิบายหลักการประเมิน ราคา และวิธีเริ่มส่งข้อมูลให้ตรงหมวดมากที่สุด',
+  about: ['รับซื้อสินค้า IT มือสอง', 'เลือกหมวดรับซื้อให้ตรงสินค้า', 'ประเมินราคาผ่าน LINE'],
+  notes: [
+    'เหมาะสำหรับคนที่ยังไม่แน่ใจว่าควรเริ่มจากหน้าสินค้าหมวดไหนก่อน และต้องการดูภาพรวมทั้งเว็บในหน้าเดียว',
+    'ราคาประเมินจริงยังขึ้นกับรุ่น สเปก สภาพ อุปกรณ์ที่มี และข้อมูลพื้นที่ที่ส่งมาพร้อมรูปสินค้า',
+    'หากขายหลายชิ้นหรือเป็นงานองค์กร ควรเริ่มจากหน้าหมวดที่ใกล้ที่สุดแล้วส่งรายการคร่าว ๆ มาพร้อมกันในข้อความแรก'
+  ],
+  links: [
+    { href: '/คู่มือเตรียมสินค้าก่อนขาย', label: 'ดูคู่มือเตรียมสินค้าก่อนขาย' },
+    { href: '/ขั้นตอนการขาย', label: 'ดูขั้นตอนการขายทั้งหมด' },
+    { href: '/ผลงานรับซื้อจริง', label: 'ดูผลงานรับซื้อจริง' }
+  ]
+} as const;
+
+const jsonLd = [
+  breadcrumbJsonLd([
+    { name: 'หน้าแรก', href: '/' },
+    { name: title, href: '/รับซื้อ' }
+  ]),
+  webPageJsonLd({
+    name: title,
+    description,
+    url: '/รับซื้อ',
+    dateModified: EDITORIAL_REVIEWED_AT,
+    about: [...editorialSignals.about],
+    author: EDITORIAL_REVIEWER
+  }),
+  faqPageJsonLd(hubFaqs)
+];
+
+const featuredSellLinks = sorted.slice(0, 12).map((entry) => ({
+  href: sellThaiHref(entry.id),
+  label: entry.data.title
+}));
+
+const sellHubLongSections = [
+  {
+    heading: 'ใช้หน้าหมวดรับซื้อนี้อย่างไร ถ้ายังไม่แน่ใจว่าสินค้าของตัวเองอยู่หมวดไหน',
+    paragraphs: [
+      'หน้ารับซื้อของ BuyHub ถูกออกแบบมาเพื่อให้คนที่มีสินค้า IT มือสองหลายประเภทสามารถเริ่มต้นได้จากจุดเดียว ไม่ว่าคุณจะมี iPhone, MacBook, โน๊ตบุ๊ค Windows, คอมตั้งโต๊ะ, กล้อง, เครื่องเกม, จอคอม หรืออุปกรณ์สำนักงาน IT จุดสำคัญไม่ใช่การท่องชื่อหมวดทั้งหมด แต่คือการหาหน้าที่ใกล้กับสินค้าจริงของคุณมากที่สุด เพื่อให้ได้ทั้งรายละเอียดเรื่องปัจจัยราคา วิธีถ่ายรูป และลิงก์อ่านต่อที่ตรงรุ่นกว่า',
+      'การมีหน้าฮับที่แข็งแรงยังช่วยให้ผู้ค้นหาที่เจตนายังไม่ชัดสามารถไล่ต่อจากหน้าเดียวได้ เช่น คนที่พิมพ์คำว่า “รับซื้อไอทีมือสอง” อาจยังไม่รู้ว่าควรดูหมวดไหนก่อน ถ้าหน้านี้ช่วยจับคู่เจตนาค้นหากับหมวดสินค้าได้ดี ก็จะช่วยทั้งการใช้งานจริงและการทำ SEO เพราะลดการเด้งกลับและเพิ่มโอกาสให้ผู้อ่านไปต่อยังหน้าที่มีความเกี่ยวข้องสูงกว่า'
+    ],
+    list: groups.map((group) => `${group.title}: ${group.sub}`)
+  },
+  {
+    heading: 'การประเมินราคาสินค้าแต่ละหมวดต่างกันอย่างไร',
+    paragraphs: [
+      'แม้คำว่า “สินค้า IT มือสอง” จะดูเป็นหมวดกว้าง แต่ปัจจัยประเมินของแต่ละประเภทแตกต่างกันมาก iPhone และ MacBook มักมีเรื่องแบตเตอรี่ การออกจากบัญชี และสภาพหน้าจอเข้ามาเกี่ยวข้อง ขณะที่โน๊ตบุ๊คและคอมพิวเตอร์จะเน้นรุ่น CPU, RAM, SSD, การ์ดจอ และการทำงานจริง ส่วนกล้องจะดูรุ่น ชัตเตอร์ สภาพเซนเซอร์ และอุปกรณ์ในชุด เนื้อหาในหน้าฮับจึงควรทำหน้าที่อธิบายภาพรวมเหล่านี้ให้คนอ่านเห็นก่อนเลือกลงลึกในหน้าหมวดย่อย',
+      'อีกประเด็นที่สำคัญคือความครบของข้อมูล ถ้าคนขายเข้าใจตั้งแต่ต้นว่าแต่ละหมวดต้องเตรียมข้อมูลอะไร ก็จะช่วยให้ทีมงานตอบกลับได้เร็วและแม่นขึ้น ตัวอย่างเช่น หน้า iPhone ควรมีคำอธิบายเรื่องสุขภาพแบต ส่วนหน้าคอมเกมมิ่งควรมีคำแนะนำเรื่องการส่งสเปกให้ครบ การยกภาพรวมเหล่านี้ขึ้นมาบนหน้าฮับ ช่วยให้หน้านี้ไม่ใช่เพียงรายการลิงก์ แต่เป็นหน้าคำตอบที่มีคุณค่าจริงสำหรับคนที่ยังอยู่ในช่วงหาข้อมูล'
+    ]
+  },
+  {
+    heading: 'ถ้ามีสินค้าหลายชิ้นหรือเป็นงานบริษัท ควรเริ่มจากหมวดไหน',
+    paragraphs: [
+      'ลูกค้าจำนวนไม่น้อยไม่ได้มีเพียงเครื่องเดียว แต่มีหลายรายการจากการอัปเกรดพร้อมกัน เช่น พนักงานเปลี่ยนโน๊ตบุ๊คทั้งแผนก ร้านค้าระบายสต็อกอุปกรณ์ หรือครอบครัวที่ต้องการขายทั้งมือถือ แท็บเล็ต และโน๊ตบุ๊คพร้อมกัน กรณีแบบนี้ควรใช้หน้าฮับเพื่อเลือกหมวดหลักที่ใกล้เคียงที่สุดก่อน แล้วส่งรายการรวมเข้ามาประเมิน โดยเฉพาะงานองค์กรที่มักต้องวางลำดับคิวและตรวจเช็กหลายชิ้นอย่างเป็นระบบ',
+      'หน้าฮับที่ดีจึงควรตอบได้ว่า เมื่อไรควรไปหน้าหมวดรายชิ้น และเมื่อไรควรไปหมวดคอมบริษัทหรืออุปกรณ์สำนักงาน IT ทันที การอธิบายเงื่อนไขเหล่านี้ชัดเจนช่วยลดความสับสนของผู้ใช้งาน และเพิ่มความน่าเชื่อถือในสายตาของผู้ค้นหาที่ต้องการบริการจริง ไม่ใช่เพียงบทความทั่ว ๆ ไปที่ไม่ได้บอกว่าควรทำอะไรต่อ'
+    ],
+    list: [
+      'ขายชิ้นเดียวหรือ 2-3 ชิ้นที่เป็นหมวดเดียวกัน: เริ่มจากหน้าหมวดสินค้านั้นโดยตรง',
+      'ขายคนละประเภทแต่จำนวนไม่มาก: เลือกหมวดที่ใกล้กับของหลัก แล้วแนบรายการอื่นในข้อความเดียวกัน',
+      'ขายหลายชิ้นจากสำนักงานหรือองค์กร: เริ่มที่หมวดรับซื้อคอมบริษัทหรืออุปกรณ์สำนักงาน IT',
+      'หากยังไม่แน่ใจ: ส่งรายการคร่าว ๆ พร้อมจำนวนและรูปตัวอย่างเข้ามาเพื่อให้ทีมงานช่วยจัดลำดับการประเมิน'
+    ]
+  },
+  {
+    heading: 'คำถามที่คนมักสับสนก่อนคลิกเข้าหน้าหมวดย่อย',
+    paragraphs: [
+      'คำถามที่เจอบ่อยมากคือ “ไม่มีหน้ารุ่นตรง ๆ จะขายได้ไหม” “มีแต่ตัวเครื่องไม่มีอุปกรณ์ขายได้หรือเปล่า” หรือ “เครื่องเสียยังควรเข้าหมวดเดิมไหม” คำตอบสั้นคือ ส่วนใหญ่ยังประเมินได้ แต่การเลือกหมวดให้ใกล้กับสินค้าจริงที่สุดจะช่วยให้คำตอบแรกที่ได้รับใกล้เคียงกว่าเดิม และถ้ามีอาการพิเศษหรือประวัติซ่อมก็ควรแจ้งไว้ในข้อความแรกเสมอ',
+      'อีกคำถามคือควรอ่านบทความก่อนหรือทักประเมินก่อน ซึ่งจริง ๆ ทำได้ทั้งสองแบบ หากมีข้อกังวลเรื่องการล้างข้อมูล การออกจาก iCloud หรือขั้นตอนขาย แนะนำให้อ่านหน้าคู่มือและบทความเฉพาะเคสควบคู่ไปด้วย แต่ถ้าต้องการแค่รู้ช่วงราคาก่อน การเลือกหมวดให้ถูกแล้วส่งข้อมูลประเมินเข้ามาทันทีคือทางที่เร็วที่สุด'
+    ],
+    links: [
+      { href: '/คู่มือเตรียมสินค้าก่อนขาย', label: 'คู่มือเตรียมเครื่องก่อนขาย' },
+      { href: '/ขั้นตอนการขาย', label: 'ดูภาพรวมขั้นตอนการขาย' },
+      { href: '/บทความ', label: 'รวมบทความตอบคำถามก่อนขาย' },
+      { href: '/คำถามที่พบบ่อย', label: 'FAQ รวมของเว็บไซต์' }
+    ]
+  },
+  {
+    heading: 'ลำดับการเริ่มต้นที่แนะนำสำหรับคนที่อยากขายไวและข้อมูลครบ',
+    paragraphs: [
+      'ถ้าอยากใช้เว็บไซต์นี้ให้คุ้มที่สุด ให้เริ่มจากการเลือกหมวดที่ตรงสินค้า จากนั้นอ่านคำอธิบายสั้น ๆ ในหน้าหมวดและดูเช็กลิสต์ว่าควรส่งอะไรบ้าง เมื่อถ่ายรูปและรวบรวมข้อมูลครบแล้ว ค่อยส่งเข้า LINE พร้อมบอกพื้นที่ที่อยู่ วิธีนี้ช่วยให้การประเมินเกิดขึ้นบนข้อมูลจริงแทนการคาดเดา และลดโอกาสที่ทีมงานต้องถามซ้ำหลายรอบ',
+      'ในเชิง SEO/AEO หน้าฮับแบบนี้มีหน้าที่สำคัญมาก เพราะมันเป็นจุดเชื่อมระหว่างคำค้นหากว้างกับหน้าคำตอบเฉพาะเจาะจง หากหน้า /รับซื้อ ช่วยให้ผู้อ่าน “รู้ว่าจะไปต่อที่ไหนและต้องทำอะไร” ได้สำเร็จ ก็จะเป็นหน้าที่มีคุณค่าเกินกว่าการเป็นแค่ดัชนีลิงก์ และช่วยพาไปสู่การใช้งานจริงได้มากขึ้น'
+    ],
+    orderedList: [
+      'เลือกหมวดสินค้าที่ใกล้กับของคุณที่สุด',
+      'อ่านหน้าหมวดเพื่อดูปัจจัยราคาและเช็กลิสต์ข้อมูลที่ต้องส่ง',
+      'ถ่ายรูปหลายมุมพร้อมรูปตำหนิถ้ามี',
+      'ระบุรุ่น สเปก ความจุ อาการใช้งาน และอุปกรณ์ในชุด',
+      'แจ้งจังหวัดหรือพื้นที่ แล้วส่งทั้งหมดเข้ามาประเมินทาง LINE'
+    ],
+    links: featuredSellLinks
+  }
+];
+
+sellHubLongSections.push({
+  heading: 'ถ้ายังไม่รู้ว่าจะเริ่มจากหมวดไหน ให้ใช้หน้า /รับซื้อ เป็นหน้าตัดสินใจก่อนทักประเมิน',
+  paragraphs: [
+    'หน้ารวมหมวดรับซื้อมีหน้าที่สำคัญมากสำหรับคนที่ยังไม่แน่ใจว่าสินค้าของตัวเองจัดอยู่ในหมวดใด หรือมีหลายชิ้นหลายประเภทจนไม่รู้ว่าจะเริ่มจากหน้าไหนก่อน สิ่งที่หน้าลักษณะนี้ควรทำไม่ใช่เพียงแสดงรายชื่อหมวด แต่ควรช่วยให้คนขายเข้าใจว่าหมวดต่าง ๆ ถูกแยกขึ้นมาเพราะปัจจัยประเมินของแต่ละประเภทไม่เหมือนกัน เช่น สินค้ากลุ่ม Apple มักเกี่ยวข้องกับบัญชีและสุขภาพแบต ขณะที่กลุ่มคอมพิวเตอร์จะเน้นสเปกและการใช้งานจริง การมีคำอธิบายภาพรวมแบบนี้ทำให้ผู้ใช้รู้ว่าทำไมการเลือกหมวดให้ตรงจึงช่วยให้การประเมินแม่นและเร็วขึ้น',
+    'อีกมุมหนึ่ง หน้าศูนย์รวมหมวดรับซื้อยังช่วยให้ลูกค้าที่มีของหลายชิ้นจากบ้านหรือองค์กรใช้เป็นหน้าเริ่มต้นในการจัดความคิดได้ด้วย เพราะสามารถไล่ดูว่ารายการใดควรถูกจัดอยู่หมวดไหน รายการใดควรอ่านบทความประกอบเพิ่มเติม และรายการใดควรเริ่มจากการส่งข้อมูลประเมินเข้ามาก่อนโดยไม่ต้องกังวลว่าจะเลือกผิด 100% ตั้งแต่แรก ถ้าหน้านี้ทำงานดี ลูกค้าจะไม่รู้สึกว่าต้องเดาเอง แต่จะมีโครงให้เดินตามจนพร้อมเริ่มคุยจริง'
+  ],
+  links: [
+    { href: '/บทความ', label: 'ดูบทความเฉพาะเคสก่อนขาย' },
+    { href: '/คู่มือเตรียมสินค้าก่อนขาย', label: 'ดูคู่มือเตรียมเครื่องก่อนขาย' },
+    { href: '/ขั้นตอนการขาย', label: 'ดูขั้นตอนการขายทั้งหมด' }
+  ]
+});
+
+sellHubLongSections.push({
+  heading: 'ถ้าสินค้าหนึ่งชิ้นดูเหมือนอยู่ได้หลายหมวด ควรเลือกหน้าไหนก่อน',
+  paragraphs: [
+    'ของบางอย่างไม่ได้เข้าหมวดแบบตายตัวในสายตาของผู้ขาย เช่น iPad ที่ใช้ทำงานร่วมกับ Apple Pencil อาจทำให้ลังเลว่าจะเริ่มจากหมวดแท็บเล็ตหรือหมวดอุปกรณ์เสริมก่อน หรือคอมบริษัทที่มีทั้งจอคอม อุปกรณ์สำนักงาน และโน๊ตบุ๊คหลายเครื่องอาจดูเหมือนต้องเปิดหลายหน้าไปพร้อมกัน ในสถานการณ์แบบนี้หน้ารวม /รับซื้อ ควรทำหน้าที่ช่วยตัดสินใจง่าย ๆ ว่าให้เริ่มจากหมวดที่ “ใกล้กับตัวสินค้าหลักหรือเป้าหมายการขายหลักที่สุด” ก่อน เพราะหน้าหมวดนั้นจะมีบริบทการประเมินที่แม่นที่สุด แล้วค่อยใช้ลิงก์ภายในไปยังหมวดรองที่เกี่ยวข้องเพิ่มเติมเมื่อจำเป็น',
+    'แนวคิดนี้ช่วยทั้งการใช้งานจริงและ Local SEO/AEO เพราะทำให้หน้า /รับซื้อ กลายเป็นหน้ากลางที่ช่วยตอบ intent แบบยังไม่แน่ใจ ไม่ใช่เพียงหน้ารวมลิงก์ธรรมดา เมื่อผู้ใช้รู้ว่าถ้าไม่แน่ใจให้เริ่มจากหมวดหลักก่อน แล้วแจ้งรายการรองหรือของหลายชิ้นในข้อความแรกได้ เขาจะก้าวต่อได้เร็วขึ้นโดยไม่ต้องเสียเวลาเลือกให้เป๊ะตั้งแต่ต้น และยังช่วยให้ข้อความรอบแรกที่ส่งมาหา BuyHub มีโครงสร้างมากขึ้นตามธรรมชาติ'
+  ],
+  orderedList: [
+    'เลือกหมวดที่ตรงกับสินค้าหลักหรือเป้าหมายการขายหลักที่สุดก่อน',
+    'ใช้หน้าหมวดนั้นดูปัจจัยประเมินและลิงก์บทความเฉพาะเคส',
+    'แจ้งรายการรองหรือสินค้าที่เกี่ยวข้องเพิ่มเติมในข้อความแรก',
+    'หากยังไม่แน่ใจ ให้แนบรูปและสรุปรายการทั้งหมดเพื่อให้ทีมงานช่วยจัดหมวดร่วมกัน'
+  ]
+});
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  jsonLd={jsonLd}
+  breadcrumbs={[
+    { name: 'หน้าแรก', href: '/' },
+    { name: title, href: '/รับซื้อ' }
+  ]}
+>
+  <article class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+      <h1 class="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">{title}</h1>
+      <div class="mt-5 max-w-3xl space-y-4 text-base leading-8 text-slate-700">
+        <p>
+          หน้านี้คือหน้ารวมหมวดสินค้าที่ BuyHub รับซื้อ เหมาะสำหรับเริ่มต้นเลือกหมวดที่ตรงกับสินค้าของคุณ
+          หรือใช้เป็นจุดเชื่อมไปยังหน้ารับซื้อรายหมวด (เช่น MacBook, iPhone, โน๊ตบุ๊ค, คอมบริษัท) เพื่ออ่านรายละเอียดเพิ่มก่อนตัดสินใจ
+        </p>
+        <p>
+          หากต้องการประเมินราคาแบบเร็วที่สุด แนะนำส่งรูปสินค้า รุ่น/สเปก และสภาพเครื่องผ่าน LINE <strong class="font-semibold text-slate-950">{LINE_AT}</strong>
+          ทีมงานจะให้แนวราคาฟรีและแจ้งเงื่อนไขก่อนนัดตรวจ
+        </p>
+      </div>
+      <div class="mt-10">
+        <EditorialTrustPanel
+          reviewedAt={EDITORIAL_REVIEWED_AT}
+          reviewedBy={EDITORIAL_REVIEWER}
+          scope={editorialSignals.scope}
+          notes={[...editorialSignals.notes]}
+          links={[...editorialSignals.links]}
+        />
+      </div>
+      <div class="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+        <LineCtaButton variant="primary" label={`ประเมินราคาทาง LINE ${LINE_AT}`} />
+        <PhoneCtaButton variant="light" />
+      </div>
+
+      <div class="mt-14 space-y-14">
+        {groups.map((g) => (
+          <section aria-labelledby={`sell-group-${g.title}`}>
+            <h2 id={`sell-group-${g.title}`} class="text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl">
+              {g.title}
+            </h2>
+            <p class="mt-3 max-w-3xl text-base leading-8 text-slate-600">{g.sub}</p>
+            <ul class="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {g.ids.map((id) => {
+                const e = byId[id];
+                if (!e) return null;
+                const href = sellThaiHref(e.id);
+                return (
+                  <li class="h-full">
+                    <a
+                      href={href}
+                      class="group flex h-full min-h-[12rem] flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-slate-300 hover:shadow-xl"
+                    >
+                      <span class="text-lg font-bold text-slate-950 group-hover:text-emerald-700">{e.data.title}</span>
+                      <span class="mt-3 flex-1 text-sm leading-relaxed text-slate-600">{e.data.description}</span>
+                      <span class="mt-5 text-sm font-semibold text-emerald-700">อ่านเพิ่มเติม →</span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        ))}
+      </div>
+
+      <section class="mt-16 rounded-2xl border border-slate-200 bg-slate-50/70 p-6 sm:p-8" aria-labelledby="send-info">
+        <h2 id="send-info" class="text-xl font-bold tracking-tight text-slate-950">วิธีส่งรูปประเมินราคาให้เร็ว</h2>
+        <ul class="mt-4 grid gap-2 text-sm leading-7 text-slate-700 sm:grid-cols-2">
+          <li><span class="font-semibold text-slate-950">รูปสินค้า</span> หลายมุม + จุดตำหนิ</li>
+          <li><span class="font-semibold text-slate-950">รุ่น/ความจุ/สเปก</span> (ถ้ามี)</li>
+          <li><span class="font-semibold text-slate-950">สภาพการใช้งาน</span> เช่น จอ ปุ่ม พอร์ต ลำโพง</li>
+          <li><span class="font-semibold text-slate-950">แบตเตอรี่</span> (ถ้าดูได้)</li>
+          <li><span class="font-semibold text-slate-950">อุปกรณ์</span> กล่อง สาย หัวชาร์จ</li>
+          <li><span class="font-semibold text-slate-950">จังหวัด</span> เพื่อคุยเรื่องคิวรับซื้อ/ส่งมอบ</li>
+        </ul>
+        <p class="mt-4 text-sm leading-7 text-slate-600">
+          ถ้าอยากอ่านแนวทางรายเคสแบบเร็ว แนะนำเริ่มจาก{' '}
+          <a class="font-semibold text-emerald-700 hover:underline" href="/คู่มือเตรียมสินค้าก่อนขาย">คู่มือเตรียมสินค้าก่อนขาย</a>{' '}
+          และบทความที่ตรงกับสินค้า:
+          {' '}
+          <a class="font-semibold text-emerald-700 hover:underline" href="/บทความ/ขาย-iphone-ต้องออก-icloud-ไหม">ขาย iPhone ต้องออก iCloud ไหม</a>
+          {' · '}
+          <a class="font-semibold text-emerald-700 hover:underline" href="/บทความ/ขาย-macbook-ต้องออก-apple-id-ไหม">ขาย MacBook ต้องออก Apple ID ไหม</a>
+          {' · '}
+          <a class="font-semibold text-emerald-700 hover:underline" href="/บทความ/ขาย-คอมเกมมิ่ง-ต้องส่งสเปกอะไรบ้าง">ขายคอมเกมมิ่งต้องส่งสเปกอะไรบ้าง</a>
+        </p>
+      </section>
+
+      <section class="mt-12 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="trust-links">
+        <h2 id="trust-links" class="text-xl font-bold tracking-tight text-slate-950">ก่อนตัดสินใจขาย ดูตัวอย่างจริงได้</h2>
+        <p class="mt-3 text-sm leading-7 text-slate-600">
+          ถ้าคุณอยากดูหลักฐานและคำตอบเพิ่มเติม แนะนำ 3 หน้านี้:
+        </p>
+        <ul class="mt-4 grid gap-3 text-sm sm:grid-cols-3">
+          <li>
+            <a class="block rounded-xl border border-slate-200 bg-slate-50/70 p-4 font-semibold text-emerald-800 hover:border-slate-300 hover:bg-white" href="/รีวิวลูกค้า">
+              รีวิวลูกค้า →
+            </a>
+          </li>
+          <li>
+            <a class="block rounded-xl border border-slate-200 bg-slate-50/70 p-4 font-semibold text-emerald-800 hover:border-slate-300 hover:bg-white" href="/ผลงานรับซื้อจริง">
+              ผลงานรับซื้อจริง →
+            </a>
+          </li>
+          <li>
+            <a class="block rounded-xl border border-slate-200 bg-slate-50/70 p-4 font-semibold text-emerald-800 hover:border-slate-300 hover:bg-white" href="/คำถามที่พบบ่อย">
+              คำถามที่พบบ่อย →
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <section class="mt-16" aria-labelledby="hub-faq">
+        <h2 id="hub-faq" class="text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl">คำถามที่พบบ่อย</h2>
+        <div class="mt-6">
+          <FaqAccordion items={hubFaqs} />
+        </div>
+        <p class="mt-6 text-sm leading-7 text-slate-600">
+          หากต้องการคำตอบแบบตรงรุ่นหรือเคสเฉพาะ สามารถดูหน้า <a class="font-semibold text-emerald-700 hover:underline" href="/คำถามที่พบบ่อย">คำถามที่พบบ่อย</a> หรือทัก LINE ได้ทันที
+        </p>
+      </section>
+
+      <section class="mt-12 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="recommended-articles">
+        <h2 id="recommended-articles" class="text-xl font-bold tracking-tight text-slate-950">บทความแนะนำ (เลือกอ่านตามหมวด)</h2>
+        <p class="mt-3 text-sm leading-7 text-slate-600">
+          ถ้าต้องการคำตอบแบบเร็ว/เช็กลิสต์ก่อนขาย เลือกอ่านบทความที่ใกล้กับสินค้าของคุณ แล้วค่อยส่งรูปประเมินใน LINE {LINE_AT}
+        </p>
+        <div class="mt-6 grid gap-6 lg:grid-cols-3">
+          <div class="rounded-2xl border border-slate-200 bg-slate-50/70 p-5">
+            <p class="font-semibold text-slate-950">Apple (iPhone / iPad / MacBook)</p>
+            <ul class="mt-3 space-y-2 text-sm">
+              <li><a class="font-semibold text-emerald-800 hover:underline" href="/บทความ/ขาย-iphone-ต้องออก-icloud-ไหม">ขาย iPhone ต้องออก iCloud ไหม</a></li>
+              <li><a class="font-semibold text-emerald-800 hover:underline" href="/บทความ/ขาย-iphone-ติด-icloud-ได้ไหม">ขาย iPhone ติด iCloud ได้ไหม</a></li>
+              <li><a class="font-semibold text-emerald-800 hover:underline" href="/บทความ/ขาย-ipad-ต้องเตรียมอะไรบ้าง">ขาย iPad ต้องเตรียมอะไรบ้าง</a></li>
+              <li><a class="font-semibold text-emerald-800 hover:underline" href="/บทความ/ขาย-macbook-ต้องออก-apple-id-ไหม">ขาย MacBook ต้องออก Apple ID ไหม</a></li>
+            </ul>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-slate-50/70 p-5">
+            <p class="font-semibold text-slate-950">คอม/โน๊ตบุ๊ค/เกมมิ่ง</p>
+            <ul class="mt-3 space-y-2 text-sm">
+              <li><a class="font-semibold text-emerald-800 hover:underline" href="/บทความ/ขายโน๊ตบุ๊คต้องล้างข้อมูลไหม">ขายโน๊ตบุ๊คต้องล้างข้อมูลไหม</a></li>
+              <li><a class="font-semibold text-emerald-800 hover:underline" href="/บทความ/ขาย-โน๊ตบุ๊ค-เสีย-ได้ไหม">ขายโน๊ตบุ๊คเสียได้ไหม</a></li>
+              <li><a class="font-semibold text-emerald-800 hover:underline" href="/บทความ/ขาย-คอมเกมมิ่ง-ต้องส่งสเปกอะไรบ้าง">ขายคอมเกมมิ่งต้องส่งสเปกอะไรบ้าง</a></li>
+              <li><a class="font-semibold text-emerald-800 hover:underline" href="/บทความ/ขาย-การ์ดจอ-มือสอง-ต้องระวังอะไร">ขายการ์ดจอมือสองต้องระวังอะไร</a></li>
+            </ul>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-slate-50/70 p-5">
+            <p class="font-semibold text-slate-950">เครื่องเกม/ออฟฟิศ/อื่น ๆ</p>
+            <ul class="mt-3 space-y-2 text-sm">
+              <li><a class="font-semibold text-emerald-800 hover:underline" href="/บทความ/ขาย-nintendo-switch-มือสอง-ได้ราคา-เท่าไหร่">ขาย Nintendo Switch ได้ราคาเท่าไหร่</a></li>
+              <li><a class="font-semibold text-emerald-800 hover:underline" href="/บทความ/ขาย-playstation-มือสอง-ได้ราคา-เท่าไหร่">ขาย PlayStation ได้ราคาเท่าไหร่</a></li>
+              <li><a class="font-semibold text-emerald-800 hover:underline" href="/บทความ/ขาย-เครื่องปริ้น-มือสอง-ได้ไหม">ขายเครื่องปริ้นมือสองได้ไหม</a></li>
+              <li><a class="font-semibold text-emerald-800 hover:underline" href="/บทความ/ขาย-อุปกรณ์สำนักงาน-it-ต้องเตรียมรายการยังไง">ขายอุปกรณ์สำนักงาน IT ต้องเตรียมรายการยังไง</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-12 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="all-categories">
+        <h2 id="all-categories" class="text-xl font-bold tracking-tight text-slate-950">ดูหมวดทั้งหมด (A–Z)</h2>
+        <p class="mt-3 text-sm leading-7 text-slate-600">รายการด้านล่างเป็นหมวดรับซื้อทั้งหมดที่มีอยู่ในเว็บไซต์ตอนนี้</p>
+        <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {sorted.map((e) => {
+            const href = sellThaiHref(e.id);
+            return (
+              <li>
+                <a class="text-sm font-semibold text-emerald-700 hover:underline" href={href}>
+                  {e.data.title}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+
+      <LongformSections sections={sellHubLongSections} tocHeading="หัวข้อสำคัญสำหรับหน้ารับซื้อสินค้า IT" />
+    </div>
+  </article>
+  <CtaBand
+    heading="ยังไม่เจอหมวดที่ต้องการ?"
+    sub={`ส่งรุ่นและรูปสินค้ามาที่ LINE ${LINE_AT} เราช่วยประเมินแม้สินค้าจะยังไม่มีหน้าแยก — หรือเลือกหมวดใกล้เคียงแล้วทักมาอธิบายเพิ่ม`}
+    lineLabel="ส่งรูปประเมินตามหมวดสินค้า"
+  />
+</BaseLayout>

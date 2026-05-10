@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none" aria-hidden="true" role="img">
+  <title>BuyHub</title>
+  <rect width="128" height="128" rx="28" fill="#0c1a2e"/>
+  <path d="M32 88V40h20c16 0 26 7.5 26 24 0 16.5-10.5 24-27 24H32zm16-16h4c7 0 11-3.5 11-10.5S59 45 52 45h-4v27z" fill="#ffffff"/>
+  <rect x="82" y="40" width="16" height="48" rx="4" fill="#14b8a6"/>
+</svg>

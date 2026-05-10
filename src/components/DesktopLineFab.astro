@@ -1,0 +1,23 @@
+---
+import { LINE_AT, LINE_URL } from '../lib/constants';
+---
+
+<div
+  class="pointer-events-none fixed bottom-[max(1rem,env(safe-area-inset-bottom,0px))] right-[max(1rem,env(safe-area-inset-right,0px))] z-40 hidden max-w-[calc(100dvw-1.5rem)] flex-col items-end gap-3 md:flex print:hidden"
+  aria-hidden="false"
+>
+  <a
+    href={LINE_URL}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="pointer-events-auto flex items-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-500 to-emerald-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-500/30 transition duration-200 hover:scale-105 hover:from-emerald-400 hover:to-emerald-500"
+    aria-label={`ประเมินราคาทาง LINE ${LINE_AT}`}
+  >
+    <svg class="h-6 w-6 shrink-0" viewBox="0 0 320 320" fill="currentColor" aria-hidden="true">
+      <path
+        d="M280 149c0 77-81 140-181 140-36 0-69-9-97-25h-1L32 298l38-86v-1c-21-26-33-58-33-93 0-77 81-140 181-140s180 62 180 139z"
+      />
+    </svg>
+    <span class="max-w-[9rem] leading-snug">ทัก LINE<br /><span class="text-white/90">{LINE_AT}</span></span>
+  </a>
+</div>

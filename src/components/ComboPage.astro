@@ -1,0 +1,688 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaBand from './CtaBand.astro';
+import FaqAccordion from './FaqAccordion.astro';
+import LineCtaButton from './LineCtaButton.astro';
+import PhoneCtaButton from './PhoneCtaButton.astro';
+import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd } from '../lib/schema';
+import { buildComboEditorialSections, getSellEditorialSections } from '../data/editorialProfiles';
+import type { BreadcrumbItem } from '../lib/types';
+
+type LongContentSection = {
+  heading: string;
+  paragraphs?: string[];
+  content?: string[];
+  list?: string[];
+  orderedList?: string[];
+  links?: { href: string; label: string }[];
+  note?: string;
+};
+
+interface Props {
+  path: string;
+  title: string;
+  description: string;
+  h1: string;
+  serviceName: string;
+  breadcrumbs: BreadcrumbItem[];
+  provinceName: string;
+  productName: string;
+  intro: string[];
+  areas: string[];
+  whatWeBuy: string[];
+  pricingFactors: string[];
+  howToSend: string[];
+  internalLinks: { href: string; label: string }[];
+  faqs: { question: string; answer: string }[];
+  longContentSections?: LongContentSection[];
+}
+
+const {
+  path,
+  title,
+  description,
+  h1,
+  serviceName,
+  breadcrumbs,
+  provinceName,
+  productName,
+  intro,
+  areas,
+  whatWeBuy,
+  pricingFactors,
+  howToSend,
+  internalLinks,
+  faqs,
+  longContentSections = []
+} = Astro.props;
+
+const jsonLd = [
+  breadcrumbJsonLd(breadcrumbs),
+  serviceJsonLd({ name: serviceName, description, url: path }),
+  faqPageJsonLd(faqs)
+];
+
+const makeId = (text: string) =>
+  text
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^\u0E00-\u0E7Fa-z0-9-]/g, '')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+
+const normalizeLinkHref = (href: string) => {
+  const trimmedHref = href.trim();
+  if (trimmedHref === '/') return '/';
+
+  return trimmedHref.endsWith('/') ? trimmedHref.slice(0, -1) : trimmedHref;
+};
+
+const dedupeLinks = (links: { href: string; label: string }[]) => {
+  const seen = new Set<string>();
+
+  return links.filter((link) => {
+    const key = normalizeLinkHref(link.href);
+    if (seen.has(key)) {
+      return false;
+    }
+
+    seen.add(key);
+    return true;
+  });
+};
+
+type ProductNarrative = {
+  itemLabel: string;
+  evaluationFields: string;
+  issueExamples: string;
+  bundleExamples: string;
+};
+
+const getProductNarrative = (name: string): ProductNarrative => {
+  if (name.includes('คอมบริษัท')) {
+    return {
+      itemLabel: 'แต่ละกลุ่มสินค้า',
+      evaluationFields: 'หมวดสินค้า จำนวน รุ่นหลัก สเปกโดยรวม สภาพการใช้งาน และอุปกรณ์ที่มี',
+      issueExamples: 'เปิดไม่ติด เข้าวินโดวส์ไม่ได้ จอมีเส้น หรือแบตโน๊ตบุ๊คเสื่อม',
+      bundleExamples: 'ที่ชาร์จ จอ เมาส์ คีย์บอร์ด สายไฟ หรือไฟล์รายการทรัพย์สิน'
+    };
+  }
+
+  if (name.includes('อุปกรณ์สำนักงาน')) {
+    return {
+      itemLabel: 'ตัวสินค้าแต่ละรายการ',
+      evaluationFields: 'ประเภทสินค้า จำนวน รุ่นหลัก จำนวนพอร์ตหรือสเปก สภาพการใช้งาน และอุปกรณ์ประกอบ',
+      issueExamples: 'พิมพ์ไม่ออก พอร์ต LAN เสีย UPS แบตเสื่อม หรือ Access Point ไม่ปล่อยสัญญาณ',
+      bundleExamples: 'สายไฟ อะแดปเตอร์ สาย LAN ถาดกระดาษ หรืออุปกรณ์ประกอบ'
+    };
+  }
+
+  if (name.includes('อุปกรณ์เสริม')) {
+    return {
+      itemLabel: 'ตัวสินค้า',
+      evaluationFields: 'ประเภทสินค้า ยี่ห้อ รุ่น วัตต์ ความจุ จำนวนพอร์ต สภาพการใช้งาน และอุปกรณ์ที่มี',
+      issueExamples: 'พอร์ตหลวม ชาร์จไม่เข้า เปิดไม่ติด หรือแบตเสื่อม',
+      bundleExamples: 'กล่อง สายเดิม หัวแปลง คู่มือ หรือใบเสร็จ'
+    };
+  }
+
+  if (name.includes('อุปกรณ์เกมมิ่ง')) {
+    return {
+      itemLabel: 'ตัวสินค้าแต่ละชิ้น',
+      evaluationFields: 'ประเภทสินค้า ยี่ห้อ รุ่น สภาพปุ่ม เซ็นเซอร์ การเชื่อมต่อ และอุปกรณ์ที่มี',
+      issueExamples: 'คลิกเบิล ไมค์ไม่ติด Analog drift หรือ RGB บางจุดไม่ทำงาน',
+      bundleExamples: 'กล่อง สาย Dongle Receiver Keycap สำรอง หรือขาตั้ง'
+    };
+  }
+
+  if (name.includes('มือถือ')) {
+    return {
+      itemLabel: 'ตัวเครื่อง',
+      evaluationFields: 'แบรนด์ รุ่น ความจุ RAM สภาพจอ สุขภาพแบต กล้อง และสถานะบัญชี',
+      issueExamples: 'จอแตก แบตเสื่อม กล้องไม่โฟกัส หรือยังติดบัญชีเดิม',
+      bundleExamples: 'กล่อง สายชาร์จ หัวชาร์จ เคส หรือใบเสร็จ'
+    };
+  }
+
+  if (name.includes('iPhone')) {
+    return {
+      itemLabel: 'ตัวเครื่อง',
+      evaluationFields: 'รุ่น ความจุ Battery Health สภาพจอ กล้อง และสถานะ iCloud',
+      issueExamples: 'แบตเสื่อม Face ID ใช้ไม่ได้ จอมีเส้น หรือกล้องมีปัญหา',
+      bundleExamples: 'กล่อง สายชาร์จ หัวชาร์จ หรือใบเสร็จ'
+    };
+  }
+
+  if (name.includes('iPad')) {
+    return {
+      itemLabel: 'ตัวเครื่อง',
+      evaluationFields: 'รุ่นย่อย ความจุ สภาพจอ ระบบทัช พอร์ตชาร์จ และสถานะ Apple ID',
+      issueExamples: 'ทัชเพี้ยน แบตเสื่อม พอร์ตชาร์จมีปัญหา หรือกล้องไม่ปกติ',
+      bundleExamples: 'กล่อง สายชาร์จ Apple Pencil หรือคีย์บอร์ด'
+    };
+  }
+
+  if (name.includes('MacBook')) {
+    return {
+      itemLabel: 'ตัวเครื่อง',
+      evaluationFields: 'รุ่น ปี ชิป RAM SSD สภาพแบต จอ คีย์บอร์ด และสถานะ Apple ID',
+      issueExamples: 'แบตเสื่อม จอมีเงา คีย์บอร์ดมีปัญหา หรือพอร์ตใช้งานไม่ครบ',
+      bundleExamples: 'ที่ชาร์จ กล่อง เคส หรือใบเสร็จ'
+    };
+  }
+
+  if (name.includes('แท็บเล็ต')) {
+    return {
+      itemLabel: 'ตัวเครื่อง',
+      evaluationFields: 'แบรนด์ รุ่น ความจุ RAM ระบบทัช แบตเตอรี่ และอุปกรณ์ที่มี',
+      issueExamples: 'จอแตก ทัชไม่ติด แบตเสื่อม หรือพอร์ตชาร์จหลวม',
+      bundleExamples: 'ปากกา คีย์บอร์ด สายชาร์จ หรือเคส'
+    };
+  }
+
+  if (name.includes('กล้อง')) {
+    return {
+      itemLabel: 'ตัวกล้อง',
+      evaluationFields: 'ยี่ห้อ รุ่น จำนวนชัตเตอร์ สภาพเลนส์ เซนเซอร์ แบตเตอรี่ และอุปกรณ์ที่มี',
+      issueExamples: 'โฟกัสช้า เซนเซอร์มีฝุ่น จอพับหลวม หรือปุ่มบางตัวมีปัญหา',
+      bundleExamples: 'เลนส์ แบตสำรอง ที่ชาร์จ สายคล้อง หรือกล่อง'
+    };
+  }
+
+  if (name.includes('การ์ดจอ')) {
+    return {
+      itemLabel: 'ตัวการ์ด',
+      evaluationFields: 'รุ่น ชิป ความจุแรม สภาพพัดลม พอร์ตเชื่อมต่อ และอุปกรณ์ที่มี',
+      issueExamples: 'พัดลมดัง พอร์ตเสีย ฮีตซิงก์มีสนิม หรือเคยขุดมาก่อน',
+      bundleExamples: 'กล่อง ใบเสร็จ ซองกันกระแทก หรือประกันคงเหลือ'
+    };
+  }
+
+  if (name.includes('คอมเกมมิ่ง') || name.includes('คอมพิวเตอร์') || name.includes('PC')) {
+    return {
+      itemLabel: 'ตัวเครื่อง',
+      evaluationFields: 'CPU RAM SSD การ์ดจอ สภาพตัวเครื่อง อุปกรณ์ที่มี และอาการใช้งานจริง',
+      issueExamples: 'เปิดไม่ติด เข้าวินโดวส์ไม่ได้ ร้อนผิดปกติ หรือพัดลมมีเสียงดัง',
+      bundleExamples: 'จอ เมาส์ คีย์บอร์ด สายไฟ หรือกล่องอะไหล่'
+    };
+  }
+
+  if (name.includes('เครื่องปริ้น')) {
+    return {
+      itemLabel: 'ตัวเครื่อง',
+      evaluationFields: 'ยี่ห้อ รุ่น ประเภทเครื่อง สภาพหัวพิมพ์ ระบบสแกน และอุปกรณ์ที่มี',
+      issueExamples: 'พิมพ์ไม่ออก กระดาษติด หัวพิมพ์ตัน หรือเชื่อมต่อ Wi-Fi ไม่ได้',
+      bundleExamples: 'สายไฟ หมึก ดรัม ถาดกระดาษ หรือคู่มือ'
+    };
+  }
+
+  if (name.includes('เครื่องเกม')) {
+    return {
+      itemLabel: 'ตัวเครื่อง',
+      evaluationFields: 'รุ่น ความจุ สภาพจอย อุปกรณ์ในชุด และอาการใช้งานจริง',
+      issueExamples: 'จอยดริฟต์ พัดลมดัง อ่านแผ่นไม่ได้ หรือพอร์ต HDMI มีปัญหา',
+      bundleExamples: 'จอย สายไฟ สาย HDMI Dock หรือเกมที่ขายรวม'
+    };
+  }
+
+  return {
+    itemLabel: 'ตัวเครื่อง',
+    evaluationFields: 'รุ่น สเปกหรือความจุ สภาพการใช้งาน อุปกรณ์ที่มี และตำหนิที่สำคัญ',
+    issueExamples: 'ใช้งานไม่เต็มระบบ แบตเสื่อม พอร์ตมีปัญหา หรือมีประวัติซ่อม',
+    bundleExamples: 'กล่อง สายชาร์จ อะแดปเตอร์ หรืออุปกรณ์เสริมที่ใช้งานร่วมกัน'
+  };
+};
+
+const productNarrative = getProductNarrative(productName);
+const sellEditorialSlug = path.replace(/^\/+/, '');
+const productUsesLeadingSpace = /^[A-Za-z0-9]/.test(productName);
+const withProduct = (prefix: string) => `${prefix}${productUsesLeadingSpace ? ' ' : ''}${productName}`;
+const sellProductText = withProduct('ขาย');
+const buyProductText = withProduct('รับซื้อ');
+const priceProductText = withProduct('ราคา');
+const sellerProductText = withProduct('คนขาย');
+const sendForEvaluationProductText = withProduct('ส่งประเมิน');
+const sendProductText = withProduct('ส่งรูป');
+const ofProductText = withProduct('ของ');
+const wantSellProductText = productUsesLeadingSpace ? `อยากขาย ${productName}` : `อยากขาย${productName}`;
+const appraisalRangeProductText = productUsesLeadingSpace
+  ? `ช่วงราคาประเมิน ${productName}`
+  : `ช่วงราคาประเมิน${productName}`;
+const canEvaluateProductText = productUsesLeadingSpace
+  ? `ประเมิน ${productName} ได้`
+  : `ประเมิน${productName}ได้`;
+
+const autoLongContentSections: LongContentSection[] = [
+  {
+    heading: `${sellProductText} ใน ${provinceName} ให้ได้ข้อมูลประเมินใกล้เคียง ควรเริ่มจากอะไร`,
+    paragraphs: [
+      `ถ้าคุณค้นหาคำว่า “${buyProductText} ${provinceName}” สิ่งที่ต้องการจริงมักไม่ใช่แค่รู้ว่ามีคนรับซื้อ แต่ต้องการรู้ว่าควรส่งข้อมูลอะไรบ้าง ถึงจะได้ช่วงราคาที่ใกล้เคียงกับหน้างานมากที่สุด วิธีที่ช่วยได้มากคือเริ่มจากรูปหลายมุมของ${productNarrative.itemLabel} ระบุ ${productNarrative.evaluationFields} และแจ้งอำเภอหรือจุดที่สะดวกนัดใน ${provinceName} ให้ครบตั้งแต่แรก`,
+      `การรวมข้อมูลสินค้าและข้อมูลพื้นที่ไว้ในข้อความเดียวกัน ช่วยให้ทีม BuyHub ประเมินได้ทั้งเรื่องราคาและขั้นตอนการนัดงานต่อทันที ต่างจากการส่งข้อความสั้น ๆ แล้วค่อยเติมข้อมูลภายหลังหลายรอบ ซึ่งมักทำให้การประเมินช้าลงและช่วงราคาที่ได้กว้างเกินความจำเป็น สำหรับหน้า GEO ที่ดี เนื้อหาจึงควรช่วยให้ผู้อ่านรู้ว่าต้องเตรียมอะไรเพื่อก้าวจาก “กำลังหาข้อมูล” ไปสู่ “พร้อมคุยประเมิน” ได้ในหน้าเดียว`
+    ],
+    list: [
+      `รูปหลายมุมของ${productNarrative.itemLabel} ให้เห็นด้านหน้า ด้านหลัง ขอบ และตำหนิสำคัญ`,
+      `${productNarrative.evaluationFields} ที่ช่วยแยก ${productName} แต่ละรายการได้ชัด`,
+      `อาการใช้งานที่พบจริง เช่น ${productNarrative.issueExamples}`,
+      `อุปกรณ์ที่มีในชุด เช่น ${productNarrative.bundleExamples}`,
+      `อำเภอหรือจุดนัดที่สะดวกใน ${provinceName}`
+    ]
+  },
+  {
+    heading: `จุดที่ทำให้${priceProductText} เปลี่ยนได้มากกว่าที่หลายคนคิด`,
+    paragraphs: [
+      `${priceProductText} ในตลาดมือสองไม่ได้ขึ้นกับชื่อรุ่นอย่างเดียว แต่ขึ้นกับรายละเอียดระดับใช้งานจริง เช่นรุ่นย่อย ความจุ สภาพจอ การตอบสนองของระบบ แบตเตอรี่ พอร์ตชาร์จ ปุ่ม กล้อง และความพร้อมในการออกจากบัญชีเดิมของผู้ใช้ ในหลายเคสเครื่องที่ดูคล้ายกันมาก อาจมีช่วงราคาต่างกันได้ชัดเจนเพียงเพราะความจุไม่เท่ากัน หรือมีอาการเฉพาะจุดที่ยังไม่ได้แจ้ง`,
+      `อีกเรื่องที่คนขายมักมองข้ามคือความครบของอุปกรณ์และความชัดเจนของข้อมูล ถ้าส่งข้อมูลไม่ครบ ทีมงานต้องเผื่อความเสี่ยงไว้มากขึ้น ทำให้ช่วงราคากว้างกว่าเคสที่แจ้งตามจริงตั้งแต่ต้น เนื้อหาในหน้านี้จึงควรช่วยให้ผู้อ่านเข้าใจว่าการประเมินที่ดีไม่ใช่การเดาจากชื่อรุ่น แต่เป็นการประเมินจากสภาพจริงแบบโปร่งใส ซึ่งเป็นแกนสำคัญของทั้ง SEO และ AEO ในหน้ารับซื้อเฉพาะพื้นที่`
+    ],
+    list: pricingFactors
+  },
+  {
+    heading: `ถ้าอยู่ต่างอำเภอใน ${provinceName} ควรส่งข้อมูลเพิ่มต่างจากคนในตัวเมืองไหม`,
+    paragraphs: [
+      `โดยหลักแล้ว ข้อมูลตัวสินค้าอย่างรุ่น ความจุ สภาพ และอุปกรณ์ ยังคงสำคัญเท่ากันไม่ว่าคุณจะอยู่ในตัวเมือง ${provinceName} หรืออยู่นอกตัวเมือง แต่สิ่งที่ควรเพิ่มคือข้อมูลด้านพื้นที่ เช่นอำเภอ จุดนัดโดยประมาณ หรือช่วงเวลาที่สะดวก เพราะข้อมูลเหล่านี้ช่วยให้ทีมงานแนะนำแนวทางการนัดรับหรือการส่งมอบได้เหมาะกับบริบทจริงของคุณมากขึ้น`,
+      `การระบุพื้นที่ชัดเจนยังช่วยในแง่ GEO และ Local SEO เพราะคนที่ค้นหาจาก ${provinceName} มักต้องการความมั่นใจว่าบริการตอบโจทย์พื้นที่ของตัวเอง ไม่ใช่เพียงหน้ากลางที่เปลี่ยนชื่อจังหวัดเฉย ๆ การมีรายชื่ออำเภอและจุดอ้างอิงในหน้าเดียวกัน จึงช่วยทั้งคนอ่านที่กำลังตัดสินใจ และช่วยให้เสิร์ชเอนจินเข้าใจความเกี่ยวข้องเชิงพื้นที่ได้ชัดขึ้น`
+    ],
+    list: areas
+  },
+  {
+    heading: `สรุปสำหรับคนที่${wantSellProductText} ใน ${provinceName} แบบจบไว`,
+    paragraphs: [
+      `ถ้าเป้าหมายของคุณคืออยากรู้ช่วงราคาก่อนขายให้เร็วที่สุด ให้คิดเป็นสามช่วงง่าย ๆ คือ ช่วงแรกส่งรูปและข้อมูลให้ครบ ช่วงที่สองรับช่วงราคาประเมินเบื้องต้นแล้วเทียบกับความคาดหวังของตัวเอง ช่วงที่สามเมื่อพร้อมขายจริงค่อยเตรียมสินค้า ล้างข้อมูลที่เกี่ยวข้อง และรวบรวมอุปกรณ์ให้พร้อมส่งมอบ วิธีนี้ช่วยให้การตัดสินใจมีข้อมูลรองรับ และลดโอกาสที่งานจะสะดุดเพราะต้องย้อนกลับไปเตรียมอะไรใหม่ในภายหลัง`,
+      `สำหรับ BuyHub หน้าแบบนี้ควรทำหน้าที่มากกว่าหน้าคีย์เวิร์ดรับซื้อ เพราะต้องช่วย${sellerProductText} ใน ${provinceName} เห็นภาพครบทั้งเรื่องสภาพสินค้า วิธีประเมิน ขั้นตอนส่งข้อมูล บริบทพื้นที่ และคำถามที่มักสงสัย หากคนอ่านจบหน้าแล้วรู้ว่าต้องส่งอะไร ควรเตรียมอะไร และควรอ่านลิงก์ไหนต่อ ก็ถือว่าคอนเทนต์นี้ตอบโจทย์ทั้ง SEO, AEO และ GEO ได้ตรงทางมากขึ้น`
+    ],
+    list: [
+      `ส่งรูปและรายละเอียด${ofProductText} ให้ครบก่อน`,
+      `แจ้งพื้นที่ใน ${provinceName} เพื่อคุยขั้นตอนนัดรับหรือส่งมอบ`,
+      'แจ้งตำหนิตามจริงเพื่อลดความคลาดเคลื่อนของการประเมิน',
+      'ถ้ามีอุปกรณ์เสริม ให้ส่งรูปและประเมินรวมเป็นชุด',
+      'อ่าน FAQ และลิงก์ที่เกี่ยวข้องต่อก่อนทัก LINE หากยังมีข้อสงสัย'
+    ]
+  },
+  {
+    heading: `เช็กลิสต์ก่อน${sendForEvaluationProductText} ให้จบในรอบเดียว`,
+    paragraphs: [
+      `หนึ่งในสาเหตุที่ทำให้การประเมิน ${productName} ช้าคือการส่งข้อมูลแบบขาดเป็นช่วง ๆ เช่น ส่งแค่รูปด้านหน้า แล้วค่อยตามด้วยรุ่น จากนั้นค่อยแจ้งตำหนิอีกที วิธีนี้ทำให้ทีมงานต้องย้อนถามหลายรอบ และทำให้ช่วงราคาที่ตอบกลับกว้างเกินจำเป็น เพราะยังไม่รู้ภาพรวมทั้งหมดของสินค้า ถ้าอยากให้การพูดคุยจบไว ควรเตรียมข้อมูลให้ครบในข้อความแรก ทั้งรูปหลายมุม รายละเอียดอย่าง ${productNarrative.evaluationFields} สภาพจริง อุปกรณ์ในชุด และพื้นที่ใน ${provinceName}`,
+      `สำหรับคนที่ขาย ${productName} ครั้งแรก การใช้เช็กลิสต์จะช่วยลดความกังวลว่าตัวเองอาจลืมข้อมูลสำคัญ เนื้อหาแบบ AEO ที่ดีจึงไม่ควรหยุดแค่บอกว่า “ส่งรูปมาประเมินได้” แต่ควรบอกด้วยว่ารูปแบบไหนช่วยได้มากที่สุด ข้อมูลใดทำให้ราคานิ่งขึ้น และจุดไหนควรแจ้งตามจริงทันที เพราะทั้งหมดนี้ส่งผลต่อคุณภาพของคำตอบทั้งจากคนและจากระบบค้นหาที่ต้องการคำตอบสั้น ชัด และพร้อมใช้งานจริง`
+    ],
+    orderedList: howToSend
+  },
+  {
+    heading: productUsesLeadingSpace
+      ? `ถ้า ${productName} มีตำหนิหรือเคยซ่อม ควรบอกอย่างไรให้ประเมินง่ายขึ้น`
+      : `ถ้า${productName}มีตำหนิหรือเคยซ่อม ควรบอกอย่างไรให้ประเมินง่ายขึ้น`,
+    paragraphs: [
+      `หลายคนกลัวว่าถ้าแจ้งตำหนิครบจะทำให้ราคาออกมาต่ำ แต่ในทางปฏิบัติการแจ้งตามจริงกลับช่วยให้ได้คำตอบที่ตรงกว่าและลดโอกาสที่ต้องปรับราคาแรงตอนตรวจสินค้าจริง โดยเฉพาะ ${productName} ที่มีปัจจัยอย่าง ${productNarrative.issueExamples} จุดเหล่านี้ควรระบุให้ครบพร้อมรูปใกล้ ๆ เพื่อให้ทีมงานเห็นระดับความเสียหายและประเมินตามสภาพจริงได้เหมาะกว่าเดา`,
+      `ถ้าสินค้ายังใช้งานได้แต่มีข้อจำกัดบางอย่าง การอธิบายเป็นภาษาง่าย ๆ พร้อมรูปประกอบจะช่วยมาก เช่น “พอร์ตขวาหลวม”, “พิมพ์ออกแต่ติดกระดาษ”, “แบตอยู่ได้ครึ่งวัน” หรือ “จอมีเส้นเล็กด้านขวา” มากกว่าการบอกแค่ว่า “มีตำหนินิดหน่อย” เพราะคำอธิบายกว้างเกินไปทำให้การประเมินต้องเผื่อความเสี่ยงสูงขึ้น หน้า SEO ที่ดีจึงควรช่วยให้ผู้ขายเข้าใจว่า ความตรงไปตรงมาไม่ใช่การกดราคาตัวเอง แต่เป็นการทำให้การประเมินใกล้เคียงที่สุดตั้งแต่ต้น`
+    ],
+    list: [
+      `ถ่ายรูปตำหนิของ ${productName} แบบใกล้และแบบเห็นตำแหน่งโดยรวม`,
+      'แจ้งอาการใช้งานเป็นภาษาที่เข้าใจง่าย เช่น แบตหมดไว ทัชไม่ติดบางจุด หรือกล้องสั่น',
+      'ถ้าเคยซ่อมหรือเปลี่ยนอะไหล่ ให้แจ้งตามจริงตั้งแต่แรก',
+      'หากยังไม่แน่ใจว่าอาการส่งผลต่อราคาแค่ไหน ให้ส่งคลิปสั้นประกอบได้',
+      'อย่ารอให้ทีมงานถามซ้ำ เพราะข้อมูลที่ครบตั้งแต่ต้นช่วยให้ช่วงราคานิ่งกว่า'
+    ]
+  },
+  {
+    heading: `${sellProductText} พร้อมอุปกรณ์เสริม หรือขายหลายรายการใน ${provinceName} ควรจัดข้อมูลแบบไหน`,
+    paragraphs: [
+      `ถ้าคุณมี ${productName} มากกว่าหนึ่งรายการ หรือมีอุปกรณ์เสริมที่อยากขายรวม เช่น เคส คีย์บอร์ด ปากกา สายชาร์จ อะแดปเตอร์ หรือกล่อง การจัดข้อมูลให้เป็นชุดจะช่วยให้ประเมินง่ายขึ้นมาก วิธีที่ดีคือแยกแต่ละรายการให้ชัดเจน เช่น รายการที่ 1 รุ่นอะไร ความจุหรือสเปกเท่าไร สภาพอย่างไร และมีอะไรในชุดบ้าง จากนั้นทำแบบเดียวกันกับรายการที่ 2 หรือ 3 แทนการส่งรูปรวมทั้งหมดแล้วให้ทีมงานเดาเองว่าของชิ้นไหนเป็นของรายการใด`,
+      `สำหรับลูกค้าที่อยู่ใน ${provinceName} และต้องการขายหลายรายการพร้อมกัน การแจ้งจำนวนและพื้นที่ยังช่วยให้ทีมงานประเมินคิวรับซื้อและรูปแบบการนัดงานได้แม่นขึ้น โดยเฉพาะเคสองค์กร ร้านค้า หรือครอบครัวที่อัปเกรดอุปกรณ์พร้อมกันหลายชิ้น หน้า GEO ที่ดีจึงควรอธิบายให้เห็นว่าการรวมงานเป็นชุดไม่ได้ช่วยแค่เรื่องความสะดวกของผู้ขาย แต่ยังช่วยให้การพูดคุยเรื่องราคาและขั้นตอนในพื้นที่จริงของ ${provinceName} มีความชัดเจนขึ้นตั้งแต่แรก`
+    ],
+    list: [
+      `แยกข้อมูล ${productName} แต่ละรายการเป็นชุด ไม่ปนกัน`,
+      'ถ่ายรูปอุปกรณ์เสริมแยกต่างหากและแจ้งว่าต้องการขายรวม',
+      'ถ้ามีหลายรายการ ให้ระบุจำนวนและสภาพโดยรวมตั้งแต่ข้อความแรก',
+      `แจ้งว่าต้องการนัดในพื้นที่ไหนของ ${provinceName} หรือพร้อมส่งข้อมูลเพิ่มทางแชท`,
+      'ถ้าเป็นงานองค์กรหรือร้านค้า ให้แนบรายการรุ่น/จำนวนเป็นตารางหรือรายการสั้น ๆ'
+    ]
+  },
+  {
+    heading: `หลังได้${appraisalRangeProductText} แล้ว ควรใช้ข้อมูลนั้นตัดสินใจอย่างไร`,
+    paragraphs: [
+      `ช่วงราคาประเมินที่ได้รับไม่ควรถูกมองเป็นแค่ตัวเลขเดียว แต่ควรถูกใช้เป็นข้อมูลช่วยตัดสินใจว่าสินค้าของคุณพร้อมขายตอนนี้หรือควรเตรียมอะไรเพิ่มก่อน เช่น ถ้าราคาลดลงเพราะยังไม่ได้ออกจากบัญชีเดิม หรือยังไม่มีรูปตำหนิชัด ๆ คุณอาจกลับไปทำสองอย่างนี้ก่อนแล้วส่งอัปเดตใหม่เพื่อให้การประเมินนิ่งขึ้น ในทางกลับกัน ถ้าข้อมูลครบแล้วและช่วงราคาใกล้กับความคาดหวัง ก็สามารถเข้าสู่ขั้นตอนเตรียมสินค้า ล้างข้อมูล และนัดส่งมอบได้เลย`,
+      `อีกมุมหนึ่งคือการใช้ช่วงราคาประเมินเปรียบเทียบกับเวลาและความสะดวกของตัวเอง บางคนอาจไม่ได้ต้องการราคาระดับสูงสุดในตลาด แต่ต้องการความชัดเจนและปิดงานไว เนื้อหาในหน้านี้จึงควรช่วยให้ผู้อ่านรู้ว่าตัวเองไม่จำเป็นต้องรอจน “มั่นใจ 100%” ก่อนคุย เพราะการส่งข้อมูลเข้ามาประเมินคือขั้นตอนสำรวจตลาดที่ปลอดภัยและฟรี เมื่อเห็นช่วงราคาที่เหมาะสมแล้ว ค่อยตัดสินใจว่าจะเดินหน้าขายทันทีหรือกลับไปเตรียมข้อมูลหรือสินค้าเพิ่มก็ได้`
+    ],
+    list: [
+      'เช็กก่อนว่าช่วงราคาที่ได้มาจากข้อมูลครบหรือยังมีจุดที่ควรอัปเดต',
+      'ถ้ายังไม่ได้ล้างข้อมูลหรือออกจากบัญชี ให้เตรียมส่วนนี้ก่อนวันส่งมอบ',
+      'ถ้าคาดหวังราคาสูงกว่าช่วงประเมิน ให้ถามเหตุผลที่มีผลต่อราคาได้ตรง ๆ',
+      'ใช้ช่วงราคานี้ตัดสินใจเรื่องเวลา ความสะดวก และการขายรวมอุปกรณ์',
+      'เมื่อพร้อมขายจริง ค่อยคุยเรื่องพื้นที่และช่วงเวลานัดที่เหมาะกับคุณ'
+    ]
+  },
+  {
+    heading: `คำถามที่${sellerProductText} ใน ${provinceName} มักสงสัยก่อนทักประเมิน`,
+    paragraphs: [
+      `คำถามที่พบบ่อยก่อนเริ่มคุยมักไม่ใช่แค่ “ได้ราคาเท่าไร” แต่รวมถึง “ถ้าอยู่ต่างอำเภอได้ไหม” “ถ้ามีรอยยังขายได้ไหม” “ถ้ายังไม่ล้างข้อมูลส่งมาประเมินก่อนได้หรือเปล่า” หรือ “มีแค่ตัวสินค้าไม่มีอุปกรณ์จะมีผลมากไหม” การมีคำตอบสั้นในหน้าเดียวกันช่วยให้ผู้ใช้ตัดสินใจเร็วขึ้น และยังสอดคล้องกับ AEO เพราะระบบค้นหามักมองหาคำตอบที่เป็นประโยชน์ทันทีโดยไม่ต้องคลิกวนหลายหน้า`,
+      `สำหรับ BuyHub การทำหน้าเฉพาะ ${productName} ใน ${provinceName} ให้ครบทั้งคำตอบสั้น คำอธิบายยาว ขั้นตอน และลิงก์ต่อยอด จะช่วยให้หน้านี้มีคุณค่าในเชิงใช้งานจริงมากกว่าหน้าที่มีเพียงคีย์เวิร์ดและแบบฟอร์มติดต่อ เมื่อผู้อ่านเข้าใจคำตอบเบื้องต้นทั้งหมดแล้ว การทัก LINE เพื่อส่งข้อมูลประเมินจะเป็นขั้นตอนต่อเนื่องที่ลื่นกว่าเดิม และลดแรงต้านของการตัดสินใจขายได้ชัดเจน`
+    ],
+    list: [
+      `อยู่นอกตัวเมือง ${provinceName} ก็ส่งข้อมูลประเมินก่อนได้`,
+      `มีรอยหรือแบตเสื่อมก็ยัง${canEvaluateProductText} หากแจ้งตามจริง`,
+      'ยังไม่ล้างข้อมูลสามารถถามช่วงราคาก่อนได้ แต่ก่อนส่งมอบควรล้างและออกจากบัญชี',
+      'ไม่มีอุปกรณ์ในชุดยังขายได้ แต่อาจมีผลต่อราคาเล็กน้อยตามรุ่นและตลาด',
+      'ถ้ามีคำถามเฉพาะรุ่น ให้ดู FAQ ด้านล่างและลิงก์ภายในต่อยอดก่อนทัก'
+    ]
+  }
+];
+
+const profileLongContentSections = buildComboEditorialSections(productName, provinceName);
+const sellEditorialSections = getSellEditorialSections(sellEditorialSlug);
+const allLongContentSections = [
+  ...longContentSections,
+  ...sellEditorialSections,
+  ...profileLongContentSections,
+  ...autoLongContentSections
+].map((section) => ({
+  ...section,
+  links: section.links ? dedupeLinks(section.links) : undefined
+}));
+
+const tocItems = (() => {
+  const seen = new Set<string>();
+
+  return allLongContentSections.reduce<{ id: string; label: string }[]>((items, section) => {
+    const id = makeId(section.heading);
+    if (!id || seen.has(id)) {
+      return items;
+    }
+
+    seen.add(id);
+    items.push({ id, label: section.heading });
+    return items;
+  }, []);
+})();
+
+const dedupedInternalLinks = dedupeLinks(internalLinks);
+
+const midArticleIndex =
+  allLongContentSections.length > 2 ? Math.floor((allLongContentSections.length - 1) / 2) : -1;
+---
+
+<BaseLayout title={title} description={description} jsonLd={jsonLd} breadcrumbs={breadcrumbs}>
+  <article class="bg-white">
+    <div class="mx-auto min-w-0 max-w-3xl px-4 py-14 sm:px-6 sm:py-16">
+      <header class="min-w-0">
+        <h1 class="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+          {h1}
+        </h1>
+
+        <p class="mt-4 text-lg leading-8 text-slate-600">
+          {description}
+        </p>
+
+        <div class="mt-8 flex min-w-0 flex-col gap-4 border-y border-slate-100 py-8 sm:flex-row">
+          <LineCtaButton variant="primary" class="sm:flex-1" />
+          <PhoneCtaButton variant="light" class="sm:flex-1" />
+        </div>
+
+        <p class="mt-4 text-sm leading-7 text-slate-500">
+          ส่งรูปสินค้าและรายละเอียดอย่าง {productNarrative.evaluationFields} รวมถึงอำเภอหรือจุดนัดโดยประมาณ เพื่อให้ทีม BuyHub
+          ประเมินราคาเบื้องต้นได้เร็วขึ้น
+        </p>
+      </header>
+
+      <div class="mt-8 space-y-4 text-base leading-8 text-slate-700">
+        {intro.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+
+      {
+        tocItems.length > 0 && (
+          <nav
+            class="mt-10 rounded-2xl border border-slate-200 bg-slate-50/80 p-5"
+            aria-labelledby="page-toc-heading"
+          >
+            <h2 id="page-toc-heading" class="text-lg font-bold tracking-tight text-slate-950">
+              เนื้อหาในหน้านี้
+            </h2>
+            <ul class="mt-4 space-y-2 text-sm leading-7 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:space-y-0">
+              {tocItems.map((item) => (
+                <li>
+                  <a class="font-medium text-emerald-700 hover:underline" href={`#${item.id}`}>
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+              <li>
+                <a class="font-medium text-emerald-700 hover:underline" href="#combo-summary">
+                  สรุปข้อมูลที่ควรส่งประเมิน
+                </a>
+              </li>
+              <li>
+                <a class="font-medium text-emerald-700 hover:underline" href="#combo-faq">
+                  คำถามที่พบบ่อย
+                </a>
+              </li>
+            </ul>
+          </nav>
+        )
+      }
+
+      {
+        allLongContentSections.length > 0 && (
+          <div class="mt-12 space-y-12">
+            {allLongContentSections.map((section, index) => {
+              const sectionId = makeId(section.heading);
+              const paragraphs = section.paragraphs ?? section.content ?? [];
+
+              return (
+                <>
+                  <section id={sectionId} aria-labelledby={`${sectionId}-heading`} class="min-w-0">
+                    <h2
+                      id={`${sectionId}-heading`}
+                      class="text-2xl font-bold tracking-tight text-slate-950"
+                    >
+                      {section.heading}
+                    </h2>
+
+                    <div class="mt-5 space-y-4 text-base leading-8 text-slate-700">
+                      {paragraphs.map((paragraph) => (
+                        <p>{paragraph}</p>
+                      ))}
+                    </div>
+
+                    {
+                      section.list && section.list.length > 0 && (
+                        <ul class="mt-5 space-y-2 text-sm leading-7 text-slate-700">
+                          {section.list.map((item) => (
+                            <li class="flex gap-2">
+                              <span class="text-emerald-600" aria-hidden="true">
+                                •
+                              </span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )
+                    }
+
+                    {
+                      section.orderedList && section.orderedList.length > 0 && (
+                        <ol class="mt-5 space-y-2 text-sm leading-7 text-slate-700">
+                          {section.orderedList.map((item, orderedIndex) => (
+                            <li class="flex gap-3">
+                              <span class="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-xs font-bold text-white">
+                                {orderedIndex + 1}
+                              </span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ol>
+                      )
+                    }
+
+                    {
+                      section.links && section.links.length > 0 && (
+                        <ul class="mt-5 grid gap-2 text-sm sm:grid-cols-2">
+                          {section.links.map((link) => (
+                            <li class="min-w-0">
+                              <a
+                                class="break-words font-semibold text-emerald-700 hover:underline"
+                                href={link.href}
+                              >
+                                {link.label}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      )
+                    }
+
+                    {
+                      section.note && (
+                        <div class="mt-5 rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm leading-7 text-amber-900">
+                          {section.note}
+                        </div>
+                      )
+                    }
+                  </section>
+
+                  {
+                    index === midArticleIndex && (
+                      <aside class="rounded-3xl border border-emerald-100 bg-gradient-to-br from-emerald-50 to-white p-6 shadow-sm">
+                        <p class="text-sm font-semibold text-emerald-700">
+                          อยากรู้ราคาของ {productName} ใน {provinceName} ตอนนี้?
+                        </p>
+                        <h2 class="mt-2 text-2xl font-bold tracking-tight text-slate-950">
+                          ส่งรูปให้ BuyHub ประเมินฟรีก่อนตัดสินใจขาย
+                        </h2>
+                        <p class="mt-3 text-sm leading-7 text-slate-600">
+                          ส่งรูปและรายละเอียดอย่าง {productNarrative.evaluationFields} พร้อมอำเภอใน {provinceName}{' '}
+                          ผ่าน LINE @buyhub เพื่อให้ทีมงานประเมินราคาเบื้องต้นได้เร็วขึ้น
+                        </p>
+                        <div class="mt-5 flex min-w-0 flex-col gap-3 sm:flex-row">
+                          <LineCtaButton variant="primary" class="sm:flex-1" />
+                          <PhoneCtaButton variant="light" class="sm:flex-1" />
+                        </div>
+                      </aside>
+                    )
+                  }
+                </>
+              );
+            })}
+          </div>
+        )
+      }
+
+      <section
+        class="mt-12 rounded-3xl border border-slate-200 bg-slate-50/80 p-6"
+        id="combo-summary"
+        aria-labelledby="combo-summary-heading"
+      >
+        <h2 id="combo-summary-heading" class="text-2xl font-bold tracking-tight text-slate-950">
+          สรุปข้อมูลสำคัญสำหรับการขาย {productName} ใน {provinceName}
+        </h2>
+        <p class="mt-3 text-sm leading-7 text-slate-600">
+          ถ้าต้องการให้ประเมินเร็วและใกล้เคียงหน้างาน แนะนำให้เตรียมข้อมูลตามเช็กลิสต์ด้านล่างก่อนทัก
+          LINE @buyhub
+        </p>
+
+        <div class="mt-6 grid gap-5">
+          <section aria-labelledby="combo-areas">
+            <h3 id="combo-areas" class="text-lg font-bold tracking-tight text-slate-950">
+              พื้นที่ใน {provinceName} ที่ส่งรูปประเมินได้
+            </h3>
+            <p class="mt-2 text-sm leading-7 text-slate-600">
+              แจ้งอำเภอหรือจุดนัดโดยประมาณในข้อความ จะช่วยให้ทีมงานแนะนำวิธีนัดรับหรือการส่งมอบได้เหมาะกับคิวงาน
+            </p>
+            <ul class="mt-4 grid gap-2 text-sm text-slate-700 sm:grid-cols-2">
+              {areas.map((area) => (
+                <li class="rounded-xl border border-slate-200 bg-white px-4 py-2">{area}</li>
+              ))}
+            </ul>
+          </section>
+
+          <section aria-labelledby="combo-what">
+            <h3 id="combo-what" class="text-lg font-bold tracking-tight text-slate-950">
+              รับซื้อ {productName} แบบไหนบ้าง
+            </h3>
+            <ul class="mt-4 space-y-2 text-sm leading-7 text-slate-700">
+              {whatWeBuy.map((item) => (
+                <li class="flex gap-2">
+                  <span class="text-emerald-600" aria-hidden="true">
+                    •
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section aria-labelledby="combo-price">
+            <h3 id="combo-price" class="text-lg font-bold tracking-tight text-slate-950">
+              ปัจจัยที่ใช้ประเมินราคา {productName}
+            </h3>
+            <ul class="mt-4 space-y-2 text-sm leading-7 text-slate-700">
+              {pricingFactors.map((item) => (
+                <li class="flex gap-2">
+                  <span class="text-emerald-600" aria-hidden="true">
+                    •
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section aria-labelledby="combo-send">
+            <h3 id="combo-send" class="text-lg font-bold tracking-tight text-slate-950">
+              เช็กลิสต์ข้อมูลที่ควรส่งเพื่อประเมิน
+            </h3>
+            <ol class="mt-4 space-y-2 text-sm leading-7 text-slate-700">
+              {howToSend.map((item, index) => (
+                <li class="flex gap-3">
+                  <span class="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-xs font-bold text-white">
+                    {index + 1}
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ol>
+          </section>
+        </div>
+      </section>
+
+      <div id="combo-faq" class="mt-12">
+        <FaqAccordion
+          id="combo-faq-heading"
+          heading={`คำถามที่พบบ่อยเกี่ยวกับ${buyProductText} ใน ${provinceName}`}
+          intro={`คำตอบสรุปสำหรับคนที่ต้องการ${sellProductText} ใน ${provinceName}`}
+          items={faqs}
+        />
+        <div class="sr-only">
+          {faqs.map((faq) => (
+            <div>
+              <h3>{faq.question}</h3>
+              <p>{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <section
+        class="mt-12 rounded-2xl border border-slate-200 bg-slate-50/70 p-6"
+        aria-labelledby="combo-links"
+      >
+        <h2 id="combo-links" class="text-lg font-bold tracking-tight text-slate-950">
+          ลิงก์ที่เกี่ยวข้อง
+        </h2>
+        <ul class="mt-4 grid gap-2 text-sm sm:grid-cols-2">
+          {dedupedInternalLinks.map((link) => (
+            <li class="min-w-0">
+              <a class="break-words font-semibold text-emerald-700 hover:underline" href={link.href}>
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+  </article>
+
+  <CtaBand
+    heading={`${buyProductText} ใน ${provinceName} - ส่งรูปเช็กราคาได้ก่อน`}
+    sub={`${sendProductText} พร้อมข้อมูลอย่าง ${productNarrative.evaluationFields} และอำเภอใน ${provinceName} ทาง LINE @buyhub เพื่อประเมินฟรีก่อนตัดสินใจขาย`}
+    lineLabel={`${sendForEvaluationProductText} ทาง LINE`}
+  />
+</BaseLayout>

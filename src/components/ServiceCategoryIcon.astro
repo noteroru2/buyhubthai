@@ -1,0 +1,73 @@
+---
+interface Props {
+  name: string;
+  class?: string;
+}
+
+const { name, class: cls = 'h-9 w-9 text-emerald-600' } = Astro.props;
+---
+
+{
+  name === 'iphone' && (
+    <svg class={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <rect x="8" y="2" width="8" height="20" rx="2" />
+      <path d="M11 5h2M11 18h2" stroke-linecap="round" />
+    </svg>
+  )
+}
+{
+  name === 'ipad' && (
+    <svg class={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <rect x="4" y="3" width="16" height="18" rx="2" />
+      <path d="M12 18h.01" stroke-linecap="round" />
+    </svg>
+  )
+}
+{
+  name === 'macbook' && (
+    <svg class={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <path d="M4 16l1.5-10h13L20 16M2 18h20v1H2v-1z" stroke-linejoin="round" />
+    </svg>
+  )
+}
+{
+  name === 'notebook' && (
+    <svg class={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <rect x="3" y="4" width="18" height="13" rx="1.5" />
+      <path d="M2 18h20v1H2z" />
+    </svg>
+  )
+}
+{
+  name === 'desktop' && (
+    <svg class={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="13" rx="1.5" />
+      <path d="M8 19h8M12 16v3" stroke-linecap="round" />
+    </svg>
+  )
+}
+{
+  name === 'camera' && (
+    <svg class={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <path d="M4 8h3l2-2h6l2 2h3v11H4V8z" />
+      <circle cx="12" cy="13" r="3.5" />
+    </svg>
+  )
+}
+{
+  name === 'mobile' && (
+    <svg class={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <rect x="7" y="3" width="10" height="18" rx="1.5" />
+      <path d="M10 6h4M10 18h4" stroke-linecap="round" />
+    </svg>
+  )
+}
+{
+  name === 'gadget' && (
+    <svg class={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <path d="M4 14l4-4 4 4 8-8" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M4 19h16" stroke-linecap="round" />
+      <circle cx="18" cy="6" r="2" />
+    </svg>
+  )
+}

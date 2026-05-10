@@ -1,0 +1,133 @@
+---
+import { BUSINESS_HOURS_SHORT, LINE_AT, LINE_URL, NAV, SITE_NAME } from '../lib/constants';
+import { PHONE_DISPLAY, PHONE_E164 } from '../lib/constants';
+import LineCtaButton from './LineCtaButton.astro';
+---
+
+<footer class="relative isolate overflow-x-hidden border-t border-white/15 bg-buyhub-footer pb-40 md:pb-20 print:bg-white print:text-slate-700">
+  <div
+    class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_120%_80%_at_50%_-20%,rgba(16,185,129,0.1),transparent_50%),linear-gradient(to_bottom,rgba(5,11,20,0.94),rgba(5,11,20,1))]"
+    aria-hidden="true"
+  />
+  <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-400/45 to-transparent" aria-hidden="true" />
+  <div class="relative mx-auto min-w-0 max-w-7xl px-4 pb-16 pt-20 sm:px-6 lg:px-8">
+    <div class="mb-10 grid min-w-0 gap-4 rounded-2xl border border-white/[0.12] bg-white/[0.04] px-4 py-4 sm:grid-cols-3 sm:px-6">
+      <p class="break-words text-center text-xs text-slate-300 sm:text-left">แจ้งราคาก่อนนัดตรวจ — ตัดสินใจหลังเห็นข้อมูล</p>
+      <p class="break-words text-center text-xs text-slate-300 sm:text-left">โอนเงินหลังตกลงราคาและตรวจเครื่องครบ</p>
+      <p class="break-words text-center text-xs text-slate-300 sm:text-left">ช่องทางหลัก: LINE {LINE_AT} และโทรศัพท์</p>
+    </div>
+    <div class="grid min-w-0 grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-10">
+      <div class="min-w-0 sm:col-span-2 lg:col-span-4">
+        <p class="text-xl font-bold tracking-tight text-white">{SITE_NAME}</p>
+        <p class="mt-4 max-w-md break-words text-[0.9375rem] leading-7 text-slate-400">
+          ศูนย์รับซื้อสินค้าไอที มือหนึ่ง มือสอง ประเมินไว ให้ราคาตามสภาพจริง และโอนเงินทันทีหลังตกลงราคา เหมาะสำหรับลูกค้าทั่วไป ร้านค้า
+          และองค์กรที่ต้องการขายอุปกรณ์อย่างมืออาชีพ
+        </p>
+        <div class="mt-5 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm leading-7 text-slate-300">
+          <p class="font-medium text-white">ติดต่อร้าน</p>
+          <ul class="mt-2 space-y-1.5 break-words">
+            <li>
+              LINE{' '}
+              <a href={LINE_URL} target="_blank" rel="noopener noreferrer" class="text-slate-300 underline decoration-white/25 underline-offset-2 transition hover:text-emerald-300">
+                {LINE_AT}
+              </a>
+            </li>
+            <li>
+              โทร{' '}
+              <a href={`tel:${PHONE_E164}`} class="text-slate-300 underline decoration-white/25 underline-offset-2 transition hover:text-emerald-300">
+                {PHONE_DISPLAY}
+              </a>
+            </li>
+            <li class="text-slate-400">พื้นที่ให้บริการ: ภาคอีสานและจังหวัดใกล้เคียง</li>
+            <li class="text-slate-400">เวลาทำการ: {BUSINESS_HOURS_SHORT}</li>
+          </ul>
+        </div>
+        <div class="mt-6">
+          <LineCtaButton variant="primary" size="sm" label="ประเมินราคาทาง LINE @buyhub" class="shadow-emerald-500/25" />
+        </div>
+      </div>
+
+      <div class="grid min-w-0 gap-10 sm:col-span-2 sm:grid-cols-2 lg:col-span-5 lg:grid-cols-2">
+        <div class="min-w-0 break-words">
+          <p class="text-xs font-semibold uppercase tracking-wider text-white">เมนูหลัก</p>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            {
+              NAV.map(({ href, label }) => (
+                <li>
+                  <a href={href} class="text-slate-300 transition hover:text-emerald-300">
+                    {label}
+                  </a>
+                </li>
+              ))
+            }
+            <li>
+              <a href="/เกี่ยวกับเรา" class="text-slate-300 transition hover:text-emerald-300">
+                เกี่ยวกับเรา
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="min-w-0 break-words">
+          <p class="text-xs font-semibold uppercase tracking-wider text-white">สินค้าที่รับซื้อ</p>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><a href="/รับซื้อ-iphone" class="text-slate-300 transition hover:text-emerald-300">รับซื้อ iPhone</a></li>
+            <li><a href="/รับซื้อ-ipad" class="text-slate-300 transition hover:text-emerald-300">รับซื้อ iPad</a></li>
+            <li><a href="/รับซื้อ-macbook" class="text-slate-300 transition hover:text-emerald-300">รับซื้อ MacBook</a></li>
+            <li><a href="/รับซื้อโน๊ตบุ๊คมือสอง" class="text-slate-300 transition hover:text-emerald-300">รับซื้อโน๊ตบุ๊ค</a></li>
+            <li><a href="/รับซื้อคอมพิวเตอร์มือสอง" class="text-slate-300 transition hover:text-emerald-300">รับซื้อคอมพิวเตอร์</a></li>
+            <li><a href="/รับซื้อกล้อง" class="text-slate-300 transition hover:text-emerald-300">รับซื้อกล้อง</a></li>
+            <li><a href="/รับซื้ออุปกรณ์เกมมิ่ง" class="text-slate-300 transition hover:text-emerald-300">รับซื้ออุปกรณ์เกมมิ่ง</a></li>
+            <li><a href="/รับซื้อคอมบริษัท" class="text-slate-300 transition hover:text-emerald-300">รับซื้อคอมบริษัท</a></li>
+            <li>
+              <a href="/รับซื้อ" class="font-medium text-slate-300 transition hover:text-emerald-300">ดูทั้งหมด →</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="min-w-0 break-words sm:col-span-2 lg:col-span-3">
+        <p class="text-xs font-semibold uppercase tracking-wider text-white">พื้นที่ให้บริการ</p>
+        <ul class="mt-4 space-y-2 text-sm leading-7 text-slate-300">
+          <li>เน้นภาคอีสานและขยายพื้นที่ต่อเนื่อง</li>
+          <li><a href="/พื้นที่ให้บริการ" class="font-medium text-slate-300 transition hover:text-emerald-300">รายละเอียดตามจังหวัด →</a></li>
+        </ul>
+        <p class="mt-8 text-xs font-semibold uppercase tracking-wider text-white">ความน่าเชื่อถือ</p>
+        <ul class="mt-3 space-y-2 text-sm">
+          <li><a href="/รีวิวลูกค้า" class="text-slate-300 transition hover:text-emerald-300">รีวิวลูกค้า</a></li>
+          <li><a href="/ผลงานรับซื้อจริง" class="text-slate-300 transition hover:text-emerald-300">ผลงานรับซื้อจริง</a></li>
+          <li><a href="/คำถามที่พบบ่อย" class="text-slate-300 transition hover:text-emerald-300">คำถามที่พบบ่อย</a></li>
+        </ul>
+        <p class="mt-8 text-xs font-semibold uppercase tracking-wider text-white">ติดต่อ</p>
+        <ul class="mt-3 space-y-2 text-sm">
+          <li>
+            <a href={LINE_URL} target="_blank" rel="noopener noreferrer" class="text-slate-300 transition hover:text-emerald-300">
+              LINE {LINE_AT}
+            </a>
+          </li>
+          <li>
+            <a href={`tel:${PHONE_E164}`} class="text-slate-300 transition hover:text-emerald-300">
+              โทร {PHONE_DISPLAY}
+            </a>
+          </li>
+          <li>
+            <a href="/ติดต่อเรา" class="text-slate-300 transition hover:text-emerald-300">หน้าติดต่อ</a>
+          </li>
+        </ul>
+        <p class="mt-8 text-xs font-semibold uppercase tracking-wider text-white">ข้อมูลและนโยบาย</p>
+        <ul class="mt-3 space-y-2 text-sm">
+          <li><a href="/คู่มือเตรียมสินค้าก่อนขาย" class="text-slate-300 transition hover:text-emerald-300">คู่มือเตรียมสินค้าก่อนขาย</a></li>
+          <li><a href="/นโยบายความเป็นส่วนตัว" class="text-slate-300 transition hover:text-emerald-300">นโยบายความเป็นส่วนตัว</a></li>
+          <li><a href="/เงื่อนไขการใช้บริการ" class="text-slate-300 transition hover:text-emerald-300">เงื่อนไขการใช้บริการ</a></li>
+        </ul>
+        <p class="mt-4 text-xs leading-7 text-slate-400/95">
+          buyhubthai.com · ข้อมูลบริการอาจปรับตามนโยบาย โปรดสอบถามผ่าน LINE ก่อนนัดรับ
+        </p>
+      </div>
+    </div>
+
+    <div class="relative mt-14 flex flex-col gap-3 border-t border-white/15 pt-8 text-center text-xs leading-6 text-slate-300 sm:flex-row sm:items-center sm:justify-between sm:text-left">
+      <p class="text-slate-300">© {new Date().getFullYear()} {SITE_NAME} · buyhubthai.com — สงวนลิขสิทธิ์</p>
+      <p class="text-slate-400/95">ประเมินตามข้อมูลจริง · แจ้งราคาก่อนนัดตรวจ · โอนหลังตกลงราคา</p>
+    </div>
+  </div>
+</footer>

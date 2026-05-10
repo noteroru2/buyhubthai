@@ -1,0 +1,68 @@
+﻿---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import LineCtaButton from '../../components/LineCtaButton.astro';
+import PhoneCtaButton from '../../components/PhoneCtaButton.astro';
+import AreaLocalSections from '../../components/AreaLocalSections.astro';
+import { buildAreaFaqItems } from '../../data/areaServiceSignals';
+import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd } from '../../lib/schema';
+
+const entry = await getEntry('areas', 'udon-thani');
+if (!entry) return Astro.redirect('/พื้นที่ให้บริการ');
+const { Content } = await render(entry);
+const { data } = entry;
+
+const path = '/พื้นที่ให้บริการ/อุดรธานี';
+const title = 'รับซื้อสินค้าไอทีมือสอง อุดรธานี รับซื้อโน๊ตบุ๊ค มือถือ คอม';
+const description = data.description;
+const faqs = buildAreaFaqItems('udon-thani', data.province);
+
+const jsonLd = [
+  breadcrumbJsonLd([
+    { name: 'หน้าแรก', href: '/' },
+    { name: 'พื้นที่ให้บริการ', href: '/พื้นที่ให้บริการ' },
+    { name: 'อุดรธานี', href: path }
+    ]),
+  serviceJsonLd({
+    name: `รับซื้อสินค้าไอทีมือสอง ${data.province}`,
+    description,
+    url: path
+  }),
+  faqPageJsonLd(faqs)
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  jsonLd={jsonLd}
+  breadcrumbs={[
+    { name: 'หน้าแรก', href: '/' },
+    { name: 'พื้นที่ให้บริการ', href: '/พื้นที่ให้บริการ' },
+    { name: 'อุดรธานี', href: path }
+  ]}
+>
+  <article class="bg-white">
+    <div class="mx-auto max-w-3xl px-4 py-14 sm:px-6 sm:py-16">
+      <h1 class="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">รับซื้อสินค้าไอทีมือสอง อุดรธานี</h1>
+      <p class="mt-4 text-lg leading-8 text-slate-600">{description}</p>
+      <div class="mt-8 flex flex-col gap-4 border-y border-slate-100 py-8 sm:flex-row">
+        <LineCtaButton variant="primary" class="sm:flex-1" />
+        <PhoneCtaButton variant="light" class="sm:flex-1" />
+      </div>
+      <div class="markdown-content pt-4">
+        <Content />
+      </div>
+      <AreaLocalSections areaId="udon-thani" provinceName={data.province} />
+    </div>
+  </article>
+  <CtaBand
+    heading="รับซื้อในพื้นที่อุดรธานี — ส่งรูปก่อนนัดรับ"
+    sub="แจ้งรุ่น สภาพ และพื้นที่โดยประมาณใน LINE @buyhub เพื่อให้ทีมงานประเมินคิวและแนวราคาได้ตรงขึ้น"
+    lineLabel="ทัก LINE เพื่อเช็กราคาในอุดรฯ"
+  />
+</BaseLayout>
+
+
+

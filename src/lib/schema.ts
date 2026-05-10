@@ -1,0 +1,167 @@
+import type { BreadcrumbItem } from './types';
+import { LINE_URL, PHONE_DISPLAY, PHONE_E164, SITE_NAME, SITE_URL, SITE_TAGLINE } from './constants';
+
+export function absoluteUrl(path: string): string {
+  if (path.startsWith('http')) return path;
+  const p = path.startsWith('/') ? path : `/${path}`;
+  return `${SITE_URL}${p}`;
+}
+
+export function orgJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': `${SITE_URL}/#organization`,
+    name: SITE_NAME,
+    url: SITE_URL,
+    logo: `${SITE_URL}/favicon.svg`,
+    description: SITE_TAGLINE,
+    sameAs: [LINE_URL]
+  };
+}
+
+export function localBusinessJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    '@id': `${SITE_URL}/#localbusiness`,
+    name: `${SITE_NAME} — รับซื้อไอที`,
+    image: `${SITE_URL}/favicon.svg`,
+    url: SITE_URL,
+    telephone: PHONE_E164,
+    priceRange: '฿฿',
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: 'TH'
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: 'Thailand'
+    },
+    parentOrganization: { '@id': `${SITE_URL}/#organization` }
+  };
+}
+
+export function websiteJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${SITE_URL}/#website`,
+    url: SITE_URL,
+    name: SITE_NAME,
+    description: SITE_TAGLINE,
+    publisher: { '@id': `${SITE_URL}/#organization` },
+    inLanguage: 'th-TH'
+  };
+}
+
+export function breadcrumbJsonLd(items: BreadcrumbItem[] = []) {
+  const safeItems = Array.isArray(items)
+    ? items.filter((item) => item?.name && item?.href)
+    : [];
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: safeItems.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item.name,
+      item: absoluteUrl(item.href)
+    }))
+  };
+}
+
+export function webPageJsonLd(params: {
+  name: string;
+  description: string;
+  url: string;
+  dateModified: string;
+  about?: string[];
+  author?: string;
+}) {
+  const about = (params.about ?? [])
+    .filter(Boolean)
+    .map((item) => ({
+      '@type': 'Thing',
+      name: item
+    }));
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: params.name,
+    description: params.description,
+    url: absoluteUrl(params.url),
+    dateModified: params.dateModified,
+    inLanguage: 'th-TH',
+    isPartOf: { '@id': `${SITE_URL}/#website` },
+    author: {
+      '@type': 'Organization',
+      name: params.author ?? SITE_NAME
+    },
+    publisher: { '@id': `${SITE_URL}/#organization` },
+    ...(about.length ? { about } : {})
+  };
+}
+
+export function serviceJsonLd(params: { name: string; description: string; url: string }) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: params.name,
+    description: params.description,
+    url: absoluteUrl(params.url),
+    serviceType: params.name,
+    provider: { '@id': `${SITE_URL}/#localbusiness` },
+    areaServed: {
+      '@type': 'Country',
+      name: 'Thailand'
+    }
+  };
+}
+
+export function faqPageJsonLd(faqs: { question: string; answer: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: f.answer
+      }
+    }))
+  };
+}
+
+export function articleJsonLd(params: {
+  headline: string;
+  description: string;
+  url: string;
+  datePublished: string;
+  dateModified?: string;
+  author?: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: params.headline,
+    description: params.description,
+    url: absoluteUrl(params.url),
+    datePublished: params.datePublished,
+    dateModified: params.dateModified ?? params.datePublished,
+    author: {
+      '@type': 'Organization',
+      name: params.author ?? SITE_NAME
+    },
+    publisher: { '@id': `${SITE_URL}/#organization` },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': absoluteUrl(params.url) },
+    inLanguage: 'th-TH'
+  };
+}
+
+export function phoneDisplayForTel(): string {
+  return PHONE_DISPLAY.replace(/\s/g, '');
+}

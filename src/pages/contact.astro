@@ -1,0 +1,31 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbJsonLd } from '../lib/schema';
+
+const to = '/ติดต่อเรา';
+const title = 'กำลังพาไปหน้าติดต่อเรา (ภาษาไทย)';
+const description = 'BuyHub ใช้ URL ภาษาไทยเป็นหน้าหลักสำหรับ SEO และการใช้งาน';
+
+const jsonLd = [
+  breadcrumbJsonLd([
+    { name: 'หน้าแรก', href: '/' },
+    { name: 'ติดต่อเรา', href: to }
+  ])
+];
+---
+
+<BaseLayout title={title} description={description} jsonLd={jsonLd} breadcrumbs={[{ name: 'หน้าแรก', href: '/' }, { name: 'ติดต่อเรา', href: to }]}>
+  <section class="bg-white">
+    <div class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+      <meta http-equiv="refresh" content={`0; url=${to}`} />
+      <link rel="canonical" href={to} />
+      <h1 class="text-2xl font-bold tracking-tight text-slate-950">กำลังพาไปหน้าติดต่อเรา</h1>
+      <p class="mt-4 text-base leading-8 text-slate-600">
+        หากหน้าไม่เปลี่ยนอัตโนมัติ คลิกที่นี่:
+        <a class="font-semibold text-emerald-700 underline decoration-emerald-500/35 underline-offset-4 hover:text-emerald-800" href={to}>
+          {to}
+        </a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,228 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import FaqAccordion from '../../components/FaqAccordion.astro';
+import LineCtaButton from '../../components/LineCtaButton.astro';
+import PhoneCtaButton from '../../components/PhoneCtaButton.astro';
+import TableOfContents from '../../components/TableOfContents.astro';
+import {
+  articleCtaOverrides,
+  articleIntroOverrides,
+  articleQuickAnswerOverrides
+} from '../../data/articleQuickAnswers';
+import { articleJsonLd, breadcrumbJsonLd, faqPageJsonLd } from '../../lib/schema';
+
+export async function getStaticPaths() {
+  const all = await getCollection('blog', ({ data }) => !data.draft);
+  return all.map((entry) => ({
+    params: { slug: entry.id }
+  }));
+}
+
+const { slug } = Astro.params;
+const entry = await getEntry('blog', slug!);
+if (!entry) return Astro.redirect('/บทความ');
+
+const { Content, headings } = await render(entry);
+const { data } = entry;
+
+const title = data.title;
+const description = data.description;
+const path = `/บทความ/${entry.id}`;
+const firstFaq = data.faqs?.[0];
+const introOverride = articleIntroOverrides[entry.id];
+const quickAnswerOverride = articleQuickAnswerOverrides[entry.id];
+const ctaOverride = articleCtaOverrides[entry.id];
+const quickAnswerHeading =
+  quickAnswerOverride?.heading ??
+  (firstFaq?.question ? `คำตอบสั้น: ${stripQuickAnswerLabel(firstFaq.question)}` : 'คำตอบสั้นสำหรับหัวข้อนี้');
+const quickAnswerBody =
+  quickAnswerOverride?.body ??
+  firstFaq?.answer ??
+  `${data.description} หากต้องการใช้งานบทความนี้ให้คุ้มที่สุด แนะนำให้อ่านสารบัญด้านล่างแล้วไล่ตามหัวข้อที่ตรงกับเคสของคุณก่อน จากนั้นค่อยส่งรูปพร้อมรายละเอียดเครื่องมาประเมินต่อได้ทันที`;
+const quickAnswerBullets = quickAnswerOverride?.bullets ?? [];
+const tocItems = buildArticleTocItems(headings, Boolean(data.faqs?.length));
+
+const datePublished = data.pubDate.toISOString();
+const dateModified = (data.updatedDate ?? data.pubDate).toISOString();
+
+const jsonLd = [
+  breadcrumbJsonLd([
+    { name: 'หน้าแรก', href: '/' },
+    { name: 'บทความ', href: '/บทความ' },
+    { name: data.title, href: path }
+  ]),
+  articleJsonLd({
+    headline: data.title,
+    description,
+    url: path,
+    datePublished,
+    dateModified,
+    author: data.author
+  }),
+  ...(data.faqs?.length ? [faqPageJsonLd(data.faqs)] : [])
+];
+
+const fmt = new Intl.DateTimeFormat('th-TH', { dateStyle: 'long' });
+
+function stripQuickAnswerLabel(question: string) {
+  return question.replace(/\s*\(ตอบสั้น\s*ๆ\)\s*$/u, '').trim();
+}
+
+function buildArticleTocItems(
+  items: { depth: number; slug: string; text: string }[],
+  hasFaqs: boolean
+) {
+  const filtered = items.filter((item) => item.depth >= 2 && item.depth <= 3 && item.slug && item.text);
+  const generatedStartIndex = filtered.findIndex((item) => item.text.startsWith('คำตอบสั้นสำหรับหัวข้อ'));
+  const manualItems = (generatedStartIndex === -1 ? filtered : filtered.slice(0, generatedStartIndex)).filter(
+    (item) => item.depth === 2
+  );
+
+  const keyGeneratedPrefixes = [
+    'คำตอบสั้นสำหรับหัวข้อ',
+    'คนที่ค้นหาเรื่อง',
+    'เช็กลิสต์แบบย่อ',
+    'ปัจจัยที่ทำให้',
+    'ข้อความแรกที่ควรส่ง',
+    'จุดที่ทำให้ราคา',
+    'กรณีไหนที่',
+    'ถ้าคุณอยู่ต่างจังหวัด',
+    'ลิงก์อ่านต่อ',
+    'สรุปแบบนำไปใช้ได้เลย'
+  ];
+
+  const generatedItems =
+    generatedStartIndex === -1
+      ? []
+      : filtered
+          .slice(generatedStartIndex)
+          .filter(
+            (item) =>
+              item.depth === 2 &&
+              keyGeneratedPrefixes.some((prefix) => item.text.startsWith(prefix)) &&
+              !item.text.startsWith('ขยายคำตอบ:')
+          );
+
+  const curated = [...manualItems.slice(0, 6), ...generatedItems.slice(0, 6)];
+
+  if (hasFaqs) {
+    curated.push({ depth: 2, slug: 'post-faq', text: 'คำถามที่พบบ่อย' });
+  }
+
+  const seen = new Set<string>();
+  return curated.filter((item) => {
+    if (seen.has(item.slug)) return false;
+    seen.add(item.slug);
+    return true;
+  });
+}
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogType="article"
+  jsonLd={jsonLd}
+  breadcrumbs={[
+    { name: 'หน้าแรก', href: '/' },
+    { name: 'บทความ', href: '/บทความ' },
+    { name: data.title, href: path }
+  ]}
+>
+  <article class="bg-white">
+    <div class="mx-auto max-w-3xl px-4 py-14 sm:px-6 sm:py-16">
+      <p class="text-sm font-medium text-emerald-700">
+        <time datetime={datePublished}>{fmt.format(data.pubDate)}</time>
+      </p>
+      <h1 class="mt-3 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">{data.title}</h1>
+      <p class="mt-4 text-lg leading-8 text-slate-600">{data.description}</p>
+      {
+        data.tags?.length ? (
+          <ul class="mt-6 flex flex-wrap gap-2" aria-label="แท็ก">
+            {data.tags.map((t) => (
+              <li class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-900">{t}</li>
+            ))}
+          </ul>
+        ) : null
+      }
+      {
+        introOverride ? (
+          <section
+            class="mt-8 rounded-2xl border border-slate-200 bg-slate-50/90 p-5 sm:p-6"
+            aria-labelledby="article-intro"
+          >
+            <h2 id="article-intro" class="text-lg font-bold tracking-tight text-slate-950">
+              {introOverride.heading}
+            </h2>
+            <p class="mt-3 text-sm leading-7 text-slate-700">{introOverride.body}</p>
+            {
+              introOverride.bullets?.length ? (
+                <ul class="mt-4 space-y-2 text-sm leading-7 text-slate-700">
+                  {introOverride.bullets.map((item) => (
+                    <li class="flex items-start gap-2">
+                      <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-500" aria-hidden="true"></span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : null
+            }
+          </section>
+        ) : null
+      }
+      <div class="mt-8 flex flex-col gap-4 border-y border-slate-100 py-8 sm:flex-row">
+        <LineCtaButton variant="primary" class="sm:flex-1" />
+        <PhoneCtaButton variant="light" class="sm:flex-1" />
+      </div>
+      <section class="mt-8 rounded-2xl border border-emerald-100 bg-emerald-50/70 p-5 sm:p-6" aria-labelledby="quick-answer">
+        <h2 id="quick-answer" class="text-lg font-bold tracking-tight text-slate-950">{quickAnswerHeading}</h2>
+        <p class="mt-3 text-sm leading-7 text-slate-700">{quickAnswerBody}</p>
+        {
+          quickAnswerBullets.length ? (
+            <ul class="mt-4 space-y-2 text-sm leading-7 text-slate-700">
+              {quickAnswerBullets.map((item) => (
+                <li class="flex items-start gap-2">
+                  <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-600" aria-hidden="true"></span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          ) : null
+        }
+      </section>
+      <div class="mt-8">
+        <TableOfContents items={tocItems} heading="สารบัญอ่านไว" />
+      </div>
+      <div class="markdown-content pt-4">
+        <Content />
+      </div>
+
+      {data.faqs?.length ? (
+        <section class="mt-12" aria-labelledby="post-faq">
+          <h2 id="post-faq" class="text-2xl font-bold tracking-tight text-slate-950">คำถามที่พบบ่อย</h2>
+          <div class="mt-6">
+            <FaqAccordion items={data.faqs} />
+          </div>
+          <div class="sr-only">
+            {data.faqs.map((item) => (
+              <div>
+                <h3>{item.question}</h3>
+                <p>{item.answer}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+    </div>
+  </article>
+  <CtaBand
+    heading={ctaOverride?.heading ?? 'อ่านจบแล้วเช็กราคาเครื่องคุณได้เลย'}
+    sub={
+      ctaOverride?.sub ??
+      'แอด LINE @buyhub ส่งรูปและรุ่นตามที่บทความแนะนำ ประเมินเบื้องต้นฟรีก่อนตัดสินใจขาย'
+    }
+    lineLabel={ctaOverride?.lineLabel ?? 'ส่งรูปเช็กราคาหลังอ่านบทความ'}
+  />
+</BaseLayout>

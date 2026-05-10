@@ -1,0 +1,1074 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LineCtaButton from '../components/LineCtaButton.astro';
+import PhoneCtaButton from '../components/PhoneCtaButton.astro';
+import CtaBand from '../components/CtaBand.astro';
+import EditorialTrustPanel from '../components/EditorialTrustPanel.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import LongformSections from '../components/LongformSections.astro';
+import ServiceCategoryIcon from '../components/ServiceCategoryIcon.astro';
+import { homeFaqs } from '../data/faqs';
+import { EDITORIAL_REVIEWED_AT, EDITORIAL_REVIEWER, LINE_AT, LINE_URL, PHONE_DISPLAY, PHONE_E164 } from '../lib/constants';
+import { breadcrumbJsonLd, faqPageJsonLd, webPageJsonLd } from '../lib/schema';
+
+const title = 'BuyHub — ศูนย์รับซื้อสินค้าไอทีมือสองในภาคอีสาน ประเมินไว โอนเงินทันที';
+const description =
+  'BuyHub รับซื้อสินค้าไอทีมือสองในภาคอีสาน รับซื้อโน๊ตบุ๊ค คอมพิวเตอร์ MacBook iPhone iPad กล้อง และอุปกรณ์เกมมิ่ง ส่งรูปผ่าน LINE @buyhub เพื่อประเมินราคาฟรีก่อนตัดสินใจขาย';
+
+const services = [
+  { href: '/รับซื้อโน๊ตบุ๊คมือสอง', name: 'รับซื้อโน๊ตบุ๊ค', blurb: 'โน๊ตบุ๊คทำงานและโน๊ตบุ๊คเกมมิ่ง แจ้งสเปกและรูปให้ครบจะประเมินได้แม่นขึ้น', icon: 'notebook', freeEval: true },
+  { href: '/รับซื้อคอมพิวเตอร์มือสอง', name: 'รับซื้อคอมพิวเตอร์', blurb: 'คอมตั้งโต๊ะ คอมสำนักงาน และคอมเกมมิ่ง ทั้งเครื่องแบรนด์และเครื่องประกอบ', icon: 'desktop', freeEval: true },
+  { href: '/รับซื้อ-macbook', name: 'รับซื้อ MacBook', blurb: 'MacBook Air / Pro ชิป M และ Intel ประเมินตามแบตและสภาพจริง', icon: 'macbook', freeEval: true },
+  { href: '/รับซื้อ-iphone', name: 'รับซื้อ iPhone', blurb: 'ทุกรุ่นและความจุ ดูสุขภาพแบต สภาพหน้าจอ และการใช้งานจริง', icon: 'iphone', freeEval: true },
+  { href: '/รับซื้อ-ipad', name: 'รับซื้อ iPad', blurb: 'iPad Pro · Air · Gen · mini รับทั้ง Wi‑Fi/Cellular และอุปกรณ์เสริม', icon: 'ipad', freeEval: true },
+  { href: '/รับซื้อกล้อง', name: 'รับซื้อกล้อง', blurb: 'กล้อง Fujifilm · Sony · Canon · Nikon พร้อมเลนส์/อุปกรณ์', icon: 'camera', freeEval: true },
+  { href: '/รับซื้ออุปกรณ์เกมมิ่ง', name: 'รับซื้ออุปกรณ์เกมมิ่ง', blurb: 'จอเกมมิ่ง คีย์บอร์ด เมาส์ หูฟัง คอนโซล และอุปกรณ์ที่ขายต่อได้จริง', icon: 'gadget', freeEval: true },
+  { href: '/รับซื้อคอมบริษัท', name: 'รับซื้อคอมบริษัท', blurb: 'รองรับคอมบริษัท/สำนักงาน อุปกรณ์หลายรายการ ส่งรายการให้ประเมินเป็นก้อนได้', icon: 'desktop', freeEval: true },
+  { href: '/รับซื้อจอคอม', name: 'รับซื้อจอคอม', blurb: 'จอคอม จอเกมมิ่ง จอสำนักงาน ประเมินตามรุ่น/พาแนล/สภาพ', icon: 'gadget', freeEval: true },
+  { href: '/รับซื้อการ์ดจอ', name: 'รับซื้อการ์ดจอ', blurb: 'การ์ดจอเกมมิ่งและงานกราฟิก ประเมินตามรุ่น/ประกัน/สภาพ', icon: 'gadget', freeEval: true },
+  { href: '/รับซื้อ-apple-watch', name: 'รับซื้อ Apple Watch', blurb: 'Series ต่าง ๆ ประเมินตามขนาด/สภาพ/แบต และอุปกรณ์', icon: 'gadget', freeEval: true },
+  { href: '/รับซื้ออุปกรณ์เสริม-it', name: 'รับซื้ออุปกรณ์เสริม IT', blurb: 'สาย/อะแดปเตอร์/ฮับ/เกียร์ไอทีที่ยังมีมูลค่าในตลาด', icon: 'gadget', freeEval: true }
+] as const;
+
+const trustMetrics = [
+  { kicker: 'ฟรี', title: 'ประเมินเบื้องต้น', sub: 'ส่งรูปผ่าน LINE @buyhub ไม่มีค่าประเมิน' },
+  { kicker: 'ไว', title: 'ตอบกลับตามคิว', sub: 'แจ้งแนวราคาก่อนนัดตรวจสินค้า' },
+  { kicker: 'ปลอดภัย', title: 'โอนเงินหลังตกลง', sub: 'คอนเฟิร์มราคาก่อนโอน ไม่กดดัน' },
+  { kicker: 'ชัดเจน', title: 'ราคาตามสภาพจริง', sub: 'อธิบายเหตุผลของราคาแบบตรงไปตรงมา' }
+] as const;
+
+/** จังหวัดหลักก่อน (มือถือ / Local SEO) แล้วตามด้วยพื้นที่ใกล้เคียง */
+const provinces = [
+  { label: 'อุบลราชธานี', slug: 'ubon-ratchathani' },
+  { label: 'ขอนแก่น', slug: 'khon-kaen' },
+  { label: 'นครราชสีมา', slug: 'nakhon-ratchasima' },
+  { label: 'อุดรธานี', slug: 'udon-thani' },
+  { label: 'ยโสธร', slug: 'yasothon' },
+  { label: 'ศรีสะเกษ', slug: 'sisaket' },
+  { label: 'อำนาจเจริญ', slug: 'amnat-charoen' },
+  { label: 'ร้อยเอ็ด', slug: 'roi-et' },
+  { label: 'สุรินทร์', slug: 'surin' },
+  { label: 'บุรีรัมย์', slug: 'buriram' }
+] as const;
+
+const checklist = [
+  'รูปสินค้าทุกมุมที่ชัด — ด้านหน้า หลัง ข้อบกพร่อง',
+  'รุ่น / สเปก / ความจุ (ถ้าเป็นคอมหรือโน๊ตบุ๊ค)',
+  'สภาพและตำหนิจริง ไม่ปิดบัง',
+  'อุปกรณ์ครบหรือไม่ (สาย กล่อง หัวชาร์จ)',
+  'จังหวัดหรือพื้นที่โดยประมาณ',
+  'ราคาที่คาดหวัง ถ้ามี (เพื่อดูความใกล้เคียงตลาด)'
+] as const;
+
+const buyTypes = [
+  { t: 'รับซื้อจากบุคคลทั่วไป', d: 'ขายชิ้นเดียวหรือหลายชิ้นหลังอัปเกรดเครื่อง ส่งรูปประเมินฟรีก่อนตัดสินใจ' },
+  { t: 'รับซื้อจากร้านค้า', d: 'ช่วยระบายสต็อก/สินค้าค้างแผงที่ยังมีมูลค่าในตลาด ประสานงานเป็นรอบได้' },
+  { t: 'รับซื้อจากบริษัท / สำนักงาน', d: 'รองรับคอมบริษัท โน๊ตบุ๊ค และอุปกรณ์ไอทีจากการเปลี่ยนเครื่อง/ย้ายออฟฟิศ' },
+  { t: 'รับซื้อสินค้า IT จำนวนมาก / เหมารวม', d: 'เหมาะกับงานหลายรายการ — แจ้งรายการ/จำนวน/รูปคร่าว ๆ เพื่อประเมินเป็นก้อน' }
+] as const;
+
+const pricingFactors = [
+  'รุ่นสินค้าและปีที่ออก',
+  'สเปก/ความจุ/ชิปและอัปเกรดที่มี',
+  'สภาพภายนอก (รอย บุบ แตก สีลอก)',
+  'แบตเตอรี่และสุขภาพแบต (โดยเฉพาะ iPhone / MacBook)',
+  'ประกันคงเหลือหรือประวัติการซ่อม',
+  'อุปกรณ์ครบกล่องไหม (กล่อง สาย หัวชาร์จ)',
+  'ราคาตลาดมือสองในช่วงนั้น',
+  'ความต้องการของรุ่นนั้นในตลาด'
+] as const;
+
+/**
+ * ตัวอย่างเคสจริง — รูป WebP ที่ public/images/buyback/ (ส่งออก 800×600 cover)
+ * รูปต้นฉบับเพิ่มเติมที่ยังไม่ได้ใส่ใน grid: PS5 Slim (square), iPhone สีส้มบนกล่อง, iPhone คู่กล่องแนวตั้ง
+ */
+const trustExamples = [
+  {
+    label: 'iPhone / สมาร์ทโฟน',
+    caption: 'รับทุกรุ่นตามสภาพและอายุเครื่อง',
+    href: '/sell/iphone',
+    image: '/images/buyback/buyhub-iphone-pro-trade-in-home.webp',
+    imageAlt:
+      'รับซื้อ iPhone มือสอง iPhone Pro สภาพดี พร้อมกล่อง — ประเมินราคาฟรี ภาคอีสาน BuyHub',
+    imageWidth: 800,
+    imageHeight: 600
+  },
+  {
+    label: 'iPad / แท็บเล็ต',
+    caption: 'Air · mini · Pro ครบทุกสาย',
+    href: '/sell/ipad',
+    image: '/images/buyback/buyhub-ipad-mini-starlight-box.webp',
+    imageAlt: 'รับซื้อ iPad mini มือสอง สี Starlight พร้อมกล่องต้นฉบับ — BuyHub รับซื้อแท็บเล็ตมือสอง',
+    imageWidth: 800,
+    imageHeight: 600
+  },
+  {
+    label: 'MacBook',
+    caption: 'Air / Pro ชิป M และ Intel',
+    href: '/sell/macbook',
+    image: '/images/buyback/buyhub-macbook-silver-thai-keyboard.webp',
+    imageAlt:
+      'รับซื้อ MacBook มือสอง คีย์บอร์ดไทย-อังกฤษ สีเงิน — BuyHub รับซื้อโน๊ตบุ๊ค Apple มือสอง',
+    imageWidth: 800,
+    imageHeight: 600
+  },
+  {
+    label: 'โน๊ตบุ๊ค Windows',
+    caption: 'สายเกมมิ่งและสายทำงาน',
+    href: '/sell/notebook',
+    image: '/images/buyback/buyhub-notebook-asus-vivobook-ryzen.webp',
+    imageAlt:
+      'รับซื้อโน๊ตบุ๊คมือสอง ASUS VivoBook AMD Ryzen พร้อมอุปกรณ์ — BuyHub รับซื้อโน๊ตบุ๊คเกมมิ่งและสำนักงาน',
+    imageWidth: 800,
+    imageHeight: 600
+  },
+  {
+    label: 'คอมพิวเตอร์ตั้งโต๊ะ',
+    caption: 'เครื่องเกมมิ่งและเครื่องประกอบ',
+    href: '/sell/desktop-pc',
+    image: '/images/buyback/buyhub-desktop-gaming-pc-white-rgb.webp',
+    imageAlt:
+      'รับซื้อคอมพิวเตอร์ตั้งโต๊ะมือสอง เคสเกมมี่กระจก การ์ดจอ Gigabyte ไฟ RGB — BuyHub รับซื้อ PC มือสอง',
+    imageWidth: 800,
+    imageHeight: 600
+  },
+  {
+    label: 'กล้อง & เลนส์',
+    caption: 'มิเรอร์เลสและชุดพร้อมถ่าย',
+    href: '/sell/camera',
+    image: '/images/buyback/buyhub-sony-a6000-mirrorless-kit.webp',
+    imageAlt:
+      'รับซื้อกล้องมือสอง Sony a6000 พร้อมเลนส์ กล่อง อุปกรณ์ครบ — BuyHub รับซื้อกล้องมิเรอร์เลส',
+    imageWidth: 800,
+    imageHeight: 600
+  },
+  {
+    label: 'PlayStation / คอนโซล',
+    caption: 'PS5 ชุดครบกล่องและอุปกรณ์',
+    href: '/sell/it-accessories',
+    image: '/images/buyback/buyhub-ps5-digital-edition-set.webp',
+    imageAlt:
+      'รับซื้อ PlayStation 5 Digital Edition มือสอง พร้อมกล่อง คอนโทรลเลอร์ สาย — BuyHub รับซื้อเครื่องเล่นเกม',
+    imageWidth: 800,
+    imageHeight: 600
+  },
+  {
+    label: 'ลำโพง · แก็ดเจ็ต',
+    caption: 'ลำโพงพกพาและอุปกรณ์เสียง',
+    href: '/sell/it-accessories',
+    image: '/images/buyback/buyhub-jbl-boombox-2-box.webp',
+    imageAlt:
+      'รับซื้อลำโพงมือสอง JBL Boombox 2 กล่องศูนย์ไทย — BuyHub รับซื้ออุปกรณ์เสียงและแก็ดเจ็ตไอที',
+    imageWidth: 800,
+    imageHeight: 600
+  }
+] as const;
+
+/** แถบความน่าเชื่อถือ (ใต้ Hero) */
+const trustBarItems = [
+  {
+    title: 'ประเมินราคาฟรี',
+    sub: 'ส่งรูปสินค้า รุ่น และสภาพเครื่องให้ทีมงานประเมินราคาเบื้องต้นได้ฟรี'
+  },
+  {
+    title: 'ส่งรูปเช็กราคาก่อนได้',
+    sub: 'เริ่มต้นได้ทันทีผ่าน LINE @buyhub เพื่อรับแนวราคาก่อนตัดสินใจ'
+  },
+  {
+    title: 'รับซื้อหลายหมวด IT',
+    sub: 'รับซื้อโน๊ตบุ๊ค มือถือ แท็บเล็ต กล้อง จอคอม การ์ดจอ และอุปกรณ์ IT'
+  },
+  {
+    title: 'ให้บริการทั่วภาคอีสาน',
+    sub: 'ครอบคลุมจังหวัดหลักในภาคอีสาน และพื้นที่ใกล้เคียง'
+  }
+] as const;
+
+/** Placeholder รีวิว / หลักฐานเคส — ใส่รูปใน public/images/reviews/ เมื่อพร้อม */
+const customerProofCards = [
+  {
+    title: 'แชทสอบถามราคา (ตัวอย่าง)',
+    blurb: 'ตัวอย่างการสนทนาประเมินเบื้องต้นผ่าน LINE — ลูกค้าตัดสินใจก่อนนัดเสมอ',
+    image: '/images/reviews/chat-price-example-fuji-xt20.png',
+    imageAlt: 'ภาพตัวอย่างแชท LINE สอบถามประเมินราคากล้อง Fujifilm XT20 กับ BuyHub (ปิดข้อมูลส่วนตัว)',
+    productType: 'โน๊ตบุ๊ค / มือถือ',
+    province: 'ภาคอีสาน'
+  },
+  {
+    title: 'สินค้าที่รับซื้อ (ตัวอย่าง)',
+    blurb: 'ภาพสินค้าจริงจากเคสรับซื้อ — แจ้งรุ่นและสภาพตรงก่อนตรวจหน้างาน',
+    image: '/images/reviews/buyback-product-example-camera.png',
+    imageAlt: 'ภาพตัวอย่างสินค้าที่รับซื้อจริง: กล้อง Panasonic Lumix GF8 พร้อมอุปกรณ์ (BuyHub รับซื้อสินค้าไอทีมือสอง)',
+    productType: 'กล้อง',
+    province: 'อุบลราชธานี'
+  },
+  {
+    title: 'หลักฐานการโอน (ตัวอย่าง)',
+    blurb: 'สลิปโอนเงินจะแสดงเมื่อมีความยินยอม — ข้อมูลส่วนบุคคลจะถูกปิดหรือเบลอ',
+    image: '/images/reviews/transfer-proof-example-redacted.png',
+    imageAlt: 'ภาพตัวอย่างหลักฐานการโอนเงินหลังขายสินค้า (ปิดข้อมูลส่วนตัว) กับ BuyHub',
+    productType: 'รับซื้อสินค้าไอทีมือสอง',
+    province: 'ขอนแก่น'
+  },
+  {
+    title: 'รีวิวจากลูกค้า (ตัวอย่าง)',
+    blurb: 'เพิ่มข้อความสั้น ๆ จากลูกค้าจริงเมื่อได้รับอนุญาตเผยแพร่',
+    image: '/images/reviews/review-example-google-1.png',
+    imageAlt: 'ภาพตัวอย่างรีวิวลูกค้า (Google Review) เกี่ยวกับบริการรับซื้อสินค้าไอทีมือสองของ BuyHub',
+    productType: 'โน๊ตบุ๊ค / คอมพิวเตอร์',
+    province: 'นครราชสีมา'
+  },
+  {
+    title: 'นัดรับสินค้า (ตัวอย่าง)',
+    blurb: 'ภาพบรรยากาศการนัดรับหรือตรวจสินค้า — ใส่เมื่อเหมาะสมและได้รับอนุญาต',
+    image: '/images/reviews/pickup-meet-example-laptop.png',
+    imageAlt: 'ภาพตัวอย่างการนัดรับสินค้า: รับซื้อโน๊ตบุ๊คมือสองกับลูกค้า (ปิดข้อมูลส่วนตัว) BuyHub',
+    productType: 'ตรวจสภาพก่อนตกลงราคา',
+    province: 'อุดรธานี'
+  },
+  {
+    title: 'เคสองค์กร / หลายชิ้น (ตัวอย่าง)',
+    blurb: 'รองรับการขายหลายรายการหรือสินค้าจากร้านและองค์กร',
+    image: '/images/reviews/corporate-case-multiple-laptops.png',
+    imageAlt: 'ภาพตัวอย่างเคสองค์กร: โน๊ตบุ๊คหลายเครื่องสำหรับงานรับซื้อหลายรายการ (BuyHub)',
+    productType: 'คอมบริษัท / อุปกรณ์หลายรายการ',
+    province: 'ภาคอีสาน'
+  }
+] as const;
+
+const homeEditorialSignals = {
+  scope:
+    'หน้านี้สรุปภาพรวมบริการรับซื้อสินค้า IT มือสองของ BuyHub ครอบคลุมหมวดสินค้า ขั้นตอนเริ่มต้น พื้นที่ให้บริการ และหน้าหลักฐานประกอบการตัดสินใจ',
+  about: ['รับซื้อสินค้า IT มือสอง', 'ประเมินราคาผ่าน LINE', 'พื้นที่ให้บริการภาคอีสาน'],
+  notes: [
+    'ใช้หน้านี้เป็นจุดเริ่มต้นก่อนเลือกไปยังหน้าหมวดสินค้า หน้าจังหวัด หรือคู่มือที่ตรงกับสินค้าของคุณ',
+    'ข้อมูลเรื่องราคาและขั้นตอนเป็นภาพรวม ส่วนราคาจริงยังอิงจากรุ่น สเปก สภาพ และอุปกรณ์ที่ส่งมาประเมิน',
+    'หากอยู่ต่างจังหวัดในภาคอีสาน ควรแจ้งจังหวัดและอำเภอโดยประมาณตั้งแต่ข้อความแรกเพื่อให้ทีมงานแนะนำคิวและวิธีเริ่มต้นได้ตรงขึ้น'
+  ],
+  links: [
+    { href: '/ขั้นตอนการขาย', label: 'ดูขั้นตอนการขายทั้งหมด' },
+    { href: '/พื้นที่ให้บริการ', label: 'ดูพื้นที่ให้บริการภาคอีสาน' },
+    { href: '/ผลงานรับซื้อจริง', label: 'ดูผลงานรับซื้อจริง' }
+  ]
+} as const;
+
+const jsonLd = [
+  webPageJsonLd({
+    name: title,
+    description,
+    url: '/',
+    dateModified: EDITORIAL_REVIEWED_AT,
+    about: [...homeEditorialSignals.about],
+    author: EDITORIAL_REVIEWER
+  }),
+  breadcrumbJsonLd([{ name: 'หน้าแรก', href: '/' }]),
+  faqPageJsonLd([...homeFaqs])
+];
+
+const homeLongSections = [
+  {
+    heading: 'ก่อนขายสินค้า IT มือสองกับ BuyHub ควรคิดอะไรบ้าง',
+    paragraphs: [
+      'คนที่กำลังจะขายสินค้า IT มือสองมักมีคำถามคล้ายกันเสมอ เช่น ควรเช็กราคาอย่างไร ส่งข้อมูลอะไรถึงจะได้แนวราคาที่ใกล้เคียง ต้องล้างข้อมูลก่อนหรือไม่ และถ้าอยู่ต่างจังหวัดในภาคอีสานยังขายได้ไหม หน้าแรกของ BuyHub จึงไม่ควรทำหน้าที่เป็นเพียงจุดรวมลิงก์ไปยังหมวดต่าง ๆ แต่ต้องช่วยให้คนอ่านเห็นภาพรวมของกระบวนการตั้งแต่ต้นว่า การขายให้จบไวเริ่มจากการส่งข้อมูลที่ถูกต้อง ไม่ใช่เริ่มจากการต่อราคาแบบไม่มีข้อมูลอ้างอิง',
+      'อีกประเด็นสำคัญคือความคาดหวังเรื่องราคา หลายคนเปรียบเทียบกับประกาศขายปลายทาง แต่การรับซื้อจริงจะดูทั้งรุ่น สเปก สภาพ แบต ตำหนิ อุปกรณ์ในชุด และความง่ายในการนำไปใช้งานต่อ ถ้าหน้าแรกอธิบายความจริงข้อนี้ได้ชัด คนอ่านจะเข้าใจตั้งแต่ต้นว่า BuyHub ประเมินจากสภาพจริง ไม่ได้กดราคาแบบเดาสุ่ม และนี่คือพื้นฐานสำคัญของคอนเทนต์ที่ดีทั้งสำหรับ SEO, AEO และประสบการณ์ใช้งานจริง'
+    ],
+    list: buyTypes.map((item) => `${item.t}: ${item.d}`)
+  },
+  {
+    heading: 'วิธีใช้หน้าแรกนี้ให้คุ้มที่สุด ถ้าคุณยังไม่แน่ใจว่าควรไปหมวดไหน',
+    paragraphs: [
+      'ถ้าคุณยังไม่แน่ใจว่าสินค้าของตัวเองควรเริ่มจากหน้าไหน ให้คิดจาก “สิ่งที่คุณถืออยู่ในมือ” มากกว่าคีย์เวิร์ดที่กำลังค้นหา เช่น ถ้าเป็น iPhone, iPad หรือ MacBook ให้เริ่มที่หมวด Apple ถ้าเป็นโน๊ตบุ๊คหรือคอมเกมมิ่งให้ดูหมวดคอมและโน๊ตบุ๊คก่อน ส่วนถ้าเป็นงานหลายชิ้นจากบริษัทหรือสำนักงาน ให้ข้ามไปดูหมวดคอมบริษัทหรืออุปกรณ์สำนักงาน IT เพราะหน้าเหล่านี้มีบริบทและคำแนะนำต่างกันจริง',
+      'หน้าแรกที่ดีต้องช่วยลดการคลิกแบบหลงทาง จึงควรตอบให้ได้ว่าผู้ใช้ควรไปต่อที่หน้าใดเมื่อมีเจตนาค้นหาต่างกัน คนที่อยากขายไวควรไปหมวดรับซื้อ คนที่ยังกังวลเรื่องข้อมูลควรอ่านคู่มือเตรียมสินค้าก่อนขาย คนที่อยากเข้าใจขั้นตอนควรดูหน้าขั้นตอนการขาย และคนที่อยากเช็กความน่าเชื่อถือควรดูรีวิวลูกค้าหรือผลงานรับซื้อจริง การมีเส้นทางชัดแบบนี้ช่วยทั้งคนอ่านและช่วยให้เสิร์ชเอนจินเข้าใจโครงสร้างข้อมูลของเว็บได้ดีขึ้น'
+    ],
+    links: [
+      { href: '/รับซื้อ', label: 'ดูหมวดรับซื้อทั้งหมด' },
+      { href: '/คู่มือเตรียมสินค้าก่อนขาย', label: 'คู่มือเตรียมสินค้าก่อนขาย' },
+      { href: '/ขั้นตอนการขาย', label: 'ขั้นตอนการขายกับ BuyHub' },
+      { href: '/รีวิวลูกค้า', label: 'รีวิวลูกค้าและความน่าเชื่อถือ' },
+      { href: '/ผลงานรับซื้อจริง', label: 'ตัวอย่างผลงานรับซื้อจริง' },
+      { href: '/คำถามที่พบบ่อย', label: 'คำถามที่พบบ่อยก่อนขาย' }
+    ]
+  },
+  {
+    heading: 'ขายสินค้าในภาคอีสานให้ประเมินไว ควรแจ้งพื้นที่อย่างไร',
+    paragraphs: [
+      'สำหรับเว็บที่เน้น Local SEO และ GEO อย่าง BuyHub การระบุพื้นที่ไม่ใช่รายละเอียดเล็กน้อย แต่เป็นข้อมูลที่ช่วยให้การประเมินและการนัดงานเป็นจริงขึ้นทันที คนที่อยู่ในตัวเมืองและคนที่อยู่ต่างอำเภอมักมีข้อจำกัดเรื่องเวลา จุดนัด และวิธีส่งมอบไม่เหมือนกัน ถ้าคุณแจ้งจังหวัด อำเภอ และช่วงเวลาที่สะดวกตั้งแต่แรก ทีมงานจะช่วยแนะนำแนวทางที่เหมาะกับพื้นที่ได้ตรงกว่าเดิม',
+      'มุมของคอนเทนต์ก็เช่นกัน หน้าแรกที่อธิบายบริบทพื้นที่อย่างชัดเจนจะทำให้คนในภาคอีสานรู้สึกว่าเว็บนี้ไม่ได้เป็นเพียงหน้ากลางที่เปลี่ยนชื่อจังหวัด แต่เป็นบริการที่เข้าใจการใช้งานจริงในพื้นที่ เมื่อผู้อ่านเห็นทั้งรายชื่อจังหวัดหลัก หมวดสินค้าที่รองรับ และวิธีเริ่มต้นอย่างง่าย ก็มีแนวโน้มจะส่งข้อมูลเข้ามาประเมินมากกว่าหน้าที่บอกแค่ “รับซื้อทั่วไทย” แบบกว้างเกินไป'
+    ],
+    list: provinces.map((province) => `พื้นที่หลักที่คนค้นหาบ่อย: ${province.label}`),
+    note:
+      'ถ้าอยู่ในพื้นที่ใกล้เคียงแต่ไม่เห็นชื่อจังหวัดในส่วนบนของหน้า สามารถเริ่มจากหน้าพื้นที่ให้บริการแล้วค่อยทัก LINE เพื่อยืนยันคิวและจุดนัดที่เหมาะสมได้'
+  },
+  {
+    heading: 'สรุปแนวทางเริ่มต้นแบบ 3 นาทีสำหรับคนที่อยากเช็กราคาก่อนขาย',
+    paragraphs: [
+      'ถ้าคุณมีเวลาไม่มาก วิธีเริ่มที่ดีที่สุดคือรวบรวมข้อมูลให้ครบในรอบเดียวแล้วค่อยส่งมาประเมิน ขั้นแรกถ่ายรูปหลายมุมให้เห็นสภาพจริง ขั้นต่อมาระบุรุ่นหรือสเปกให้ชัด ถ้ามีอาการผิดปกติให้แจ้งตามจริง และสุดท้ายบอกจังหวัดหรือพื้นที่โดยประมาณ เมื่อทำครบสี่ขั้นตอนนี้แล้ว การประเมินจะรวดเร็วและใกล้เคียงกว่าการคุยแบบค่อย ๆ เติมข้อมูลไปเรื่อย ๆ',
+      'คอนเทนต์บนหน้าแรกควรช่วยให้ผู้อ่านไปถึงจุดนี้ได้ภายในไม่กี่นาที เพราะเป้าหมายของ BuyHub ไม่ใช่แค่ดึงทราฟฟิก แต่คือทำให้คนขายรู้ว่าตัวเองควรทำอะไรต่อ หากอ่านจบแล้วรู้ว่าจะไปหมวดไหน จะส่งข้อมูลอะไร และควรอ่านบทความอะไรเพิ่มในกรณีที่ยังมีข้อกังวล ก็ถือว่าหน้านี้ทำหน้าที่ได้ครบทั้งเชิงธุรกิจและเชิง SEO แล้ว'
+    ],
+    orderedList: checklist
+  }
+];
+---
+
+<BaseLayout title={title} description={description} jsonLd={jsonLd} breadcrumbs={[{ name: 'หน้าแรก', href: '/' }]}>
+  <section
+    class="relative isolate overflow-x-hidden bg-[#07111F] text-white"
+    aria-labelledby="hero-heading"
+    style="background-image: radial-gradient(circle at top left, rgba(16,185,129,0.18), transparent 32%), radial-gradient(circle at top right, rgba(245,184,75,0.10), transparent 28%), linear-gradient(135deg, #07111F 0%, #0B1728 55%, #07111F 100%);"
+  >
+    <div
+      class="relative mx-auto grid min-h-0 min-w-0 max-w-7xl grid-cols-1 items-center gap-8 px-4 py-16 sm:px-6 sm:py-20 lg:min-h-[72vh] lg:grid-cols-[minmax(0,1fr)_minmax(0,38.75rem)] lg:items-center lg:gap-10 lg:px-8 lg:py-24 xl:gap-12 xl:py-28"
+    >
+      <div class="min-w-0 lg:pr-2">
+        <p class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-emerald-300/95 backdrop-blur-sm sm:text-xs">
+          <span class="h-1.5 w-1.5 rounded-full bg-amber-400" aria-hidden="true" />
+          buyhubthai.com · IT Buyback
+        </p>
+        <h1
+          id="hero-heading"
+          class="mt-11 text-[1.9rem] font-bold leading-tight tracking-tight text-white antialiased sm:mt-12 sm:text-[2.35rem] lg:mt-[3.25rem] lg:text-5xl xl:text-[3.35rem]"
+        >
+          BuyHub ศูนย์รับซื้อสินค้าไอที<span class="text-emerald-300">มือสอง</span>ทั่วภาคอีสาน
+        </h1>
+        <p class="mt-11 max-w-[40rem] text-base leading-8 text-slate-300">
+          รับซื้อโน๊ตบุ๊ค คอมพิวเตอร์ MacBook iPhone iPad กล้อง อุปกรณ์เกมมิ่ง และสินค้า IT ทุกประเภท ส่งรูปผ่าน LINE <span class="font-semibold text-emerald-200">@buyhub</span> เพื่อประเมินราคาฟรีก่อนตัดสินใจขาย
+        </p>
+        <div class="mt-14 flex min-w-0 max-w-full flex-col gap-3 sm:flex-row sm:items-stretch sm:gap-4">
+          <LineCtaButton
+            variant="primary"
+            label="ส่งรูปประเมินราคาฟรีผ่าน LINE"
+            class="w-full min-w-0 text-base ring-2 ring-emerald-400/40 sm:flex-1 sm:py-4 lg:text-lg"
+          />
+          <PhoneCtaButton variant="onDark" class="w-full min-w-0 min-h-[3.25rem] justify-center sm:flex-1 sm:py-4" />
+        </div>
+        <p class="mt-10 max-w-xl text-sm leading-7 text-slate-300 sm:leading-8">
+          ประเมินราคาฟรี • แจ้งราคาก่อนขาย • รับซื้อหลายหมวดสินค้า • ให้บริการภาคอีสาน
+        </p>
+        <ul
+          class="mt-12 flex flex-wrap gap-2.5 sm:gap-3"
+          aria-label="จุดเด่นบริการ"
+        >
+          <li class="inline-flex items-center gap-1.5 rounded-full border border-amber-400/20 bg-amber-400/10 px-3.5 py-2 text-xs font-semibold text-amber-200 backdrop-blur-sm sm:text-sm">
+            <span class="text-amber-300/90" aria-hidden="true">★</span> ประเมินฟรี
+          </li>
+          <li class="inline-flex items-center gap-1.5 rounded-full border border-amber-400/20 bg-amber-400/10 px-3.5 py-2 text-xs font-semibold text-amber-200 backdrop-blur-sm sm:text-sm">
+            <span class="text-amber-300/90" aria-hidden="true">★</span> โอนเงินทันทีหลังตกลง
+          </li>
+          <li class="inline-flex items-center gap-1.5 rounded-full border border-amber-400/20 bg-amber-400/10 px-3.5 py-2 text-xs font-semibold text-amber-200 backdrop-blur-sm sm:text-sm">
+            <span class="text-amber-300/90" aria-hidden="true">★</span> รับซื้อถึงที่
+          </li>
+          <li class="inline-flex items-center gap-1.5 rounded-full border border-amber-400/20 bg-amber-400/10 px-3.5 py-2 text-xs font-semibold text-amber-200 backdrop-blur-sm sm:text-sm">
+            <span class="text-amber-300/90" aria-hidden="true">★</span> มีหน้าร้านจริง
+          </li>
+          <li class="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/35 bg-emerald-500/10 px-3.5 py-2 text-xs font-medium text-emerald-100 backdrop-blur-sm sm:text-sm">
+            <span class="text-emerald-400" aria-hidden="true">✓</span> แจ้งราคาก่อนนัดตรวจ
+          </li>
+          <li class="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3.5 py-2 text-xs font-medium text-slate-200 backdrop-blur-sm sm:text-sm">
+            <span class="text-emerald-400" aria-hidden="true">✓</span> รับซื้อตามสภาพจริง
+          </li>
+          <li class="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3.5 py-2 text-xs font-medium text-slate-200 backdrop-blur-sm sm:text-sm">
+            <span class="text-emerald-400" aria-hidden="true">✓</span> ไม่บังคับขาย
+          </li>
+        </ul>
+      </div>
+
+      <div class="relative min-w-0 w-full max-w-full lg:flex lg:justify-end">
+        <figure
+          class="relative mx-auto w-full max-w-full overflow-hidden rounded-2xl border border-white/10 bg-[#050b14] shadow-2xl shadow-black/45 lg:mx-0 lg:max-w-[min(38.75rem,100%)]"
+        >
+          <div
+            class="relative aspect-[819/1024] w-full max-w-full overflow-hidden rounded-2xl"
+          >
+            <picture class="absolute inset-0 block h-full w-full">
+              <source srcset="/images/hero/buyhub-hero.webp" type="image/webp" />
+              <img
+                src="/images/hero/buyhub-hero.png"
+                alt="BuyHub แบนเนอร์รับซื้อสินค้าไอทีมือสอง ประเมินไว โอนเงินหลังตกลง แอด LINE @buyhub โทรประเมินราคาฟรี ภาคอีสาน"
+                width="819"
+                height="1024"
+                class="block h-full w-full max-w-full rounded-2xl object-contain object-center"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
+              />
+            </picture>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="border-b border-white/10 bg-[#0a1624] py-5 text-white"
+    aria-label="จุดเด่นด้านความน่าเชื่อถือ"
+  >
+    <div class="mx-auto min-w-0 max-w-7xl px-4 sm:px-6 lg:px-8">
+      <ul class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
+        {
+          trustBarItems.map((item) => (
+            <li class="flex min-w-0 items-start gap-2.5 rounded-xl border border-white/10 bg-white/[0.04] px-3.5 py-3 sm:px-4">
+              <span class="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-200 ring-1 ring-emerald-500/25" aria-hidden="true">
+                ✓
+              </span>
+              <span class="min-w-0">
+                <span class="block text-sm font-semibold tracking-tight text-white">{item.title}</span>
+                <span class="mt-1 block text-left text-xs leading-relaxed text-slate-300 sm:text-[0.8125rem] sm:leading-snug">
+                  {item.sub}
+                </span>
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="border-b border-slate-200/80 bg-white py-8 sm:py-10" aria-label="ข้อมูลการตรวจทานหน้าแรก">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <EditorialTrustPanel
+        reviewedAt={EDITORIAL_REVIEWED_AT}
+        reviewedBy={EDITORIAL_REVIEWER}
+        scope={homeEditorialSignals.scope}
+        notes={[...homeEditorialSignals.notes]}
+        links={[...homeEditorialSignals.links]}
+      />
+    </div>
+  </section>
+
+  <section class="relative border-b border-slate-200/90 bg-white py-14 sm:py-16 md:py-20" aria-labelledby="trust-metrics">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="mb-8 flex flex-col gap-2 text-center sm:mb-10 sm:text-left">
+        <p class="text-xs font-bold uppercase tracking-[0.2em] text-emerald-700">Trust</p>
+        <h2 id="trust-metrics" class="text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl">
+          ทำงานแบบโปร่งใส — เน้นข้อมูลจริงก่อนตกลง
+        </h2>
+        <p class="mx-auto max-w-2xl text-base leading-8 text-slate-600 sm:mx-0">
+          สรุปมาตรฐานการประเมินและการสื่อสารกับลูกค้า เพื่อให้ขายของมือสองหรือไอทีมูลค่าสูงได้อย่างมั่นใจ
+        </p>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          trustMetrics.map((m, i) => (
+            <div class="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-xl">
+              <p class:list={['text-xs font-bold uppercase tracking-wider', i === 0 ? 'text-amber-700' : 'text-emerald-700']}>{m.kicker}</p>
+              <p class="mt-3 text-lg font-bold text-slate-950">{m.title}</p>
+              <p class="mt-2 text-sm leading-6 text-slate-600">{m.sub}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-slate-50 py-14 sm:py-16 md:py-20" aria-labelledby="services-heading">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="mx-auto max-w-3xl text-center">
+        <h2 id="services-heading" class="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+          สินค้าที่ BuyHub รับซื้อ
+        </h2>
+        <p class="mt-4 text-base leading-8 text-slate-600">
+          เน้นหมวดไอทีที่ขายต่อได้จริงและมีมูลค่าในตลาด แต่ละหมวดเปิดหน้า Landing แยกเพื่อรองรับ SEO และคำค้นหาเฉพาะรุ่น
+        </p>
+      </div>
+      <ul class="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          services.map((s) => (
+            <li class="h-full min-w-0">
+              <a
+                href={s.href}
+                class="group relative flex h-full min-h-[17.5rem] min-w-0 flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 pt-7 shadow-sm transition-all duration-300 before:absolute before:inset-x-0 before:top-0 before:h-0.5 before:scale-x-0 before:bg-gradient-to-r before:from-emerald-500 before:to-amber-400 before:transition before:duration-300 before:content-[''] hover:-translate-y-1 hover:border-emerald-200 hover:shadow-xl hover:before:scale-x-100"
+              >
+                {s.freeEval ? (
+                  <span class="absolute right-4 top-4 rounded-full border border-slate-200/90 bg-slate-100/90 px-2 py-0.5 text-[0.55rem] font-semibold uppercase tracking-wide text-slate-600">
+                    ฟรี
+                  </span>
+                ) : null}
+                <span class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-emerald-500/[0.09] text-emerald-700 shadow-sm ring-1 ring-emerald-500/20 transition group-hover:ring-emerald-500/35">
+                  <ServiceCategoryIcon name={s.icon} class="h-8 w-8 scale-105" />
+                </span>
+                <span class="mt-6 text-xl font-semibold leading-snug tracking-tight text-slate-950 group-hover:text-emerald-800">{s.name}</span>
+                <span class="mt-3 flex-1 text-sm font-normal leading-6 text-slate-600">{s.blurb}</span>
+                <span class="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-emerald-700">
+                  ดูรายละเอียด
+                  <span aria-hidden="true" class="transition group-hover:translate-x-0.5">
+                    →
+                  </span>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="mt-10 text-center">
+        <a
+          href="/รับซื้อ"
+          class="inline-flex items-center gap-2 rounded-2xl border border-buyhub-card/60 bg-buyhub-surface px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all hover:-translate-y-0.5 hover:bg-buyhub-card"
+        >
+          ดูหน้ารับซื้อทั้งหมด
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white py-14 sm:py-16 md:py-20" aria-labelledby="trust-pages-heading">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="text-xs font-bold uppercase tracking-[0.2em] text-emerald-700">Proof</p>
+        <h2 id="trust-pages-heading" class="mt-3 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+          รีวิวและผลงานจริงเพื่อช่วยตัดสินใจ
+        </h2>
+        <p class="mt-4 text-base leading-8 text-slate-600">
+          ดูตัวอย่างแชทสอบถามราคา หลักฐานประกอบแบบปิดข้อมูลส่วนตัว และผลงานรับซื้อจริงตามหมวดสินค้า เพื่อให้มั่นใจก่อนส่งรูปประเมินราคา
+        </p>
+      </div>
+
+      <ul class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <li class="h-full">
+          <a
+            href="/รีวิวลูกค้า"
+            class="group flex h-full min-h-[12rem] flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-slate-300 hover:shadow-xl"
+          >
+            <span class="text-lg font-bold text-slate-950 group-hover:text-emerald-700">รีวิวลูกค้า</span>
+            <span class="mt-3 flex-1 text-sm leading-relaxed text-slate-600">รวมตัวอย่างรีวิว แชท และหลักฐานประกอบแบบปิดข้อมูลส่วนตัว</span>
+            <span class="mt-5 text-sm font-semibold text-emerald-700">เปิดดูรีวิว →</span>
+          </a>
+        </li>
+        <li class="h-full">
+          <a
+            href="/ผลงานรับซื้อจริง"
+            class="group flex h-full min-h-[12rem] flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-slate-300 hover:shadow-xl"
+          >
+            <span class="text-lg font-bold text-slate-950 group-hover:text-emerald-700">ผลงานรับซื้อจริง</span>
+            <span class="mt-3 flex-1 text-sm leading-relaxed text-slate-600">ตัวอย่างผลงานรับซื้อจริง แยกตามหมวดสินค้า พร้อมแนวทางการตรวจเช็ค</span>
+            <span class="mt-5 text-sm font-semibold text-emerald-700">ดูผลงาน →</span>
+          </a>
+        </li>
+        <li class="h-full">
+          <a
+            href="/คำถามที่พบบ่อย"
+            class="group flex h-full min-h-[12rem] flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-slate-300 hover:shadow-xl"
+          >
+            <span class="text-lg font-bold text-slate-950 group-hover:text-emerald-700">คำถามที่พบบ่อย</span>
+            <span class="mt-3 flex-1 text-sm leading-relaxed text-slate-600">คำตอบเรื่องราคา ขั้นตอน การล้างข้อมูล พื้นที่ให้บริการ และการโอนเงิน</span>
+            <span class="mt-5 text-sm font-semibold text-emerald-700">อ่านคำตอบ →</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="bg-white py-14 sm:py-16 md:py-20" aria-labelledby="buy-types-heading">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="text-xs font-bold uppercase tracking-[0.2em] text-emerald-700">Buyback</p>
+        <h2 id="buy-types-heading" class="mt-3 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+          BuyHub รับซื้อแบบไหนบ้าง
+        </h2>
+        <p class="mt-4 text-base leading-8 text-slate-600">
+          BuyHub รับซื้อทั้งสินค้าชิ้นเดียวและสินค้าจำนวนมาก ไม่ว่าจะเป็นลูกค้าทั่วไป ร้านค้า บริษัท สำนักงาน หรือหน่วยงานที่ต้องการขายอุปกรณ์ IT มือสอง
+          สามารถส่งรูปเพื่อประเมินราคาฟรีผ่าน LINE <span class="font-semibold text-slate-950">@buyhub</span> ได้ก่อนตัดสินใจขาย
+        </p>
+      </div>
+      <ul class="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          buyTypes.map((a) => (
+            <li class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-xl">
+              <h3 class="text-lg font-bold tracking-tight text-slate-950">{a.t}</h3>
+              <p class="mt-3 border-t border-slate-100 pt-3 text-sm leading-6 text-slate-600">{a.d}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="mt-10 flex justify-center">
+        <LineCtaButton variant="primary" label={`ส่งรูปประเมินราคาฟรีผ่าน LINE ${LINE_AT}`} class="shadow-emerald-500/25" />
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-slate-200/80 bg-white py-14 sm:py-16 md:py-20" aria-labelledby="trust-examples-heading">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="text-xs font-bold uppercase tracking-[0.2em] text-amber-700">Portfolio</p>
+        <h2 id="trust-examples-heading" class="mt-3 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+          ตัวอย่างสินค้าที่รับซื้อจริง
+        </h2>
+        <p class="mt-4 text-base leading-8 text-slate-600">
+          ตัวอย่างภาพจากเคสจริงที่ลูกค้าส่งประเมิน — รูปถูกบีบอัดเป็น WebP เพื่อโหลดไวและลดการใช้เน็ต
+        </p>
+      </div>
+      <ul class="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          trustExamples.map((item) => (
+            <li class="h-full min-w-0">
+              <a
+                href={item.href}
+                class="group flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              >
+                <div class="relative aspect-[4/3] w-full max-w-full overflow-hidden bg-slate-100">
+                  {item.image ? (
+                    <img
+                      src={item.image}
+                      alt={item.imageAlt}
+                      width={item.imageWidth}
+                      height={item.imageHeight}
+                      class="h-full w-full max-w-full object-cover transition duration-500 group-hover:scale-[1.02]"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <div class="flex h-full min-h-[12rem] w-full flex-col items-center justify-center gap-1.5 border-b border-slate-100 bg-gradient-to-b from-slate-50 to-slate-100/80 px-4 text-center">
+                      <span class="text-[0.65rem] font-medium uppercase tracking-wider text-slate-400">ภาพประกอบ</span>
+                      <span class="max-w-[14rem] text-xs leading-relaxed text-slate-500">เพิ่มรูปจริงใน <span class="font-mono text-[0.7rem] text-slate-600">public/images/buyback/</span></span>
+                    </div>
+                  )}
+                </div>
+                <div class="flex flex-1 flex-col p-5">
+                  <span class="font-semibold tracking-tight text-slate-950 group-hover:text-emerald-800">{item.label}</span>
+                  <span class="mt-2 text-sm leading-6 text-slate-600">{item.caption}</span>
+                  <span class="mt-4 text-sm font-medium text-emerald-700">ดูรายละเอียด →</span>
+                </div>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="border-b border-slate-200/80 bg-slate-50 py-12 sm:py-14" aria-labelledby="post-portfolio-cta">
+    <div class="mx-auto min-w-0 max-w-3xl px-4 sm:px-6">
+      <div
+        class="rounded-2xl border border-emerald-100/90 bg-gradient-to-br from-white via-white to-emerald-50/70 p-8 shadow-sm sm:p-10"
+      >
+        <h2 id="post-portfolio-cta" class="text-center text-xl font-bold tracking-tight text-slate-950 sm:text-2xl">
+          มีสินค้าแบบนี้ต้องการขาย?
+        </h2>
+        <p class="mx-auto mt-3 max-w-xl text-center text-sm leading-7 text-slate-600 sm:text-base sm:leading-8">
+          ส่งรูปสินค้าให้ BuyHub ประเมินราคาฟรี รู้ราคาก่อนตัดสินใจขาย
+        </p>
+        <div class="mx-auto mt-8 flex min-w-0 max-w-lg flex-col gap-3 sm:mx-auto sm:max-w-none sm:flex-row sm:justify-center sm:gap-4">
+          <LineCtaButton
+            variant="primary"
+            label={`แอด LINE ${LINE_AT}`}
+            class="w-full min-w-0 justify-center sm:w-auto sm:min-w-[14rem]"
+          />
+          <PhoneCtaButton
+            variant="light"
+            class="w-full min-w-0 justify-center sm:w-auto sm:min-w-[14rem]"
+          />
+        </div>
+        <p class="mt-4 text-center text-xs text-slate-500">
+          โทร <a href={`tel:${PHONE_E164}`} class="font-medium text-emerald-700 hover:text-emerald-800">{PHONE_DISPLAY}</a>
+          · ช่องทางหลักแนะนำทัก LINE {LINE_AT}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-slate-200/80 bg-white py-14 sm:py-16 md:py-20" aria-labelledby="customer-proof-heading">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="text-xs font-bold uppercase tracking-[0.2em] text-emerald-700">รีวิวและหลักฐาน</p>
+        <h2 id="customer-proof-heading" class="mt-3 text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl">
+          ลูกค้าที่ขายกับ BuyHub จริง
+        </h2>
+        <p class="mt-4 text-base leading-8 text-slate-600">
+          พื้นที่สำหรับภาพแชท สินค้าที่รับซื้อ และหลักฐานการโอน (ปิดข้อมูลส่วนตัว) — หากนำภาพจริงมาใช้ เราจะเบลอ/ปิดข้อมูลส่วนบุคคลก่อนเสมอ และลงรูปเมื่อได้รับอนุญาตจากเจ้าของภาพ
+        </p>
+      </div>
+      <ul class="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          customerProofCards.map((card) => (
+            <li class="min-w-0">
+              <article class="flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-slate-50/80 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-md">
+                <div class="relative aspect-[4/3] w-full overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200/80">
+                  {card.image ? (
+                    <img
+                      src={card.image}
+                      alt={card.imageAlt}
+                      width={800}
+                      height={600}
+                      class="h-full w-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <div class="flex h-full min-h-[10rem] flex-col items-center justify-center gap-2 px-4 text-center">
+                      <span class="text-2xl text-slate-300" aria-hidden="true">◻</span>
+                      <span class="text-xs font-medium text-slate-500">พื้นที่สำหรับภาพ</span>
+                    </div>
+                  )}
+                </div>
+                <div class="flex flex-1 flex-col p-4 sm:p-5">
+                  <h3 class="text-sm font-semibold text-slate-950">{card.title}</h3>
+                  <p class="mt-2 flex flex-wrap gap-2 text-[0.7rem] font-semibold text-slate-600">
+                    {card.productType ? (
+                      <span class="rounded-full border border-slate-200 bg-white/70 px-2.5 py-1">{card.productType}</span>
+                    ) : null}
+                    {card.province ? (
+                      <span class="rounded-full border border-emerald-200/70 bg-emerald-50/70 px-2.5 py-1 text-emerald-800">{card.province}</span>
+                    ) : null}
+                  </p>
+                  <p class="mt-2 text-xs leading-relaxed text-slate-600 sm:text-sm sm:leading-6">{card.blurb}</p>
+                </div>
+              </article>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="border-y border-slate-200/80 bg-white py-16 sm:py-20" aria-labelledby="why-heading">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="grid gap-12 lg:grid-cols-2 lg:items-start lg:gap-16">
+        <div>
+          <h2 id="why-heading" class="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+            ขายกับ BuyHub มั่นใจกว่าอย่างไร
+          </h2>
+          <p class="mt-5 text-base leading-8 text-slate-600">
+            เราเข้าใจว่าหลายคนกังวลเรื่องโดนกดราคา ประเมินไม่ตรงจริง หรือโอนเงินไม่ตรงนัด BuyHub
+            เน้นกระบวนการที่<strong class="font-semibold text-slate-950">อธิบายได้</strong> และ<strong
+              class="font-semibold text-slate-950">ตรวจสอบได้</strong>
+            ให้คุณตัดสินใจก่อนปิดดีลทุกครั้ง
+          </p>
+          <p class="mt-4 text-base leading-8 text-slate-600">
+            เราเน้นการประเมินราคาที่ชัดเจน โปร่งใส และให้ราคาตามสภาพจริง ลูกค้าสามารถส่งรูปเพื่อประเมินเบื้องต้นก่อนตัดสินใจขายได้โดยไม่มีค่าใช้จ่าย
+          </p>
+          <ul class="mt-8 space-y-3 text-sm text-slate-600 sm:text-base">
+            <li class="flex gap-2">
+              <span class="text-emerald-600" aria-hidden="true">✓</span>
+              ประเมินจากข้อมูลจริง — ไม่สัญญาราคาเกินจริงเพื่อเรียกลูกค้า
+            </li>
+            <li class="flex gap-2">
+              <span class="text-emerald-600" aria-hidden="true">✓</span>
+              แจ้งราคาก่อนนัดตรวจหน้างาน และคอนเฟิร์มอีกครั้งหลังตรวจ
+            </li>
+            <li class="flex gap-2">
+              <span class="text-emerald-600" aria-hidden="true">✓</span>
+              ลูกค้าตัดสินใจก่อนขายได้เสมอ ไม่มีขั้นบังคับ
+            </li>
+          </ul>
+        </div>
+        <div
+          class="rounded-3xl border border-slate-200/90 bg-gradient-to-br from-slate-50 to-white p-8 shadow-lg shadow-slate-900/[0.06]"
+        >
+          <p class="text-sm font-semibold uppercase tracking-wider text-amber-700">จุดเด่น</p>
+          <p class="mt-2 text-xl font-bold text-slate-950">สิ่งที่คุณจะได้รับจากกระบวนการ BuyHub</p>
+          <ul class="mt-6 space-y-4">
+            <li class="flex gap-3 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-700" aria-hidden="true">✓</span>
+              <span class="text-sm leading-6 text-slate-700 sm:text-base sm:leading-7">ประเมินราคาไวจากรูปและรุ่นที่แจ้ง</span>
+            </li>
+            <li class="flex gap-3 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-700" aria-hidden="true">✓</span>
+              <span class="text-sm leading-6 text-slate-700 sm:text-base sm:leading-7">ให้ราคาตามสภาพจริง ไม่กดราคาไร้เหตุผล</span>
+            </li>
+            <li class="flex gap-3 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-700" aria-hidden="true">✓</span>
+              <span class="text-sm leading-6 text-slate-700 sm:text-base sm:leading-7">ตรวจสอบสินค้าอย่างเป็นระบบก่อนตกลงราคาสุดท้าย</span>
+            </li>
+            <li class="flex gap-3 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-amber-100 text-amber-700" aria-hidden="true">✓</span>
+              <span class="text-sm leading-6 text-slate-700 sm:text-base sm:leading-7">โอนเงินทันทีหลังตกลงราคาและตรวจครบ</span>
+            </li>
+            <li class="flex gap-3 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-700" aria-hidden="true">✓</span>
+              <span class="text-sm leading-6 text-slate-700 sm:text-base sm:leading-7">รับทั้งชิ้นเดียวและหลายชิ้น (เช่น ร้านหรือบริษัท)</span>
+            </li>
+            <li class="flex gap-3 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-700" aria-hidden="true">✓</span>
+              <span class="text-sm leading-6 text-slate-700 sm:text-base sm:leading-7">เหมาะทั้งลูกค้าทั่วไป ร้านค้า และองค์กร</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-slate-50 py-16 sm:py-20" aria-labelledby="steps-heading">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="mx-auto max-w-3xl text-center">
+        <h2 id="steps-heading" class="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+          ขั้นตอนการขาย
+        </h2>
+        <p class="mt-4 text-base leading-8 text-slate-600">
+          กระบวนการชัดเจนสี่ขั้น — อ่านรายละเอียดเพิ่มได้ที่หน้า
+          <a class="font-semibold text-emerald-700 underline decoration-emerald-500/35 underline-offset-4 hover:text-emerald-800" href="/ขั้นตอนการขาย">ขั้นตอนการขาย</a>
+        </p>
+      </div>
+
+      <div class="relative mt-16">
+        <div class="pointer-events-none absolute left-0 right-0 top-[2.75rem] hidden h-px bg-gradient-to-r from-emerald-500/0 via-emerald-400/40 to-amber-400/0 lg:block" aria-hidden="true" />
+        <ol class="grid gap-6 lg:grid-cols-4 lg:gap-5">
+          <li class="relative cursor-default rounded-2xl border border-slate-200 bg-white p-6 pt-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-lg lg:pt-9">
+            <span class="block text-4xl font-extrabold tabular-nums leading-none tracking-tight text-emerald-600 sm:text-5xl">01</span>
+            <div class="mt-4 flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-md shadow-emerald-600/25" aria-hidden="true">
+              <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <p class="mt-5 text-lg font-bold text-slate-950">ส่งรูปสินค้า</p>
+            <p class="mt-2 text-sm leading-6 text-slate-600">แอด LINE @buyhub ส่งรูปหลายมุมและรุ่นที่ชัดเจน</p>
+          </li>
+          <li class="relative cursor-default rounded-2xl border border-slate-200 bg-white p-6 pt-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-lg lg:pt-9">
+            <span class="block text-4xl font-extrabold tabular-nums leading-none tracking-tight text-emerald-600 sm:text-5xl">02</span>
+            <div class="mt-4 flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-md shadow-emerald-600/25" aria-hidden="true">
+              <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                <path d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <p class="mt-5 text-lg font-bold text-slate-950">รับราคาประเมิน</p>
+            <p class="mt-2 text-sm leading-6 text-slate-600">รับแนวราคาและเงื่อนไขก่อนตัดสินใจนัดตรวจ</p>
+          </li>
+          <li class="relative cursor-default rounded-2xl border border-slate-200 bg-white p-6 pt-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-lg lg:pt-9">
+            <span class="block text-4xl font-extrabold tabular-nums leading-none tracking-tight text-amber-600 sm:text-5xl">03</span>
+            <div class="mt-4 flex h-11 w-11 items-center justify-center rounded-xl bg-amber-600 text-white shadow-md shadow-amber-600/25" aria-hidden="true">
+              <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <p class="mt-5 text-lg font-bold text-slate-950">ตรวจสอบสภาพจริง</p>
+            <p class="mt-2 text-sm leading-6 text-slate-600">ตรวจครบและอธิบายผลก่อนคอนเฟิร์มราคาสุดท้าย</p>
+          </li>
+          <li class="relative cursor-default rounded-2xl border border-slate-200 bg-white p-6 pt-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-lg lg:pt-9">
+            <span class="block text-4xl font-extrabold tabular-nums leading-none tracking-tight text-emerald-600 sm:text-5xl">04</span>
+            <div class="mt-4 flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-md shadow-emerald-600/25" aria-hidden="true">
+              <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <p class="mt-5 text-lg font-bold text-slate-950">รับเงินทันที</p>
+            <p class="mt-2 text-sm leading-6 text-slate-600">ตกลงราคาและโอนเงินทันทีในขั้นตอนเดียวกัน</p>
+          </li>
+        </ol>
+      </div>
+      <p class="mx-auto mt-10 max-w-2xl text-center text-base font-medium text-slate-700">
+        เริ่มต้นง่าย ๆ เพียงส่งรูปสินค้าผ่าน LINE
+        <a href={LINE_URL} class="font-bold text-emerald-700 underline decoration-emerald-500/40 hover:text-emerald-800" target="_blank" rel="noopener noreferrer">@buyhub</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="border-y border-slate-200/80 bg-white py-16 sm:py-20" aria-labelledby="areas-heading">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
+        <div class="lg:col-span-5">
+          <div class="relative overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-buyhub-surface to-buyhub-footer p-8 text-white shadow-xl">
+            <div class="absolute inset-0 opacity-30" aria-hidden="true">
+              <svg class="h-full w-full" viewBox="0 0 400 320" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <defs>
+                  <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+                    <path d="M 24 0 L 0 0 0 24" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid)" />
+                <circle cx="320" cy="48" r="120" fill="rgba(16,185,129,0.08)" />
+                <circle cx="48" cy="260" r="90" fill="rgba(16,185,129,0.06)" />
+              </svg>
+            </div>
+            <div class="relative">
+              <p class="text-xs font-bold uppercase tracking-widest text-amber-400/95">Coverage · ภาคอีสาน</p>
+              <p class="mt-3 text-2xl font-bold leading-snug tracking-tight text-white">เริ่มให้บริการภาคอีสานและขยายพื้นที่อย่างต่อเนื่อง</p>
+              <p class="mt-4 text-sm leading-6 text-slate-300">
+                คิวและเขตพื้นที่รับซื้อขึ้นกับการประสานงาน — แจ้งจังหวัดและช่วงเวลาที่สะดวกผ่าน LINE ก่อนนัด
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="lg:col-span-7">
+          <h2 id="areas-heading" class="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">พื้นที่ให้บริการ</h2>
+          <p class="mt-4 max-w-2xl text-base leading-8 text-slate-600">
+            BuyHub เริ่มให้บริการรับซื้อสินค้าไอทีมือสองในพื้นที่ภาคอีสาน ครอบคลุมจังหวัดหลัก เช่น
+            <a class="font-semibold text-emerald-700 underline decoration-emerald-500/35 underline-offset-4 hover:text-emerald-800" href="/พื้นที่ให้บริการ/อุบลราชธานี">อุบลราชธานี</a>,
+            <a class="font-semibold text-emerald-700 underline decoration-emerald-500/35 underline-offset-4 hover:text-emerald-800" href="/พื้นที่ให้บริการ/ขอนแก่น">ขอนแก่น</a>,
+            <a class="font-semibold text-emerald-700 underline decoration-emerald-500/35 underline-offset-4 hover:text-emerald-800" href="/พื้นที่ให้บริการ/นครราชสีมา">นครราชสีมา</a>,
+            <a class="font-semibold text-emerald-700 underline decoration-emerald-500/35 underline-offset-4 hover:text-emerald-800" href="/พื้นที่ให้บริการ/อุดรธานี">อุดรธานี</a>,
+            บุรีรัมย์ สุรินทร์ ศรีสะเกษ ร้อยเอ็ด มหาสารคาม ยโสธร และจังหวัดใกล้เคียง ลูกค้าสามารถส่งรูปสินค้าเข้ามาประเมินราคาผ่าน LINE <span class="font-semibold text-slate-950">@buyhub</span> ได้ก่อน
+          </p>
+          <div class="mt-6 flex flex-wrap gap-2 sm:mt-8 sm:gap-2.5">
+            {
+              provinces.map((p) => {
+                const thaiHref =
+                  p.label === 'อุบลราชธานี'
+                    ? '/พื้นที่ให้บริการ/อุบลราชธานี'
+                    : p.label === 'ขอนแก่น'
+                      ? '/พื้นที่ให้บริการ/ขอนแก่น'
+                      : p.label === 'นครราชสีมา'
+                        ? '/พื้นที่ให้บริการ/นครราชสีมา'
+                        : p.label === 'อุดรธานี'
+                          ? '/พื้นที่ให้บริการ/อุดรธานี'
+                          : p.label === 'บุรีรัมย์'
+                            ? '/พื้นที่ให้บริการ/บุรีรัมย์'
+                            : p.label === 'สุรินทร์'
+                              ? '/พื้นที่ให้บริการ/สุรินทร์'
+                              : p.label === 'ศรีสะเกษ'
+                                ? '/พื้นที่ให้บริการ/ศรีสะเกษ'
+                                : p.label === 'ร้อยเอ็ด'
+                                  ? '/พื้นที่ให้บริการ/ร้อยเอ็ด'
+                                  : '/พื้นที่ให้บริการ';
+                return (
+                  <a
+                    href={thaiHref}
+                    class="rounded-full border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm font-semibold text-slate-950 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-slate-300 hover:bg-white hover:shadow-lg"
+                  >
+                    {p.label}
+                  </a>
+                );
+              })
+            }
+            <a
+              href="/พื้นที่ให้บริการ"
+              class="rounded-full border border-dashed border-slate-300 px-4 py-2.5 text-sm font-semibold text-emerald-800 hover:border-emerald-500/50 hover:bg-emerald-500/5"
+            >
+              ดูทั้งหมด
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-slate-50 py-16 sm:py-20" aria-labelledby="pricing-heading">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="text-xs font-bold uppercase tracking-[0.2em] text-amber-700">Pricing</p>
+        <h2 id="pricing-heading" class="mt-3 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+          เราประเมินราคาจากอะไร
+        </h2>
+        <p class="mt-4 text-base leading-8 text-slate-600">
+          ราคาประเมินขึ้นอยู่กับรุ่น สเปก สภาพการใช้งาน อายุสินค้า ประกันคงเหลือ อุปกรณ์ที่มี และราคาตลาดมือสองในช่วงนั้น ทีมงานจะแจ้งราคาเบื้องต้นก่อนทุกครั้ง
+          ลูกค้าตัดสินใจก่อนขายได้ ไม่มีค่าใช้จ่ายในการประเมิน
+        </p>
+      </div>
+
+      <div class="mx-auto mt-12 grid max-w-4xl gap-4 sm:grid-cols-2">
+        {
+          pricingFactors.map((t) => (
+            <div class="flex min-w-0 items-start gap-3 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <span class="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-sm font-bold text-white" aria-hidden="true">✓</span>
+              <p class="text-sm leading-6 text-slate-700 sm:text-base sm:leading-7">{t}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <p class="mx-auto mt-10 max-w-3xl text-center text-sm leading-7 text-slate-600">
+        แนะนำส่งลิงก์รุ่น/สเปก หรือรูปหน้า “เกี่ยวกับเครื่อง” (Settings) เพื่อให้ทีมงานประเมินได้แม่นขึ้น โดยเฉพาะ <a class="font-semibold text-emerald-700 underline decoration-emerald-500/35 underline-offset-4 hover:text-emerald-800" href="/sell/notebook">รับซื้อโน๊ตบุ๊ค</a>,
+        <a class="font-semibold text-emerald-700 underline decoration-emerald-500/35 underline-offset-4 hover:text-emerald-800" href="/sell/macbook">รับซื้อ MacBook</a> และ <a class="font-semibold text-emerald-700 underline decoration-emerald-500/35 underline-offset-4 hover:text-emerald-800" href="/sell/iphone">รับซื้อ iPhone</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-slate-50 py-16 sm:py-20" aria-labelledby="checklist-heading">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="mx-auto max-w-3xl text-center">
+        <h2 id="checklist-heading" class="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+          ข้อมูลที่ควรส่งเพื่อประเมินราคา
+        </h2>
+        <p class="mt-4 text-base leading-8 text-slate-600">ส่งครบ ช่วยให้ได้แนวราคาใกล้เคียงความจริง และลดการปรับเมื่อตรวจหน้างาน</p>
+      </div>
+      <div
+        class="mx-auto mt-10 max-w-3xl rounded-3xl border border-slate-200 bg-white p-8 shadow-xl shadow-slate-900/[0.06] ring-1 ring-slate-900/[0.04] sm:p-10"
+      >
+        <div class="mb-6 flex items-center gap-3 rounded-2xl border border-emerald-500/20 bg-emerald-500/[0.06] px-4 py-3">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-lg font-bold text-white" aria-hidden="true">✓</span>
+          <p class="text-sm font-semibold leading-snug text-slate-950 sm:text-base">
+            Checklist นี้ช่วยให้ประเมินราคาเบื้องต้นแม่นขึ้น และลดการปรับเมื่อตรวจเครื่องจริง
+          </p>
+        </div>
+        <ul class="space-y-4">
+          {
+            checklist.map((c) => (
+              <li class="flex gap-3 border-b border-slate-100 pb-4 last:border-0 last:pb-0">
+                <span class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-xs font-bold text-white" aria-hidden="true">✓</span>
+                <span class="text-base leading-8 text-slate-700">{c}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <div class="mt-8 flex justify-center">
+          <LineCtaButton variant="primary" label="ส่งรูปประเมินราคาฟรีผ่าน LINE" class="shadow-emerald-500/25" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-16 sm:py-20" aria-labelledby="data-wipe-heading">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="grid gap-10 lg:grid-cols-12 lg:items-start lg:gap-12">
+        <div class="lg:col-span-5">
+          <p class="text-xs font-bold uppercase tracking-[0.2em] text-emerald-700">Security</p>
+          <h2 id="data-wipe-heading" class="mt-3 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+            ขายสินค้า IT ต้องล้างข้อมูลไหม
+          </h2>
+          <p class="mt-4 text-base leading-8 text-slate-600">
+            ก่อนขายสินค้า IT ควรสำรองข้อมูลและลบข้อมูลส่วนตัวออกจากเครื่อง เช่น ออกจาก iCloud, Apple ID, Google Account หรือบัญชีอื่น ๆ หากไม่แน่ใจสามารถสอบถามทีมงาน BuyHub เพื่อขอคำแนะนำเบื้องต้นได้
+          </p>
+        </div>
+        <div class="lg:col-span-7">
+          <div class="rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-8 shadow-lg shadow-slate-900/[0.06]">
+            <ul class="space-y-3 text-sm text-slate-700 sm:text-base">
+              <li class="flex gap-3">
+                <span class="text-emerald-600" aria-hidden="true">✓</span>
+                สำรองข้อมูลก่อนขาย (รูป/เอกสาร/แชท)
+              </li>
+              <li class="flex gap-3">
+                <span class="text-emerald-600" aria-hidden="true">✓</span>
+                ออกจาก iCloud / Apple ID และปิด Find My (iPhone/iPad/Mac)
+              </li>
+              <li class="flex gap-3">
+                <span class="text-emerald-600" aria-hidden="true">✓</span>
+                ออกจาก Google Account / บัญชีอื่น ๆ บนเครื่อง
+              </li>
+              <li class="flex gap-3">
+                <span class="text-emerald-600" aria-hidden="true">✓</span>
+                ลบข้อมูลส่วนตัว และรีเซ็ตเครื่องเป็นค่าโรงงาน
+              </li>
+              <li class="flex gap-3">
+                <span class="text-emerald-600" aria-hidden="true">✓</span>
+                ถ้าไม่แน่ใจ ทัก LINE <a href={LINE_URL} class="font-semibold text-emerald-700 underline decoration-emerald-500/35 underline-offset-4 hover:text-emerald-800" target="_blank" rel="noopener noreferrer">{LINE_AT}</a> ให้ทีมงานแนะนำ
+              </li>
+            </ul>
+            <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-stretch sm:gap-4">
+              <LineCtaButton variant="primary" label="ขอวิธีล้างข้อมูล/ออกบัญชีผ่าน LINE" class="w-full justify-center sm:flex-1" />
+              <PhoneCtaButton variant="light" class="w-full justify-center sm:flex-1" />
+            </div>
+            <p class="mt-4 text-xs leading-6 text-slate-500">
+              *ทีมงานให้คำแนะนำเบื้องต้นเพื่อความสะดวก แต่ผู้ใช้งานควรตรวจสอบการออกบัญชี/ล้างข้อมูลด้วยตนเองก่อนส่งมอบเครื่อง
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    heading="เริ่มจากการส่งรูป — ประเมินราคาเบื้องต้นฟรี"
+    sub="แอด LINE @buyhub แนบรูปและรุ่นให้ครบ ทีมงานจะตอบด้วยแนวราคาและขั้นตอนตรวจสินค้า คุณตัดสินใจก่อนนัดเสมอ"
+    lineLabel="ส่งรูปประเมินราคาฟรีผ่าน LINE"
+  />
+
+  <section class="bg-white py-16 sm:py-20" aria-labelledby="home-longform-heading">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="mx-auto max-w-4xl">
+        <p class="text-xs font-bold uppercase tracking-[0.2em] text-emerald-700">SEO · AEO · GEO</p>
+        <h2 id="home-longform-heading" class="mt-3 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+          สิ่งที่คนขายสินค้า IT มือสองในภาคอีสานควรรู้ก่อนทักประเมิน
+        </h2>
+        <p class="mt-4 text-base leading-8 text-slate-600">
+          ส่วนนี้สรุปแบบยาวและเป็นระบบสำหรับคนที่กำลังหาข้อมูลเรื่องการขายสินค้า IT มือสอง เพื่อให้คุณตัดสินใจได้เร็วขึ้นว่าจะเริ่มจากหมวดไหน ควรส่งข้อมูลอะไร และควรอ่านหน้าต่อไหนก่อนคุยกับทีมงาน BuyHub
+        </p>
+        <LongformSections sections={homeLongSections} tocHeading="หัวข้อสำคัญบนหน้าแรก BuyHub" />
+      </div>
+    </div>
+  </section>
+
+  <FaqAccordion items={homeFaqs} />
+
+  <CtaBand
+    heading="อยากเช็กราคาก่อนตกลงขาย?"
+    sub="ส่งรูปหลายมุมกับรุ่นที่ชัดเจน จะได้แนวราคาใกล้เคียงความจริงมากขึ้น และลดการปรับเมื่อตรวจหน้างาน"
+    lineLabel="ประเมินราคาฟรีทาง LINE @buyhub"
+  />
+</BaseLayout>

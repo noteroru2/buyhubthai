@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+/* Layout safety + predictable sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img,
+picture,
+video,
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+svg {
+  max-width: 100%;
+}
+
+@theme {
+  /* System stack only — no external fonts */
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans Thai", "Leelawadee UI",
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+
+  /* Premium BuyHub palette */
+  --color-buyhub-navy: #07111f;
+  --color-buyhub-surface: #0b1728;
+  --color-buyhub-card: #111d2e;
+  --color-buyhub-footer: #050b14;
+  --color-buyhub-gold: #f5b84b;
+
+  /* Semantic navy (dark UI); use slate-* for text on light backgrounds */
+  --color-navy-950: #050b14;
+  --color-navy-900: #0b1728;
+  --color-navy-800: #111d2e;
+  --color-navy-700: #1e3a5f;
+
+  /* Primary = Emerald */
+  --color-brand-400: #34d399;
+  --color-brand-500: #10b981;
+  --color-brand-600: #059669;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-700 antialiased;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 2;
+  }
+
+  @media (min-width: 768px) {
+    body {
+      font-size: 1.0625rem;
+      line-height: 1.875;
+    }
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-emerald-500;
+  }
+}
+
+@layer components {
+  .markdown-content {
+    @apply text-slate-700;
+    line-height: 1.875;
+  }
+
+  .markdown-content h2 {
+    @apply mt-10 mb-3 text-xl font-bold tracking-tight text-slate-950 sm:text-2xl;
+    line-height: 1.35;
+  }
+
+  .markdown-content h3 {
+    @apply mt-8 mb-2 text-lg font-bold tracking-tight text-slate-900;
+    line-height: 1.4;
+  }
+
+  .markdown-content p {
+    @apply mb-4;
+  }
+
+  .markdown-content ul {
+    @apply mb-4 list-disc space-y-2 pl-5;
+  }
+
+  .markdown-content ol {
+    @apply mb-4 list-decimal space-y-2 pl-5;
+  }
+
+  .markdown-content strong {
+    @apply font-semibold text-slate-950;
+  }
+
+  .markdown-content a {
+    @apply text-emerald-700 underline decoration-emerald-500/40 underline-offset-2 transition hover:text-emerald-600;
+  }
+
+  .markdown-content hr {
+    @apply my-8 border-slate-200;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 999;
+    padding: 0.75rem 1rem;
+    background: white;
+    color: #0f172a;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 24px rgb(7 15 26 / 0.12);
+    font-weight: 600;
+  }
+
+  .skip-link:focus {
+    left: 1rem;
+    top: 1rem;
+  }
+
+  .header-scrolled {
+    box-shadow: 0 12px 40px -12px rgb(0 0 0 / 0.45);
+    border-color: rgb(255 255 255 / 0.12);
+    background-color: rgb(7 17 31 / 0.94);
+  }
+}

@@ -1,0 +1,71 @@
+﻿---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import LineCtaButton from '../../components/LineCtaButton.astro';
+import PhoneCtaButton from '../../components/PhoneCtaButton.astro';
+import AreaLocalSections from '../../components/AreaLocalSections.astro';
+import { buildAreaFaqItems } from '../../data/areaServiceSignals';
+import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd } from '../../lib/schema';
+
+const entry = await getEntry('areas', 'mukdahan');
+if (!entry) return Astro.redirect('/พื้นที่ให้บริการ');
+const { Content } = await render(entry);
+const { data } = entry;
+
+const path = '/พื้นที่ให้บริการ/มุกดาหาร';
+const title = 'รับซื้อสินค้าไอทีมือสอง มุกดาหาร ประเมินราคาฟรี';
+const description = data.description;
+const faqs = buildAreaFaqItems('mukdahan', data.province);
+
+const jsonLd = [
+  breadcrumbJsonLd([
+    { name: 'หน้าแรก', href: '/' },
+    { name: 'พื้นที่ให้บริการ', href: '/พื้นที่ให้บริการ' },
+    { name: 'มุกดาหาร', href: path }
+    ]),
+  serviceJsonLd({
+    name: `รับซื้อสินค้าไอทีมือสอง ${data.province}`,
+    description,
+    url: path
+  }),
+  faqPageJsonLd(faqs)
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  jsonLd={jsonLd}
+  breadcrumbs={[
+    { name: 'หน้าแรก', href: '/' },
+    { name: 'พื้นที่ให้บริการ', href: '/พื้นที่ให้บริการ' },
+    { name: 'มุกดาหาร', href: path }
+  ]}
+>
+  <article class="bg-white">
+    <div class="mx-auto max-w-3xl px-4 py-14 sm:px-6 sm:py-16">
+      <h1 class="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">รับซื้อสินค้าไอทีมือสอง มุกดาหาร</h1>
+      <p class="mt-4 text-lg leading-8 text-slate-600">{description}</p>
+      <div class="mt-8 flex flex-col gap-4 border-y border-slate-100 py-8 sm:flex-row">
+        <LineCtaButton variant="primary" class="sm:flex-1" />
+        <PhoneCtaButton variant="light" class="sm:flex-1" />
+      </div>
+      <div class="markdown-content pt-4">
+        <Content />
+      </div>
+      <AreaLocalSections areaId="mukdahan" provinceName={data.province} />
+      <p class="mt-10 text-sm text-slate-500">
+        ลิงก์ที่เกี่ยวข้อง: <a class="font-semibold text-emerald-700 underline decoration-emerald-500/35 underline-offset-4 hover:text-emerald-800" href="/รับซื้อ">หน้ารับซื้อสินค้า</a> · <a class="font-semibold text-emerald-700 underline decoration-emerald-500/35 underline-offset-4 hover:text-emerald-800" href="/ติดต่อเรา">ติดต่อเรา</a>
+      </p>
+    </div>
+  </article>
+  <CtaBand
+    heading="รับซื้อในพื้นที่มุกดาหาร — ส่งรูปก่อนนัดตรวจ"
+    sub="แจ้งรุ่น สภาพ และอำเภอ/พื้นที่โดยประมาณใน LINE @buyhub เพื่อให้ทีมงานประเมินคิวและแนวราคาได้ตรงขึ้น"
+    lineLabel="ทัก LINE เพื่อเช็กราคาในมุกดาหาร"
+  />
+</BaseLayout>
+
+
+

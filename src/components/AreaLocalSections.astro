@@ -1,0 +1,249 @@
+---
+import EditorialTrustPanel from './EditorialTrustPanel.astro';
+import { getAreaCoverageProfile } from '../data/areaCoverageProfiles';
+import { getAreaEditorialProfile } from '../data/areaEditorialProfiles';
+import { getAreaDecisionProfile } from '../data/areaDecisionProfiles';
+import { buildAreaFaqItems, buildAreaServiceSignals } from '../data/areaServiceSignals';
+import { EDITORIAL_REVIEWED_AT, EDITORIAL_REVIEWER } from '../lib/constants';
+
+interface Props {
+  areaId: string;
+  provinceName: string;
+}
+
+const { areaId, provinceName } = Astro.props;
+const coverage = getAreaCoverageProfile(areaId);
+const profile = getAreaEditorialProfile(areaId);
+const decisionProfile = getAreaDecisionProfile(areaId);
+
+const joinThaiList = (items: string[]) => {
+  if (items.length === 0) return '';
+  if (items.length === 1) return items[0];
+  if (items.length === 2) return `${items[0]} และ ${items[1]}`;
+  return `${items.slice(0, -1).join(', ')} และ ${items.at(-1)}`;
+};
+
+const coverageLead = coverage ? joinThaiList(coverage.districts.slice(0, 4)) : '';
+const faqItems = profile ? buildAreaFaqItems(areaId, provinceName) : [];
+const serviceSignals = profile ? buildAreaServiceSignals(areaId, provinceName) : [];
+
+const readMoreLinks = [
+  { href: '/รับซื้อ', label: 'ดูหน้ารับซื้อทั้งหมด' },
+  { href: '/รับซื้อ-iphone', label: 'เช็กรับซื้อ iPhone' },
+  { href: '/รับซื้อ-ipad', label: 'เช็กรับซื้อ iPad' },
+  { href: '/รับซื้อ-macbook', label: 'เช็กรับซื้อ MacBook' },
+  { href: '/รับซื้อโน๊ตบุ๊คมือสอง', label: 'เช็กรับซื้อโน๊ตบุ๊คมือสอง' },
+  { href: '/คู่มือเตรียมสินค้าก่อนขาย', label: 'อ่านคู่มือเตรียมสินค้าก่อนขาย' },
+  { href: '/คำถามที่พบบ่อย', label: 'อ่านคำถามที่พบบ่อย' },
+  { href: '/ผลงานรับซื้อจริง', label: 'ดูผลงานรับซื้อจริง' },
+  { href: '/รีวิวลูกค้า', label: 'ดูรีวิวลูกค้าและหลักฐาน' },
+  { href: '/ติดต่อเรา', label: 'ดูช่องทางติดต่อ BuyHub' }
+];
+---
+
+{
+  profile ? (
+    <div class="mt-12 space-y-10">
+      <EditorialTrustPanel
+        reviewedAt={EDITORIAL_REVIEWED_AT}
+        reviewedBy={EDITORIAL_REVIEWER}
+        scope={`หน้านี้สรุปบริบทการขายสินค้าไอทีมือสองใน ${provinceName} จากหมวดสินค้าที่รับประเมินจริง แนวทางการส่งข้อมูล และคำถามที่คนในพื้นที่มักใช้ตัดสินใจก่อนเริ่มขาย`}
+        notes={[
+          `เนื้อหาชุดนี้ตั้งใจช่วยให้คนใน ${provinceName} เริ่มคุยงานได้ด้วยข้อมูลที่ครบขึ้น ไม่ได้ใช้แทนการประเมินสภาพสินค้ารายชิ้น`,
+          'ข้อมูลด้านพื้นที่ช่วยเรื่องการวางคิวและขั้นตอนต่อไป ส่วนราคาเบื้องต้นยังอิงจากรุ่น สเปก สภาพ และอุปกรณ์ในชุดเป็นหลัก',
+          'ตัวอย่างผลงานและรีวิวที่เชื่อมจากหน้านี้เป็นชุดข้อมูลประกอบแบบปิดข้อมูลส่วนตัว เพื่อช่วยให้เห็นวิธีทำงานจริงโดยไม่กระทบความเป็นส่วนตัวของลูกค้า'
+        ]}
+        links={[
+          { href: '/ผลงานรับซื้อจริง', label: 'ดูตัวอย่างผลงานรับซื้อจริง' },
+          { href: '/รีวิวลูกค้า', label: 'ดูรีวิวและหลักฐานประกอบ' }
+        ]}
+      />
+
+      <section aria-labelledby="area-local-context" class="rounded-3xl border border-slate-200 bg-slate-50/80 p-6">
+        <h2 id="area-local-context" class="text-2xl font-bold tracking-tight text-slate-950">
+          บริบทคนขายสินค้าไอทีใน {provinceName} ที่หน้ากลางตอบแทนไม่ได้
+        </h2>
+        <div class="mt-4 space-y-4 text-base leading-8 text-slate-700">
+          <p>{profile.marketAngle}</p>
+          <p>{profile.sellerMix}</p>
+          <p>{profile.routeNote}</p>
+        </div>
+      </section>
+
+      {
+        coverage ? (
+          <section aria-labelledby="area-local-coverage" class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h2 id="area-local-coverage" class="text-2xl font-bold tracking-tight text-slate-950">
+              โซนใน {provinceName} ที่คนมักอ้างอิงเวลาส่งงานเข้ามาประเมิน
+            </h2>
+            <div class="mt-4 space-y-4 text-base leading-8 text-slate-700">
+              <p>
+                แม้การประเมินราคาจะยึดจากรุ่น สเปก สภาพ และอุปกรณ์เป็นหลัก แต่ในเชิงการใช้งานจริง คนขายจากจังหวัดเดียวกันไม่ได้อยู่บริบทเดียวกันทั้งหมด
+                การพูดถึงพื้นที่อย่าง {coverageLead} และอำเภอรอบ ๆ ช่วยให้หน้าจังหวัดนี้ใกล้กับสถานการณ์จริงมากขึ้น เพราะผู้ขายจำนวนมากต้องการรู้ทั้งแนวราคาและความเป็นไปได้ของขั้นตอนถัดไปไปพร้อมกัน
+              </p>
+              <p>
+                สำหรับ BuyHub ข้อมูลเรื่องพื้นที่ไม่ได้ถูกใช้เพื่อกดราคาสินค้า แต่ใช้เพื่อทำให้คำตอบเรื่องคิว การเตรียมข้อมูล และรูปแบบการคุยงานชัดขึ้น
+                ยิ่งคนขายเริ่มจากการบอกจังหวัด อำเภอ หรือจุดที่สะดวกตั้งแต่รอบแรก ก็ยิ่งช่วยลดจังหวะถามกลับที่ไม่จำเป็น และทำให้การประเมินใน {provinceName} ใช้งานได้จริงกว่าคำตอบกว้าง ๆ
+              </p>
+            </div>
+            <ul class="mt-5 grid gap-3 sm:grid-cols-2">
+              {coverage.districts.map((district) => (
+                <li class="rounded-2xl border border-slate-200 bg-slate-50/70 px-4 py-3 text-sm leading-7 text-slate-700">
+                  {district}
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null
+      }
+
+      <section aria-labelledby="area-local-sellers" class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+        <h2 id="area-local-sellers" class="text-2xl font-bold tracking-tight text-slate-950">
+          คนขายใน {provinceName} มักเริ่มต้นจากเคสแบบไหน
+        </h2>
+        <div class="mt-4 space-y-4 text-base leading-8 text-slate-700">
+          <p>
+            เวลาคนค้นหาคำว่า “รับซื้อสินค้าไอทีมือสอง {provinceName}” ความต้องการจริงมักต่างกันมาก บางคนต้องการเช็กราคาก่อนตัดสินใจขาย บางคนมีอุปกรณ์หลายชิ้นจากบ้าน
+            บางคนกำลังรวบเครื่องจากร้านหรือสำนักงาน และบางคนเพียงอยากรู้ว่าถ้าอยู่นอกตัวเมืองยังเริ่มคุยงานได้ไหม หน้าจังหวัดที่ดีจึงควรตอบเรื่องเจตนาการขายพวกนี้ให้ครบ ไม่ใช่พูดถึงบริการแบบกว้างอย่างเดียว
+          </p>
+          <p>{profile.sellerMix}</p>
+          <p>
+            สิ่งที่ทำให้การคุยงานลื่นขึ้นในแทบทุกเคสคือการแยกให้ออกว่าข้อมูลไหนใช้ประเมินราคา และข้อมูลไหนใช้วางขั้นตอนถัดไป ข้อมูลสินค้าอย่างรุ่น สเปก ความจุ ตำหนิ และอุปกรณ์ในชุด
+            คือส่วนที่ช่วยเรื่องราคา ส่วนข้อมูลอย่างจังหวัด อำเภอ จุดนัด หรือความพร้อมในการส่งมอบ คือส่วนที่ช่วยให้ทีมงานตอบเรื่องการดำเนินการได้ใกล้กับสถานการณ์จริงของผู้ขายมากขึ้น
+          </p>
+        </div>
+      </section>
+
+      <section aria-labelledby="area-local-first-message">
+        <h2 id="area-local-first-message" class="text-2xl font-bold tracking-tight text-slate-950">
+          ถ้าจะเริ่มขายจาก {provinceName} ข้อความแรกควรมีอะไรบ้าง
+        </h2>
+        <div class="mt-4 space-y-4 text-base leading-8 text-slate-700">
+          <p>
+            จุดสำคัญของหน้าจังหวัดที่ดีคือช่วยให้ผู้ขายเริ่มต้นอย่างมีข้อมูล ไม่ต้องลองผิดลองถูกหลายรอบก่อนถึงจะได้คำตอบที่ใช้งานได้จริง
+            ถ้าข้อความแรกส่งมาครบ ทีมงานมักตอบได้เร็วขึ้นทั้งเรื่องช่วงราคาคร่าว ๆ และคำแนะนำว่าควรเตรียมอะไรต่อในกรณีของคุณ
+          </p>
+          <p>
+            ในทางปฏิบัติ ข้อความที่ดีไม่จำเป็นต้องยาวมาก แต่ควรมีสาระที่ใช้ตัดสินใจได้ทันที เช่นเครื่องรุ่นอะไร ใช้งานได้ปกติไหม มีตำหนิตรงไหน และคุณอยู่โซนใดของ {provinceName}
+            เมื่อข้อมูลหลักครบตั้งแต่ต้น คำตอบที่ได้จะมีคุณภาพมากกว่าการถามราคาแบบสั้น ๆ แล้วค่อยเติมข้อมูลทีละอย่างในภายหลัง
+          </p>
+        </div>
+        <ul class="mt-5 space-y-2 text-sm leading-7 text-slate-700">
+          {profile.firstMessageTips.map((tip) => (
+            <li class="flex gap-2">
+              <span class="text-emerald-600" aria-hidden="true">
+                •
+              </span>
+              <span>{tip}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section aria-labelledby="area-local-lot" class="rounded-3xl border border-slate-200 bg-slate-50/80 p-6">
+        <h2 id="area-local-lot" class="text-2xl font-bold tracking-tight text-slate-950">
+          ถ้าขายใน {provinceName} แบบหลายชิ้นหรือเป็นงานองค์กร ควรจัดข้อมูลอย่างไร
+        </h2>
+        <div class="mt-4 space-y-4 text-base leading-8 text-slate-700">
+          <p>
+            กรณีขายหลายชิ้น สิ่งที่ช่วยมากที่สุดไม่ใช่การส่งรูปให้เยอะที่สุด แต่คือการจัดข้อมูลให้เห็นภาพรวมก่อน เช่น แยกหมวดสินค้า จำนวน รุ่นเด่น อาการหลัก และอุปกรณ์ที่มี
+            วิธีนี้ทำให้ทีมงานรู้ก่อนว่าควรประเมินอะไรเป็นกลุ่ม และควรถามข้อมูลต่อในลำดับใด โดยเฉพาะงานจากร้าน สำนักงาน โรงเรียน หรือหน่วยงานที่ไม่ได้มีเพียงเครื่องเดียว
+          </p>
+          <p>{profile.routeNote}</p>
+          <p>
+            ถ้าคุณอยู่ใน {provinceName} และกำลังเคลียร์อุปกรณ์หลายชิ้น การสรุปรายการแบบคร่าว ๆ ก่อนยังช่วยให้ฝั่งคนขายจัดการข้อมูลของตัวเองง่ายขึ้นด้วย เพราะเห็นชัดว่าอะไรคือเครื่องหลัก อะไรคืออุปกรณ์เสริม
+            และรายการไหนควรบอกประวัติซ่อมหรือข้อจำกัดเป็นพิเศษ ทำให้การคุยงานมีโครงสร้างและลดโอกาสตกหล่นของข้อมูลสำคัญระหว่างทาง
+          </p>
+        </div>
+      </section>
+
+      {
+        decisionProfile ? (
+          <section aria-labelledby="area-local-decision" class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h2 id="area-local-decision" class="text-2xl font-bold tracking-tight text-slate-950">
+              ถ้ายังลังเลว่าจะเริ่มขายจาก {provinceName} ตอนไหน ให้ดูสัญญาณและลำดับเริ่มต้นนี้ก่อน
+            </h2>
+            <div class="mt-4 space-y-4 text-base leading-8 text-slate-700">
+              <p>{decisionProfile.timingNote}</p>
+              <p>{decisionProfile.pathNote}</p>
+            </div>
+            <ol class="mt-5 space-y-3 text-sm leading-7 text-slate-700">
+              {decisionProfile.startChecklist.map((item, index) => (
+                <li class="flex gap-3">
+                  <span class="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-xs font-bold text-white">
+                    {index + 1}
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ol>
+          </section>
+        ) : null
+      }
+
+      <section aria-labelledby="area-local-signals" class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+        <h2 id="area-local-signals" class="text-2xl font-bold tracking-tight text-slate-950">
+          สัญญาณที่ทำให้การขายใน {provinceName} เดินงานง่ายขึ้นตั้งแต่รอบแรก
+        </h2>
+        <p class="mt-4 text-base leading-8 text-slate-700">
+          ส่วนนี้ตั้งใจสรุปเป็นชิ้นสั้น ๆ ให้ทั้งคนอ่านและระบบค้นหาเห็นภาพเร็วว่าอะไรคือจุดที่ช่วยให้หน้าจังหวัดนี้ตอบโจทย์การใช้งานจริงได้มากกว่าแค่มีชื่อจังหวัดอยู่บนหน้า
+        </p>
+        <div class="mt-6 grid gap-4 sm:grid-cols-2">
+          {serviceSignals.map((signal) => (
+            <section class="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
+              <h3 class="text-base font-semibold leading-7 text-slate-950">{signal.title}</h3>
+              <p class="mt-2 text-sm leading-7 text-slate-700">{signal.body}</p>
+            </section>
+          ))}
+        </div>
+      </section>
+
+      <section aria-labelledby="area-local-faq" class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+        <h2 id="area-local-faq" class="text-2xl font-bold tracking-tight text-slate-950">
+          คำถามที่คนใน {provinceName} มักใช้ตัดสินใจก่อนเริ่มขาย
+        </h2>
+        <p class="mt-4 text-base leading-8 text-slate-700">
+          ส่วนนี้ตั้งใจทำให้มีคำตอบอยู่ใน HTML โดยตรง เพื่อให้คนอ่านเห็นคำตอบทันที และช่วยให้หน้า {provinceName} ตอบโจทย์การค้นหาแบบ AEO ได้ชัดขึ้น
+        </p>
+        <div class="mt-6 space-y-3">
+          {faqItems.map((item) => (
+            <details class="group rounded-2xl border border-slate-200 bg-slate-50/60 px-4 py-3 open:bg-white">
+              <summary class="cursor-pointer list-none text-base font-semibold leading-7 text-slate-950 [&::-webkit-details-marker]:hidden">
+                {item.question}
+              </summary>
+              <p class="pt-3 text-sm leading-7 text-slate-700">{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section aria-labelledby="area-local-next" class="rounded-3xl border border-emerald-200 bg-emerald-50/70 p-6">
+        <h2 id="area-local-next" class="text-2xl font-bold tracking-tight text-slate-950">
+          ถ้าคุณอยู่ {provinceName} และพร้อมเช็กราคาแล้ว ควรอ่านต่อหน้าไหน
+        </h2>
+        <div class="mt-4 space-y-4 text-base leading-8 text-slate-700">
+          <p>
+            หลังจากดูหน้าจังหวัดแล้ว ขั้นถัดไปที่มีประโยชน์ที่สุดคือไปหน้าหมวดสินค้าที่ตรงกับของที่คุณกำลังขาย หรืออ่านคู่มือเตรียมข้อมูลก่อนขาย เพื่อให้ข้อความแรกของคุณครบขึ้น
+            เส้นทางแบบนี้ช่วยทั้งคนขายเครื่องเดียวและคนที่มีหลายรายการ เพราะทำให้รู้ว่าควรส่งอะไรบ้างและควรคาดหวังคำตอบแบบไหน
+          </p>
+          <p>
+            ถ้ายังไม่แน่ใจว่าจะเริ่มจากหน้าใด ให้เริ่มจากหน้ารับซื้อทั้งหมดหรือหน้าคำถามที่พบบ่อยก่อน แล้วค่อยย้อนกลับมาดูรายละเอียดเฉพาะเครื่องของคุณ
+            โครงสร้างลิงก์แบบนี้ทำให้หน้าพื้นที่ให้บริการไม่เป็นทางตัน แต่เป็นหน้าที่พาคนใน {provinceName} ไปสู่การประเมินจริงได้ต่อเนื่อง
+          </p>
+        </div>
+        <ul class="mt-5 grid gap-3 sm:grid-cols-2">
+          {readMoreLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="block rounded-2xl border border-emerald-200 bg-white px-4 py-3 text-sm font-medium leading-7 text-slate-800 transition-colors hover:border-emerald-300 hover:text-emerald-700"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+  ) : null
+}

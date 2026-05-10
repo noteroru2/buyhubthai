@@ -1,0 +1,41 @@
+---
+interface TocItem {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  items: TocItem[];
+  heading?: string;
+  compact?: boolean;
+}
+
+const { items, heading = 'สารบัญหน้านี้', compact = false } = Astro.props;
+const filtered = items.filter((item) => item.depth >= 2 && item.depth <= 3 && item.slug && item.text);
+---
+
+{
+  filtered.length ? (
+    <nav
+      aria-labelledby="page-toc-heading"
+      class:list={[
+        'rounded-2xl border border-slate-200 bg-slate-50/80',
+        compact ? 'p-4' : 'p-5 sm:p-6'
+      ]}
+    >
+      <h2 id="page-toc-heading" class="text-lg font-bold tracking-tight text-slate-950">
+        {heading}
+      </h2>
+      <ul class="mt-4 space-y-2 text-sm leading-7">
+        {filtered.map((item) => (
+          <li class:list={[item.depth === 3 ? 'pl-4 text-slate-600' : 'text-slate-700']}>
+            <a class="font-medium text-emerald-700 hover:underline" href={`#${item.slug}`}>
+              {item.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  ) : null
+}

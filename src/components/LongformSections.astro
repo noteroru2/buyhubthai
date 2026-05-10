@@ -1,0 +1,123 @@
+---
+type LinkItem = {
+  href: string;
+  label: string;
+};
+
+export type LongformSection = {
+  heading: string;
+  paragraphs?: string[];
+  list?: string[];
+  orderedList?: string[];
+  links?: LinkItem[];
+  note?: string;
+};
+
+interface Props {
+  sections: LongformSection[];
+  tocHeading?: string;
+}
+
+const { sections, tocHeading = 'สารบัญหน้านี้' } = Astro.props;
+
+const slugify = (text: string) =>
+  text
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^\u0E00-\u0E7Fa-z0-9-]/g, '')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+
+const tocItems = sections.map((section) => ({
+  id: slugify(section.heading),
+  label: section.heading
+}));
+---
+
+{
+  sections.length ? (
+    <div class="mt-12 space-y-12">
+      <nav
+        aria-labelledby="longform-toc-heading"
+        class="rounded-2xl border border-slate-200 bg-slate-50/80 p-5 sm:p-6"
+      >
+        <h2 id="longform-toc-heading" class="text-lg font-bold tracking-tight text-slate-950">
+          {tocHeading}
+        </h2>
+        <ul class="mt-4 grid gap-2 text-sm leading-7 sm:grid-cols-2">
+          {tocItems.map((item) => (
+            <li>
+              <a class="font-medium text-emerald-700 hover:underline" href={`#${item.id}`}>
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      {sections.map((section) => {
+        const sectionId = slugify(section.heading);
+
+        return (
+          <section id={sectionId} aria-labelledby={`${sectionId}-heading`} class="min-w-0">
+            <h2 id={`${sectionId}-heading`} class="text-2xl font-bold tracking-tight text-slate-950">
+              {section.heading}
+            </h2>
+
+            {section.paragraphs && section.paragraphs.length > 0 ? (
+              <div class="mt-5 space-y-4 text-base leading-8 text-slate-700">
+                {section.paragraphs.map((paragraph) => (
+                  <p>{paragraph}</p>
+                ))}
+              </div>
+            ) : null}
+
+            {section.list && section.list.length > 0 ? (
+              <ul class="mt-5 space-y-2 text-sm leading-7 text-slate-700">
+                {section.list.map((item) => (
+                  <li class="flex gap-2">
+                    <span class="text-emerald-600" aria-hidden="true">
+                      •
+                    </span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+
+            {section.orderedList && section.orderedList.length > 0 ? (
+              <ol class="mt-5 space-y-2 text-sm leading-7 text-slate-700">
+                {section.orderedList.map((item, index) => (
+                  <li class="flex gap-3">
+                    <span class="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-xs font-bold text-white">
+                      {index + 1}
+                    </span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ol>
+            ) : null}
+
+            {section.links && section.links.length > 0 ? (
+              <ul class="mt-5 grid gap-2 text-sm sm:grid-cols-2">
+                {section.links.map((link) => (
+                  <li class="min-w-0">
+                    <a class="break-words font-semibold text-emerald-700 hover:underline" href={link.href}>
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+
+            {section.note ? (
+              <div class="mt-5 rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm leading-7 text-amber-900">
+                {section.note}
+              </div>
+            ) : null}
+          </section>
+        );
+      })}
+    </div>
+  ) : null
+}

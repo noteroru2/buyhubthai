@@ -1,0 +1,65 @@
+---
+type LinkItem = {
+  href: string;
+  label: string;
+};
+
+interface Props {
+  reviewedAt: string;
+  reviewedBy: string;
+  scope: string;
+  notes?: string[];
+  links?: LinkItem[];
+}
+
+const { reviewedAt, reviewedBy, scope, notes = [], links = [] } = Astro.props;
+const reviewedLabel = new Intl.DateTimeFormat('th-TH', { dateStyle: 'long' }).format(new Date(reviewedAt));
+---
+
+<aside class="rounded-3xl border border-slate-200 bg-slate-50/80 p-6" aria-label="ข้อมูลการตรวจทานเนื้อหา">
+  <h2 class="text-xl font-bold tracking-tight text-slate-950">ตรวจทานเนื้อหาและขอบเขตข้อมูล</h2>
+  <dl class="mt-4 grid gap-4 sm:grid-cols-3">
+    <div class="rounded-2xl border border-slate-200 bg-white px-4 py-3">
+      <dt class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">อัปเดตล่าสุด</dt>
+      <dd class="mt-2 text-sm font-semibold leading-7 text-slate-950">{reviewedLabel}</dd>
+    </div>
+    <div class="rounded-2xl border border-slate-200 bg-white px-4 py-3">
+      <dt class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">ตรวจทานโดย</dt>
+      <dd class="mt-2 text-sm font-semibold leading-7 text-slate-950">{reviewedBy}</dd>
+    </div>
+    <div class="rounded-2xl border border-slate-200 bg-white px-4 py-3">
+      <dt class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">ขอบเขตหน้า</dt>
+      <dd class="mt-2 text-sm leading-7 text-slate-700">{scope}</dd>
+    </div>
+  </dl>
+
+  {
+    notes.length ? (
+      <ul class="mt-5 space-y-2 text-sm leading-7 text-slate-700">
+        {notes.map((note) => (
+          <li class="flex gap-2">
+            <span class="text-emerald-600" aria-hidden="true">
+              •
+            </span>
+            <span>{note}</span>
+          </li>
+        ))}
+      </ul>
+    ) : null
+  }
+
+  {
+    links.length ? (
+      <div class="mt-5 grid gap-2 sm:grid-cols-2">
+        {links.map((link) => (
+          <a
+            href={link.href}
+            class="rounded-2xl border border-emerald-200 bg-white px-4 py-3 text-sm font-semibold leading-7 text-emerald-700 transition-colors hover:border-emerald-300 hover:text-emerald-800"
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+    ) : null
+  }
+</aside>

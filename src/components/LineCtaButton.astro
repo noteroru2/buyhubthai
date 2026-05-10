@@ -1,0 +1,61 @@
+---
+import { LINE_AT, LINE_URL } from '../lib/constants';
+
+interface Props {
+  variant?: 'primary' | 'outline' | 'light';
+  size?: 'sm' | 'md';
+  class?: string;
+  label?: string;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  class: className = '',
+  label = `ประเมินราคาผ่าน LINE ${LINE_AT}`
+} = Astro.props;
+
+const base =
+  'inline-flex items-center justify-center gap-2 font-semibold transition duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 active:translate-y-px';
+const sz =
+  size === 'sm'
+    ? 'rounded-xl px-4 py-2.5 text-sm'
+    : 'rounded-2xl px-6 py-3.5 text-sm sm:text-base';
+const styles = {
+  primary:
+    'bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-lg shadow-emerald-500/25 hover:from-emerald-400 hover:to-emerald-500 hover:shadow-lg hover:shadow-emerald-500/35 focus-visible:outline-emerald-500',
+  outline:
+    'border-2 border-emerald-500/80 bg-white/5 text-white hover:bg-white/10 focus-visible:outline-emerald-400',
+  light:
+    'border border-slate-200 bg-white text-emerald-700 shadow-sm shadow-slate-900/5 hover:border-slate-300 hover:shadow-md focus-visible:outline-emerald-500 md:hover:-translate-y-0.5'
+};
+const iconWrap = {
+  primary: 'rounded-lg bg-white/20',
+  outline: 'rounded-lg bg-white/15',
+  light: 'rounded-lg bg-emerald-500/10'
+};
+const iconColor = {
+  primary: 'text-white',
+  outline: 'text-white',
+  light: 'text-emerald-600'
+};
+---
+
+<a
+  href={LINE_URL}
+  target="_blank"
+  rel="noopener noreferrer"
+  class:list={[base, sz, styles[variant], className]}
+>
+  <span
+    class:list={['inline-flex h-5 w-5 shrink-0 items-center justify-center sm:h-6 sm:w-6', iconWrap[variant]]}
+    aria-hidden="true"
+  >
+    <svg class:list={['h-3.5 w-3.5 sm:h-4 sm:w-4', iconColor[variant]]} viewBox="0 0 320 320" fill="currentColor">
+      <path
+        d="M280 149c0 77-81 140-181 140-36 0-69-9-97-25h-1L32 298l38-86v-1c-21-26-33-58-33-93 0-77 81-140 181-140s180 62 180 139z"
+      />
+    </svg>
+  </span>
+  <span>{label}</span>
+</a>
