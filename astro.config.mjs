@@ -4,6 +4,24 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
+const LEGACY_ALIAS_PATHS = [
+  '/about',
+  '/contact',
+  '/how-it-works',
+  '/blog',
+  '/sell',
+  '/service-area'
+];
+
+function shouldIncludeInSitemap(page) {
+  const pathname = new URL(page).pathname.replace(/\/$/, '') || '/';
+  if (pathname.includes('/draft/')) {
+    return false;
+  }
+
+  return !LEGACY_ALIAS_PATHS.some((legacyPath) => pathname === legacyPath || pathname.startsWith(`${legacyPath}/`));
+}
+
 const disableAstroToolbarOptimizer = () => ({
   name: 'buyhub:disable-astro-toolbar-optimizer',
   configResolved(config) {
@@ -55,7 +73,7 @@ export default defineConfig({
 
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/draft/')
+      filter: shouldIncludeInSitemap
     })
   ]
 });

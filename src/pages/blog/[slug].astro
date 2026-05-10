@@ -1,10 +1,6 @@
 ---
-import { getCollection, getEntry, render } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import CtaBand from '../../components/CtaBand.astro';
-import LineCtaButton from '../../components/LineCtaButton.astro';
-import PhoneCtaButton from '../../components/PhoneCtaButton.astro';
-import { articleJsonLd, breadcrumbJsonLd } from '../../lib/schema';
 import { blogThaiHref } from '../../lib/thaiRoutes';
 
 export async function getStaticPaths() {
@@ -18,52 +14,26 @@ const { slug } = Astro.params;
 const entry = await getEntry('blog', slug!);
 if (!entry) return Astro.redirect('/blog');
 
-const { Content } = await render(entry);
-const { data } = entry;
-
-const title = data.title;
-const description = data.description;
 const thaiTo = blogThaiHref(entry.id);
-const path = `/blog/${entry.id}`;
-
-const datePublished = data.pubDate.toISOString();
-const dateModified = (data.updatedDate ?? data.pubDate).toISOString();
-
-const jsonLd = [
-  breadcrumbJsonLd([
-    { name: 'หน้าแรก', href: '/' },
-    { name: 'บทความ', href: '/blog' },
-    { name: data.title, href: path }
-  ]),
-  articleJsonLd({
-    headline: data.title,
-    description,
-    url: path,
-    datePublished,
-    dateModified,
-    author: data.author
-  })
-];
-
-const fmt = new Intl.DateTimeFormat('th-TH', { dateStyle: 'long' });
+const title = `กำลังพาไปบทความ ${entry.data.title} (ภาษาไทย)`;
+const description = 'BuyHub ใช้ URL ภาษาไทยเป็นหน้าหลักสำหรับ SEO และการใช้งาน';
 ---
 
 <BaseLayout
   title={title}
   description={description}
-  ogType="article"
-  jsonLd={jsonLd}
+  canonical={thaiTo}
+  robots="noindex,follow"
   breadcrumbs={[
     { name: 'หน้าแรก', href: '/' },
     { name: 'บทความ', href: '/บทความ' },
-    { name: data.title, href: thaiTo }
+    { name: entry.data.title, href: thaiTo }
   ]}
 >
   <section class="bg-white">
     <div class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
       <meta http-equiv="refresh" content={`0; url=${thaiTo}`} />
-      <link rel="canonical" href={thaiTo} />
-      <h1 class="text-2xl font-bold tracking-tight text-slate-950">กำลังพาไปบทความ (ภาษาไทย)</h1>
+      <h1 class="text-2xl font-bold tracking-tight text-slate-950">กำลังพาไปบทความภาษาไทย</h1>
       <p class="mt-4 text-base leading-8 text-slate-600">
         หากหน้าไม่เปลี่ยนอัตโนมัติ คลิกที่นี่:
         <a class="font-semibold text-emerald-700 underline decoration-emerald-500/35 underline-offset-4 hover:text-emerald-800" href={thaiTo}>

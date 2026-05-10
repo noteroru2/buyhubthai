@@ -1,11 +1,6 @@
 ---
-import { getCollection, getEntry, render } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import CtaBand from '../../components/CtaBand.astro';
-import LineCtaButton from '../../components/LineCtaButton.astro';
-import PhoneCtaButton from '../../components/PhoneCtaButton.astro';
-import { breadcrumbJsonLd, serviceJsonLd } from '../../lib/schema';
-import { SITE_NAME } from '../../lib/constants';
 import { sellThaiHref } from '../../lib/thaiRoutes';
 
 export async function getStaticPaths() {
@@ -19,50 +14,32 @@ const { slug } = Astro.params;
 const entry = await getEntry('sell', slug!);
 if (!entry) return Astro.redirect('/sell');
 
-const { Content } = await render(entry);
-const { data } = entry;
-
-const title = data.title;
-const description = data.description;
 const thaiTo = sellThaiHref(entry.id);
-const path = `/sell/${entry.id}`;
-
-const jsonLd = [
-  breadcrumbJsonLd([
-    { name: 'หน้าแรก', href: '/' },
-    { name: 'สินค้าที่ BuyHub รับซื้อ', href: '/sell' },
-    { name: data.title, href: path }
-  ]),
-  serviceJsonLd({
-    name: data.serviceName ?? data.title,
-    description,
-    url: path
-  })
-];
+const title = `กำลังพาไปหน้ารับซื้อ ${entry.data.title} (ภาษาไทย)`;
+const description = 'BuyHub ใช้ URL ภาษาไทยเป็นหน้าหลักสำหรับ SEO และการใช้งาน';
 ---
 
 <BaseLayout
   title={title}
   description={description}
-  jsonLd={jsonLd}
+  canonical={thaiTo}
+  robots="noindex,follow"
   breadcrumbs={[
     { name: 'หน้าแรก', href: '/' },
     { name: 'รับซื้ออะไรบ้าง', href: '/รับซื้อ' },
-    { name: data.title, href: thaiTo }
+    { name: entry.data.title, href: thaiTo }
   ]}
 >
   <section class="bg-white">
     <div class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
       <meta http-equiv="refresh" content={`0; url=${thaiTo}`} />
-      <link rel="canonical" href={thaiTo} />
-      <h1 class="text-2xl font-bold tracking-tight text-slate-950">กำลังพาไปหน้ารับซื้อ (ภาษาไทย)</h1>
+      <h1 class="text-2xl font-bold tracking-tight text-slate-950">กำลังพาไปหน้ารับซื้อภาษาไทย</h1>
       <p class="mt-4 text-base leading-8 text-slate-600">
         หากหน้าไม่เปลี่ยนอัตโนมัติ คลิกที่นี่:
         <a class="font-semibold text-emerald-700 underline decoration-emerald-500/35 underline-offset-4 hover:text-emerald-800" href={thaiTo}>
           {thaiTo}
         </a>
       </p>
-      <p class="mt-6 text-sm text-slate-500">อัปเดตล่าสุดจาก {SITE_NAME}</p>
     </div>
   </section>
 </BaseLayout>

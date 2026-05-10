@@ -15,6 +15,8 @@ interface Props {
   description?: string;
   ogType?: 'website' | 'article';
   ogImage?: string;
+  canonical?: string;
+  robots?: string;
   breadcrumbs?: BreadcrumbItem[];
   jsonLd?: Record<string, unknown>[];
 }
@@ -24,11 +26,13 @@ const {
   description = DEFAULT_DESCRIPTION,
   ogType = 'website',
   ogImage = '/images/hero/buyhub-hero.png',
+  canonical,
+  robots,
   breadcrumbs,
   jsonLd = []
 } = Astro.props;
 
-const canonicalUrl = new URL(Astro.url.pathname, SITE_URL).href;
+const canonicalUrl = new URL(canonical ?? Astro.url.pathname, SITE_URL).href;
 const ogImageAbs = new URL(ogImage, SITE_URL).href;
 const titleAlreadyIncludesSiteName =
   title === SITE_NAME ||
@@ -52,6 +56,7 @@ const baseGraph = [orgJsonLd(), localBusinessJsonLd(), websiteJsonLd(), ...jsonL
     <meta name="generator" content={Astro.generator} />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    {robots ? <meta name="robots" content={robots} /> : null}
     <link rel="canonical" href={canonicalUrl} />
     <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:title" content={fullTitle} />
