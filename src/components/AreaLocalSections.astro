@@ -6,7 +6,7 @@ import { getAreaEditorialProfile } from '../data/areaEditorialProfiles';
 import { getAreaDecisionProfile } from '../data/areaDecisionProfiles';
 import { buildAreaFaqItems, buildAreaServiceSignals } from '../data/areaServiceSignals';
 import { EDITORIAL_REVIEWED_AT, EDITORIAL_REVIEWER } from '../lib/constants';
-import { buildAreaKeywordCluster, joinThaiKeywordList } from '../lib/keywordClusters';
+import { buildAreaKeywordCluster, joinThaiKeywordPreview } from '../lib/keywordClusters';
 
 interface Props {
   areaId: string;
@@ -29,9 +29,11 @@ const coverageLead = coverage ? joinThaiList(coverage.districts.slice(0, 4)) : '
 const faqItems = profile ? buildAreaFaqItems(areaId, provinceName) : [];
 const serviceSignals = profile ? buildAreaServiceSignals(areaId, provinceName) : [];
 const areaKeywordCluster = buildAreaKeywordCluster(provinceName);
-const areaKeywordLead = joinThaiKeywordList(areaKeywordCluster.localIntent ?? [], true);
-const areaKeywordSupport = joinThaiKeywordList(areaKeywordCluster.modelIntent ?? [], true);
-const areaKeywordQuestions = joinThaiKeywordList(areaKeywordCluster.issueIntent ?? [], true);
+const areaKeywordLead = joinThaiKeywordPreview(areaKeywordCluster.localIntent ?? [], 4, true);
+const areaKeywordSupport = joinThaiKeywordPreview(areaKeywordCluster.modelIntent ?? [], 4, true);
+const areaKeywordQuestions = joinThaiKeywordPreview(areaKeywordCluster.issueIntent ?? [], 4, true);
+const areaKeywordPrice = joinThaiKeywordPreview(areaKeywordCluster.priceIntent ?? [], 3, true);
+const areaKeywordDecision = joinThaiKeywordPreview(areaKeywordCluster.decisionIntent ?? [], 3, true);
 
 const readMoreLinks = [
   { href: '/รับซื้อ', label: 'ดูหน้ารับซื้อทั้งหมด' },
@@ -70,7 +72,7 @@ const readMoreLinks = [
         title={`คำค้นที่คนใน ${provinceName} มักใช้ก่อนหาแหล่งรับซื้อสินค้าไอทีมือสอง`}
         intro={[
           `หน้านี้ถูกวางให้ตอบคำค้นหลักอย่าง “${areaKeywordCluster.primary}” พร้อมคำค้นรองอย่าง ${areaKeywordLead} เพื่อให้คนใน ${provinceName} ที่กำลังมองหาจุดเริ่มต้นสำหรับขายสินค้าไอทีมือสอง เจอคำตอบระดับจังหวัดได้ง่ายขึ้น`,
-          `ถ้าคุณกำลังค้นหาทั้ง ${areaKeywordSupport || 'คำค้นหมวดสินค้าที่เจอบ่อยในจังหวัดนี้'} และ ${areaKeywordQuestions || 'คำค้นเชิงสถานการณ์ก่อนเริ่มขาย'} เนื้อหาด้านล่างจะช่วยเชื่อมจากคำค้นกว้าง ๆ ไปสู่ขั้นตอนใช้งานจริง เช่น ควรเริ่มจากหน้าหมวดไหน ควรแจ้งพื้นที่อย่างไร และควรส่งข้อมูลอะไรในข้อความแรก`
+          `ถ้าคุณกำลังค้นหาทั้ง ${areaKeywordSupport || 'คำค้นหมวดสินค้าที่เจอบ่อยในจังหวัดนี้'} และ ${areaKeywordQuestions || 'คำค้นเชิงสถานการณ์ก่อนเริ่มขาย'} รวมถึง ${areaKeywordPrice || 'คำค้นเชิงราคา'} และ ${areaKeywordDecision || 'คำค้นเชิงเลือกจังหวัดหรือขั้นตอน'} เนื้อหาด้านล่างจะช่วยเชื่อมจากคำค้นกว้าง ๆ ไปสู่ขั้นตอนใช้งานจริง เช่น ควรเริ่มจากหน้าหมวดไหน ควรแจ้งพื้นที่อย่างไร และควรส่งข้อมูลอะไรในข้อความแรก`
         ]}
         groups={[
           {
@@ -87,6 +89,16 @@ const readMoreLinks = [
             title: 'คำค้นก่อนตัดสินใจขายจากต่างอำเภอหรือหลายชิ้น',
             blurb: `กลุ่มนี้ช่วยตอบคำถามที่มักเกิดก่อนเริ่มคุยงานจริง เช่น ขายหลายชิ้น, อยู่ต่างอำเภอ หรืออยากเช็กราคาก่อน`,
             items: areaKeywordCluster.issueIntent ?? []
+          },
+          {
+            title: 'คำค้นเชิงราคาระดับจังหวัด',
+            blurb: `เหมาะกับคนที่อยากคาดเดาช่วงราคาและเตรียมข้อมูลให้การประเมินนิ่งขึ้นใน ${provinceName}`,
+            items: areaKeywordCluster.priceIntent ?? []
+          },
+          {
+            title: 'คำค้นเชิงตัดสินใจเลือกหน้าจังหวัด',
+            blurb: `กลุ่มนี้ช่วยตอบคนที่อยู่พื้นที่รอยต่อ ยังไม่แน่ใจว่าจะเริ่มจากหน้าไหนหรือคุยขั้นตอนแบบไหนก่อนดี`,
+            items: areaKeywordCluster.decisionIntent ?? []
           }
         ]}
       />

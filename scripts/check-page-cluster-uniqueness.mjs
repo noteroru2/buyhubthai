@@ -12,6 +12,15 @@ const CLUSTERS = [
     match: (relativePath) => /^รับซื้อ[^/]*\/index\.html$/u.test(relativePath)
   },
   {
+    name: 'sell-support',
+    maxOccurrences: 6,
+    commonRepeatRatio: 0.15,
+    match: (relativePath) =>
+      relativePath.startsWith('รับซื้อ/') &&
+      relativePath.endsWith('/index.html') &&
+      relativePath.split('/').length === 4
+  },
+  {
     name: 'area',
     maxOccurrences: 2,
     commonRepeatRatio: 0.6,

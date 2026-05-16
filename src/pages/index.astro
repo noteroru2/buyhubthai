@@ -10,7 +10,7 @@ import LongformSections from '../components/LongformSections.astro';
 import ServiceCategoryIcon from '../components/ServiceCategoryIcon.astro';
 import { homeFaqs } from '../data/faqs';
 import { EDITORIAL_REVIEWED_AT, EDITORIAL_REVIEWER, LINE_AT, LINE_URL, PHONE_DISPLAY, PHONE_E164 } from '../lib/constants';
-import { buildHomeKeywordCluster, joinThaiKeywordList } from '../lib/keywordClusters';
+import { buildHomeKeywordCluster, joinThaiKeywordPreview } from '../lib/keywordClusters';
 import { breadcrumbJsonLd, faqPageJsonLd, webPageJsonLd } from '../lib/schema';
 
 const title = 'BuyHub — ศูนย์รับซื้อสินค้าไอทีมือสองในภาคอีสาน ประเมินไว โอนเงินทันที';
@@ -254,9 +254,11 @@ const homeEditorialSignals = {
   ]
 } as const;
 const homeKeywordCluster = buildHomeKeywordCluster();
-const homeKeywordLead = joinThaiKeywordList(homeKeywordCluster.localIntent ?? [], true);
-const homeKeywordSupport = joinThaiKeywordList(homeKeywordCluster.modelIntent ?? [], true);
-const homeKeywordQuestions = joinThaiKeywordList(homeKeywordCluster.issueIntent ?? [], true);
+const homeKeywordLead = joinThaiKeywordPreview(homeKeywordCluster.localIntent ?? [], 4, true);
+const homeKeywordSupport = joinThaiKeywordPreview(homeKeywordCluster.modelIntent ?? [], 4, true);
+const homeKeywordQuestions = joinThaiKeywordPreview(homeKeywordCluster.issueIntent ?? [], 4, true);
+const homeKeywordPrice = joinThaiKeywordPreview(homeKeywordCluster.priceIntent ?? [], 3, true);
+const homeKeywordDecision = joinThaiKeywordPreview(homeKeywordCluster.decisionIntent ?? [], 3, true);
 
 const jsonLd = [
   webPageJsonLd({
@@ -448,7 +450,7 @@ const homeLongSections = [
         title="คำค้นหลักและคำค้นรองที่หน้าแรกของ BuyHub ตั้งใจตอบ"
         intro={[
           `หน้าแรกถูกวางให้ตอบคำค้นหลักอย่าง “${homeKeywordCluster.primary}” พร้อมคำค้นรองอย่าง ${homeKeywordLead} เพื่อให้คนที่เริ่มจากคำค้นกว้างเกี่ยวกับการขายสินค้าไอทีในภาคอีสานเจอจุดเริ่มต้นที่ชัดขึ้น`,
-          `ถ้าคุณกำลังค้นหาทั้ง ${homeKeywordSupport || 'คำค้นตามหมวดสินค้าหลัก'} และ ${homeKeywordQuestions || 'คำค้นก่อนส่งรูปประเมิน'} ส่วนนี้จะช่วยพาคุณไปยังหมวดรับซื้อ พื้นที่ให้บริการ และหน้าบทความที่ตรงกับสถานการณ์ของตัวเองได้เร็วขึ้น`
+          `ถ้าคุณกำลังค้นหาทั้ง ${homeKeywordSupport || 'คำค้นตามหมวดสินค้าหลัก'} และ ${homeKeywordQuestions || 'คำค้นก่อนส่งรูปประเมิน'} รวมถึง ${homeKeywordPrice || 'คำค้นเชิงราคา'} และ ${homeKeywordDecision || 'คำค้นเชิงเลือกหมวด'} ส่วนนี้จะช่วยพาคุณไปยังหมวดรับซื้อ พื้นที่ให้บริการ และหน้าบทความที่ตรงกับสถานการณ์ของตัวเองได้เร็วขึ้น`
         ]}
         groups={[
           {
@@ -465,6 +467,16 @@ const homeLongSections = [
             title: 'คำค้นก่อนส่งรูปเช็กราคาหรือขายหลายชิ้น',
             blurb: 'กลุ่มนี้ช่วยตอบ intent ของคนที่อยากเช็กราคาไว, อยู่ต่างจังหวัด หรือมีหลายรายการในรอบเดียว',
             items: homeKeywordCluster.issueIntent ?? []
+          },
+          {
+            title: 'คำค้นเชิงราคาและช่วงประเมิน',
+            blurb: 'ช่วยครอบคลุม intent ของคนที่ต้องการรู้ก่อนว่าสินค้าของตัวเองมีจุดลงราคาจากอะไรบ้าง',
+            items: homeKeywordCluster.priceIntent ?? []
+          },
+          {
+            title: 'คำค้นเชิงตัดสินใจเลือกเส้นทางขาย',
+            blurb: 'ตอบคนที่ยังเลว่าจะควรเริ่มจากหน้าไหน ควรขายตอนนี้ไหม หรือควรรวมขายเป็นชุดดีหรือไม่',
+            items: homeKeywordCluster.decisionIntent ?? []
           }
         ]}
       />

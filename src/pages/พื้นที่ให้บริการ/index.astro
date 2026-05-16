@@ -8,7 +8,7 @@ import KeywordIntentPanel from '../../components/KeywordIntentPanel.astro';
 import LineCtaButton from '../../components/LineCtaButton.astro';
 import LongformSections from '../../components/LongformSections.astro';
 import PhoneCtaButton from '../../components/PhoneCtaButton.astro';
-import { buildAreaHubKeywordCluster, joinThaiKeywordList } from '../../lib/keywordClusters';
+import { buildAreaHubKeywordCluster, joinThaiKeywordPreview } from '../../lib/keywordClusters';
 import { breadcrumbJsonLd, faqPageJsonLd, webPageJsonLd } from '../../lib/schema';
 import { EDITORIAL_REVIEWED_AT, EDITORIAL_REVIEWER, LINE_AT } from '../../lib/constants';
 import { areaThaiHref } from '../../lib/thaiRoutes';
@@ -110,9 +110,11 @@ const areaOverviewLinks = sorted.slice(0, 12).map((entry) => ({
   label: `รับซื้อสินค้า IT มือสอง ${entry.data.province}`
 }));
 const areaHubKeywordCluster = buildAreaHubKeywordCluster();
-const areaHubKeywordLead = joinThaiKeywordList(areaHubKeywordCluster.localIntent ?? [], true);
-const areaHubKeywordSupport = joinThaiKeywordList(areaHubKeywordCluster.modelIntent ?? [], true);
-const areaHubKeywordQuestions = joinThaiKeywordList(areaHubKeywordCluster.issueIntent ?? [], true);
+const areaHubKeywordLead = joinThaiKeywordPreview(areaHubKeywordCluster.localIntent ?? [], 4, true);
+const areaHubKeywordSupport = joinThaiKeywordPreview(areaHubKeywordCluster.modelIntent ?? [], 4, true);
+const areaHubKeywordQuestions = joinThaiKeywordPreview(areaHubKeywordCluster.issueIntent ?? [], 4, true);
+const areaHubKeywordPrice = joinThaiKeywordPreview(areaHubKeywordCluster.priceIntent ?? [], 3, true);
+const areaHubKeywordDecision = joinThaiKeywordPreview(areaHubKeywordCluster.decisionIntent ?? [], 3, true);
 
 const geoLongSections = [
   {
@@ -272,7 +274,7 @@ geoLongSections.push({
         className="mt-12"
         intro={[
           `หน้านี้ถูกวางให้ตอบคำค้นหลักอย่าง “${areaHubKeywordCluster.primary}” พร้อมคำค้นรองอย่าง ${areaHubKeywordLead} เพื่อช่วยให้คนที่ค้นหาจากจังหวัดต่าง ๆ ในภาคอีสานเจอทางเข้าที่ชัดก่อนเลือกหน้าจังหวัด`,
-          `ถ้าคุณกำลังค้นหาทั้ง ${areaHubKeywordSupport || 'คำค้นจังหวัด x สินค้า'} และ ${areaHubKeywordQuestions || 'คำค้นเรื่องต่างอำเภอหรือการนัดรับ'} เนื้อหาหน้านี้จะช่วยพาไปยังหน้าจังหวัดที่เกี่ยวข้องและทำให้รู้ว่าควรแจ้งข้อมูลพื้นที่แบบไหนตั้งแต่ข้อความแรก`
+          `ถ้าคุณกำลังค้นหาทั้ง ${areaHubKeywordSupport || 'คำค้นจังหวัด x สินค้า'} และ ${areaHubKeywordQuestions || 'คำค้นเรื่องต่างอำเภอหรือการนัดรับ'} รวมถึง ${areaHubKeywordPrice || 'คำค้นเชิงราคา'} และ ${areaHubKeywordDecision || 'คำค้นเชิงเลือกจังหวัด'} เนื้อหาหน้านี้จะช่วยพาไปยังหน้าจังหวัดที่เกี่ยวข้องและทำให้รู้ว่าควรแจ้งข้อมูลพื้นที่แบบไหนตั้งแต่ข้อความแรก`
         ]}
         groups={[
           {
@@ -289,6 +291,16 @@ geoLongSections.push({
             title: 'คำค้นก่อนเริ่มขายจากต่างอำเภอหรือจังหวัดใกล้เคียง',
             blurb: 'กลุ่มนี้ตอบคำถามก่อนเริ่มคุยเรื่องคิว พื้นที่จริง และการนัดรับส่งมอบ',
             items: areaHubKeywordCluster.issueIntent ?? []
+          },
+          {
+            title: 'คำค้นเชิงราคาระดับภาคและจังหวัด',
+            blurb: 'กลุ่มนี้ครอบคลุมคนที่อยากเทียบกรอบราคาคร่าว ๆ ก่อนลงรายละเอียดหน้าจังหวัดจริง',
+            items: areaHubKeywordCluster.priceIntent ?? []
+          },
+          {
+            title: 'คำค้นเชิงตัดสินใจเลือกหน้าพื้นที่',
+            blurb: 'ช่วยตอบคนที่ยังเลว่าจะคลิกหน้าจังหวัดไหน หรือควรเริ่มคุยยังไงเมื่ออยู่ในพื้นที่รอยต่อหลายจังหวัด',
+            items: areaHubKeywordCluster.decisionIntent ?? []
           }
         ]}
       />

@@ -4,6 +4,8 @@ export type KeywordCluster = {
   localIntent?: string[];
   modelIntent?: string[];
   issueIntent?: string[];
+  priceIntent?: string[];
+  decisionIntent?: string[];
 };
 
 const uniquePhrases = (phrases: string[]) => {
@@ -718,10 +720,137 @@ const buildProductIssueKeywords = (cleanProduct: string, provinceName: string) =
   ]);
 };
 
+const buildSellLocalSupportKeywords = (
+  provinceName: string,
+  sellProduct: string,
+  appraiseProduct: string
+) =>
+  uniquePhrases([
+    `${sellProduct} ส่งรูปประเมิน ${provinceName}`,
+    `${appraiseProduct} ฟรี ${provinceName}`
+  ]);
+
+const buildSellModelSupportKeywords = (cleanProduct: string, provinceName: string) => {
+  const buyProduct = withTopic('รับซื้อ', cleanProduct);
+  const sellProduct = withTopic('ขาย', cleanProduct);
+  const broadGroup = /บริษัท|อุปกรณ์|คอมพิวเตอร์|PC|เครื่องเกม/u.test(cleanProduct);
+
+  return uniquePhrases([
+    `${buyProduct} ${broadGroup ? 'แบบไหน' : 'รุ่นไหน'} ${provinceName}`,
+    `${sellProduct} ${broadGroup ? 'ยกชุด' : 'พร้อมกล่อง'} ${provinceName}`
+  ]);
+};
+
+const buildSellIssueSupportKeywords = (cleanProduct: string, provinceName: string) =>
+  uniquePhrases([
+    `${withTopic('ขาย', cleanProduct)} อุปกรณ์ไม่ครบ ${provinceName}`,
+    `ประเมิน${needsLeadingSpace(cleanProduct) ? ' ' : ''}${cleanProduct} ผ่านรูป ${provinceName}`
+  ]);
+
+const buildSellPriceSupportKeywords = (cleanProduct: string, provinceName: string) => {
+  const sellProduct = withTopic('ขาย', cleanProduct);
+  const appraiseProduct = withTopic('ประเมินราคา', cleanProduct);
+
+  return uniquePhrases([
+    `${appraiseProduct} เบื้องต้น ${provinceName}`,
+    `${sellProduct} ได้ราคาดี ${provinceName}`,
+    `${sellProduct} ราคาเท่าไหร่ ${provinceName}`,
+    `${sellProduct} ราคาตกเพราะอะไร ${provinceName}`
+  ]);
+};
+
+const buildSellDecisionSupportKeywords = (cleanProduct: string, provinceName: string) => {
+  const sellProduct = withTopic('ขาย', cleanProduct);
+  const broadGroup = /บริษัท|อุปกรณ์|คอมพิวเตอร์|PC|เครื่องเกม/u.test(cleanProduct);
+
+  return uniquePhrases([
+    `${sellProduct} ที่ไหนดี ${provinceName}`,
+    `${sellProduct} ควรขายตอนนี้ไหม ${provinceName}`,
+    `${sellProduct} ${broadGroup ? 'แยกหมวดหรือยกชุด' : 'ขายพร้อมอุปกรณ์ไหม'} ${provinceName}`,
+    `${sellProduct} นัดรับอย่างไร ${provinceName}`
+  ]);
+};
+
+const buildAreaPriceKeywords = (provinceName: string) =>
+  uniquePhrases([
+    `ประเมินราคาไอทีฟรี ${provinceName}`,
+    `เช็กราคาไอทีก่อนขาย ${provinceName}`,
+    `ขายไอทีได้ราคาดี ${provinceName}`,
+    `ช่วงราคาสินค้าไอทีมือสอง ${provinceName}`
+  ]);
+
+const buildAreaDecisionKeywords = (provinceName: string) =>
+  uniquePhrases([
+    `ขายไอทีเริ่มจากหน้าไหน ${provinceName}`,
+    `เลือกหน้ารับซื้อจังหวัดไหนดี ${provinceName}`,
+    `ขายไอทีรอยต่อจังหวัด ${provinceName}`,
+    `ขายไอทีนัดรับอย่างไร ${provinceName}`
+  ]);
+
+const buildArticleEntrySupportKeywords = (topic: string) => {
+  const cleanTopic = stripUsedQualifier(topic);
+  const sellTopic = withTopic('ขาย', cleanTopic);
+  const priceTopic = withTopic('ประเมินราคา', cleanTopic);
+
+  return uniquePhrases([
+    `${sellTopic} ต้องเริ่มยังไง`,
+    `${priceTopic} เบื้องต้น`
+  ]);
+};
+
+const buildArticleTopicSupportKeywords = (topic: string) => {
+  const cleanTopic = stripUsedQualifier(topic);
+  const sellTopic = withTopic('ขาย', cleanTopic);
+  const priceTopic = withTopic('ประเมินราคา', cleanTopic);
+
+  return uniquePhrases([
+    `${sellTopic} ควรส่งข้อมูลอะไร`,
+    `${priceTopic} ต้องเช็กอะไร`
+  ]);
+};
+
+const buildArticleIssueSupportKeywords = (topic: string) => {
+  const cleanTopic = stripUsedQualifier(topic);
+  const sellTopic = withTopic('ขาย', cleanTopic);
+
+  return uniquePhrases([
+    `${sellTopic} ประเมินผ่านรูปได้ไหม`,
+    `${sellTopic} ควรแจ้งตำหนิอย่างไร`
+  ]);
+};
+
+const buildArticlePriceSupportKeywords = (topic: string) => {
+  const cleanTopic = stripUsedQualifier(topic);
+  const sellTopic = withTopic('ขาย', cleanTopic);
+  const priceTopic = withTopic('ประเมินราคา', cleanTopic);
+
+  return uniquePhrases([
+    `${priceTopic} ได้เท่าไหร่`,
+    `${sellTopic} ได้ราคาดีไหม`,
+    `${sellTopic} ช่วงราคา`,
+    `${priceTopic} ก่อนตัดสินใจขาย`
+  ]);
+};
+
+const buildArticleDecisionSupportKeywords = (topic: string) => {
+  const cleanTopic = stripUsedQualifier(topic);
+  const sellTopic = withTopic('ขาย', cleanTopic);
+
+  return uniquePhrases([
+    `${sellTopic} ที่ไหนดี`,
+    `${sellTopic} ควรขายตอนนี้ไหม`,
+    `${sellTopic} ควรถามอะไรต่อ`,
+    `${sellTopic} ควรขายพร้อมอุปกรณ์ไหม`
+  ]);
+};
+
 export const joinThaiKeywordList = (items: string[], quoted = false) => {
   const normalized = items.map((item) => (quoted ? `“${item}”` : item));
   return joinThaiListInternal(normalized);
 };
+
+export const joinThaiKeywordPreview = (items: string[], limit = 4, quoted = false) =>
+  joinThaiKeywordList(items.slice(0, limit), quoted);
 
 export const buildSellKeywordCluster = ({
   productName,
@@ -746,57 +875,81 @@ export const buildSellKeywordCluster = ({
     appraiseProduct,
     usedProduct
   );
-  const modelIntent = buildProductModelKeywords(cleanProduct, provinceName);
-  const issueIntent = buildProductIssueKeywords(cleanProduct, provinceName);
+  const localIntentExpanded = uniquePhrases([
+    ...localIntent,
+    ...buildSellLocalSupportKeywords(provinceName, sellProduct, appraiseProduct)
+  ]);
+  const modelIntent = uniquePhrases([
+    ...buildProductModelKeywords(cleanProduct, provinceName),
+    ...buildSellModelSupportKeywords(cleanProduct, provinceName)
+  ]);
+  const issueIntent = uniquePhrases([
+    ...buildProductIssueKeywords(cleanProduct, provinceName),
+    ...buildSellIssueSupportKeywords(cleanProduct, provinceName)
+  ]);
 
   return {
     primary: serviceName,
-    secondary: uniquePhrases([serviceName, ...localIntent, ...modelIntent, ...issueIntent]),
-    localIntent,
+    secondary: uniquePhrases([
+      serviceName,
+      ...localIntentExpanded,
+      ...modelIntent,
+      ...issueIntent,
+      ...buildSellPriceSupportKeywords(cleanProduct, provinceName),
+      ...buildSellDecisionSupportKeywords(cleanProduct, provinceName)
+    ]),
+    localIntent: localIntentExpanded,
     modelIntent,
-    issueIntent
+    issueIntent,
+    priceIntent: buildSellPriceSupportKeywords(cleanProduct, provinceName),
+    decisionIntent: buildSellDecisionSupportKeywords(cleanProduct, provinceName)
   };
 };
 
-export const buildAreaKeywordCluster = (provinceName: string): KeywordCluster => ({
-  primary: `รับซื้อสินค้าไอทีมือสอง ${provinceName}`,
-  localIntent: uniquePhrases([
-    `รับซื้อสินค้าไอทีมือสอง ${provinceName}`,
-    `ประเมินราคาไอทีมือสอง ${provinceName}`,
-    `ขายมือถือมือสอง ${provinceName}`,
-    `ขายโน๊ตบุ๊คมือสอง ${provinceName}`
-  ]),
-  modelIntent: uniquePhrases([
-    `ขาย iPhone ${provinceName}`,
-    `ขาย iPad ${provinceName}`,
-    `ขาย MacBook ${provinceName}`,
-    `ขายคอมพิวเตอร์มือสอง ${provinceName}`,
-    `ขายคอมบริษัท ${provinceName}`,
-    `ขายอุปกรณ์ไอที ${provinceName}`
-  ]),
-  issueIntent: uniquePhrases([
-    `ขายไอทีหลายชิ้น ${provinceName}`,
-    `ขายสินค้าไอทีต่างอำเภอ ${provinceName}`,
-    `เช็กราคาไอทีมือสอง ${provinceName}`,
-    `ร้านรับซื้อไอทีใกล้ฉัน ${provinceName}`
-  ]),
-  secondary: uniquePhrases([
+export const buildAreaKeywordCluster = (provinceName: string): KeywordCluster => {
+  const localIntent = uniquePhrases([
     `รับซื้อสินค้าไอทีมือสอง ${provinceName}`,
     `ประเมินราคาไอทีมือสอง ${provinceName}`,
     `ขายมือถือมือสอง ${provinceName}`,
     `ขายโน๊ตบุ๊คมือสอง ${provinceName}`,
+    `ขายไอทีมือสอง ${provinceName}`,
+    `รับซื้อไอทีออนไลน์ ${provinceName}`
+  ]);
+  const modelIntent = uniquePhrases([
     `ขาย iPhone ${provinceName}`,
     `ขาย iPad ${provinceName}`,
     `ขาย MacBook ${provinceName}`,
     `ขายคอมพิวเตอร์มือสอง ${provinceName}`,
     `ขายคอมบริษัท ${provinceName}`,
     `ขายอุปกรณ์ไอที ${provinceName}`,
+    `ขาย Samsung ${provinceName}`,
+    `ขายจอคอม ${provinceName}`
+  ]);
+  const issueIntent = uniquePhrases([
     `ขายไอทีหลายชิ้น ${provinceName}`,
     `ขายสินค้าไอทีต่างอำเภอ ${provinceName}`,
     `เช็กราคาไอทีมือสอง ${provinceName}`,
-    `ร้านรับซื้อไอทีใกล้ฉัน ${provinceName}`
-  ])
-});
+    `ร้านรับซื้อไอทีใกล้ฉัน ${provinceName}`,
+    `ขายไอทีส่งรูปประเมิน ${provinceName}`,
+    `ขายไอทีมีตำหนิ ${provinceName}`
+  ]);
+
+  return {
+    primary: `รับซื้อสินค้าไอทีมือสอง ${provinceName}`,
+    secondary: uniquePhrases([
+      ...localIntent,
+      ...modelIntent,
+      ...issueIntent,
+      ...buildAreaPriceKeywords(provinceName),
+      ...buildAreaDecisionKeywords(provinceName)
+    ]),
+    localIntent,
+    modelIntent,
+    issueIntent,
+    priceIntent: buildAreaPriceKeywords(provinceName),
+    decisionIntent: buildAreaDecisionKeywords(provinceName)
+  };
+};
 
 export const buildArticleKeywordCluster = ({
   title,
@@ -808,9 +961,18 @@ export const buildArticleKeywordCluster = ({
   slug: string;
 }): KeywordCluster => {
   const topic = detectArticleTopic(title, tags, slug);
-  const localIntent = buildArticleIntentKeywords(title, topic);
-  const modelIntent = buildArticleTopicKeywords(topic);
-  const issueIntent = buildArticleIssueKeywords(title, topic);
+  const localIntent = uniquePhrases([
+    ...buildArticleIntentKeywords(title, topic),
+    ...buildArticleEntrySupportKeywords(topic)
+  ]);
+  const modelIntent = uniquePhrases([
+    ...buildArticleTopicKeywords(topic),
+    ...buildArticleTopicSupportKeywords(topic)
+  ]);
+  const issueIntent = uniquePhrases([
+    ...buildArticleIssueKeywords(title, topic),
+    ...buildArticleIssueSupportKeywords(topic)
+  ]);
 
   return {
     primary: title,
@@ -818,40 +980,122 @@ export const buildArticleKeywordCluster = ({
       ...buildArticleSecondaryKeywords(title, topic),
       ...localIntent,
       ...modelIntent,
-      ...issueIntent
+      ...issueIntent,
+      ...buildArticlePriceSupportKeywords(topic),
+      ...buildArticleDecisionSupportKeywords(topic)
     ]),
     localIntent,
     modelIntent,
-    issueIntent
+    issueIntent,
+    priceIntent: buildArticlePriceSupportKeywords(topic),
+    decisionIntent: buildArticleDecisionSupportKeywords(topic)
   };
 };
+
+const buildHomePriceKeywords = () =>
+  uniquePhrases([
+    'เช็กราคา iPhone ก่อนขาย ภาคอีสาน',
+    'ประเมินราคา MacBook ฟรี ภาคอีสาน',
+    'ขายไอทีได้ราคาดี ภาคอีสาน',
+    'ช่วงราคาสินค้าไอทีมือสอง ภาคอีสาน'
+  ]);
+
+const buildHomeDecisionKeywords = () =>
+  uniquePhrases([
+    'ขายไอทีที่ไหนดี ภาคอีสาน',
+    'ขายหลายชิ้นเริ่มจากหน้าไหน',
+    'เลือกหน้ารับซื้อสินค้าหมวดไหนดี',
+    'ประเมินผ่านรูปก่อนนัดได้ไหม'
+  ]);
+
+const buildSellHubPriceKeywords = () =>
+  uniquePhrases([
+    'ประเมินราคาไอทีมือสองฟรี',
+    'ขาย iPhone ได้ราคาดีไหม',
+    'เช็กราคา MacBook ก่อนขาย',
+    'ช่วงราคาสินค้า IT มือสอง'
+  ]);
+
+const buildSellHubDecisionKeywords = () =>
+  uniquePhrases([
+    'ขายไอทีที่ไหนดี',
+    'ขายไอทีควรเริ่มจากหมวดไหน',
+    'ขายไอทียกชุดหรือแยกชิ้นดี',
+    'ขายไอทีควรยังไงก่อนทัก LINE'
+  ]);
+
+const buildAreaHubPriceKeywords = () =>
+  uniquePhrases([
+    'ประเมินราคา iPhone ต่างจังหวัด ภาคอีสาน',
+    'ประเมินราคา MacBook ต่างจังหวัด ภาคอีสาน',
+    'ขายไอทีได้ราคาดี ภาคอีสาน',
+    'ช่วงราคาไอทีมือสองแต่ละจังหวัด'
+  ]);
+
+const buildAreaHubDecisionKeywords = () =>
+  uniquePhrases([
+    'เลือกหน้าจังหวัดไหนดี ภาคอีสาน',
+    'ขายไอทีรอยต่อจังหวัด ภาคอีสาน',
+    'ขายไอทีเริ่มจากหน้าไหน ภาคอีสาน',
+    'ขายไอทีนัดรับอย่างไร ภาคอีสาน'
+  ]);
+
+const buildArticleHubPriceKeywords = () =>
+  uniquePhrases([
+    'ขาย iPhone ได้ราคาเท่าไหร่',
+    'ประเมินราคา MacBook ได้เท่าไหร่',
+    'ยังไงถึงจะขายได้ราคาดี',
+    'ช่วงราคาสินค้าไอทีมือสองตามรุ่น'
+  ]);
+
+const buildArticleHubDecisionKeywords = () =>
+  uniquePhrases([
+    'อ่านบทความไหนก่อนขายจริง',
+    'ก่อนขายควรถามอะไรบ้าง',
+    'ขายสินค้า IT ควรเริ่มยังไง',
+    'ขายของมือสองที่ไหนดี'
+  ]);
 
 export const buildHomeKeywordCluster = (): KeywordCluster => {
   const localIntent = uniquePhrases([
     'รับซื้อสินค้าไอทีมือสอง ภาคอีสาน',
     'ขายโน๊ตบุ๊คมือสอง ภาคอีสาน',
     'ขาย iPhone มือสอง ภาคอีสาน',
-    'ประเมินราคา MacBook ภาคอีสาน'
+    'ประเมินราคา MacBook ภาคอีสาน',
+    'ขาย iPad มือสอง ภาคอีสาน',
+    'ขายคอมบริษัท ภาคอีสาน'
   ]);
   const modelIntent = uniquePhrases([
     'รับซื้อ MacBook iPhone iPad ภาคอีสาน',
     'รับซื้อคอมพิวเตอร์ โน๊ตบุ๊ค จอคอม ภาคอีสาน',
     'รับซื้อกล้อง เครื่องเกม การ์ดจอ ภาคอีสาน',
-    'รับซื้อคอมบริษัท อุปกรณ์สำนักงาน IT ภาคอีสาน'
+    'รับซื้อคอมบริษัท อุปกรณ์สำนักงาน IT ภาคอีสาน',
+    'รับซื้อ Samsung AirPods Apple Watch ภาคอีสาน',
+    'รับซื้อเครื่องปริ้น จอคอม อุปกรณ์สำนักงาน IT ภาคอีสาน'
   ]);
   const issueIntent = uniquePhrases([
     'ขายไอทีมือสองได้ที่ไหน ภาคอีสาน',
     'ส่งรูปเช็กราคาสินค้าไอที ภาคอีสาน',
     'ขายสินค้าไอทีหลายชิ้น ภาคอีสาน',
-    'ขายไอทีต่างจังหวัด ภาคอีสาน'
+    'ขายไอทีต่างจังหวัด ภาคอีสาน',
+    'ขายไอทีมีตำหนิ ภาคอีสาน',
+    'ขายไอทีอุปกรณ์ไม่ครบ ภาคอีสาน'
   ]);
 
   return {
     primary: 'รับซื้อสินค้าไอทีมือสอง ภาคอีสาน',
-    secondary: uniquePhrases([...localIntent, ...modelIntent, ...issueIntent]),
+    secondary: uniquePhrases([
+      ...localIntent,
+      ...modelIntent,
+      ...issueIntent,
+      ...buildHomePriceKeywords(),
+      ...buildHomeDecisionKeywords()
+    ]),
     localIntent,
     modelIntent,
-    issueIntent
+    issueIntent,
+    priceIntent: buildHomePriceKeywords(),
+    decisionIntent: buildHomeDecisionKeywords()
   };
 };
 
@@ -860,27 +1104,41 @@ export const buildSellHubKeywordCluster = (): KeywordCluster => {
     'รับซื้อสินค้าไอทีมือสอง',
     'ขายโน๊ตบุ๊คมือสอง',
     'ขายคอมพิวเตอร์มือสอง',
-    'ขายมือถือมือสอง'
+    'ขายมือถือมือสอง',
+    'ขาย iPad มือสอง',
+    'ขาย MacBook มือสอง'
   ]);
   const modelIntent = uniquePhrases([
     'รับซื้อ MacBook iPhone iPad',
     'รับซื้อการ์ดจอ จอคอม คอมเกมมิ่ง',
     'รับซื้อ AirPods Apple Watch Apple Pencil',
-    'รับซื้อคอมบริษัท เครื่องปริ้น อุปกรณ์สำนักงาน IT'
+    'รับซื้อคอมบริษัท เครื่องปริ้น อุปกรณ์สำนักงาน IT',
+    'รับซื้อ Samsung AirPods Apple Watch',
+    'รับซื้อโน๊ตบุ๊ค คอมบริษัท เครื่องปริ้น'
   ]);
   const issueIntent = uniquePhrases([
     'ขายเครื่องมีตำหนิได้ไหม',
     'ขายหลายชิ้นต้องเตรียมอะไร',
     'ส่งรูปเช็กราคาต้องส่งอะไรบ้าง',
-    'เลือกหน้ารับซื้อหมวดไหนดี'
+    'เลือกหน้ารับซื้อหมวดไหนดี',
+    'ขายของมีรอยยังประเมินได้ไหม',
+    'ขายอุปกรณ์ไม่ครบต้องแจ้งอะไร'
   ]);
 
   return {
     primary: 'รับซื้อสินค้าไอทีมือสอง',
-    secondary: uniquePhrases([...localIntent, ...modelIntent, ...issueIntent]),
+    secondary: uniquePhrases([
+      ...localIntent,
+      ...modelIntent,
+      ...issueIntent,
+      ...buildSellHubPriceKeywords(),
+      ...buildSellHubDecisionKeywords()
+    ]),
     localIntent,
     modelIntent,
-    issueIntent
+    issueIntent,
+    priceIntent: buildSellHubPriceKeywords(),
+    decisionIntent: buildSellHubDecisionKeywords()
   };
 };
 
@@ -889,27 +1147,41 @@ export const buildAreaHubKeywordCluster = (): KeywordCluster => {
     'รับซื้อสินค้าไอทีมือสอง ภาคอีสาน',
     'ขาย iPhone ขอนแก่น',
     'ขาย MacBook อุดรธานี',
-    'ขายโน๊ตบุ๊ค นครราชสีมา'
+    'ขายโน๊ตบุ๊ค นครราชสีมา',
+    'ขาย iPad ขอนแก่น',
+    'ขายคอมบริษัท อุบลราชธานี'
   ]);
   const modelIntent = uniquePhrases([
     'รับซื้อ iPad อุบลราชธานี',
     'รับซื้อคอมบริษัท ขอนแก่น',
     'รับซื้อจอคอม บุรีรัมย์',
-    'รับซื้อกล้อง ศรีสะเกษ'
+    'รับซื้อกล้อง ศรีสะเกษ',
+    'รับซื้อ Samsung ร้อยเอ็ด',
+    'รับซื้อ AirPods ขอนแก่น'
   ]);
   const issueIntent = uniquePhrases([
     'ขายไอทีต่างอำเภอ ภาคอีสาน',
     'ขายสินค้าไอทีจังหวัดใกล้เคียง',
     'เช็กราคาสินค้าไอทีต่างจังหวัด',
-    'นัดรับสินค้าไอทีภาคอีสาน'
+    'นัดรับสินค้าไอทีภาคอีสาน',
+    'ขายไอทีมีตำหนิ ภาคอีสาน',
+    'ส่งรูปประเมินไอทีแต่ละจังหวัด'
   ]);
 
   return {
     primary: 'รับซื้อสินค้าไอทีมือสอง ภาคอีสาน',
-    secondary: uniquePhrases([...localIntent, ...modelIntent, ...issueIntent]),
+    secondary: uniquePhrases([
+      ...localIntent,
+      ...modelIntent,
+      ...issueIntent,
+      ...buildAreaHubPriceKeywords(),
+      ...buildAreaHubDecisionKeywords()
+    ]),
     localIntent,
     modelIntent,
-    issueIntent
+    issueIntent,
+    priceIntent: buildAreaHubPriceKeywords(),
+    decisionIntent: buildAreaHubDecisionKeywords()
   };
 };
 
@@ -918,26 +1190,40 @@ export const buildArticleHubKeywordCluster = (): KeywordCluster => {
     'บทความขายสินค้าไอทีมือสอง',
     'คู่มือก่อนขาย iPhone',
     'คู่มือก่อนขาย MacBook',
-    'บทความประเมินราคาโน๊ตบุ๊ค'
+    'บทความประเมินราคาโน๊ตบุ๊ค',
+    'คู่มือก่อนขาย iPad',
+    'คู่มือก่อนขาย AirPods'
   ]);
   const modelIntent = uniquePhrases([
     'ขาย iPhone ต้องออก iCloud ไหม',
     'ขาย MacBook ต้องออก Apple ID ไหม',
     'ขายคอมเกมมิ่งต้องส่งสเปกอะไรบ้าง',
-    'ขายคอมบริษัทเก่าต้องทำอย่างไร'
+    'ขายคอมบริษัทเก่าต้องทำอย่างไร',
+    'ขาย iPad ต้องเตรียมอะไรบ้าง',
+    'ขาย AirPods ต้องเช็คอะไรบ้าง'
   ]);
   const issueIntent = uniquePhrases([
     'ขายเครื่องเสียได้ไหม',
     'ขายอุปกรณ์ไม่ครบได้ไหม',
     'ต้องล้างข้อมูลก่อนขายไหม',
-    'ต้องเตรียมอะไรบ้างก่อนประเมินราคา'
+    'ต้องเตรียมอะไรบ้างก่อนประเมินราคา',
+    'เช็คอาการเครื่องก่อนขายยังไง',
+    'ประเมินผ่านรูปต้องส่งอะไรเพิ่ม'
   ]);
 
   return {
     primary: 'บทความขายสินค้าไอทีมือสอง',
-    secondary: uniquePhrases([...localIntent, ...modelIntent, ...issueIntent]),
+    secondary: uniquePhrases([
+      ...localIntent,
+      ...modelIntent,
+      ...issueIntent,
+      ...buildArticleHubPriceKeywords(),
+      ...buildArticleHubDecisionKeywords()
+    ]),
     localIntent,
     modelIntent,
-    issueIntent
+    issueIntent,
+    priceIntent: buildArticleHubPriceKeywords(),
+    decisionIntent: buildArticleHubDecisionKeywords()
   };
 };

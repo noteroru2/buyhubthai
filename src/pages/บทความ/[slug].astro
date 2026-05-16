@@ -14,7 +14,7 @@ import {
   articleQuickAnswerOverrides
 } from '../../data/articleQuickAnswers';
 import { EDITORIAL_REVIEWED_AT, EDITORIAL_REVIEWER } from '../../lib/constants';
-import { buildArticleKeywordCluster, joinThaiKeywordList } from '../../lib/keywordClusters';
+import { buildArticleKeywordCluster, joinThaiKeywordPreview } from '../../lib/keywordClusters';
 import { articleJsonLd, breadcrumbJsonLd, faqPageJsonLd } from '../../lib/schema';
 
 export async function getStaticPaths() {
@@ -39,9 +39,11 @@ const introOverride = articleIntroOverrides[entry.id];
 const quickAnswerOverride = articleQuickAnswerOverrides[entry.id];
 const ctaOverride = articleCtaOverrides[entry.id];
 const articleKeywordCluster = buildArticleKeywordCluster({ title, tags: data.tags ?? [], slug: entry.id });
-const articleKeywordLead = joinThaiKeywordList(articleKeywordCluster.localIntent ?? [], true);
-const articleKeywordSupport = joinThaiKeywordList(articleKeywordCluster.modelIntent ?? [], true);
-const articleKeywordQuestions = joinThaiKeywordList(articleKeywordCluster.issueIntent ?? [], true);
+const articleKeywordLead = joinThaiKeywordPreview(articleKeywordCluster.localIntent ?? [], 4, true);
+const articleKeywordSupport = joinThaiKeywordPreview(articleKeywordCluster.modelIntent ?? [], 4, true);
+const articleKeywordQuestions = joinThaiKeywordPreview(articleKeywordCluster.issueIntent ?? [], 4, true);
+const articleKeywordPrice = joinThaiKeywordPreview(articleKeywordCluster.priceIntent ?? [], 3, true);
+const articleKeywordDecision = joinThaiKeywordPreview(articleKeywordCluster.decisionIntent ?? [], 3, true);
 const quickAnswerHeading =
   quickAnswerOverride?.heading ??
   (firstFaq?.question ? `คำตอบสั้น: ${stripQuickAnswerLabel(firstFaq.question)}` : 'คำตอบสั้นสำหรับหัวข้อนี้');
@@ -168,7 +170,7 @@ function buildArticleTocItems(
         className="mt-8"
         intro={[
           `หน้านี้ตั้งใจตอบคำค้นหลักอย่าง “${articleKeywordCluster.primary}” พร้อมคำค้นรองอย่าง ${articleKeywordLead} เพื่อให้คนที่กำลังหาข้อมูลก่อนขายจริงเจอทั้งคำตอบสั้น วิธีเตรียมข้อมูล และแนวทางประเมินในบทความเดียว`,
-          `ถ้าคุณกำลังค้นหาทั้ง ${articleKeywordSupport || 'คำค้นต่อยอดจากหัวข้อนี้'} และ ${articleKeywordQuestions || 'คำถามย่อยที่ใกล้กับสถานการณ์ของคุณ'} หัวข้อด้านล่างจะช่วยเชื่อมจากคำค้นในเสิร์ชไปสู่ขั้นตอนที่ต้องทำจริงได้เร็วขึ้น`
+          `ถ้าคุณกำลังค้นหาทั้ง ${articleKeywordSupport || 'คำค้นต่อยอดจากหัวข้อนี้'} และ ${articleKeywordQuestions || 'คำถามย่อยที่ใกล้กับสถานการณ์ของคุณ'} รวมถึง ${articleKeywordPrice || 'คำค้นเชิงราคา'} และ ${articleKeywordDecision || 'คำค้นเชิงตัดสินใจก่อนขาย'} หัวข้อด้านล่างจะช่วยเชื่อมจากคำค้นในเสิร์ชไปสู่ขั้นตอนที่ต้องทำจริงได้เร็วขึ้น`
         ]}
         groups={[
           {
@@ -185,6 +187,16 @@ function buildArticleTocItems(
             title: 'คำค้นปัญหาย่อยและคำถามใกล้เคียง',
             blurb: 'ช่วยครอบคลุมคำถามต่อเนื่องที่มักเกิดหลังจากได้คำตอบสั้นแล้ว',
             items: articleKeywordCluster.issueIntent ?? []
+          },
+          {
+            title: 'คำค้นเชิงราคาที่คนมักหาต่อ',
+            blurb: 'กลุ่มนี้ช่วยครอบคลุมคนที่ยังชั่งใจเรื่องช่วงราคาหรืออยากรู้ว่าจุดไหนกระทบราคามากสุด',
+            items: articleKeywordCluster.priceIntent ?? []
+          },
+          {
+            title: 'คำค้นเชิงตัดสินใจก่อนลงมือขาย',
+            blurb: 'ตอบคนที่อยากรู้ว่าควรขายตอนนี้ไหม ควรถามอะไรต่อ หรือควรขายพร้อมอุปกรณ์หรือไม่',
+            items: articleKeywordCluster.decisionIntent ?? []
           }
         ]}
       />

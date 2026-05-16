@@ -8,7 +8,7 @@ import KeywordIntentPanel from '../components/KeywordIntentPanel.astro';
 import LineCtaButton from '../components/LineCtaButton.astro';
 import LongformSections from '../components/LongformSections.astro';
 import PhoneCtaButton from '../components/PhoneCtaButton.astro';
-import { buildSellHubKeywordCluster, joinThaiKeywordList } from '../lib/keywordClusters';
+import { buildSellHubKeywordCluster, joinThaiKeywordPreview } from '../lib/keywordClusters';
 import { breadcrumbJsonLd, faqPageJsonLd, webPageJsonLd } from '../lib/schema';
 import { EDITORIAL_REVIEWED_AT, EDITORIAL_REVIEWER, LINE_AT } from '../lib/constants';
 import { sellThaiHref } from '../lib/thaiRoutes';
@@ -114,9 +114,11 @@ const featuredSellLinks = sorted.slice(0, 12).map((entry) => ({
   label: entry.data.title
 }));
 const sellHubKeywordCluster = buildSellHubKeywordCluster();
-const sellHubKeywordLead = joinThaiKeywordList(sellHubKeywordCluster.localIntent ?? [], true);
-const sellHubKeywordSupport = joinThaiKeywordList(sellHubKeywordCluster.modelIntent ?? [], true);
-const sellHubKeywordQuestions = joinThaiKeywordList(sellHubKeywordCluster.issueIntent ?? [], true);
+const sellHubKeywordLead = joinThaiKeywordPreview(sellHubKeywordCluster.localIntent ?? [], 4, true);
+const sellHubKeywordSupport = joinThaiKeywordPreview(sellHubKeywordCluster.modelIntent ?? [], 4, true);
+const sellHubKeywordQuestions = joinThaiKeywordPreview(sellHubKeywordCluster.issueIntent ?? [], 4, true);
+const sellHubKeywordPrice = joinThaiKeywordPreview(sellHubKeywordCluster.priceIntent ?? [], 3, true);
+const sellHubKeywordDecision = joinThaiKeywordPreview(sellHubKeywordCluster.decisionIntent ?? [], 3, true);
 
 const sellHubLongSections = [
   {
@@ -246,7 +248,7 @@ sellHubLongSections.push({
         className="mt-12"
         intro={[
           `หน้านี้ถูกวางให้ตอบคำค้นหลักอย่าง “${sellHubKeywordCluster.primary}” พร้อมคำค้นรองอย่าง ${sellHubKeywordLead} เพื่อให้คนที่ยังไม่แน่ใจว่าควรเริ่มจากหมวดไหนมีจุดเริ่มต้นที่ชัดขึ้น`,
-          `ถ้าคุณกำลังค้นหาทั้ง ${sellHubKeywordSupport || 'คำค้นตามหมวดสินค้า'} และ ${sellHubKeywordQuestions || 'คำค้นก่อนตัดสินใจประเมิน'} หน้านี้จะช่วยเชื่อมจากคำค้นกว้างไปสู่หน้าหมวดที่ตรงกับสินค้าจริงของคุณได้เร็วขึ้น`
+          `ถ้าคุณกำลังค้นหาทั้ง ${sellHubKeywordSupport || 'คำค้นตามหมวดสินค้า'} และ ${sellHubKeywordQuestions || 'คำค้นก่อนตัดสินใจประเมิน'} รวมถึง ${sellHubKeywordPrice || 'คำค้นเชิงราคา'} และ ${sellHubKeywordDecision || 'คำค้นเชิงเลือกหมวด'} หน้านี้จะช่วยเชื่อมจากคำค้นกว้างไปสู่หน้าหมวดที่ตรงกับสินค้าจริงของคุณได้เร็วขึ้น`
         ]}
         groups={[
           {
@@ -263,6 +265,16 @@ sellHubLongSections.push({
             title: 'คำค้นก่อนส่งรูปประเมินหรือขายหลายชิ้น',
             blurb: 'ใช้ตอบคำถามที่มักเกิดก่อนเริ่มคุยจริง เช่น เครื่องมีตำหนิ, มีหลายชิ้น หรือยังไม่รู้ว่าจะเลือกหน้าหมวดไหนดี',
             items: sellHubKeywordCluster.issueIntent ?? []
+          },
+          {
+            title: 'คำค้นเชิงราคาและช่วงประเมิน',
+            blurb: 'เหมาะกับคนที่อยากรู้ก่อนว่าขายตอนนี้จะได้ราคาช่วงไหนและควรเตรียมข้อมูลอะไรเพิ่ม',
+            items: sellHubKeywordCluster.priceIntent ?? []
+          },
+          {
+            title: 'คำค้นเชิงตัดสินใจเลือกเส้นทางขาย',
+            blurb: 'ช่วยตอบคนที่กำลังเลว่าจะขายช่องทางไหน ควรขายตอนนี้ไหม หรือควรขายเป็นก้อนดีกว่า',
+            items: sellHubKeywordCluster.decisionIntent ?? []
           }
         ]}
       />

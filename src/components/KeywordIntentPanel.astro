@@ -36,7 +36,7 @@ const visibleGroups = groups.filter((group) => group.items?.length);
       </div>
     ) : null
   }
-  <div class="mt-6 grid gap-4 lg:grid-cols-3">
+  <div class="mt-6 grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))]">
     {visibleGroups.map((group) => (
       <section class="rounded-2xl border border-emerald-200 bg-white/85 p-5">
         <h3 class="text-base font-semibold leading-7 text-slate-950">{group.title}</h3>

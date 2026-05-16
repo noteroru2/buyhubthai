@@ -7,7 +7,7 @@ import KeywordIntentPanel from '../../components/KeywordIntentPanel.astro';
 import LineCtaButton from '../../components/LineCtaButton.astro';
 import LongformSections from '../../components/LongformSections.astro';
 import PhoneCtaButton from '../../components/PhoneCtaButton.astro';
-import { buildArticleHubKeywordCluster, joinThaiKeywordList } from '../../lib/keywordClusters';
+import { buildArticleHubKeywordCluster, joinThaiKeywordPreview } from '../../lib/keywordClusters';
 import { breadcrumbJsonLd, webPageJsonLd } from '../../lib/schema';
 import { EDITORIAL_REVIEWED_AT, EDITORIAL_REVIEWER } from '../../lib/constants';
 
@@ -55,9 +55,11 @@ const latestLinks = sorted.slice(0, 12).map((entry) => ({
   label: entry.data.title
 }));
 const articleHubKeywordCluster = buildArticleHubKeywordCluster();
-const articleHubKeywordLead = joinThaiKeywordList(articleHubKeywordCluster.localIntent ?? [], true);
-const articleHubKeywordSupport = joinThaiKeywordList(articleHubKeywordCluster.modelIntent ?? [], true);
-const articleHubKeywordQuestions = joinThaiKeywordList(articleHubKeywordCluster.issueIntent ?? [], true);
+const articleHubKeywordLead = joinThaiKeywordPreview(articleHubKeywordCluster.localIntent ?? [], 4, true);
+const articleHubKeywordSupport = joinThaiKeywordPreview(articleHubKeywordCluster.modelIntent ?? [], 4, true);
+const articleHubKeywordQuestions = joinThaiKeywordPreview(articleHubKeywordCluster.issueIntent ?? [], 4, true);
+const articleHubKeywordPrice = joinThaiKeywordPreview(articleHubKeywordCluster.priceIntent ?? [], 3, true);
+const articleHubKeywordDecision = joinThaiKeywordPreview(articleHubKeywordCluster.decisionIntent ?? [], 3, true);
 
 const articleHubSections = [
   {
@@ -203,7 +205,7 @@ articleHubSections.push({
         className="mt-12"
         intro={[
           `หน้านี้ถูกวางให้ตอบคำค้นหลักอย่าง “${articleHubKeywordCluster.primary}” พร้อมคำค้นรองอย่าง ${articleHubKeywordLead} เพื่อให้คนที่กำลังหาคำตอบก่อนขายจริงเจอจุดเริ่มต้นที่ตรงปัญหาได้เร็วขึ้น`,
-          `ถ้าคุณกำลังค้นหาทั้ง ${articleHubKeywordSupport || 'คำค้นจากบทความสำคัญของเว็บ'} และ ${articleHubKeywordQuestions || 'คำถามย่อยก่อนประเมินราคา'} หน้านี้จะช่วยเชื่อมจากคำถามเล็ก ๆ ไปสู่บทความที่ตรงกับสถานการณ์ขายของคุณมากที่สุด`
+          `ถ้าคุณกำลังค้นหาทั้ง ${articleHubKeywordSupport || 'คำค้นจากบทความสำคัญของเว็บ'} และ ${articleHubKeywordQuestions || 'คำถามย่อยก่อนประเมินราคา'} รวมถึง ${articleHubKeywordPrice || 'คำค้นเชิงราคา'} และ ${articleHubKeywordDecision || 'คำค้นเชิงตัดสินใจ'} หน้านี้จะช่วยเชื่อมจากคำถามเล็ก ๆ ไปสู่บทความที่ตรงกับสถานการณ์ขายของคุณมากที่สุด`
         ]}
         groups={[
           {
@@ -220,6 +222,16 @@ articleHubSections.push({
             title: 'คำค้นคำถามย่อยก่อนเริ่มประเมินราคา',
             blurb: 'ช่วยตอบคำถามต่อเนื่องเรื่องเครื่องเสีย อุปกรณ์ไม่ครบ การล้างข้อมูล และการเตรียมตัวก่อนขาย',
             items: articleHubKeywordCluster.issueIntent ?? []
+          },
+          {
+            title: 'คำค้นเชิงราคาที่มักถามต่อหลังอ่าน',
+            blurb: 'ครอบคลุมคนที่อยากรู้ว่ากรอบราคาคร่าว ๆ ควรอ่านผ่านมุมมองไหนบ้าง',
+            items: articleHubKeywordCluster.priceIntent ?? []
+          },
+          {
+            title: 'คำค้นเชิงตัดสินใจเลือกบทความและเวลาขาย',
+            blurb: 'ช่วยตอบคนที่ยังเลว่าจะอ่านหน้าไหนก่อน ควรขายตอนนี้ไหม หรือควรถามเพิ่มจุดไหนต่อ',
+            items: articleHubKeywordCluster.decisionIntent ?? []
           }
         ]}
       />

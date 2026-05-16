@@ -5,8 +5,9 @@ import FaqAccordion from './FaqAccordion.astro';
 import LineCtaButton from './LineCtaButton.astro';
 import PhoneCtaButton from './PhoneCtaButton.astro';
 import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd } from '../lib/schema';
-import { buildSellKeywordCluster, joinThaiKeywordList } from '../lib/keywordClusters';
+import { buildSellKeywordCluster, joinThaiKeywordPreview } from '../lib/keywordClusters';
 import { buildComboEditorialSections, getSellEditorialSections } from '../data/editorialProfiles';
+import { findSellIdByMainPath, getSellSupportLinks } from '../data/sellSupportPages';
 import type { BreadcrumbItem } from '../lib/types';
 
 type LongContentSection = {
@@ -398,9 +399,13 @@ const dedupedInternalLinks = dedupeLinks(internalLinks);
 const sellKeywordLocal = sellKeywordCluster.localIntent ?? sellKeywordCluster.secondary.slice(0, 6);
 const sellKeywordModels = sellKeywordCluster.modelIntent ?? sellKeywordCluster.secondary.slice(6, 10);
 const sellKeywordIssues = sellKeywordCluster.issueIntent ?? sellKeywordCluster.secondary.slice(10, 14);
-const sellKeywordLead = joinThaiKeywordList(sellKeywordLocal.slice(0, 4), true);
-const sellKeywordSupport = joinThaiKeywordList(sellKeywordModels.slice(0, 3), true);
-const sellKeywordCondition = joinThaiKeywordList(sellKeywordIssues.slice(0, 3), true);
+const sellKeywordPrices = sellKeywordCluster.priceIntent ?? [];
+const sellKeywordDecision = sellKeywordCluster.decisionIntent ?? [];
+const sellKeywordLead = joinThaiKeywordPreview(sellKeywordLocal, 4, true);
+const sellKeywordSupport = joinThaiKeywordPreview(sellKeywordModels, 3, true);
+const sellKeywordCondition = joinThaiKeywordPreview(sellKeywordIssues, 3, true);
+const sellKeywordPriceLead = joinThaiKeywordPreview(sellKeywordPrices, 2, true);
+const sellKeywordDecisionLead = joinThaiKeywordPreview(sellKeywordDecision, 2, true);
 const sellKeywordGroups = [
   {
     heading: 'คำค้นหลักที่คนมักใช้ก่อนเริ่มทักประเมิน',
@@ -413,8 +418,18 @@ const sellKeywordGroups = [
   {
     heading: 'คำค้นตามสภาพเครื่องที่คนมักกังวล',
     items: sellKeywordIssues
+  },
+  {
+    heading: 'คำค้นเชิงราคาและช่วงประเมิน',
+    items: sellKeywordPrices
+  },
+  {
+    heading: 'คำค้นเชิงตัดสินใจก่อนยิงแชท',
+    items: sellKeywordDecision
   }
 ].filter((group) => group.items.length > 0);
+const mainSellId = findSellIdByMainPath(path);
+const supportTopicLinks = mainSellId ? getSellSupportLinks(mainSellId) : [];
 
 const midArticleIndex =
   allLongContentSections.length > 2 ? Math.floor((allLongContentSections.length - 1) / 2) : -1;
@@ -464,8 +479,12 @@ const midArticleIndex =
             {` ${sellKeywordCondition || 'คำค้นตามสภาพเครื่องที่กำลังกังวล'}`} เนื้อหาด้านล่างจะช่วยให้เห็นภาพว่า
             ควรเริ่มจากข้อมูลสินค้าแบบไหน ควรแจ้งอาการอย่างไร และควรใช้คำค้นกลุ่มขายมือสองหรือประเมินราคาแบบใดให้ตรงกับของที่กำลังจะขาย
           </p>
+          <p>
+            รอบนี้เราเติมคำค้นเชิงราคาอย่าง {sellKeywordPriceLead || 'คำค้นช่วงราคาประเมิน'} และคำค้นเชิงตัดสินใจอย่าง {sellKeywordDecisionLead || 'คำค้นก่อนเลือกช่องทางขาย'} เพิ่มเข้ามาด้วย
+            เพื่อให้หน้านี้ครอบทั้งคนที่กำลังหาแนวราคา คนที่ลังเลว่าควรขายตอนนี้หรือไม่ และคนที่ต้องการเลือกรูปแบบการขายที่เหมาะกับสภาพสินค้าของตัวเองได้ตรงขึ้น
+          </p>
         </div>
-        <div class="mt-5 grid gap-4 lg:grid-cols-3">
+        <div class="mt-5 grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(14rem,1fr))]">
           {sellKeywordGroups.map((group) => (
             <section class="rounded-2xl border border-emerald-200 bg-white/85 p-4" aria-label={group.heading}>
               <h3 class="text-sm font-bold tracking-tight text-slate-950">{group.heading}</h3>
@@ -480,6 +499,41 @@ const midArticleIndex =
           ))}
         </div>
       </section>
+
+      {
+        supportTopicLinks.length > 0 && (
+          <section
+            class="mt-8 rounded-2xl border border-slate-200 bg-slate-50/80 p-5 sm:p-6"
+            aria-labelledby="combo-support-links"
+          >
+            <h2 id="combo-support-links" class="text-xl font-bold tracking-tight text-slate-950">
+              คำค้นต่อยอดที่ช่วยขยายหน้า {buyProductText}
+            </h2>
+            <div class="mt-4 space-y-4 text-base leading-8 text-slate-700">
+              <p>
+                ถ้าคนที่กำลัง{sellProductText}ยังติดอยู่กับคำถามเฉพาะทาง เช่น เรื่องราคา สภาพ อุปกรณ์ไม่ครบ การขายด่วน
+                หรือการเริ่มจากต่างจังหวัด ลิงก์ชุดนี้จะพาไปยังหน้ารองที่ตอบคำถามรายสถานการณ์โดยตรง แล้วเชื่อมกลับมาหา
+                หน้าหลัก {buyProductText} เพื่อให้การอ่านต่อและการตัดสินใจขายเป็นระบบขึ้น
+              </p>
+              <p>
+                เราตั้งใจทำหน้ารองเหล่านี้เพื่อรองรับคำค้นที่คนใช้จริงก่อนทัก เช่น
+                การเช็กราคาก่อนขาย การส่งข้อมูลให้ครบ หรือการดูว่าของที่มีรอยยังประเมินได้ไหม
+                โดยทุกหน้าจะผูกกลับมาหาหน้านี้และบทความที่เกี่ยวข้อง เพื่อเสริม topical coverage
+                ของบริการ {buyProductText} ให้แน่นขึ้นในภาพรวม
+              </p>
+            </div>
+            <ul class="mt-5 grid gap-2 text-sm sm:grid-cols-2">
+              {supportTopicLinks.map((link) => (
+                <li class="min-w-0">
+                  <a class="break-words font-semibold text-emerald-700 hover:underline" href={link.href}>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
 
       {
         tocItems.length > 0 && (
