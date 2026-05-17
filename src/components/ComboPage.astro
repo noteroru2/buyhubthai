@@ -106,6 +106,7 @@ type ProductNarrative = {
 type ProductVisual = {
   imageSrc: string;
   imageAlt: string;
+  ogImage: string;
 };
 
 const getProductNarrative = (name: string): ProductNarrative => {
@@ -246,29 +247,41 @@ const getProductNarrative = (name: string): ProductNarrative => {
 const getProductVisual = (name: string, province: string): ProductVisual => {
   if (name.includes('iPhone')) {
     return {
-      imageSrc: '/images/buyback/buyhub-iphone-pro-trade-in-home.webp',
-      imageAlt: `ตัวอย่าง iPhone มือสองสำหรับการประเมินใน ${province}`
+      imageSrc: '/images/buyback/buyhub-iphone-15-128gb-black.webp',
+      imageAlt: `ตัวอย่าง iPhone มือสองสำหรับการประเมินใน ${province}`,
+      ogImage: '/images/og/buyhub-iphone-share.png'
+    };
+  }
+
+  if (name.includes('แท็บเล็ต') || name.includes('Android')) {
+    return {
+      imageSrc: '/images/buyback/buyhub-xiaomi-pad-7-8-128.webp',
+      imageAlt: `ตัวอย่างแท็บเล็ตมือสองสำหรับการประเมินใน ${province}`,
+      ogImage: '/images/og/buyhub-tablet-share.png'
     };
   }
 
   if (name.includes('iPad')) {
     return {
       imageSrc: '/images/buyback/buyhub-ipad-mini-starlight-box.webp',
-      imageAlt: `ตัวอย่าง iPad มือสองสำหรับการประเมินใน ${province}`
+      imageAlt: `ตัวอย่าง iPad มือสองสำหรับการประเมินใน ${province}`,
+      ogImage: '/images/og/buyhub-ipad-share.png'
     };
   }
 
   if (name.includes('MacBook')) {
     return {
-      imageSrc: '/images/buyback/buyhub-macbook-silver-thai-keyboard.webp',
-      imageAlt: `ตัวอย่าง MacBook มือสองสำหรับการประเมินใน ${province}`
+      imageSrc: '/images/buyback/buyhub-macbook-air-real-box.webp',
+      imageAlt: `ตัวอย่าง MacBook มือสองสำหรับการประเมินใน ${province}`,
+      ogImage: '/images/og/buyhub-macbook-share.png'
     };
   }
 
   if (name.includes('โน๊ตบุ๊ค')) {
     return {
-      imageSrc: '/images/buyback/buyhub-notebook-asus-vivobook-ryzen.webp',
-      imageAlt: `ตัวอย่างโน๊ตบุ๊คมือสองสำหรับการประเมินใน ${province}`
+      imageSrc: '/images/buyback/buyhub-huawei-notebook-real.webp',
+      imageAlt: `ตัวอย่างโน๊ตบุ๊คมือสองสำหรับการประเมินใน ${province}`,
+      ogImage: '/images/og/buyhub-notebook-share.png'
     };
   }
 
@@ -280,14 +293,16 @@ const getProductVisual = (name: string, province: string): ProductVisual => {
   ) {
     return {
       imageSrc: '/images/buyback/buyhub-desktop-gaming-pc-white-rgb.webp',
-      imageAlt: `ตัวอย่างคอมพิวเตอร์มือสองสำหรับการประเมินใน ${province}`
+      imageAlt: `ตัวอย่างคอมพิวเตอร์มือสองสำหรับการประเมินใน ${province}`,
+      ogImage: '/images/og/buyhub-sell-share.png'
     };
   }
 
   if (name.includes('กล้อง')) {
     return {
       imageSrc: '/images/buyback/buyhub-sony-a6000-mirrorless-kit.webp',
-      imageAlt: `ตัวอย่างกล้องมือสองสำหรับการประเมินใน ${province}`
+      imageAlt: `ตัวอย่างกล้องมือสองสำหรับการประเมินใน ${province}`,
+      ogImage: '/images/og/buyhub-sell-share.png'
     };
   }
 
@@ -299,20 +314,23 @@ const getProductVisual = (name: string, province: string): ProductVisual => {
   ) {
     return {
       imageSrc: '/images/buyback/buyhub-ps5-digital-edition-set.webp',
-      imageAlt: `ตัวอย่างเครื่องเกมมือสองสำหรับการประเมินใน ${province}`
+      imageAlt: `ตัวอย่างเครื่องเกมมือสองสำหรับการประเมินใน ${province}`,
+      ogImage: '/images/og/buyhub-sell-share.png'
     };
   }
 
   if (name.includes('คอมบริษัท') || name.includes('สำนักงาน')) {
     return {
       imageSrc: '/images/reviews/corporate-case-multiple-laptops.png',
-      imageAlt: `ตัวอย่างงานรับซื้ออุปกรณ์หลายรายการใน ${province}`
+      imageAlt: `ตัวอย่างงานรับซื้ออุปกรณ์หลายรายการใน ${province}`,
+      ogImage: '/images/og/buyhub-sell-share.png'
     };
   }
 
   return {
     imageSrc: '/images/reviews/pickup-meet-example-laptop.png',
-    imageAlt: `ตัวอย่างการนัดรับสินค้าไอทีจริงใน ${province}`
+    imageAlt: `ตัวอย่างการนัดรับสินค้าไอทีจริงใน ${province}`,
+    ogImage: '/images/og/buyhub-sell-share.png'
   };
 };
 
@@ -530,7 +548,7 @@ const midArticleIndex =
   allLongContentSections.length > 2 ? Math.floor((allLongContentSections.length - 1) / 2) : -1;
 ---
 
-<BaseLayout title={title} description={description} jsonLd={jsonLd} breadcrumbs={breadcrumbs}>
+<BaseLayout title={title} description={description} ogImage={productVisual.ogImage} jsonLd={jsonLd} breadcrumbs={breadcrumbs}>
   <article class="bg-white">
     <div class="mx-auto min-w-0 max-w-3xl px-4 py-14 sm:px-6 sm:py-16">
       <header class="min-w-0">

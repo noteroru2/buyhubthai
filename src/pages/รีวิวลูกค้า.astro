@@ -28,8 +28,8 @@ const proofCards = [
   {
     title: 'สินค้าที่รับซื้อ (ตัวอย่าง)',
     sub: 'ตัวอย่างเคสรับซื้อจริง พร้อมสภาพสินค้าและอุปกรณ์',
-    src: '/images/reviews/buyback-product-example-camera.png',
-    alt: 'ตัวอย่างสินค้าที่ BuyHub รับซื้อจริง (ปิดข้อมูลส่วนตัว)'
+    src: '/images/buyback/buyhub-iphone-15-128gb-black.webp',
+    alt: 'ตัวอย่าง iPhone 15 มือสองที่ BuyHub ใช้ประกอบการประเมินจริง'
   },
   {
     title: 'หลักฐานการโอนเงิน (ตัวอย่าง)',
@@ -211,7 +211,13 @@ reviewSections.push({
 
 ---
 
-<BaseLayout title={title} description={description} jsonLd={jsonLd} breadcrumbs={breadcrumbs}>
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage="/images/og/buyhub-reviews-share.png"
+  jsonLd={jsonLd}
+  breadcrumbs={breadcrumbs}
+>
   <article class="bg-white">
     <div class="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16">
       <header class="max-w-3xl">

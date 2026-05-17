@@ -28,10 +28,34 @@ const groups: ProofGroup[] = [
     group: 'โน๊ตบุ๊ค',
     items: [
       {
-        title: 'โน๊ตบุ๊ค (ตัวอย่างชุดรับซื้อ)',
-        detail: 'รับประเมินจากรูป สเปก และสภาพเครื่อง พร้อมแจ้งเงื่อนไขก่อนนัดตรวจ',
-        src: '/images/buyback/buyhub-notebook-asus-vivobook-ryzen.webp',
-        alt: 'ตัวอย่างโน๊ตบุ๊คมือสองที่ BuyHub รับซื้อจริง'
+        title: 'ASUS ROG Strix (ตัวอย่างชุดรับซื้อ)',
+        detail: 'เหมาะกับเคสที่ต้องส่งรูปตัวเครื่อง สภาพหน้าจอ และสเปกเกมมิ่งให้ครบก่อนประเมิน',
+        src: '/images/buyback/buyhub-asus-rog-strix-gaming-laptop.webp',
+        alt: 'ตัวอย่างโน๊ตบุ๊คเกมมิ่ง ASUS ROG Strix มือสองที่ BuyHub รับประเมินจริง'
+      },
+      {
+        title: 'ASUS TUF F16 i7 RTX4050 (ตัวอย่างชุดรับซื้อ)',
+        detail: 'ช่วยให้เห็นว่ากลุ่มโน๊ตบุ๊คเกมมิ่งควรแจ้งรุ่น CPU การ์ดจอ และอุปกรณ์ในชุดมาพร้อมกัน',
+        src: '/images/buyback/buyhub-asus-tuf-f16-rtx4050.webp',
+        alt: 'ตัวอย่าง ASUS TUF F16 มือสองที่ BuyHub รับประเมินจริง'
+      },
+      {
+        title: 'Huawei MateBook / โน๊ตบุ๊คทำงาน (ตัวอย่าง)',
+        detail: 'เหมาะกับเคสสายทำงานที่เน้นรุ่น สเปก แบตเตอรี่ และสภาพตัวเครื่องแบบใช้งานจริง',
+        src: '/images/buyback/buyhub-huawei-notebook-real.webp',
+        alt: 'ตัวอย่างโน๊ตบุ๊คสายทำงานมือสองที่ BuyHub รับประเมินจริง'
+      },
+      {
+        title: 'Acer Aspire / โน๊ตบุ๊คใช้งานทั่วไป (ตัวอย่าง)',
+        detail: 'ใช้ประกอบการดูเคสโน๊ตบุ๊คทั่วไปที่ต้องแจ้งรุ่น สเปกเบื้องต้น และอาการใช้งานจริง',
+        src: '/images/buyback/buyhub-acer-notebook-real.webp',
+        alt: 'ตัวอย่างโน๊ตบุ๊ค Acer มือสองที่ BuyHub รับประเมินจริง'
+      },
+      {
+        title: 'โน๊ตบุ๊คแต่งคีย์แคป (ตัวอย่าง)',
+        detail: 'ช่วยให้เห็นว่าของแต่งหรืออุปกรณ์เสริมที่ติดมากับเครื่องควรแจ้งรวมไว้ตั้งแต่ต้น',
+        src: '/images/buyback/buyhub-gaming-laptop-color-keycaps.webp',
+        alt: 'ตัวอย่างโน๊ตบุ๊คแต่งคีย์แคปมือสองที่ BuyHub รับประเมินจริง'
       }
     ]
   },
@@ -39,10 +63,10 @@ const groups: ProofGroup[] = [
     group: 'MacBook',
     items: [
       {
-        title: 'MacBook (ตัวอย่างชุดรับซื้อ)',
+        title: 'MacBook Air (ตัวอย่างชุดรับซื้อ)',
         detail: 'เน้นเช็คสภาพตัวเครื่อง แบตเตอรี่ อุปกรณ์ และการออกจาก Apple ID ตามขั้นตอน',
-        src: '/images/buyback/buyhub-macbook-silver-thai-keyboard.webp',
-        alt: 'ตัวอย่าง MacBook มือสองที่ BuyHub รับซื้อจริง'
+        src: '/images/buyback/buyhub-macbook-air-real-box.webp',
+        alt: 'ตัวอย่าง MacBook Air มือสองที่ BuyHub รับประเมินจริง'
       }
     ]
   },
@@ -50,21 +74,27 @@ const groups: ProofGroup[] = [
     group: 'iPhone',
     items: [
       {
-        title: 'iPhone (ตัวอย่างชุดรับซื้อ)',
+        title: 'iPhone 15 128GB (ตัวอย่างชุดรับซื้อ)',
         detail: 'ประเมินตามรุ่น ความจุ สุขภาพแบต และสภาพหน้าจอ/ตัวเครื่อง',
-        src: '/images/buyback/buyhub-iphone-pro-trade-in-home.webp',
-        alt: 'ตัวอย่าง iPhone มือสองที่ BuyHub รับซื้อจริง'
+        src: '/images/buyback/buyhub-iphone-15-128gb-black.webp',
+        alt: 'ตัวอย่าง iPhone 15 มือสองที่ BuyHub รับประเมินจริง'
       }
     ]
   },
   {
-    group: 'iPad',
+    group: 'iPad และแท็บเล็ต',
     items: [
       {
         title: 'iPad (ตัวอย่างชุดรับซื้อ)',
         detail: 'ตรวจสภาพจอ/ทัช ลำโพง พอร์ตชาร์จ และอุปกรณ์ เช่น Pencil/เคส (ถ้ามี)',
         src: '/images/buyback/buyhub-ipad-mini-starlight-box.webp',
         alt: 'ตัวอย่าง iPad มือสองที่ BuyHub รับซื้อจริง'
+      },
+      {
+        title: 'Xiaomi Pad 7 8/128 (ตัวอย่างแท็บเล็ต)',
+        detail: 'เหมาะกับเคสแท็บเล็ต Android ที่ต้องแจ้งรุ่น ความจุ สภาพจอ และอุปกรณ์ที่มีให้ครบ',
+        src: '/images/buyback/buyhub-xiaomi-pad-7-8-128.webp',
+        alt: 'ตัวอย่างแท็บเล็ต Xiaomi Pad 7 มือสองที่ BuyHub รับประเมินจริง'
       }
     ]
   },
@@ -258,7 +288,13 @@ showcaseSections.push({
 
 ---
 
-<BaseLayout title={title} description={description} jsonLd={jsonLd} breadcrumbs={breadcrumbs}>
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage="/images/og/buyhub-portfolio-share.png"
+  jsonLd={jsonLd}
+  breadcrumbs={breadcrumbs}
+>
   <article class="bg-white">
     <div class="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16">
       <header class="max-w-3xl">

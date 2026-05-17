@@ -9,6 +9,7 @@
     "dev": "astro dev",
     "build": "set ASTRO_TELEMETRY_DISABLED=1 && astro build",
     "content:longform": "node scripts/enrich-longform-content.mjs",
+    "images:og": "node scripts/generate-og-images.mjs",
     "check:wordcount": "node scripts/check-public-word-count.mjs",
     "check:blog-unique": "node scripts/check-blog-uniqueness.mjs",
     "check:page-unique": "node scripts/check-page-cluster-uniqueness.mjs",

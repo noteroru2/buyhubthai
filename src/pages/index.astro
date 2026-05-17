@@ -90,9 +90,9 @@ const trustExamples = [
     label: 'iPhone / สมาร์ทโฟน',
     caption: 'รับทุกรุ่นตามสภาพและอายุเครื่อง',
     href: '/sell/iphone',
-    image: '/images/buyback/buyhub-iphone-pro-trade-in-home.webp',
+    image: '/images/buyback/buyhub-iphone-15-128gb-black.webp',
     imageAlt:
-      'รับซื้อ iPhone มือสอง iPhone Pro สภาพดี พร้อมกล่อง — ประเมินราคาฟรี ภาคอีสาน BuyHub',
+      'ตัวอย่าง iPhone 15 128GB มือสองพร้อมกล่อง สำหรับการประเมินราคากับ BuyHub',
     imageWidth: 800,
     imageHeight: 600
   },
@@ -109,19 +109,19 @@ const trustExamples = [
     label: 'MacBook',
     caption: 'Air / Pro ชิป M และ Intel',
     href: '/sell/macbook',
-    image: '/images/buyback/buyhub-macbook-silver-thai-keyboard.webp',
+    image: '/images/buyback/buyhub-macbook-air-real-box.webp',
     imageAlt:
-      'รับซื้อ MacBook มือสอง คีย์บอร์ดไทย-อังกฤษ สีเงิน — BuyHub รับซื้อโน๊ตบุ๊ค Apple มือสอง',
+      'ตัวอย่าง MacBook Air มือสองพร้อมกล่อง สำหรับการประเมินราคากับ BuyHub',
     imageWidth: 800,
     imageHeight: 600
   },
   {
     label: 'โน๊ตบุ๊ค Windows',
-    caption: 'สายเกมมิ่งและสายทำงาน',
+    caption: 'สายทำงานและใช้งานทั่วไป',
     href: '/sell/notebook',
-    image: '/images/buyback/buyhub-notebook-asus-vivobook-ryzen.webp',
+    image: '/images/buyback/buyhub-huawei-notebook-real.webp',
     imageAlt:
-      'รับซื้อโน๊ตบุ๊คมือสอง ASUS VivoBook AMD Ryzen พร้อมอุปกรณ์ — BuyHub รับซื้อโน๊ตบุ๊คเกมมิ่งและสำนักงาน',
+      'ตัวอย่างโน๊ตบุ๊ค Windows มือสองสำหรับการประเมินราคากับ BuyHub',
     imageWidth: 800,
     imageHeight: 600
   },
@@ -200,10 +200,10 @@ const customerProofCards = [
   {
     title: 'สินค้าที่รับซื้อ (ตัวอย่าง)',
     blurb: 'ภาพสินค้าจริงจากเคสรับซื้อ — แจ้งรุ่นและสภาพตรงก่อนตรวจหน้างาน',
-    image: '/images/reviews/buyback-product-example-camera.png',
-    imageAlt: 'ภาพตัวอย่างสินค้าที่รับซื้อจริง: กล้อง Panasonic Lumix GF8 พร้อมอุปกรณ์ (BuyHub รับซื้อสินค้าไอทีมือสอง)',
-    productType: 'กล้อง',
-    province: 'อุบลราชธานี'
+    image: '/images/buyback/buyhub-iphone-15-128gb-black.webp',
+    imageAlt: 'ภาพตัวอย่าง iPhone 15 มือสองที่ใช้ประกอบการประเมินราคากับ BuyHub',
+    productType: 'iPhone / สมาร์ทโฟน',
+    province: 'ภาคอีสาน'
   },
   {
     title: 'หลักฐานการโอน (ตัวอย่าง)',
@@ -319,7 +319,13 @@ const homeLongSections = [
 ];
 ---
 
-<BaseLayout title={title} description={description} jsonLd={jsonLd} breadcrumbs={[{ name: 'หน้าแรก', href: '/' }]}>
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage="/images/og/buyhub-home-share.png"
+  jsonLd={jsonLd}
+  breadcrumbs={[{ name: 'หน้าแรก', href: '/' }]}
+>
   <section
     class="relative isolate overflow-x-hidden bg-[#07111F] text-white"
     aria-labelledby="hero-heading"
@@ -451,10 +457,10 @@ const homeLongSections = [
         title="บอกข้อมูลจริงให้ครบ แล้วปล่อยให้แต่ละหน้ารับช่วงต่อ"
         body="หน้าแรกของ BuyHub ไม่จำเป็นต้องยัดคำค้นทุกแบบลงในย่อหน้าเดียวเพื่อให้ครอบคลุมสิ่งที่คนหา สิ่งที่ช่วยมากกว่าคือการอธิบายเส้นทางเริ่มต้นให้ชัด ว่าควรเริ่มจากหมวดสินค้า จังหวัด หรือบทความไหน แล้วค่อยใช้หน้าที่เกี่ยวข้องช่วยรับ intent ต่อเป็นชั้น ๆ วิธีนี้ทำให้เนื้อหาดูมีประโยชน์กับคนอ่านจริงและปลอดภัยกว่าการวางคีย์เวิร์ดซ้ำยาวเกินจำเป็น"
         gallery={[
-          { src: '/images/buyback/buyhub-iphone-pro-trade-in-home.webp', alt: 'ตัวอย่าง iPhone มือสองสำหรับการประเมิน' },
-          { src: '/images/buyback/buyhub-macbook-silver-thai-keyboard.webp', alt: 'ตัวอย่าง MacBook มือสองสำหรับการประเมิน' },
-          { src: '/images/buyback/buyhub-sony-a6000-mirrorless-kit.webp', alt: 'ตัวอย่างกล้องมือสองสำหรับการประเมิน' },
-          { src: '/images/buyback/buyhub-desktop-gaming-pc-white-rgb.webp', alt: 'ตัวอย่างคอมเกมมิ่งมือสองสำหรับการประเมิน' }
+          { src: '/images/buyback/buyhub-iphone-15-128gb-black.webp', alt: 'ตัวอย่าง iPhone 15 มือสองสำหรับการประเมิน' },
+          { src: '/images/buyback/buyhub-xiaomi-pad-7-8-128.webp', alt: 'ตัวอย่างแท็บเล็ต Xiaomi Pad 7 มือสองสำหรับการประเมิน' },
+          { src: '/images/buyback/buyhub-macbook-air-real-box.webp', alt: 'ตัวอย่าง MacBook Air มือสองสำหรับการประเมิน' },
+          { src: '/images/buyback/buyhub-asus-tuf-f16-rtx4050.webp', alt: 'ตัวอย่างโน๊ตบุ๊คเกมมิ่ง ASUS TUF มือสองสำหรับการประเมิน' }
         ]}
         points={[
           'เริ่มจากหมวดสินค้าที่ใกล้กับของที่ต้องการขายที่สุด',
