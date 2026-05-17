@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import LineCtaButton from '../components/LineCtaButton.astro';
 import PhoneCtaButton from '../components/PhoneCtaButton.astro';
 import CtaBand from '../components/CtaBand.astro';
+import ContentVisualPanel from '../components/ContentVisualPanel.astro';
 import EditorialTrustPanel from '../components/EditorialTrustPanel.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import KeywordIntentPanel from '../components/KeywordIntentPanel.astro';
@@ -445,6 +446,22 @@ const homeLongSections = [
 
   <section class="border-b border-slate-200/80 bg-white py-12 sm:py-14" aria-label="คำค้นหลักและคำค้นรองหน้าแรก">
     <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <ContentVisualPanel
+        eyebrow="เริ่มต้นให้ถูกทาง"
+        title="บอกข้อมูลจริงให้ครบ แล้วปล่อยให้แต่ละหน้ารับช่วงต่อ"
+        body="หน้าแรกของ BuyHub ไม่จำเป็นต้องยัดคำค้นทุกแบบลงในย่อหน้าเดียวเพื่อให้ครอบคลุมสิ่งที่คนหา สิ่งที่ช่วยมากกว่าคือการอธิบายเส้นทางเริ่มต้นให้ชัด ว่าควรเริ่มจากหมวดสินค้า จังหวัด หรือบทความไหน แล้วค่อยใช้หน้าที่เกี่ยวข้องช่วยรับ intent ต่อเป็นชั้น ๆ วิธีนี้ทำให้เนื้อหาดูมีประโยชน์กับคนอ่านจริงและปลอดภัยกว่าการวางคีย์เวิร์ดซ้ำยาวเกินจำเป็น"
+        gallery={[
+          { src: '/images/buyback/buyhub-iphone-pro-trade-in-home.webp', alt: 'ตัวอย่าง iPhone มือสองสำหรับการประเมิน' },
+          { src: '/images/buyback/buyhub-macbook-silver-thai-keyboard.webp', alt: 'ตัวอย่าง MacBook มือสองสำหรับการประเมิน' },
+          { src: '/images/buyback/buyhub-sony-a6000-mirrorless-kit.webp', alt: 'ตัวอย่างกล้องมือสองสำหรับการประเมิน' },
+          { src: '/images/buyback/buyhub-desktop-gaming-pc-white-rgb.webp', alt: 'ตัวอย่างคอมเกมมิ่งมือสองสำหรับการประเมิน' }
+        ]}
+        points={[
+          'เริ่มจากหมวดสินค้าที่ใกล้กับของที่ต้องการขายที่สุด',
+          'ถ้าอยู่ต่างจังหวัดให้ใช้หน้าพื้นที่เพื่อเลือกบริบทพื้นที่จริง',
+          'ถ้ายังติดคำถามย่อยให้ไปต่อที่บทความก่อนส่งรูปประเมิน'
+        ]}
+      />
       <KeywordIntentPanel
         sectionId="home-keywords"
         title="คำค้นหลักและคำค้นรองที่หน้าแรกของ BuyHub ตั้งใจตอบ"

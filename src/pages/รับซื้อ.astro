@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CtaBand from '../components/CtaBand.astro';
+import ContentVisualPanel from '../components/ContentVisualPanel.astro';
 import EditorialTrustPanel from '../components/EditorialTrustPanel.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import KeywordIntentPanel from '../components/KeywordIntentPanel.astro';
@@ -242,6 +243,22 @@ sellHubLongSections.push({
         <LineCtaButton variant="primary" label={`ประเมินราคาทาง LINE ${LINE_AT}`} />
         <PhoneCtaButton variant="light" />
       </div>
+      <ContentVisualPanel
+        eyebrow="ภาพรวมการประเมิน"
+        title="เริ่มจากข้อมูลจริง แล้วค่อยไปหน้าหมวดที่ตรง"
+        body="คนที่ต้องการขายสินค้าไอทีมือสองไม่จำเป็นต้องไล่พิมพ์คีย์เวิร์ดยาว ๆ เพื่อให้ระบบเข้าใจ สิ่งที่ช่วยมากกว่าคือการบอกรุ่น สเปก สภาพเครื่อง อุปกรณ์ที่มี และจังหวัดที่สะดวก จากนั้นหน้า hub และหน้าหมวดที่เกี่ยวข้องจะรับช่วงต่อเอง ทำให้ทั้งคนอ่านและระบบค้นหาเห็นว่าหน้านี้มีประโยชน์จริง ไม่ได้ตั้งใจวางคำค้นซ้ำเป็นก้อน"
+        gallery={[
+          { src: '/images/buyback/buyhub-ipad-mini-starlight-box.webp', alt: 'ตัวอย่าง iPad มือสองที่เตรียมประเมิน' },
+          { src: '/images/buyback/buyhub-notebook-asus-vivobook-ryzen.webp', alt: 'ตัวอย่างโน๊ตบุ๊คมือสองที่เตรียมประเมิน' },
+          { src: '/images/buyback/buyhub-sony-a6000-mirrorless-kit.webp', alt: 'ตัวอย่างกล้องมือสองที่เตรียมประเมิน' },
+          { src: '/images/buyback/buyhub-ps5-digital-edition-set.webp', alt: 'ตัวอย่างเครื่องเกมมือสองที่เตรียมประเมิน' }
+        ]}
+        points={[
+          'เริ่มจากรุ่นหรือสเปกที่อ่านได้จากตัวเครื่อง',
+          'ส่งรูปสภาพจริงหลายมุมพร้อมตำหนิที่เห็นชัด',
+          'แจ้งอุปกรณ์ในชุดและจังหวัดที่สะดวกไว้ตั้งแต่ข้อความแรก'
+        ]}
+      />
       <KeywordIntentPanel
         sectionId="sell-hub-keywords"
         title="คำค้นหลักและคำค้นรองที่หน้ารับซื้อรวมตั้งใจตอบ"

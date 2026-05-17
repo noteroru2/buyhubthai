@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">BuyHub article reading path illustration</title>
+  <desc id="desc">Abstract illustration of question to article to pricing conversation path.</desc>
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fefce8" />
+      <stop offset="100%" stop-color="#eff6ff" />
+    </linearGradient>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#ecfeff" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="800" rx="40" fill="url(#bg3)" />
+  <circle cx="190" cy="176" r="112" fill="#fde68a" opacity=".45" />
+  <circle cx="1006" cy="650" r="132" fill="#bfdbfe" opacity=".45" />
+
+  <rect x="90" y="238" width="260" height="214" rx="32" fill="#ffffff" stroke="#d1d5db" />
+  <circle cx="160" cy="314" r="30" fill="#f59e0b" />
+  <path d="M160 296c12 0 22 10 22 22 0 10-6 18-14 21v20h-16v-20c-8-3-14-11-14-21 0-12 10-22 22-22z" fill="#fff7ed" />
+  <rect x="214" y="292" width="94" height="18" rx="9" fill="#0f172a" opacity=".14" />
+  <rect x="214" y="326" width="74" height="18" rx="9" fill="#0f172a" opacity=".08" />
+  <rect x="126" y="388" width="184" height="18" rx="9" fill="#e2e8f0" />
+
+  <path d="M380 344c86 0 86 0 172 0" fill="none" stroke="#f59e0b" stroke-width="12" stroke-linecap="round" stroke-dasharray="10 18" />
+  <path d="M656 344c84 0 84 0 168 0" fill="none" stroke="#10b981" stroke-width="12" stroke-linecap="round" stroke-dasharray="10 18" />
+
+  <g transform="translate(488 154)">
+    <rect width="228" height="382" rx="28" fill="#0f172a" />
+    <rect x="18" y="24" width="192" height="334" rx="20" fill="url(#paper)" />
+    <rect x="50" y="68" width="126" height="20" rx="10" fill="#0f172a" opacity=".14" />
+    <rect x="50" y="106" width="154" height="16" rx="8" fill="#0f172a" opacity=".08" />
+    <rect x="50" y="156" width="128" height="110" rx="22" fill="#dbeafe" />
+    <rect x="70" y="188" width="88" height="12" rx="6" fill="#2563eb" opacity=".4" />
+    <rect x="70" y="214" width="62" height="12" rx="6" fill="#2563eb" opacity=".26" />
+    <rect x="50" y="292" width="150" height="16" rx="8" fill="#0f172a" opacity=".1" />
+    <rect x="50" y="322" width="112" height="16" rx="8" fill="#0f172a" opacity=".08" />
+  </g>
+
+  <g transform="translate(852 232)">
+    <rect width="260" height="238" rx="32" fill="#ffffff" stroke="#d1d5db" />
+    <rect x="34" y="38" width="144" height="18" rx="9" fill="#0f172a" opacity=".14" />
+    <rect x="34" y="72" width="112" height="18" rx="9" fill="#0f172a" opacity=".08" />
+    <rect x="34" y="118" width="170" height="48" rx="24" fill="#ecfdf5" />
+    <circle cx="66" cy="142" r="13" fill="#10b981" />
+    <rect x="92" y="136" width="86" height="12" rx="6" fill="#065f46" opacity=".34" />
+    <rect x="34" y="184" width="120" height="22" rx="11" fill="#f59e0b" opacity=".85" />
+  </g>
+
+  <g transform="translate(180 598)">
+    <rect width="864" height="112" rx="28" fill="#ffffff" stroke="#d1d5db" />
+    <circle cx="90" cy="56" r="24" fill="#10b981" />
+    <rect x="136" y="42" width="210" height="18" rx="9" fill="#0f172a" opacity=".14" />
+    <rect x="136" y="72" width="154" height="14" rx="7" fill="#0f172a" opacity=".08" />
+    <circle cx="430" cy="56" r="24" fill="#0ea5e9" />
+    <rect x="476" y="42" width="210" height="18" rx="9" fill="#0f172a" opacity=".14" />
+    <rect x="476" y="72" width="154" height="14" rx="7" fill="#0f172a" opacity=".08" />
+    <circle cx="770" cy="56" r="24" fill="#f59e0b" />
+    <rect x="816" y="42" width="210" height="18" rx="9" fill="#0f172a" opacity=".14" />
+    <rect x="816" y="72" width="154" height="14" rx="7" fill="#0f172a" opacity=".08" />
+  </g>
+</svg>

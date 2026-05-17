@@ -1,0 +1,167 @@
+---
+import { getCollection } from 'astro:content';
+import CtaBand from '../../../../components/CtaBand.astro';
+import EditorialTrustPanel from '../../../../components/EditorialTrustPanel.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import KeywordIntentPanel from '../../../../components/KeywordIntentPanel.astro';
+import LineCtaButton from '../../../../components/LineCtaButton.astro';
+import LongformSections from '../../../../components/LongformSections.astro';
+import PhoneCtaButton from '../../../../components/PhoneCtaButton.astro';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import { EDITORIAL_REVIEWED_AT, EDITORIAL_REVIEWER } from '../../../../lib/constants';
+import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd, webPageJsonLd } from '../../../../lib/schema';
+import {
+  buildSellAreaSupportPageData,
+  SELL_AREA_SUPPORT_TARGETS
+} from '../../../../data/sellAreaSupportPages';
+import { getSellSupportTopic, SELL_SUPPORT_TOPICS } from '../../../../data/sellSupportPages';
+
+export async function getStaticPaths() {
+  const sellMap = new Map(
+    (await getCollection('sell', ({ data }) => !data.draft)).map((entry) => [entry.id, entry])
+  );
+
+  return SELL_AREA_SUPPORT_TARGETS.flatMap((target) => {
+    const entry = sellMap.get(target.sellId);
+    if (!entry) return [];
+
+    return SELL_SUPPORT_TOPICS.map((topic) => ({
+      params: {
+        product: target.sellId,
+        province: target.provinceName,
+        topic: topic.slug
+      },
+      props: {
+        sellId: target.sellId,
+        sellTitle: entry.data.title,
+        sellDescription: entry.data.description,
+        provinceName: target.provinceName
+      }
+    }));
+  });
+}
+
+const { sellId, sellTitle, sellDescription, provinceName } = Astro.props;
+const topic = getSellSupportTopic(Astro.params.topic ?? '');
+
+if (!topic) {
+  return Astro.redirect('/รับซื้อ');
+}
+
+const page = buildSellAreaSupportPageData({
+  sellId,
+  sellTitle,
+  sellDescription,
+  provinceName,
+  topicSlug: topic.slug
+});
+
+if (!page) {
+  return Astro.redirect('/รับซื้อ');
+}
+
+const breadcrumbs = page.breadcrumbs.map((item) => ({
+  name: item.label,
+  href: item.href
+}));
+
+const jsonLd = [
+  breadcrumbJsonLd(breadcrumbs),
+  serviceJsonLd({
+    name: page.serviceName,
+    description: page.description,
+    url: page.path
+  }),
+  faqPageJsonLd(page.faqs),
+  webPageJsonLd({
+    name: page.title,
+    description: page.description,
+    url: page.path,
+    dateModified: EDITORIAL_REVIEWED_AT,
+    about: [page.serviceName, topic.label, provinceName, 'รับซื้อสินค้าไอทีมือสอง'],
+    author: EDITORIAL_REVIEWER
+  })
+];
+---
+
+<BaseLayout
+  title={page.title}
+  description={page.description}
+  canonical={page.path}
+  breadcrumbs={breadcrumbs}
+  jsonLd={jsonLd}
+>
+  <section class="bg-white py-12 sm:py-16">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="grid gap-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(18rem,0.7fr)] lg:items-start">
+        <div class="min-w-0">
+          <p class="text-xs font-bold uppercase tracking-[0.22em] text-emerald-600">Local Sell Support</p>
+          <h1 class="mt-3 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+            {page.h1}
+          </h1>
+          <div class="mt-5 space-y-4 text-base leading-8 text-slate-700">
+            {page.intro.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+          <div class="mt-7 flex min-w-0 flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <LineCtaButton class="w-full min-w-0 sm:w-auto" />
+            <PhoneCtaButton class="w-full min-w-0 sm:w-auto" />
+          </div>
+        </div>
+
+        <aside class="rounded-3xl border border-emerald-200 bg-emerald-50/80 p-6">
+          <h2 class="text-xl font-bold tracking-tight text-slate-950">สรุปก่อนคุยในจังหวัดนี้</h2>
+          <ul class="mt-5 space-y-3 text-sm leading-7 text-slate-700">
+            {page.heroPoints.map((point) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-emerald-600" aria-hidden="true"></span>
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-6 sm:py-8">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <EditorialTrustPanel
+        reviewedAt={EDITORIAL_REVIEWED_AT}
+        reviewedBy={EDITORIAL_REVIEWER}
+        scope={`คำแนะนำสำหรับคนที่กำลังค้นว่า “${page.serviceName}” และต้องการคำตอบที่ผูกกับพื้นที่ ${provinceName} ก่อนตัดสินใจขาย`}
+        notes={page.trustNotes}
+        links={[
+          { href: '/ขั้นตอนการขาย', label: 'ดูขั้นตอนการขายแบบเต็ม' },
+          { href: '/คู่มือเตรียมสินค้าก่อนขาย', label: 'ดูคู่มือเตรียมสินค้าก่อนขาย' }
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="bg-white py-6 sm:py-8">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <KeywordIntentPanel
+        sectionId="sell-area-support-keywords"
+        title={`ชุดคำค้น “${page.serviceName}” ที่เชื่อมกลับหน้าหลักจังหวัด`}
+        intro={page.keywordIntro}
+        groups={page.keywordGroups}
+      />
+    </div>
+  </section>
+
+  <section class="bg-white py-6 sm:py-8">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <LongformSections sections={page.sections} tocHeading="สารบัญคำตอบสำหรับหน้านี้" />
+    </div>
+  </section>
+
+  <CtaBand heading={page.ctaHeading} sub={page.ctaSub} />
+
+  <FaqAccordion
+    items={page.faqs}
+    heading={`คำถามที่พบบ่อยเกี่ยวกับ ${page.serviceName}`}
+    intro={`คำตอบชุดนี้สรุปจากแนวทางคุยงานของ BuyHub สำหรับคนที่กำลังดูหัวข้อ ${topic.label} ในพื้นที่ ${provinceName}`}
+  />
+</BaseLayout>

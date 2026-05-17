@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CtaBand from '../../components/CtaBand.astro';
+import ContentVisualPanel from '../../components/ContentVisualPanel.astro';
 import EditorialTrustPanel from '../../components/EditorialTrustPanel.astro';
 import FaqAccordion from '../../components/FaqAccordion.astro';
 import KeywordIntentPanel from '../../components/KeywordIntentPanel.astro';
@@ -268,6 +269,19 @@ geoLongSections.push({
         <LineCtaButton variant="primary" label="สอบถามคิวรับซื้อภาคอีสานทาง LINE" />
         <PhoneCtaButton variant="light" />
       </div>
+      <ContentVisualPanel
+        eyebrow="พื้นที่ให้บริการ"
+        title="เลือกหน้าจังหวัดให้ตรง แล้วใช้ข้อมูลพื้นที่จริง"
+        body="หน้าพื้นที่ให้บริการควรช่วยให้คนขายเริ่มจากจังหวัดที่ใกล้ที่สุดหรือจังหวัดหลักที่ใช้เดินงานจริง มากกว่าการย้ำชื่อจังหวัดหลายแบบในย่อหน้าเดียว ถ้าระบุอำเภอ โซนที่สะดวก และลักษณะของสินค้าที่จะขายให้ชัด หน้าแต่ละจังหวัดจะตอบ intent ได้แน่นขึ้นโดยไม่ดูเป็นการใส่คีย์เวิร์ดเกินจำเป็น"
+        imageSrc="/images/reviews/pickup-meet-example-laptop.png"
+        imageAlt="ตัวอย่างการนัดรับสินค้าจริงในพื้นที่ให้บริการของ BuyHub"
+        points={[
+          'เริ่มจากจังหวัดหลักหรือจังหวัดที่อยู่ใกล้ที่สุดก่อน',
+          'แจ้งอำเภอหรือโซนที่สะดวกในการนัดหรือส่งมอบ',
+          'ถ้ามีหลายชิ้นให้สรุปเป็นรายการเดียวเพื่อลดการคุยซ้ำ'
+        ]}
+        reverse={true}
+      />
       <KeywordIntentPanel
         sectionId="area-hub-keywords"
         title="คำค้นหลักและคำค้นรองที่หน้าพื้นที่ให้บริการตั้งใจครอบคลุม"

@@ -14,7 +14,14 @@ interface Props {
 }
 
 const { sectionId, title, intro = [], groups, className = '' } = Astro.props;
-const visibleGroups = groups.filter((group) => group.items?.length);
+const previewLimit = 4;
+const visibleGroups = groups
+  .filter((group) => group.items?.length)
+  .map((group) => ({
+    ...group,
+    previewItems: group.items.slice(0, previewLimit),
+    hasMoreItems: group.items.length > previewLimit
+  }));
 ---
 
 <section
@@ -36,19 +43,29 @@ const visibleGroups = groups.filter((group) => group.items?.length);
       </div>
     ) : null
   }
+  <p class="mt-4 text-sm leading-7 text-slate-600">
+    ส่วนนี้ยกตัวอย่างคำค้นที่เกี่ยวข้องเฉพาะชุดที่ช่วยให้คนอ่านเห็นภาพเร็วขึ้น แล้วค่อยพาไปยังหน้าที่ตรงกับรุ่น สภาพเครื่อง หรือพื้นที่จริง แทนการวางคำซ้ำยาวเกินจำเป็นบนหน้าเดียว
+  </p>
   <div class="mt-6 grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))]">
     {visibleGroups.map((group) => (
       <section class="rounded-2xl border border-emerald-200 bg-white/85 p-5">
         <h3 class="text-base font-semibold leading-7 text-slate-950">{group.title}</h3>
         {group.blurb ? <p class="mt-2 text-sm leading-7 text-slate-600">{group.blurb}</p> : null}
         <ul class="mt-4 space-y-2 text-sm leading-7 text-slate-700">
-          {group.items.map((item) => (
+          {group.previewItems.map((item) => (
             <li class="flex items-start gap-2">
               <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-600" aria-hidden="true"></span>
               <span>{item}</span>
             </li>
           ))}
         </ul>
+        {
+          group.hasMoreItems ? (
+            <div class="mt-4 rounded-2xl border border-dashed border-emerald-200 bg-emerald-50/70 px-3 py-2 text-xs leading-6 text-emerald-900">
+              หน้าย่อยที่เกี่ยวข้องจะรับช่วงคำค้นตามรุ่น ราคา และสภาพเครื่องต่อ เพื่อให้หน้านี้ยังอ่านลื่นและไม่แน่นแบบลิสต์คำซ้ำ
+            </div>
+          ) : null
+        }
       </section>
     ))}
   </div>

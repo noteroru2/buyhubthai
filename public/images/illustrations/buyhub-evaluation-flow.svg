@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">BuyHub evaluation flow illustration</title>
+  <desc id="desc">Abstract illustration of device evaluation flow with chat, checklist, and payout steps.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#effcf6" />
+      <stop offset="100%" stop-color="#e0f2fe" />
+    </linearGradient>
+    <linearGradient id="emeraldCard" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f766e" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+    <linearGradient id="goldCard" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#fbbf24" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="800" rx="40" fill="url(#bg)" />
+  <circle cx="1030" cy="160" r="110" fill="#d1fae5" opacity=".8" />
+  <circle cx="170" cy="680" r="140" fill="#dbeafe" opacity=".85" />
+
+  <rect x="72" y="92" width="300" height="616" rx="34" fill="#0f172a" />
+  <rect x="92" y="126" width="260" height="518" rx="24" fill="#f8fafc" />
+  <rect x="124" y="170" width="196" height="120" rx="22" fill="url(#emeraldCard)" />
+  <rect x="124" y="320" width="196" height="18" rx="9" fill="#cbd5e1" />
+  <rect x="124" y="356" width="164" height="18" rx="9" fill="#e2e8f0" />
+  <rect x="124" y="410" width="196" height="72" rx="22" fill="#ffffff" stroke="#d1d5db" />
+  <rect x="148" y="438" width="96" height="12" rx="6" fill="#0f172a" opacity=".18" />
+  <rect x="148" y="462" width="132" height="12" rx="6" fill="#0f172a" opacity=".1" />
+  <circle cx="224" cy="680" r="12" fill="#64748b" />
+
+  <path d="M390 260c86 0 86 0 172 0" fill="none" stroke="#10b981" stroke-width="10" stroke-linecap="round" stroke-dasharray="10 18" />
+  <path d="M680 260c76 0 76 0 152 0" fill="none" stroke="#0ea5e9" stroke-width="10" stroke-linecap="round" stroke-dasharray="10 18" />
+  <path d="M610 330c0 94 0 94 0 188" fill="none" stroke="#94a3b8" stroke-width="8" stroke-linecap="round" stroke-dasharray="8 16" />
+
+  <rect x="530" y="120" width="248" height="290" rx="34" fill="#ffffff" stroke="#d1d5db" />
+  <rect x="566" y="166" width="176" height="18" rx="9" fill="#0f172a" opacity=".16" />
+  <rect x="566" y="202" width="132" height="18" rx="9" fill="#0f172a" opacity=".1" />
+  <rect x="566" y="252" width="170" height="42" rx="21" fill="#ecfdf5" />
+  <circle cx="594" cy="273" r="10" fill="#10b981" />
+  <rect x="616" y="266" width="94" height="14" rx="7" fill="#065f46" opacity=".35" />
+  <rect x="566" y="312" width="170" height="42" rx="21" fill="#ecfeff" />
+  <circle cx="594" cy="333" r="10" fill="#0ea5e9" />
+  <rect x="616" y="326" width="102" height="14" rx="7" fill="#075985" opacity=".28" />
+
+  <rect x="850" y="112" width="278" height="314" rx="34" fill="#ffffff" stroke="#d1d5db" />
+  <rect x="888" y="156" width="202" height="120" rx="24" fill="url(#goldCard)" />
+  <rect x="920" y="196" width="108" height="18" rx="9" fill="#fff7ed" opacity=".85" />
+  <rect x="920" y="228" width="142" height="18" rx="9" fill="#ffffff" opacity=".65" />
+  <rect x="888" y="310" width="202" height="18" rx="9" fill="#cbd5e1" />
+  <rect x="888" y="346" width="162" height="18" rx="9" fill="#e2e8f0" />
+
+  <rect x="470" y="470" width="320" height="204" rx="34" fill="#ffffff" stroke="#d1d5db" />
+  <circle cx="548" cy="554" r="52" fill="#d1fae5" />
+  <path d="M518 552l20 20 42-48" fill="none" stroke="#059669" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" />
+  <rect x="632" y="520" width="116" height="18" rx="9" fill="#0f172a" opacity=".14" />
+  <rect x="632" y="554" width="88" height="18" rx="9" fill="#0f172a" opacity=".1" />
+  <rect x="632" y="608" width="92" height="34" rx="17" fill="#0f766e" />
+
+  <g opacity=".94">
+    <circle cx="945" cy="550" r="66" fill="#dbeafe" />
+    <path d="M945 512c20 0 36 16 36 36 0 26-27 52-36 61-9-9-36-35-36-61 0-20 16-36 36-36z" fill="#2563eb" />
+    <circle cx="945" cy="548" r="13" fill="#ffffff" />
+    <rect x="1018" y="510" width="120" height="22" rx="11" fill="#0f172a" opacity=".12" />
+    <rect x="1018" y="546" width="96" height="22" rx="11" fill="#0f172a" opacity=".08" />
+    <rect x="1018" y="590" width="102" height="40" rx="20" fill="#0f172a" opacity=".06" />
+  </g>
+</svg>

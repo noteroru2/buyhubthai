@@ -1,12 +1,15 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CtaBand from './CtaBand.astro';
+import ContentVisualPanel from './ContentVisualPanel.astro';
 import FaqAccordion from './FaqAccordion.astro';
+import KeywordIntentPanel from './KeywordIntentPanel.astro';
 import LineCtaButton from './LineCtaButton.astro';
 import PhoneCtaButton from './PhoneCtaButton.astro';
 import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd } from '../lib/schema';
 import { buildSellKeywordCluster, joinThaiKeywordPreview } from '../lib/keywordClusters';
 import { buildComboEditorialSections, getSellEditorialSections } from '../data/editorialProfiles';
+import { getSellAreaSupportLinksByMainPath } from '../data/sellAreaSupportPages';
 import { findSellIdByMainPath, getSellSupportLinks } from '../data/sellSupportPages';
 import type { BreadcrumbItem } from '../lib/types';
 
@@ -98,6 +101,11 @@ type ProductNarrative = {
   evaluationFields: string;
   issueExamples: string;
   bundleExamples: string;
+};
+
+type ProductVisual = {
+  imageSrc: string;
+  imageAlt: string;
 };
 
 const getProductNarrative = (name: string): ProductNarrative => {
@@ -235,7 +243,81 @@ const getProductNarrative = (name: string): ProductNarrative => {
   };
 };
 
+const getProductVisual = (name: string, province: string): ProductVisual => {
+  if (name.includes('iPhone')) {
+    return {
+      imageSrc: '/images/buyback/buyhub-iphone-pro-trade-in-home.webp',
+      imageAlt: `ตัวอย่าง iPhone มือสองสำหรับการประเมินใน ${province}`
+    };
+  }
+
+  if (name.includes('iPad')) {
+    return {
+      imageSrc: '/images/buyback/buyhub-ipad-mini-starlight-box.webp',
+      imageAlt: `ตัวอย่าง iPad มือสองสำหรับการประเมินใน ${province}`
+    };
+  }
+
+  if (name.includes('MacBook')) {
+    return {
+      imageSrc: '/images/buyback/buyhub-macbook-silver-thai-keyboard.webp',
+      imageAlt: `ตัวอย่าง MacBook มือสองสำหรับการประเมินใน ${province}`
+    };
+  }
+
+  if (name.includes('โน๊ตบุ๊ค')) {
+    return {
+      imageSrc: '/images/buyback/buyhub-notebook-asus-vivobook-ryzen.webp',
+      imageAlt: `ตัวอย่างโน๊ตบุ๊คมือสองสำหรับการประเมินใน ${province}`
+    };
+  }
+
+  if (
+    name.includes('คอมเกมมิ่ง') ||
+    name.includes('คอมพิวเตอร์') ||
+    name.includes('PC') ||
+    name.includes('การ์ดจอ')
+  ) {
+    return {
+      imageSrc: '/images/buyback/buyhub-desktop-gaming-pc-white-rgb.webp',
+      imageAlt: `ตัวอย่างคอมพิวเตอร์มือสองสำหรับการประเมินใน ${province}`
+    };
+  }
+
+  if (name.includes('กล้อง')) {
+    return {
+      imageSrc: '/images/buyback/buyhub-sony-a6000-mirrorless-kit.webp',
+      imageAlt: `ตัวอย่างกล้องมือสองสำหรับการประเมินใน ${province}`
+    };
+  }
+
+  if (
+    name.includes('PlayStation') ||
+    name.includes('Nintendo') ||
+    name.includes('เครื่องเกม') ||
+    name.includes('เกมมิ่ง')
+  ) {
+    return {
+      imageSrc: '/images/buyback/buyhub-ps5-digital-edition-set.webp',
+      imageAlt: `ตัวอย่างเครื่องเกมมือสองสำหรับการประเมินใน ${province}`
+    };
+  }
+
+  if (name.includes('คอมบริษัท') || name.includes('สำนักงาน')) {
+    return {
+      imageSrc: '/images/reviews/corporate-case-multiple-laptops.png',
+      imageAlt: `ตัวอย่างงานรับซื้ออุปกรณ์หลายรายการใน ${province}`
+    };
+  }
+
+  return {
+    imageSrc: '/images/reviews/pickup-meet-example-laptop.png',
+    imageAlt: `ตัวอย่างการนัดรับสินค้าไอทีจริงใน ${province}`
+  };
+};
+
 const productNarrative = getProductNarrative(productName);
+const productVisual = getProductVisual(productName, provinceName);
 const sellEditorialSlug = path.replace(/^\/+/, '');
 const sellKeywordCluster = buildSellKeywordCluster({ productName, provinceName, serviceName });
 const productUsesLeadingSpace = /^[A-Za-z0-9]/.test(productName);
@@ -428,8 +510,21 @@ const sellKeywordGroups = [
     items: sellKeywordDecision
   }
 ].filter((group) => group.items.length > 0);
+const sellKeywordPanelGroups = sellKeywordGroups.map((group, index) => ({
+  title: group.heading,
+  blurb:
+    [
+      `ช่วยจับ intent กว้างของคนที่เริ่มจากคำค้นเกี่ยวกับ${buyProductText}ใน ${provinceName} ก่อนลงรายละเอียดเรื่องรุ่นหรือสภาพเครื่อง`,
+      `เหมาะกับคนที่รู้หมวดหรือรุ่นคร่าว ๆ แล้ว และต้องการเชื่อมไปยังหน้าที่ตรงกับเครื่องของตัวเองมากขึ้น`,
+      `ใช้รองรับคำถามที่มักเกิดก่อนตัดสินใจขายจริง เช่น มีรอย อุปกรณ์ไม่ครบ หรือเครื่องมีอาการบางจุด`,
+      `ช่วยตอบคนที่กำลังมองช่วงราคาเบื้องต้นและอยากรู้ว่าปัจจัยใดกระทบราคาของ ${productName} มากที่สุด`,
+      `ครอบคลุมคำค้นที่สะท้อนการตัดสินใจหน้างาน เช่น ควรขายตอนนี้ไหม ควรขายเดี่ยวหรือรวมอุปกรณ์ และควรเริ่มทักแบบไหน`
+    ][index] ?? undefined,
+  items: group.items
+}));
 const mainSellId = findSellIdByMainPath(path);
 const supportTopicLinks = mainSellId ? getSellSupportLinks(mainSellId) : [];
+const localSupportContext = getSellAreaSupportLinksByMainPath(path);
 
 const midArticleIndex =
   allLongContentSections.length > 2 ? Math.floor((allLongContentSections.length - 1) / 2) : -1;
@@ -464,41 +559,30 @@ const midArticleIndex =
         ))}
       </div>
 
-      <section class="mt-8 rounded-2xl border border-emerald-200 bg-emerald-50/70 p-5 sm:p-6" aria-labelledby="combo-keywords">
-        <h2 id="combo-keywords" class="text-xl font-bold tracking-tight text-slate-950">
-          คำค้นที่คนอยาก{sellProductText} ใน {provinceName} มักใช้ก่อนตัดสินใจ
-        </h2>
-        <div class="mt-4 space-y-4 text-base leading-8 text-slate-700">
-          <p>
-            หน้านี้ตั้งใจตอบคำค้นหลักอย่าง “{sellKeywordCluster.primary}” พร้อมคำค้นรองอย่าง {sellKeywordLead}
-            เพื่อให้คนที่กำลังมองหา {buyProductText} ใน {provinceName} ได้ทั้งข้อมูลเรื่องการประเมินราคา ขั้นตอนส่งข้อมูล
-            และบริบทพื้นที่ในหน้าเดียว
-          </p>
-          <p>
-            ถ้าคุณกำลังค้นหาทั้ง {sellKeywordSupport || 'คำค้นตามรุ่นที่ใกล้กับเครื่องของคุณ'} รวมถึง
-            {` ${sellKeywordCondition || 'คำค้นตามสภาพเครื่องที่กำลังกังวล'}`} เนื้อหาด้านล่างจะช่วยให้เห็นภาพว่า
-            ควรเริ่มจากข้อมูลสินค้าแบบไหน ควรแจ้งอาการอย่างไร และควรใช้คำค้นกลุ่มขายมือสองหรือประเมินราคาแบบใดให้ตรงกับของที่กำลังจะขาย
-          </p>
-          <p>
-            รอบนี้เราเติมคำค้นเชิงราคาอย่าง {sellKeywordPriceLead || 'คำค้นช่วงราคาประเมิน'} และคำค้นเชิงตัดสินใจอย่าง {sellKeywordDecisionLead || 'คำค้นก่อนเลือกช่องทางขาย'} เพิ่มเข้ามาด้วย
-            เพื่อให้หน้านี้ครอบทั้งคนที่กำลังหาแนวราคา คนที่ลังเลว่าควรขายตอนนี้หรือไม่ และคนที่ต้องการเลือกรูปแบบการขายที่เหมาะกับสภาพสินค้าของตัวเองได้ตรงขึ้น
-          </p>
-        </div>
-        <div class="mt-5 grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(14rem,1fr))]">
-          {sellKeywordGroups.map((group) => (
-            <section class="rounded-2xl border border-emerald-200 bg-white/85 p-4" aria-label={group.heading}>
-              <h3 class="text-sm font-bold tracking-tight text-slate-950">{group.heading}</h3>
-              <ul class="mt-3 space-y-2 text-sm leading-7 text-slate-700">
-                {group.items.map((keyword) => (
-                  <li class="rounded-xl bg-emerald-50 px-3 py-2 font-medium text-slate-800">
-                    {keyword}
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))}
-        </div>
-      </section>
+      <ContentVisualPanel
+        eyebrow="แนวทางประเมิน"
+        title={`อธิบายรุ่น สภาพ และพื้นที่ให้ชัด ก่อนค่อยไล่ดูคำค้นย่อยของ ${productName}`}
+        body={`เวลาคนกำลัง ${sellProductText} ใน ${provinceName} สิ่งที่มีประโยชน์กว่าการพิมพ์คีย์เวิร์ดยาวหลายแบบ คือการเริ่มจากข้อมูลจริงของเครื่อง เช่น ${productNarrative.evaluationFields} แล้วค่อยใช้หน้ารองช่วยขยายเรื่องราคา สภาพเครื่อง หรือกรณีขายหลายชิ้นต่อ วิธีนี้ทำให้หน้าหลักของ ${buyProductText} ยังอ่านลื่นและไม่ดูเหมือนรวมคำค้นดิบเกินจำเป็น`}
+        imageSrc={productVisual.imageSrc}
+        imageAlt={productVisual.imageAlt}
+        points={[
+          `เริ่มจากข้อมูลอย่าง ${productNarrative.evaluationFields}`,
+          `ถ้ามีอาการอย่าง ${productNarrative.issueExamples} ให้แจ้งตรง ๆ ตั้งแต่ข้อความแรก`,
+          `ถ้ามีของในชุดอย่าง ${productNarrative.bundleExamples} ให้สรุปมาพร้อมกันเพื่อลดการถามซ้ำ`
+        ]}
+      />
+
+      <KeywordIntentPanel
+        sectionId="combo-keywords"
+        title={`คำค้นที่คนอยาก${sellProductText} ใน ${provinceName} มักใช้ก่อนตัดสินใจ`}
+        className="mt-8"
+        intro={[
+          `หน้านี้ตั้งใจตอบคำค้นหลักอย่าง “${sellKeywordCluster.primary}” พร้อมคำค้นรองอย่าง ${sellKeywordLead} เพื่อให้คนที่กำลังมองหา ${buyProductText} ใน ${provinceName} ได้ทั้งภาพรวมเรื่องราคา ขั้นตอนส่งข้อมูล และบริบทพื้นที่ในหน้าเดียว`,
+          `ถ้าคุณกำลังค้นหาทั้ง ${sellKeywordSupport || 'คำค้นตามรุ่นที่ใกล้กับเครื่องของคุณ'} รวมถึง ${sellKeywordCondition || 'คำค้นตามสภาพเครื่องที่กำลังกังวล'} เนื้อหาชุดนี้จะช่วยเชื่อมไปยังหน้าที่ตรงกับสิ่งที่ต้องการรู้จริง โดยไม่ต้องยัดคีย์เวิร์ดทุกแบบไว้ในย่อหน้าเดียว`,
+          `ส่วนคำค้นเชิงราคาอย่าง ${sellKeywordPriceLead || 'คำค้นช่วงราคาประเมิน'} และคำค้นเชิงตัดสินใจอย่าง ${sellKeywordDecisionLead || 'คำค้นก่อนเลือกช่องทางขาย'} จะถูกพาไปต่อผ่านหน้ารองและลิงก์ที่เกี่ยวข้อง เพื่อให้โครงสร้างทั้งคลัสเตอร์ดูเป็นธรรมชาติและอ่านง่ายกว่าเดิม`
+        ]}
+        groups={sellKeywordPanelGroups}
+      />
 
       {
         supportTopicLinks.length > 0 && (
@@ -524,6 +608,40 @@ const midArticleIndex =
             </div>
             <ul class="mt-5 grid gap-2 text-sm sm:grid-cols-2">
               {supportTopicLinks.map((link) => (
+                <li class="min-w-0">
+                  <a class="break-words font-semibold text-emerald-700 hover:underline" href={link.href}>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+
+      {
+        localSupportContext && (
+          <section
+            class="mt-8 rounded-2xl border border-slate-200 bg-slate-50/80 p-5 sm:p-6"
+            aria-labelledby="combo-local-support-links"
+          >
+            <h2 id="combo-local-support-links" class="text-xl font-bold tracking-tight text-slate-950">
+              คำค้นต่อยอดที่คนอยาก{sellProductText}ใน{localSupportContext.provinceName}มักใช้จริง
+            </h2>
+            <div class="mt-4 space-y-4 text-base leading-8 text-slate-700">
+              <p>
+                ลิงก์ชุดนี้ต่อยอดจากหน้าหลัก {buyProductText} ใน{localSupportContext.provinceName}
+                ไปยังคำถามย่อยที่คนขายมักค้นจริงก่อนทัก เช่น เช็กราคา ขายด่วน ส่งข้อมูลอะไรบ้าง
+                หรือควรเริ่มยังไงถ้าอยู่ต่างอำเภอ เพื่อให้คนที่เข้ามาจากคำค้นท้องถิ่นได้คำตอบตรงขึ้นทันที
+              </p>
+              <p>
+                ทุกหน้ารองจะเชื่อมกลับมาหาหน้าหลักจังหวัดนี้อีกครั้ง จึงช่วยเสริมทั้งคีย์หลักของหน้า
+                {buyProductText} และคีย์รองแบบ “สินค้า x จังหวัด x สถานการณ์” ให้แน่นขึ้นพร้อมกัน
+                โดยไม่บังคับให้คนอ่านย้อนกลับไปหาหน้ากว้างก่อน
+              </p>
+            </div>
+            <ul class="mt-5 grid gap-2 text-sm sm:grid-cols-2">
+              {localSupportContext.links.map((link) => (
                 <li class="min-w-0">
                   <a class="break-words font-semibold text-emerald-700 hover:underline" href={link.href}>
                     {link.label}

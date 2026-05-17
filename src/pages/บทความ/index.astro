@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CtaBand from '../../components/CtaBand.astro';
+import ContentVisualPanel from '../../components/ContentVisualPanel.astro';
 import EditorialTrustPanel from '../../components/EditorialTrustPanel.astro';
 import KeywordIntentPanel from '../../components/KeywordIntentPanel.astro';
 import LineCtaButton from '../../components/LineCtaButton.astro';
@@ -199,6 +200,22 @@ articleHubSections.push({
         <LineCtaButton variant="primary" label="อ่านจบแล้วส่งรูปเช็กราคาทาง LINE" />
         <PhoneCtaButton variant="light" />
       </div>
+      <ContentVisualPanel
+        eyebrow="บทความนำทาง"
+        title="อ่านให้ตรงปัญหา แล้วค่อยส่งข้อมูลประเมิน"
+        body="หน้าศูนย์รวมบทความมีหน้าที่พาคนอ่านจากคำถามย่อยไปสู่คำตอบที่ใช้ได้จริง เช่น เรื่องบัญชี ล้างข้อมูล ราคา หรือสเปกที่ควรส่งต่อ ไม่จำเป็นต้องย้ำคำค้นเดิมซ้ำหลายรอบบนหน้าเดียว เพราะบทความและหน้าหมวดที่เชื่อมกันอยู่แล้วจะช่วยกระจาย coverage ให้ครบและดูเป็นธรรมชาติกว่า"
+        gallery={[
+          { src: '/images/reviews/chat-price-example-fuji-xt20.png', alt: 'ตัวอย่างแชตประเมินราคาก่อนขาย' },
+          { src: '/images/reviews/buyback-product-example-camera.png', alt: 'ตัวอย่างรูปสินค้าและการสรุปรายการก่อนขาย' },
+          { src: '/images/reviews/transfer-proof-example-redacted.png', alt: 'ตัวอย่างหลักฐานการโอนเงินหลังปิดงาน' },
+          { src: '/images/reviews/pickup-meet-example-laptop.png', alt: 'ตัวอย่างการนัดรับสินค้าหลังคุยรายละเอียดครบ' }
+        ]}
+        points={[
+          'เลือกอ่านตามปัญหาจริงที่ติดอยู่ก่อนเริ่มขาย',
+          'จดรุ่น สภาพ และจุดที่กังวลไว้ก่อนส่งข้อความ',
+          'อ่านจบแล้วค่อยส่งรูปเพื่อให้การประเมินต่อเนื่องขึ้น'
+        ]}
+      />
       <KeywordIntentPanel
         sectionId="article-hub-keywords"
         title="คำค้นหลักและคำค้นรองที่หน้าศูนย์รวมบทความตั้งใจตอบ"
