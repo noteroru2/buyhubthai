@@ -1,0 +1,124 @@
+---
+import { SELL_AREA_SUPPORT_TARGETS } from '../data/sellAreaSupportPages';
+import ComboPage from '../components/ComboPage.astro';
+
+export async function getStaticPaths() {
+  // ยกเว้น 4 จังหวัดหลักที่มีไฟล์แยกแบบ Hardcoded อยู่แล้วเพื่อไม่ให้เกิดการชนกันของเส้นทาง (Routing Collision)
+  const excludedProvinces = new Set(['khon-kaen', 'nakhon-ratchasima', 'udon-thani', 'ubon-ratchathani']);
+
+  const targets = SELL_AREA_SUPPORT_TARGETS.filter(
+    (target) => !excludedProvinces.has(target.provinceId)
+  );
+
+  return targets.map((target) => {
+    // แปลง mainPath จาก "/รับซื้อ-iphone-บุรีรัมย์" เป็น "รับซื้อ-iphone-บุรีรัมย์" สำหรับพารามิเตอร์ของเส้นทาง
+    const sellRoute = target.mainPath.replace(/^\//, '');
+
+    return {
+      params: { sellRoute },
+      props: { target }
+    };
+  });
+}
+
+const { target } = Astro.props;
+
+const path = target.mainPath;
+const provinceName = target.provinceName;
+const productName = target.shortLabel;
+
+const isCompanyOrOffice = productName.includes('คอมบริษัท') || productName.includes('อุปกรณ์สำนักงาน');
+const title = isCompanyOrOffice
+  ? `รับซื้อคอมบริษัท และอุปกรณ์ IT สำนักงาน ${provinceName} ประเมินฟรี | BuyHub`
+  : `รับซื้อ ${productName} มือสอง ${provinceName} ประเมินราคาฟรีถึงที่ | BuyHub`;
+
+const description = isCompanyOrOffice
+  ? `รับซื้อคอมพิวเตอร์บริษัทเก่า อุปกรณ์ IT สำนักงาน เครื่องปริ้น และระบบเน็ตเวิร์กใน${provinceName} รับเหมาสต็อก เคลียร์ออฟฟิศ ประเมินฟรีถึงที่ โอนเงินทันที`
+  : `รับซื้อ ${productName} มือสองใน${provinceName} ประเมินราคาฟรีจากรูป แจ้งแนวราคาก่อนตัดสินใจขาย ให้ราคาเป็นธรรมตามรุ่น ความจุ สภาพการใช้งานจริง และอุปกรณ์ที่มี ติดต่อ LINE @buyhub`;
+
+const breadcrumbs = [
+  { name: 'หน้าแรก', href: '/' },
+  { name: 'รับซื้ออะไรบ้าง', href: '/รับซื้อ' },
+  { name: provinceName, href: target.areaPath },
+  { name: `รับซื้อ ${productName} ${provinceName}`, href: path }
+];
+
+const intro = [
+  `ถ้าต้องการขาย ${productName} ใน${provinceName} สิ่งที่ทำให้ประเมินได้เร็วคือการส่งข้อมูลให้ครบตั้งแต่แรก ทั้งรุ่นย่อย ความจุ สภาพจอ สภาพทัช และอุปกรณ์ที่มีอยู่จริง เพราะทั้งหมดมีผลกับช่วงราคาประเมิน`,
+  'BuyHub ประเมินราคาฟรีจากรูปผ่าน LINE @buyhub แจ้งแนวราคาก่อนตัดสินใจขาย แล้วค่อยนัดตรวจรับหรือส่งมอบตามพื้นที่และคิวงานที่สะดวก',
+  `ลูกค้าที่ขาย ${productName} ใน${provinceName} มักได้คำตอบเร็วขึ้นเมื่อส่งรูปหลายมุม พร้อมแจ้งอำเภอหรือจุดนัดโดยประมาณ เช่น ${target.districts.slice(0, 4).join(' ')}`
+];
+
+const areas = target.districts;
+
+const whatWeBuy = [
+  `${productName} หลากหลายรุ่นตามสภาพและสเปกย่อย`,
+  'เครื่องใช้งานปกติ สภาพดี หรือมีร่องรอยขนแมวตามอายุการใช้งาน',
+  'เครื่องที่มีอุปกรณ์ครบ หรือตัวเครื่องเปล่าตามสถานการณ์จริง',
+  'ชุดพร้อมใช้ที่มีอุปกรณ์เสริม เช่น เคส คีย์บอร์ด ปากกา ซึ่งช่วยเพิ่มมูลค่าได้',
+  'งานจำนวนมากเคลียร์ออฟฟิศ ย้ายสำนักงาน หรือสต็อกเก่าของหน่วยงานในจังหวัด'
+];
+
+const pricingFactors = [
+  'รุ่น ปี ชิปประมวลผล ความจุ และระดับสเปกโดยละเอียด',
+  'สภาพหน้าจอและระบบสัมผัส เช่น จอเบิร์น รอยลึก หรือจุดสว่างผิดปกติ',
+  'การทำงานของฮาร์ดแวร์พื้นฐาน เช่น แบตเตอรี่ กล้อง ปุ่มกด ลำโพง',
+  'สถานะบัญชีเดิมและการออกจากระบบความปลอดภัยของเครื่องก่อนส่งต่อ',
+  'ความครบถ้วนของอุปกรณ์เสริม อะแดปเตอร์ กล่อง และคู่มือการใช้งาน',
+  'ระดับอุปสงค์และราคาซื้อขายจริงในตลาดมือสองปัจจุบัน'
+];
+
+const howToSend = [
+  'ถ่ายรูปตัวเครื่องรอบด้าน ทั้งด้านหน้า ด้านหลัง และขอบมุมเครื่อง',
+  'แคปหน้าจอข้อมูลระบบ About หรือสเปกตัวเครื่องหลัก',
+  'แจ้งอาการชำรุดหรือตำหนิที่ชัดเจนตามความเป็นจริงเพื่อความแม่นยำ',
+  'ถ่ายรูปรวมกล่อง อะแดปเตอร์ชาร์จ หรืออุปกรณ์เสริมร่วมที่จะขายด้วย',
+  `ระบุอำเภอหรือจุดจัดส่งสินค้าที่คุณสะดวกในพื้นที่จังหวัด${provinceName}`
+];
+
+const internalLinks = [
+  { href: '/รับซื้อ', label: 'หน้ารับซื้อทั้งหมด' },
+  { href: target.areaPath, label: `พื้นที่ให้บริการ: ${provinceName}` },
+  { href: '/คู่มือเตรียมสินค้าก่อนขาย', label: 'คู่มือเตรียมสินค้าก่อนขาย' },
+  { href: '/ขั้นตอนการขาย', label: 'ขั้นตอนการขาย' },
+  { href: '/คำถามที่พบบ่อย', label: 'คำถามที่พบบ่อย' },
+  { href: '/ติดต่อเรา', label: 'ติดต่อเรา' }
+];
+
+const faqs = [
+  {
+    question: `ประเมิน ${productName} ใน${provinceName} ฟรีจริงไหม?`,
+    answer: 'ฟรี 100% ส่งรูปเครื่องและข้อมูลประเมินผ่าน LINE @buyhub ได้รับช่วงราคาเพื่อประกอบการตัดสินใจโดยไม่มีข้อผูกมัดใด ๆ'
+  },
+  {
+    question: `อยู่ต่างอำเภอนอกตัวเมือง${provinceName} สามารถขายได้ไหม?`,
+    answer: `ขายได้แน่นอน เพียงระบุอำเภอที่คุณสะดวกนัดหมาย (เช่น ${target.districts.slice(0, 3).join(', ')}) ทีมงานจะช่วยประสานรูปแบบคิวงานและการส่งมอบที่สะดวกที่สุด`
+  },
+  {
+    question: 'เครื่องมีตำหนิ จอเบิร์น หรืออุปกรณ์ไม่ครบกล่องยังขายได้ไหม?',
+    answer: 'ขายได้ แนะนำส่งข้อมูลสภาพและตำหนิให้ครบถ้วนตั้งแต่ครั้งแรก เพื่อให้ทีมงานประเมินราคาได้นิ่งและใกล้เคียงหน้างานที่สุด'
+  },
+  {
+    question: 'ก่อนนัดส่งมอบต้องเตรียมความพร้อมอะไรบ้าง?',
+    answer: 'ควรสำรองข้อมูลสำคัญ ออกจากบัญชี Cloud หรือรหัสความปลอดภัยของเครื่องทั้งหมด และทำการรีเซ็ตเครื่องเพื่อความปลอดภัยและพร้อมใช้งานต่อทันที'
+  }
+];
+---
+
+<ComboPage
+  path={path}
+  title={title}
+  description={description}
+  h1={isCompanyOrOffice ? `รับซื้อคอมบริษัท และอุปกรณ์ IT สำนักงาน ${provinceName}` : `รับซื้อ ${productName} มือสอง ${provinceName}`}
+  serviceName={isCompanyOrOffice ? `รับซื้อคอมบริษัทและอุปกรณ์ IT สำนักงาน ${provinceName}` : `รับซื้อ ${productName} มือสอง ${provinceName}`}
+  breadcrumbs={breadcrumbs}
+  provinceName={provinceName}
+  productName={productName}
+  intro={intro}
+  areas={areas}
+  whatWeBuy={whatWeBuy}
+  pricingFactors={pricingFactors}
+  howToSend={howToSend}
+  internalLinks={internalLinks}
+  faqs={faqs}
+/>

@@ -544,6 +544,50 @@ const mainSellId = findSellIdByMainPath(path);
 const supportTopicLinks = mainSellId ? getSellSupportLinks(mainSellId) : [];
 const localSupportContext = getSellAreaSupportLinksByMainPath(path);
 
+const getGradeTableData = (prodName: string) => {
+  const isCompanyOrOffice = prodName.includes('คอมบริษัท') || prodName.includes('สำนักงาน') || prodName.includes('อุปกรณ์');
+  
+  if (isCompanyOrOffice) {
+    return [
+      {
+        grade: 'เกรด A (สภาพพร้อมใช้งานสูง)',
+        criteria: 'เครื่องเปิดติดปกติ บอดี้สวยไม่มีรอยแตกหัก, สเปกตรงตามที่แจ้ง, อุปกรณ์สายไฟครบ, ไม่เคยแกะซ่อมหนัก',
+        priceRange: '85% - 95% ของราคาตลาดมือสอง'
+      },
+      {
+        grade: 'เกรด B (สภาพผ่านการใช้งาน)',
+        criteria: 'เครื่องมีรอยขีดข่วนทั่วไปตามการใช้งานในสำนักงาน, แบตเสื่อมตามอายุการใช้งาน, อุปกรณ์ประกอบครบถ้วน',
+        priceRange: '70% - 80% ของราคาตลาดมือสอง'
+      },
+      {
+        grade: 'เกรด C / ชำรุด (ตีเทิร์น/ซาก)',
+        criteria: 'เครื่องเปิดไม่ติด, อุปกรณ์ไม่ครบ (ไม่มีสายชาร์จ/อะไหล่), บอดี้แตกหักชำรุด หรือชิ้นส่วนหลักเสียหาย',
+        priceRange: 'ประเมินราคาตามมูลค่าอะไหล่/ซากจริง'
+      }
+    ];
+  }
+
+  return [
+    {
+      grade: 'สวยนางฟ้า (Grade A)',
+      criteria: 'บอดี้ไม่มีรอยตกหล่นหรือบุบ, สุขภาพแบตเตอรี่ (Battery Health) เกิน 85%, จอสวยไม่มีจุดเดด/เบิร์น, อุปกรณ์แท้ครบกล่อง',
+      priceRange: '85% - 95% ของราคาตลาดปัจจุบัน'
+    },
+    {
+      grade: 'สภาพใช้งานทั่วไป (Grade B)',
+      criteria: 'มีรอยขนแมวหรือรอยเคสกัดประปราย, สุขภาพแบตเตอรี่ 75% - 84%, หน้าจอและปุ่มกดใช้งานปกติ, มีตัวเครื่องและที่ชาร์จ',
+      priceRange: '70% - 80% ของราคาตลาดปัจจุบัน'
+    },
+    {
+      grade: 'มีตำหนิชัดเจน (Grade C / ดันราคาตามสภาพ)',
+      criteria: 'มีรอยบุบตกหล่นที่ขอบเครื่อง, แบตเตอรี่เสื่อมหรือบวม, จอรอยลึกหรือมีเบิร์น/เส้น, อุปกรณ์ตัวเครื่องเปล่า',
+      priceRange: 'ประเมินหักลบราคาตามจุดชำรุดจริง'
+    }
+  ];
+};
+
+const gradeTableData = getGradeTableData(productName);
+
 const midArticleIndex =
   allLongContentSections.length > 2 ? Math.floor((allLongContentSections.length - 1) / 2) : -1;
 ---
@@ -576,6 +620,39 @@ const midArticleIndex =
           <p>{paragraph}</p>
         ))}
       </div>
+
+      <!-- ตารางประเมินราคาตามเกณฑ์สภาพสินค้า (GEO & AEO Schema Integration) -->
+      <section class="mt-10 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50/50 p-5 sm:p-6" aria-labelledby="grade-table-heading">
+        <h2 id="grade-table-heading" class="text-xl font-bold tracking-tight text-slate-950 sm:text-2xl">
+          เกณฑ์การวิเคราะห์และประเมินราคารับซื้อ {productName} ตามสภาพจริง
+        </h2>
+        <p class="mt-2 text-sm leading-relaxed text-slate-600">
+          ตารางนี้สรุปเกณฑ์มาตรฐานที่ทีม BuyHub ใช้ตรวจสอบสภาพของ {productName} ใน {provinceName} ร่วมกับคุณ เพื่อสรุปแนวราคาที่เหมาะสมและโปร่งใสที่สุดแก่ทุกฝ่าย
+        </p>
+        <div class="mt-5 overflow-x-auto rounded-xl border border-slate-200 bg-white">
+          <table class="w-full text-left border-collapse text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-slate-50 text-slate-700 font-bold border-b border-slate-200">
+                <th class="p-3 sm:p-4">ระดับสภาพสินค้า</th>
+                <th class="p-3 sm:p-4">คำอธิบายเกณฑ์และเงื่อนไข</th>
+                <th class="p-3 sm:p-4 whitespace-nowrap">ราคาประเมินโดยประมาณ</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 text-slate-600">
+              {gradeTableData.map((row) => (
+                <tr class="hover:bg-slate-50/50 transition">
+                  <td class="p-3 sm:p-4 font-semibold text-emerald-800 whitespace-nowrap">{row.grade}</td>
+                  <td class="p-3 sm:p-4 leading-relaxed">{row.criteria}</td>
+                  <td class="p-3 sm:p-4 font-semibold text-slate-900 whitespace-nowrap">{row.priceRange}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 text-xs leading-relaxed text-slate-500">
+          *หมายเหตุ: ราคาประเมินจริงขั้นสุดท้ายจะขึ้นกับรายละเอียดเชิงลึกและแนวโน้มตลาดของ {productName} รุ่นย่อยนั้น ๆ ณ วันส่งมอบสินค้าจริงในพื้นที่ {provinceName}
+        </p>
+      </section>
 
       <ContentVisualPanel
         eyebrow="แนวทางประเมิน"

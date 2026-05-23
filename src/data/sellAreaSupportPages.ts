@@ -19,10 +19,26 @@ type KeywordGroup = {
 };
 
 type SupportedProvinceId =
+  | 'amnat-charoen'
+  | 'bueng-kan'
+  | 'buriram'
+  | 'chaiyaphum'
+  | 'kalasin'
   | 'khon-kaen'
+  | 'loei'
+  | 'maha-sarakham'
+  | 'mukdahan'
+  | 'nakhon-phanom'
   | 'nakhon-ratchasima'
+  | 'nong-bua-lamphu'
+  | 'nong-khai'
+  | 'roi-et'
+  | 'sakon-nakhon'
+  | 'sisaket'
+  | 'surin'
+  | 'ubon-ratchathani'
   | 'udon-thani'
-  | 'ubon-ratchathani';
+  | 'yasothon';
 
 type SupportedSellId = 'iphone' | 'ipad' | 'macbook' | 'notebook' | 'corporate-it';
 
@@ -52,10 +68,35 @@ const dedupeLinks = (links: LinkItem[]) => {
 };
 
 const PROVINCES: Record<SupportedProvinceId, { name: string }> = {
+  'amnat-charoen': { name: 'อำนาจเจริญ' },
+  'bueng-kan': { name: 'บึงกาฬ' },
+  'buriram': { name: 'บุรีรัมย์' },
+  'chaiyaphum': { name: 'ชัยภูมิ' },
+  'kalasin': { name: 'กาฬสินธุ์' },
   'khon-kaen': { name: 'ขอนแก่น' },
+  'loei': { name: 'เลย' },
+  'maha-sarakham': { name: 'มหาสารคาม' },
+  'mukdahan': { name: 'มุกดาหาร' },
+  'nakhon-phanom': { name: 'นครพนม' },
   'nakhon-ratchasima': { name: 'นครราชสีมา' },
+  'nong-bua-lamphu': { name: 'หนองบัวลำภู' },
+  'nong-khai': { name: 'หนองคาย' },
+  'roi-et': { name: 'ร้อยเอ็ด' },
+  'sakon-nakhon': { name: 'สกลนคร' },
+  'sisaket': { name: 'ศรีสะเกษ' },
+  'surin': { name: 'สุรินทร์' },
+  'ubon-ratchathani': { name: 'อุบลราชธานี' },
   'udon-thani': { name: 'อุดรธานี' },
-  'ubon-ratchathani': { name: 'อุบลราชธานี' }
+  'yasothon': { name: 'ยโสธร' }
+};
+
+const buildMainPaths = (prefix: string) => {
+  return Object.fromEntries(
+    (Object.entries(PROVINCES) as [SupportedProvinceId, { name: string }][]).map(([id, prov]) => [
+      id,
+      `${prefix}${prov.name}`
+    ])
+  ) as Record<SupportedProvinceId, string>;
 };
 
 const PRODUCTS: Record<
@@ -69,52 +110,27 @@ const PRODUCTS: Record<
   iphone: {
     productName: 'iPhone',
     shortLabel: 'iPhone',
-    mainPaths: {
-      'khon-kaen': '/รับซื้อ-iphone-ขอนแก่น',
-      'nakhon-ratchasima': '/รับซื้อ-iphone-นครราชสีมา',
-      'udon-thani': '/รับซื้อ-iphone-อุดรธานี',
-      'ubon-ratchathani': '/รับซื้อ-iphone-อุบลราชธานี'
-    }
+    mainPaths: buildMainPaths('/รับซื้อ-iphone-')
   },
   ipad: {
     productName: 'iPad',
     shortLabel: 'iPad',
-    mainPaths: {
-      'khon-kaen': '/รับซื้อ-ipad-ขอนแก่น',
-      'nakhon-ratchasima': '/รับซื้อ-ipad-นครราชสีมา',
-      'udon-thani': '/รับซื้อ-ipad-อุดรธานี',
-      'ubon-ratchathani': '/รับซื้อ-ipad-อุบลราชธานี'
-    }
+    mainPaths: buildMainPaths('/รับซื้อ-ipad-')
   },
   macbook: {
     productName: 'MacBook',
     shortLabel: 'MacBook',
-    mainPaths: {
-      'khon-kaen': '/รับซื้อ-macbook-ขอนแก่น',
-      'nakhon-ratchasima': '/รับซื้อ-macbook-นครราชสีมา',
-      'udon-thani': '/รับซื้อ-macbook-อุดรธานี',
-      'ubon-ratchathani': '/รับซื้อ-macbook-อุบลราชธานี'
-    }
+    mainPaths: buildMainPaths('/รับซื้อ-macbook-')
   },
   notebook: {
     productName: 'โน๊ตบุ๊ค',
     shortLabel: 'โน๊ตบุ๊ค',
-    mainPaths: {
-      'khon-kaen': '/รับซื้อโน๊ตบุ๊ค-ขอนแก่น',
-      'nakhon-ratchasima': '/รับซื้อโน๊ตบุ๊ค-นครราชสีมา',
-      'udon-thani': '/รับซื้อโน๊ตบุ๊ค-อุดรธานี',
-      'ubon-ratchathani': '/รับซื้อโน๊ตบุ๊ค-อุบลราชธานี'
-    }
+    mainPaths: buildMainPaths('/รับซื้อโน๊ตบุ๊ค-')
   },
   'corporate-it': {
     productName: 'คอมบริษัทและอุปกรณ์ IT สำนักงาน',
     shortLabel: 'คอมบริษัท',
-    mainPaths: {
-      'khon-kaen': '/รับซื้อคอมบริษัท-ขอนแก่น',
-      'nakhon-ratchasima': '/รับซื้อคอมบริษัท-นครราชสีมา',
-      'udon-thani': '/รับซื้อคอมบริษัท-อุดรธานี',
-      'ubon-ratchathani': '/รับซื้อคอมบริษัท-อุบลราชธานี'
-    }
+    mainPaths: buildMainPaths('/รับซื้อคอมบริษัท-')
   }
 };
 

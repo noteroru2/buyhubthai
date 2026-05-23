@@ -1,5 +1,5 @@
 import type { BreadcrumbItem } from './types';
-import { LINE_URL, PHONE_DISPLAY, PHONE_E164, SITE_NAME, SITE_URL, SITE_TAGLINE } from './constants';
+import { LINE_URL, PHONE_DISPLAY, PHONE_E164, SITE_NAME, SITE_URL, SITE_TAGLINE, FACEBOOK_URL, GOOGLE_MAPS_URL } from './constants';
 
 export function absoluteUrl(path: string): string {
   if (path.startsWith('http')) return path;
@@ -16,28 +16,38 @@ export function orgJsonLd() {
     url: SITE_URL,
     logo: `${SITE_URL}/favicon.svg`,
     description: SITE_TAGLINE,
-    sameAs: [LINE_URL]
+    sameAs: [LINE_URL, FACEBOOK_URL, GOOGLE_MAPS_URL]
   };
 }
 
 export function localBusinessJsonLd() {
+  const isanProvinces = [
+    'กาฬสินธุ์', 'ขอนแก่น', 'ชัยภูมิ', 'นครพนม', 'นครราชสีมา', 
+    'บึงกาฬ', 'บุรีรัมย์', 'มหาสารคาม', 'มุกดาหาร', 'ยโสธร', 
+    'ร้อยเอ็ด', 'เลย', 'ศรีสะเกษ', 'สกลนคร', 'สุรินทร์', 
+    'หนองคาย', 'หนองบัวลำภู', 'อำนาจเจริญ', 'อุดรธานี', 'อุบลราชธานี'
+  ];
+
   return {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     '@id': `${SITE_URL}/#localbusiness`,
-    name: `${SITE_NAME} — รับซื้อไอที`,
+    name: `${SITE_NAME} — รับซื้อไอทีและอุปกรณ์สำนักงานภาคอีสาน`,
     image: `${SITE_URL}/favicon.svg`,
     url: SITE_URL,
     telephone: PHONE_E164,
     priceRange: '฿฿',
     address: {
       '@type': 'PostalAddress',
+      addressLocality: 'ขอนแก่น และพื้นที่ภาคตะวันออกเฉียงเหนือ',
+      addressRegion: 'Northeast (Isan)',
       addressCountry: 'TH'
     },
-    areaServed: {
-      '@type': 'Country',
-      name: 'Thailand'
-    },
+    areaServed: isanProvinces.map((prov) => ({
+      '@type': 'AdministrativeArea',
+      name: prov
+    })),
+    sameAs: [LINE_URL, FACEBOOK_URL, GOOGLE_MAPS_URL],
     parentOrganization: { '@id': `${SITE_URL}/#organization` }
   };
 }

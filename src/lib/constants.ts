@@ -4,6 +4,8 @@ export const SITE_TAGLINE = 'ศูนย์รับซื้อสินค้
 
 export const LINE_AT = '@buyhub';
 export const LINE_URL = 'https://line.me/R/ti/p/@buyhub';
+export const FACEBOOK_URL = 'https://www.facebook.com/buyhubthai' as const;
+export const GOOGLE_MAPS_URL = 'https://maps.google.com/?cid=12345678901234567890' as const;
 export const EDITORIAL_REVIEWED_AT = '2026-05-10' as const;
 export const EDITORIAL_REVIEWER = 'ทีมเนื้อหา BuyHub' as const;
 

@@ -926,8 +926,26 @@ const sellSectionsBySlug: Record<string, EditorialSection[]> = {
   ]
 };
 
+export function getProvinceProfileWithFallback(provinceName: string): ProvinceProfile {
+  return {
+    localEconomy: `มีตลาดความต้องการขายเครื่องไอทีและมือถือค่อนข้างคึกคัก ทั้งเครื่องสำหรับใช้งานส่วนตัวเพื่อการเรียน การทำงานประจำวัน และอุปกรณ์สำนักงานจากธุรกิจห้างร้านต่าง ๆ ที่ต้องการอัปเกรดเครื่องใหม่`,
+    travelNote: `สำหรับคนขายใน${provinceName}ที่อยู่ต่างอำเภอหรือนอกตัวเมืองหลัก การส่งรูปและสเปกเครื่องทาง LINE @buyhub เพื่อประเมินราคาล่วงหน้าฟรี เป็นตัวเลือกที่ช่วยอำนวยความสะดวกและลดขั้นตอนยุ่งยากได้อย่างดีเยี่ยม`,
+    geoIntent: `หน้าบริการเฉพาะนี้จึงตั้งใจช่วยเหลือให้ผู้อยู่อาศัยใน${provinceName}ได้รับข้อมูลราคาประเมินที่โปร่งใสและตรงตามจริง พร้อมทั้งแนะแนวทางการนัดหมายพื้นที่จัดเก็บหรือส่งมอบสินค้าที่สะดวกที่สุด`,
+    sellerTypes: [
+      `ผู้ใช้งานทั่วไปใน${provinceName}ที่ต้องการสำรวจราคาก่อนเปลี่ยนไปใช้รุ่นอื่น ๆ`,
+      `นักเรียน นักศึกษา และคนทำงานที่ต้องการหมุนเวียนอุปกรณ์ไอทีที่ไม่ได้ใช้งานแล้ว`,
+      `ธุรกิจ ห้างร้าน หรือหน่วยงานท้องถิ่นที่ต้องการเคลียร์สต็อกเครื่องเก่าจำนวนมาก`
+    ],
+    handoffChecklist: [
+      `แจ้งอำเภอหรือพิกัดจัดนัดใน${provinceName}ตั้งแต่รอบแรกเพื่อให้ทีมงานแนะนำคิวงาน`,
+      `ตรวจสอบสเปก ความจุ และสภาพจริงอย่างตรงไปตรงมาเพื่อราคาที่แม่นยำที่สุด`,
+      `หากมีของร่วมชุด เช่น ปากกา คีย์บอร์ด หรือกล่องแท้ ควรถ่ายรูปคู่กันเพื่อประเมินเป็นชุดพิเศษ`
+    ]
+  };
+}
+
 export function buildComboEditorialSections(productName: string, provinceName: string): EditorialSection[] {
-  const province = provinceProfiles[provinceName];
+  const province = provinceProfiles[provinceName] ?? getProvinceProfileWithFallback(provinceName);
   const product = productProfiles[productName];
   const comboSection = provinceProductSections[`${productName}:${provinceName}`];
   const productUsesLeadingSpace = /^[A-Za-z0-9]/.test(productName);
