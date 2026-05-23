@@ -14,7 +14,7 @@ interface Props {
 }
 
 const { sectionId, title, intro = [], groups, className = '' } = Astro.props;
-const previewLimit = 4;
+const previewLimit = 6;
 const visibleGroups = groups
   .filter((group) => group.items?.length)
   .map((group) => ({
@@ -27,42 +27,52 @@ const visibleGroups = groups
 <section
   aria-labelledby={sectionId}
   class:list={[
-    'rounded-3xl border border-emerald-200 bg-emerald-50/70 p-6',
+    'rounded-3xl border border-slate-200/80 bg-slate-50/50 p-6 md:p-8 shadow-sm backdrop-blur-sm',
     className
   ]}
 >
-  <h2 id={sectionId} class="text-2xl font-bold tracking-tight text-slate-950">
-    {title}
-  </h2>
-  {
-    intro.length ? (
-      <div class="mt-4 space-y-4 text-base leading-8 text-slate-700">
-        {intro.map((paragraph) => (
-          <p>{paragraph}</p>
-        ))}
-      </div>
-    ) : null
-  }
-  <p class="mt-4 text-sm leading-7 text-slate-600">
-    ส่วนนี้ยกตัวอย่างคำค้นที่เกี่ยวข้องเฉพาะชุดที่ช่วยให้คนอ่านเห็นภาพเร็วขึ้น แล้วค่อยพาไปยังหน้าที่ตรงกับรุ่น สภาพเครื่อง หรือพื้นที่จริง แทนการวางคำซ้ำยาวเกินจำเป็นบนหน้าเดียว
-  </p>
-  <div class="mt-6 grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))]">
+  <div class="flex flex-col gap-4">
+    <div class="max-w-4xl">
+      <h2 id={sectionId} class="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
+        {title}
+      </h2>
+      {
+        intro.length ? (
+          <div class="mt-3.5 space-y-3.5 text-sm sm:text-base leading-relaxed text-slate-600">
+            {intro.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+        ) : null
+      }
+      <p class="mt-3 text-xs leading-relaxed text-slate-500">
+        เพื่อความสะดวกในการเข้าถึงข้อมูลอย่างรวดเร็ว ส่วนนี้รวบรวมกลุ่มหัวข้อยอดนิยมที่ผู้ใช้งานในพื้นที่ภาคอีสานสนใจและค้นหาบ่อยที่สุด เพื่อช่วยคัดกรองเนื้อหาและนำคุณไปยังหัวข้อที่ตรงกับอุปกรณ์ของคุณในทันที
+      </p>
+    </div>
+  </div>
+
+  <div class="mt-8 grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(16rem,1fr))]">
     {visibleGroups.map((group) => (
-      <section class="rounded-2xl border border-emerald-200 bg-white/85 p-5">
-        <h3 class="text-base font-semibold leading-7 text-slate-950">{group.title}</h3>
-        {group.blurb ? <p class="mt-2 text-sm leading-7 text-slate-600">{group.blurb}</p> : null}
-        <ul class="mt-4 space-y-2 text-sm leading-7 text-slate-700">
-          {group.previewItems.map((item) => (
-            <li class="flex items-start gap-2">
-              <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-600" aria-hidden="true"></span>
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
+      <section class="flex flex-col justify-between rounded-2xl border border-slate-200/60 bg-white p-5 shadow-xs hover:shadow-sm transition-all duration-300">
+        <div>
+          <h3 class="text-sm font-bold text-slate-900 tracking-tight flex items-center gap-2">
+            <span class="h-2 w-2 rounded-full bg-emerald-500" aria-hidden="true"></span>
+            {group.title}
+          </h3>
+          {group.blurb ? <p class="mt-1.5 text-xs text-slate-500 leading-relaxed">{group.blurb}</p> : null}
+          
+          <div class="flex flex-wrap gap-1.5 mt-4">
+            {group.previewItems.map((item) => (
+              <span class="inline-flex items-center rounded-full bg-slate-50 px-2.5 py-1 text-[0.7rem] sm:text-xs font-semibold text-slate-600 ring-1 ring-inset ring-slate-100 hover:bg-emerald-50 hover:text-emerald-700 hover:ring-emerald-200/80 transition-all duration-200 cursor-default select-none shadow-3xs">
+                #{item}
+              </span>
+            ))}
+          </div>
+        </div>
         {
           group.hasMoreItems ? (
-            <div class="mt-4 rounded-2xl border border-dashed border-emerald-200 bg-emerald-50/70 px-3 py-2 text-xs leading-6 text-emerald-900">
-              หน้าย่อยที่เกี่ยวข้องจะรับช่วงคำค้นตามรุ่น ราคา และสภาพเครื่องต่อ เพื่อให้หน้านี้ยังอ่านลื่นและไม่แน่นแบบลิสต์คำซ้ำ
+            <div class="mt-4 rounded-xl border border-dashed border-slate-100 bg-slate-50/50 px-3 py-1.5 text-[0.7rem] leading-normal text-slate-400">
+              ระบบรับช่วงค้นหาตามรุ่นและจังหวัดเป้าหมายอัตโนมัติ
             </div>
           ) : null
         }
