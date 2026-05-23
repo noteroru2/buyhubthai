@@ -247,16 +247,16 @@ const getProductNarrative = (name: string): ProductNarrative => {
 const getProductVisual = (name: string, province: string): ProductVisual => {
   if (name.includes('iPhone')) {
     return {
-      imageSrc: '/images/buyback/buyhub-iphone-15-128gb-black.webp',
-      imageAlt: `ตัวอย่าง iPhone มือสองสำหรับการประเมินใน ${province}`,
+      imageSrc: '/images/buyback/buyhub-iphone-15-used-box.webp',
+      imageAlt: `ตัวอย่างการถ่ายรูป iPhone มือสองพร้อมกล่องเพื่อส่งประเมินราคากับ BuyHub รับประกันให้ราคาเป็นธรรมในพื้นที่จังหวัด${province}`,
       ogImage: '/images/og/buyhub-iphone-share.png'
     };
   }
 
   if (name.includes('แท็บเล็ต') || name.includes('Android')) {
     return {
-      imageSrc: '/images/buyback/buyhub-xiaomi-pad-7-8-128.webp',
-      imageAlt: `ตัวอย่างแท็บเล็ตมือสองสำหรับการประเมินใน ${province}`,
+      imageSrc: '/images/buyback/buyhub-xiaomi-pad-tablet.webp',
+      imageAlt: `ตัวอย่างรูปถ่ายแท็บเล็ต Xiaomi Pad สภาพสวยพร้อมกล่องจริงประกอบการเสนอราคาขายในพื้นที่จังหวัด${province}`,
       ogImage: '/images/og/buyhub-tablet-share.png'
     };
   }
@@ -264,7 +264,7 @@ const getProductVisual = (name: string, province: string): ProductVisual => {
   if (name.includes('iPad')) {
     return {
       imageSrc: '/images/buyback/buyhub-ipad-mini-starlight-box.webp',
-      imageAlt: `ตัวอย่าง iPad มือสองสำหรับการประเมินใน ${province}`,
+      imageAlt: `ตัวอย่าง iPad มือสองยอดนิยมพร้อมกล่องสำหรับการส่งประเมินราคาผ่านทางไลน์ในจังหวัด${province}`,
       ogImage: '/images/og/buyhub-ipad-share.png'
     };
   }
@@ -272,15 +272,15 @@ const getProductVisual = (name: string, province: string): ProductVisual => {
   if (name.includes('MacBook')) {
     return {
       imageSrc: '/images/buyback/buyhub-macbook-air-real-box.webp',
-      imageAlt: `ตัวอย่าง MacBook มือสองสำหรับการประเมินใน ${province}`,
+      imageAlt: `ตัวอย่าง MacBook มือสองสภาพสวยพร้อมกล่องที่ได้รับการตรวจสอบและโอนเงินทันทีในจังหวัด${province}`,
       ogImage: '/images/og/buyhub-macbook-share.png'
     };
   }
 
   if (name.includes('โน๊ตบุ๊ค')) {
     return {
-      imageSrc: '/images/buyback/buyhub-huawei-notebook-real.webp',
-      imageAlt: `ตัวอย่างโน๊ตบุ๊คมือสองสำหรับการประเมินใน ${province}`,
+      imageSrc: '/images/buyback/buyhub-notebook-asus-vivobook-oled.webp',
+      imageAlt: `ตัวอย่างโน๊ตบุ๊ค Asus Vivobook OLED จอสวยสภาพดี Ryzen บนโต๊ะทำงานจริงที่ลูกค้านำมาส่งมอบในจังหวัด${province}`,
       ogImage: '/images/og/buyhub-notebook-share.png'
     };
   }
@@ -293,7 +293,7 @@ const getProductVisual = (name: string, province: string): ProductVisual => {
   ) {
     return {
       imageSrc: '/images/buyback/buyhub-desktop-gaming-pc-white-rgb.webp',
-      imageAlt: `ตัวอย่างคอมพิวเตอร์มือสองสำหรับการประเมินใน ${province}`,
+      imageAlt: `ตัวอย่างเครื่องคอมพิวเตอร์ประกอบ PC Gaming สเปกแรงสำหรับประกอบการเสนอราคาในจังหวัด${province}`,
       ogImage: '/images/og/buyhub-sell-share.png'
     };
   }
@@ -301,7 +301,7 @@ const getProductVisual = (name: string, province: string): ProductVisual => {
   if (name.includes('กล้อง')) {
     return {
       imageSrc: '/images/buyback/buyhub-sony-a6000-mirrorless-kit.webp',
-      imageAlt: `ตัวอย่างกล้องมือสองสำหรับการประเมินใน ${province}`,
+      imageAlt: `ตัวอย่างกล้อง Mirrorless พร้อมเลนส์สำหรับการส่งรูปประเมินราคารับซื้อในจังหวัด${province}`,
       ogImage: '/images/og/buyhub-sell-share.png'
     };
   }
@@ -314,7 +314,7 @@ const getProductVisual = (name: string, province: string): ProductVisual => {
   ) {
     return {
       imageSrc: '/images/buyback/buyhub-ps5-digital-edition-set.webp',
-      imageAlt: `ตัวอย่างเครื่องเกมมือสองสำหรับการประเมินใน ${province}`,
+      imageAlt: `ตัวอย่างชุดเครื่องเกมคอนโซลพร้อมอุปกรณ์เสริมสำหรับการประเมินราคารับซื้อจริงในจังหวัด${province}`,
       ogImage: '/images/og/buyhub-sell-share.png'
     };
   }
@@ -322,14 +322,14 @@ const getProductVisual = (name: string, province: string): ProductVisual => {
   if (name.includes('คอมบริษัท') || name.includes('สำนักงาน')) {
     return {
       imageSrc: '/images/reviews/corporate-case-multiple-laptops.png',
-      imageAlt: `ตัวอย่างงานรับซื้ออุปกรณ์หลายรายการใน ${province}`,
+      imageAlt: `ตัวอย่างผลงานรับซื้ออุปกรณ์ IT สำนักงานและคอมพิวเตอร์บริษัทจำนวนมากในจังหวัด${province}`,
       ogImage: '/images/og/buyhub-sell-share.png'
     };
   }
 
   return {
     imageSrc: '/images/reviews/pickup-meet-example-laptop.png',
-    imageAlt: `ตัวอย่างการนัดรับสินค้าไอทีจริงใน ${province}`,
+    imageAlt: `ตัวอย่างการนัดประเมินและตรวจสภาพสินค้านอกสถานที่แบบโปร่งใสในจังหวัด${province}`,
     ogImage: '/images/og/buyhub-sell-share.png'
   };
 };

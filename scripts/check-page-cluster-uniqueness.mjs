@@ -8,7 +8,7 @@ const CLUSTERS = [
   {
     name: 'sell',
     maxOccurrences: 6,
-    commonRepeatRatio: 0.2,
+    commonRepeatRatio: 0.15,
     match: (relativePath) => /^รับซื้อ[^/]*\/index\.html$/u.test(relativePath)
   },
   {
