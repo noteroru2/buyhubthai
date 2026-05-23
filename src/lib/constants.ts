@@ -7,7 +7,11 @@ export const LINE_URL = 'https://line.me/R/ti/p/@buyhub';
 export const FACEBOOK_URL = 'https://www.facebook.com/buyhubthai' as const;
 export const GOOGLE_MAPS_URL = 'https://maps.google.com/?cid=12345678901234567890' as const;
 export const EDITORIAL_REVIEWED_AT = '2026-05-10' as const;
-export const EDITORIAL_REVIEWER = 'ทีมเนื้อหา BuyHub' as const;
+export const EDITORIAL_REVIEWER = 'คุณอำพล' as const;
+export const EDITORIAL_REVIEWER_TITLE = 'CEO & ผู้เชี่ยวชาญการประเมินราคาสินค้าไอทีประจำ BuyHub' as const;
+export const EDITORIAL_REVIEWER_BIO = 'ผู้ก่อตั้งและประธานเจ้าหน้าที่บริหาร BuyHub มีประสบการณ์ประเมินราคากลางและตรวจสอบสภาพเครื่องอุปกรณ์ไอทีมือสองยาวนานกว่า 10 ปี มุ่งมั่นพัฒนามาตรฐานการบริการที่ยุติธรรม โปร่งใส และรวดเร็ว เพื่อผู้ใช้งานทั่วภาคตะวันออกเฉียงเหนือ' as const;
+export const EDITORIAL_REVIEWER_SOCIAL = 'https://www.facebook.com/buyhubthai' as const;
+
 
 /** เบอร์ติดต่อ BuyHub */
 export const PHONE_DISPLAY = '095-547-9408';

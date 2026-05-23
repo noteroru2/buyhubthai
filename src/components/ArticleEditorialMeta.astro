@@ -1,4 +1,6 @@
 ---
+import { EDITORIAL_REVIEWER, EDITORIAL_REVIEWER_TITLE } from '../lib/constants';
+
 interface Props {
   publishedAt: string;
   updatedAt: string;
@@ -8,7 +10,9 @@ interface Props {
 
 const { publishedAt, updatedAt, author, reviewedBy } = Astro.props;
 const fmt = new Intl.DateTimeFormat('th-TH', { dateStyle: 'long' });
+const isRevsByExpert = reviewedBy === EDITORIAL_REVIEWER;
 ---
+
 
 <aside
   class="mt-8 rounded-2xl border border-slate-200 bg-slate-50/85 p-5 sm:p-6"
@@ -30,7 +34,10 @@ const fmt = new Intl.DateTimeFormat('th-TH', { dateStyle: 'long' });
     </div>
     <div class="rounded-2xl border border-slate-200 bg-white px-4 py-3">
       <dt class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">ตรวจทานโดย</dt>
-      <dd class="mt-2 text-sm font-semibold leading-7 text-slate-950">{reviewedBy}</dd>
+      <dd class="mt-2 text-sm font-semibold leading-7 text-slate-950">
+        {reviewedBy}
+        {isRevsByExpert && <span class="block mt-0.5 text-xs font-normal text-slate-500 leading-normal">{EDITORIAL_REVIEWER_TITLE}</span>}
+      </dd>
     </div>
   </dl>
   <p class="mt-4 text-sm leading-7 text-slate-700">

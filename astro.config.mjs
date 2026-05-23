@@ -63,6 +63,7 @@ const disableAstroToolbarOptimizer = () => ({
 // https://astro.build/config
 export default defineConfig({
   site: 'https://buyhubthai.com',
+  compressHTML: true,
   devToolbar: {
     enabled: false
   },

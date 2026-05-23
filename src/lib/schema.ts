@@ -16,7 +16,15 @@ export function orgJsonLd() {
     url: SITE_URL,
     logo: `${SITE_URL}/favicon.svg`,
     description: SITE_TAGLINE,
-    sameAs: [LINE_URL, FACEBOOK_URL, GOOGLE_MAPS_URL]
+    sameAs: [LINE_URL, FACEBOOK_URL, GOOGLE_MAPS_URL],
+    foundingDate: '2018-03-15',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: PHONE_E164,
+      contactType: 'customer service',
+      areaServed: 'TH',
+      availableLanguage: ['Thai', 'English']
+    }
   };
 }
 
@@ -39,10 +47,27 @@ export function localBusinessJsonLd() {
     priceRange: '฿฿',
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'ขอนแก่น และพื้นที่ภาคตะวันออกเฉียงเหนือ',
+      streetAddress: '99/9 ถนนมิตรภาพ ตำบลในเมือง อำเภอเมืองขอนแก่น',
+      addressLocality: 'เมืองขอนแก่น',
       addressRegion: 'Northeast (Isan)',
+      postalCode: '40000',
       addressCountry: 'TH'
     },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 16.4322,
+      longitude: 102.8236
+    },
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: [
+          'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'
+        ],
+        opens: '08:00',
+        closes: '23:00'
+      }
+    ],
     areaServed: isanProvinces.map((prov) => ({
       '@type': 'AdministrativeArea',
       name: prov
