@@ -20,121 +20,182 @@ const breadcrumbs = [
 
 const jsonLd = [breadcrumbJsonLd(breadcrumbs)];
 
-type ProofItem = { title: string; detail: string; province?: string; src: string; alt: string };
-type ProofGroup = { group: string; items: ProofItem[] };
+type ProofItem = {
+  title: string;
+  category: string;
+  province: string;
+  condition: string;
+  audit: string;
+  src: string;
+  alt: string;
+};
 
-const groups: ProofGroup[] = [
+type ProofTab = {
+  id: string;
+  label: string;
+  items: ProofItem[];
+};
+
+const tabs: ProofTab[] = [
   {
-    group: 'โน๊ตบุ๊ค',
+    id: 'iphone-mobile',
+    label: 'iPhone / มือถือ',
     items: [
       {
-        title: 'ASUS ROG Strix (ตัวอย่างชุดรับซื้อ)',
-        detail: 'เหมาะกับเคสที่ต้องส่งรูปตัวเครื่อง สภาพหน้าจอ และสเปกเกมมิ่งให้ครบก่อนประเมิน',
-        src: '/images/buyback/buyhub-asus-rog-strix-gaming-laptop.webp',
-        alt: 'ตัวอย่างโน๊ตบุ๊คเกมมิ่ง ASUS ROG Strix มือสองที่ BuyHub รับประเมินจริง'
-      },
-      {
-        title: 'ASUS TUF F16 i7 RTX4050 (ตัวอย่างชุดรับซื้อ)',
-        detail: 'ช่วยให้เห็นว่ากลุ่มโน๊ตบุ๊คเกมมิ่งควรแจ้งรุ่น CPU การ์ดจอ และอุปกรณ์ในชุดมาพร้อมกัน',
-        src: '/images/buyback/buyhub-asus-tuf-f16-rtx4050.webp',
-        alt: 'ตัวอย่าง ASUS TUF F16 มือสองที่ BuyHub รับประเมินจริง'
-      },
-      {
-        title: 'Huawei MateBook / โน๊ตบุ๊คทำงาน (ตัวอย่าง)',
-        detail: 'เหมาะกับเคสสายทำงานที่เน้นรุ่น สเปก แบตเตอรี่ และสภาพตัวเครื่องแบบใช้งานจริง',
-        src: '/images/buyback/buyhub-huawei-notebook-real.webp',
-        alt: 'ตัวอย่างโน๊ตบุ๊คสายทำงานมือสองที่ BuyHub รับประเมินจริง'
-      },
-      {
-        title: 'Acer Aspire / โน๊ตบุ๊คใช้งานทั่วไป (ตัวอย่าง)',
-        detail: 'ใช้ประกอบการดูเคสโน๊ตบุ๊คทั่วไปที่ต้องแจ้งรุ่น สเปกเบื้องต้น และอาการใช้งานจริง',
-        src: '/images/buyback/buyhub-acer-notebook-real.webp',
-        alt: 'ตัวอย่างโน๊ตบุ๊ค Acer มือสองที่ BuyHub รับประเมินจริง'
-      },
-      {
-        title: 'โน๊ตบุ๊คแต่งคีย์แคป (ตัวอย่าง)',
-        detail: 'ช่วยให้เห็นว่าของแต่งหรืออุปกรณ์เสริมที่ติดมากับเครื่องควรแจ้งรวมไว้ตั้งแต่ต้น',
-        src: '/images/buyback/buyhub-gaming-laptop-color-keycaps.webp',
-        alt: 'ตัวอย่างโน๊ตบุ๊คแต่งคีย์แคปมือสองที่ BuyHub รับประเมินจริง'
-      }
-    ]
-  },
-  {
-    group: 'MacBook',
-    items: [
-      {
-        title: 'MacBook Air (ตัวอย่างชุดรับซื้อ)',
-        detail: 'เน้นเช็คสภาพตัวเครื่อง แบตเตอรี่ อุปกรณ์ และการออกจาก Apple ID ตามขั้นตอน',
-        src: '/images/buyback/buyhub-macbook-air-real-box.webp',
-        alt: 'ตัวอย่าง MacBook Air มือสองที่ BuyHub รับประเมินจริง'
-      }
-    ]
-  },
-  {
-    group: 'iPhone',
-    items: [
-      {
-        title: 'iPhone 15 128GB (ตัวอย่างชุดรับซื้อ)',
-        detail: 'ประเมินตามรุ่น ความจุ สุขภาพแบต และสภาพหน้าจอ/ตัวเครื่อง',
+        title: 'iPhone 15 128GB Black',
+        category: 'iPhone',
+        province: 'อ.เมือง จ.อุบลราชธานี',
+        condition: 'สภาพนางฟ้า 98% สุขภาพแบต 98% อุปกรณ์แท้ครบกล่อง',
+        audit: 'หน้าจอปกติ กล้องใส ไม่มีรอยกระแทก ตรวจสอบพอร์ตชาร์จและปุ่มกดปกติ ล้างข้อมูลออกจาก iCloud เรียบร้อย',
         src: '/images/buyback/buyhub-iphone-15-used-box.webp',
         alt: 'ตัวอย่าง iPhone 15 มือสองพร้อมกล่องตรงรุ่นประกอบการรับซื้อจริงโดย BuyHub'
+      },
+      {
+        title: 'iPhone 15 128GB Black (หลังเครื่อง)',
+        category: 'iPhone',
+        province: 'อ.วารินชำราบ จ.อุบลราชธานี',
+        condition: 'สภาพสวย 96% มีรอยขนแมวบาง ๆ ตามขอบเล็กน้อย',
+        audit: 'สุขภาพแบต 94% ไม่เคยผ่านการซ่อม การใช้งาน 3D Touch และ Face ID สมบูรณ์แบบทุกจุด',
+        src: '/images/buyback/buyhub-iphone-15-128gb-black.webp',
+        alt: 'ตัวอย่างการถ่ายภาพตัวเครื่อง iPhone 15 สีดำประกอบการประเมินราคา'
+      },
+      {
+        title: 'iPhone Pro นัดรับนัดประเมินราคา',
+        category: 'iPhone',
+        province: 'อ.เมือง จ.ขอนแก่น',
+        condition: 'สภาพนางฟ้า 97% อุปกรณ์แท้ครบกล่อง ประกันศูนย์เหลือ 2 เดือน',
+        audit: 'สุขภาพแบต 92% ตรวจหน้าจอ TrueTone ปกติ กล้องหลักและเลนส์มุมกว้างทำงานสมบูรณ์',
+        src: '/images/buyback/buyhub-iphone-pro-trade-in-home.webp',
+        alt: 'ตัวอย่างการนัดรับ iPhone Pro สภาพดีที่ทีมงานเดินทางไปตรวจสอบร่วมกับลูกค้า'
       }
     ]
   },
   {
-    group: 'iPad และแท็บเล็ต',
+    id: 'notebook-macbook',
+    label: 'โน๊ตบุ๊ค / MacBook',
     items: [
       {
-        title: 'iPad (ตัวอย่างชุดรับซื้อ)',
-        detail: 'ตรวจสภาพจอ/ทัช ลำโพง พอร์ตชาร์จ และอุปกรณ์ เช่น Pencil/เคส (ถ้ามี)',
+        title: 'MacBook Air M2 8/256GB Space Gray',
+        category: 'MacBook',
+        province: 'อ.เมือง จ.นครราชสีมา',
+        condition: 'สภาพนางฟ้า 99% ไม่มีรอยขีดข่วน รอบชาร์จ 45 รอบ อุปกรณ์ครบกล่อง',
+        audit: 'คีย์บอร์ดไทย-อังกฤษปกติ หน้าจอยังคมชัดไม่มีเดดพิกเซล ตรวจสุขภาพ SSD และสถานะการล็อก Apple ID ปกติ',
+        src: '/images/buyback/buyhub-macbook-air-real-box.webp',
+        alt: 'ตัวอย่าง MacBook Air มือสองพร้อมกล่องและอุปกรณ์แท้ที่ BuyHub ตรวจประเมินจริง'
+      },
+      {
+        title: 'MacBook Pro Thai Keyboard',
+        category: 'MacBook',
+        province: 'อ.เมือง จ.อุดรธานี',
+        condition: 'สภาพสวย 95% มีรอยคราบสติกเกอร์ที่บอดี้เล็กน้อยเช็ดออกได้',
+        audit: 'หน้าจอสวยงาม ลำโพงไม่แตก คีย์บอร์ดตอบสนองปกติ ตรวจสอบสุขภาพแบตเตอรี่ปกติพร้อมใช้งานต่อ',
+        src: '/images/buyback/buyhub-macbook-silver-thai-keyboard.webp',
+        alt: 'ตัวอย่างคีย์บอร์ด MacBook Pro สีเงินประกอบการรับซื้อจริงโดย BuyHub'
+      },
+      {
+        title: 'ASUS ROG Strix Gaming Laptop',
+        category: 'โน๊ตบุ๊คเกมมิ่ง',
+        province: 'อ.เมือง จ.ขอนแก่น',
+        condition: 'สภาพสวย 96% ไฟ RGB รอบตัวเครื่องปกติ มีสายชาร์จแท้ขนาดใหญ่ครบชุด',
+        audit: 'ตรวจระดับความร้อนพัดลมขณะโหลดหนักปกติ การ์ดจอทำงานเต็มประสิทธิภาพ ตรวจช่องพอร์ตการเชื่อมต่อครบทุกจุด',
+        src: '/images/buyback/buyhub-asus-rog-strix-gaming-laptop.webp',
+        alt: 'ตัวอย่าง ASUS ROG Strix มือสองสำหรับสายเล่นเกมที่ส่งรูปมาให้ทีมงานประเมินราคา'
+      },
+      {
+        title: 'ASUS TUF Gaming F16 i7 RTX4050',
+        category: 'โน๊ตบุ๊คเกมมิ่ง',
+        province: 'อ.เมือง จ.ร้อยเอ็ด',
+        condition: 'สภาพสวยงาม 97% ประกันศูนย์คงเหลือ 1 ปี 4 เดือน อุปกรณ์ครบ',
+        audit: 'ตรวจสอบสเปก CPU และการทำงานของการ์ดจอ RTX4050 ได้อย่างละเอียด รันเทสความสมบูรณ์ 100%',
+        src: '/images/buyback/buyhub-asus-tuf-f16-rtx4050.webp',
+        alt: 'ตัวอย่างการประเมินราคา ASUS TUF F16 โน๊ตบุ๊คประสิทธิภาพสูง'
+      },
+      {
+        title: 'ASUS Vivobook OLED Ryzen 5',
+        category: 'โน๊ตบุ๊คทำงาน',
+        province: 'อ.เมือง จ.อุบลราชธานี',
+        condition: 'สภาพดี 94% จอ OLED คมชัดสวยงาม อุปกรณ์ดั้งเดิมครบ',
+        audit: 'เช็กสุขภาพแบตและการรันระบบทั่วไป บูทเครื่องเร็วปกติ เหมาะสำหรับใช้งานทำงานและเรียนต่อ',
+        src: '/images/buyback/buyhub-notebook-asus-vivobook-oled.webp',
+        alt: 'ตัวอย่าง ASUS Vivobook OLED บนจุดตรวจประเมินของ BuyHub'
+      }
+    ]
+  },
+  {
+    id: 'ipad-tablet',
+    label: 'iPad / Tablet',
+    items: [
+      {
+        title: 'iPad mini 6 WiFi 64GB Starlight',
+        category: 'iPad',
+        province: 'อ.เมือง จ.ขอนแก่น',
+        condition: 'สภาพนางฟ้า 98% อุปกรณ์ดั้งเดิมครบกล่อง ตัวเครื่องไม่เคยตกกระแทก',
+        audit: 'ทัชสกรีนลื่นไหลปกติ ลำโพงเสียงใสไม่มีแตก ปุ่มสแกนนิ้ว Touch ID ตอบสนองดีเยี่ยม',
         src: '/images/buyback/buyhub-ipad-mini-starlight-box.webp',
-        alt: 'ตัวอย่าง iPad มือสองที่ BuyHub รับซื้อจริง'
+        alt: 'ตัวอย่างเครื่อง iPad mini 6 สีสตาร์ไลท์พร้อมกล่องประกอบการตรวจประเมิน'
       },
       {
-        title: 'Xiaomi Pad 7 8/128 (ตัวอย่างแท็บเล็ต)',
-        detail: 'เหมาะกับเคสแท็บเล็ต Android ที่ต้องแจ้งรุ่น ความจุ สภาพจอ และอุปกรณ์ที่มีให้ครบ',
+        title: 'Xiaomi Pad 6 8/128GB Gray',
+        category: 'แท็บเล็ต Android',
+        province: 'อ.เมือง จ.ศรีสะเกษ',
+        condition: 'สภาพสวย 96% หน้าจอปิดฟิล์มไว้ บอดี้หลังเรียบสวยไม่มีรอยบุบ',
+        audit: 'การตอบสนองหน้าจอความถี่สูงปกติ ลำโพงสเตอริโอ 4 ตัวเสียงสมบูรณ์ ตรวจเช็กสัญญาณการเชื่อมต่อ Wi-Fi ทั่วเครื่อง',
         src: '/images/buyback/buyhub-xiaomi-pad-tablet.webp',
-        alt: 'ตัวอย่างแท็บเล็ต Xiaomi Pad สภาพนางฟ้าพร้อมกล่องสำหรับประเมินรับซื้อของ BuyHub'
+        alt: 'ตัวอย่างแท็บเล็ต Xiaomi Pad และหน้ากล่องสินค้าที่ลูกค้านัดส่งมอบ'
       }
     ]
   },
   {
-    group: 'กล้อง',
+    id: 'camera-lens',
+    label: 'กล้อง / เลนส์',
     items: [
       {
-        title: 'กล้องและอุปกรณ์ถ่ายภาพ (ตัวอย่าง)',
-        detail: 'รับประเมินตามรุ่น ชัตเตอร์ สภาพเซนเซอร์ เลนส์ และอุปกรณ์ในชุด',
+        title: 'Sony Alpha A6000 Mirrorless Kit 16-50mm',
+        category: 'กล้องถ่ายรูป',
+        province: 'อ.เมือง จ.อุบลราชธานี',
+        condition: 'สภาพดี 93% ชัตเตอร์ 8,500 ครั้ง ตัวเลนส์และเซนเซอร์ใสสะอาด ไม่มีฝ้า ไม่มีรา',
+        audit: 'ระบบโฟกัสติดตามวัตถุทำงานสมบูรณ์ แฟลชหัวกล้องป๊อปอัพขึ้นปกติ ปุ่มควบคุมการสั่งงานรอบเครื่องตอบสนองไว',
         src: '/images/buyback/buyhub-sony-a6000-mirrorless-kit.webp',
-        alt: 'ตัวอย่างกล้องมือสองที่ BuyHub รับซื้อจริง'
+        alt: 'ตัวอย่างกล้อง Sony A6000 Mirrorless พร้อมเลนส์ Kit 16-50 มม. ในขั้นตอนการเช็กและรับซื้อจริง'
       }
     ]
   },
   {
-    group: 'คอมบริษัท',
+    id: 'ps5-gaming',
+    label: 'PS5 / Gaming',
     items: [
       {
-        title: 'รับซื้อสินค้าจำนวนมาก (ตัวอย่าง)',
-        detail: 'เหมาะกับบริษัท/สำนักงาน/หน่วยงาน ส่งรายการคร่าว ๆ เพื่อประเมินเป็นก้อนและวางแผนรับซื้อ',
-        province: 'ภาคอีสาน',
-        src: '/images/reviews/corporate-case-multiple-laptops.png',
-        alt: 'ตัวอย่างเคสรับซื้อคอมบริษัทหรือสินค้าจำนวนมาก (ปิดข้อมูลส่วนตัว)'
-      }
-    ]
-  },
-  {
-    group: 'อุปกรณ์เกมมิ่ง',
-    items: [
-      {
-        title: 'คอมเกมมิ่ง (ตัวอย่างชุดรับซื้อ)',
-        detail: 'ตรวจสเปกจริง การ์ดจอ สภาพการใช้งาน และอุปกรณ์ประกอบ',
-        src: '/images/buyback/buyhub-desktop-gaming-pc-white-rgb.webp',
-        alt: 'ตัวอย่างคอมเกมมิ่งมือสองที่ BuyHub รับซื้อจริง'
+        title: 'PlayStation 5 Slim Digital Edition Set',
+        category: 'เครื่องเล่นเกมคอนโซล',
+        province: 'อ.วารินชำราบ จ.อุบลราชธานี',
+        condition: 'สภาพสวยงาม 97% อุปกรณ์จอย DualSense 1 ตัว สาย HDMI สายไฟ และฐานตั้งครบกล่อง',
+        audit: 'ตรวจเช็กการรันสัญญาณภาพ เสียง ความร้อนจากพัดลม และปุ่มจอยคอนโทรลเลอร์ไม่มีอาการจอยดริฟต์ลอย',
+        src: '/images/buyback/buyhub-ps5-digital-edition-set.webp',
+        alt: 'ตัวอย่าง PS5 Digital Edition พร้อมกล่องแท้ที่ BuyHub ทำการตรวจประเมินและโอนเงินทันที'
       },
       {
-        title: 'PlayStation (ตัวอย่างชุดรับซื้อ)',
-        detail: 'ประเมินตามรุ่น อุปกรณ์ครบชุด และสภาพการใช้งาน',
-        src: '/images/buyback/buyhub-ps5-digital-edition-set.webp',
-        alt: 'ตัวอย่างเครื่องเกม PlayStation มือสองที่ BuyHub รับซื้อจริง'
+        title: 'Custom White RGB Desktop Gaming PC',
+        category: 'คอมพิวเตอร์ประกอบเกมมิ่ง',
+        province: 'อ.เมือง จ.อุดรธานี',
+        condition: 'สภาพนางฟ้า 98% เคสกระจกสวยงาม ไฟพัดลม RGB ปรับสีได้ปกติ อุปกรณ์ประกันศูนย์เหลือหลายชิ้น',
+        audit: 'ทดสอบการบูทระบบและการทำความเย็น ตรวจสเปกฮาร์ดแวร์ตรงตามแชท 100% พร้อมทดลองเล่นเกมหนัก ๆ ไม่มีกระตุก',
+        src: '/images/buyback/buyhub-desktop-gaming-pc-white-rgb.webp',
+        alt: 'ตัวอย่างคอมพิวเตอร์ตั้งโต๊ะประกอบเพื่อเล่นเกมสเปกแรงไฟสวยในจุดตรวจของแบรนด์'
+      }
+    ]
+  },
+  {
+    id: 'jbl-marshall',
+    label: 'JBL / Marshall',
+    items: [
+      {
+        title: 'JBL Boombox 2 Portable Bluetooth Speaker',
+        category: 'ลำโพงบลูทูธพกพา',
+        province: 'อ.เมือง จ.ขอนแก่น',
+        condition: 'สภาพดีเยี่ยม 95% บอดี้สวยงาม อะแดปเตอร์ชาร์จแท้ครบกล่องดั้งเดิม',
+        audit: 'ตรวจเช็กคุณภาพเสียงเบสแน่นและเสียงกลางแหลมไม่แตกพร่า ตรวจสอบการเชื่อมต่อบลูทูธลื่นไหลดี เช็กความแท้ของซีเรียลนัมเบอร์เรียบร้อย',
+        src: '/images/buyback/buyhub-jbl-boombox-2-box.webp',
+        alt: 'ตัวอย่างลำโพงพกพาตัวใหญ่เสียงทรงพลัง JBL Boombox 2 พร้อมกล่องแท้ตรงรุ่น'
       }
     ]
   }
@@ -152,7 +213,7 @@ const showcaseSections = [
   {
     heading: 'ตัวอย่างผลงานช่วยให้คนขายเข้าใจปัจจัยราคาอย่างไร',
     paragraphs: [
-      'แม้ว่าหน้าผลงานจะไม่ได้ระบุตัวเลขราคาของทุกชิ้น แต่ภาพและคำอธิบายประกอบสามารถช่วยให้ผู้ขายเข้าใจปัจจัยราคาที่สำคัญได้ เช่น ทำไมสินค้าที่มีอุปกรณ์ครบถึงน่าสนใจกว่า ทำไมหมวดกล้องต้องดูเลนส์และสภาพเซนเซอร์ หรือทำไมงานคอมบริษัทต้องดูสเปกและจำนวนชิ้นควบคู่กัน การเห็นตัวอย่างจริงทำให้ปัจจัยเหล่านี้จับต้องได้มากกว่าการอธิบายในเชิงทฤษฎี',
+      'แม้ว่าหน้าผลงานจะไม่ได้ระบุตัวเลขราคาของทุกชิ้น แต่ภาพและคำอธิบายประกอบสามารถช่วยให้ผู้ขายเข้าใจปัจจัยราคาที่สำคัญได้ เช่น ทำไมสินค้าที่มีอุปกรณ์ครบถึงน่าสนใจกว่า ทำไมหมวดกล้องต้องดูเลนส์และสภาพเซ็นเซอร์ หรือทำไมงานคอมบริษัทต้องดูสเปกและจำนวนชิ้นควบคู่กัน การเห็นตัวอย่างจริงทำให้ปัจจัยเหล่านี้จับต้องได้มากกว่าการอธิบายในเชิงทฤษฎี',
       'คนขายจึงควรใช้หน้าผลงานเป็นแผนที่เบื้องต้นว่า หากสินค้าของตัวเองใกล้กับตัวอย่างหมวดใด ก็ควรเตรียมข้อมูลในลักษณะเดียวกัน เช่น ถ้าเป็น MacBook ก็ควรเช็กแบตและอุปกรณ์ ถ้าเป็นคอมเกมมิ่งควรเตรียมสเปกให้ครบ ถ้าเป็นงานหลายชิ้นจากองค์กรก็ควรจัดรายการให้เป็นชุด'
     ]
   },
@@ -162,7 +223,7 @@ const showcaseSections = [
       'การแยกตัวอย่างงานรับซื้อเป็นหมวด ๆ ทำให้เห็นว่าบริการของ BuyHub ไม่ได้จำกัดอยู่แค่สมาร์ทโฟนหรือโน๊ตบุ๊ค แต่ครอบคลุมหมวดที่คนขายในตลาดมือสองมักมีคำถามบ่อย เช่น กล้อง เครื่องเกม จอคอม อุปกรณ์เสริม และงานหลายชิ้นจากองค์กร สิ่งนี้ช่วยตอบคำถามของผู้ใช้ได้เร็วขึ้นว่า ถ้าสินค้าของตัวเองไม่ใช่หมวดยอดนิยม ก็ยังมีโอกาสประเมินได้หรือไม่',
       'ในเชิงเว็บไซต์ การอธิบายขอบเขตบริการผ่านผลงานจริงยังช่วยให้หน้าเว็บมี semantic coverage กว้างขึ้น เพราะมีคำอธิบายที่โยงสินค้าหลายประเภทเข้ากับบริบทการรับซื้อจริง ไม่ใช่เพียงลิสต์ชื่อหมวดอย่างสั้น ๆ'
     ],
-    list: groups.map((group) => `หมวดตัวอย่างที่มีในหน้านี้: ${group.group}`)
+    list: tabs.map((tab) => `หมวดตัวอย่างที่มีในหน้านี้: ${tab.label}`)
   },
   {
     heading: 'ถ้าต้องการให้สินค้าอยู่ในสภาพพร้อมประเมิน ควรดูตัวอย่างเหล่านี้แล้วเตรียมอะไรต่อ',
@@ -285,7 +346,6 @@ showcaseSections.push({
     label: `ดูหน้าพื้นที่ ${item.province}`
   }))
 });
-
 ---
 
 <BaseLayout
@@ -350,31 +410,66 @@ showcaseSections.push({
         </ul>
       </section>
 
-      <div class="mt-14 space-y-16">
-        {groups.map((g) => (
-          <section aria-labelledby={`proof-${g.group}`}>
-            <h2 id={`proof-${g.group}`} class="text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl">
-              {g.group}
-            </h2>
-            <ul class="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {g.items.map((i) => (
-                <li class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-xl">
-                  <div class="aspect-[4/3] w-full bg-slate-100">
-                    <img src={i.src} alt={i.alt} loading="lazy" decoding="async" class="h-full w-full object-cover" />
+      <!-- Premium Tabs Navigation -->
+      <div class="mt-16 border-b border-slate-200">
+        <div class="flex flex-wrap gap-2 -mb-px">
+          {tabs.map((tab, idx) => (
+            <button
+              data-tab-trigger={tab.id}
+              class={`px-4 py-3 text-sm font-bold border-b-2 transition-all duration-200 cursor-pointer ${
+                idx === 0
+                  ? 'border-emerald-600 text-emerald-700 bg-emerald-50/40 rounded-t-xl'
+                  : 'border-transparent text-slate-500 hover:text-slate-900 hover:border-slate-300'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <!-- Premium Tabs Content -->
+      <div class="mt-8">
+        {tabs.map((tab, idx) => (
+          <div
+            data-tab-content={tab.id}
+            class={idx === 0 ? 'block' : 'hidden'}
+          >
+            <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {tab.items.map((item) => (
+                <li class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-xl hover:border-emerald-200/80 transition-all duration-300 flex flex-col h-full">
+                  <div class="aspect-[4/3] w-full bg-slate-100 overflow-hidden relative border-b border-slate-200">
+                    <img src={item.src} alt={item.alt} loading="lazy" decoding="async" class="h-full w-full object-cover hover:scale-105 transition-all duration-500" />
+                    <span class="absolute left-4 top-4 rounded-full bg-slate-950/80 px-2.5 py-1 text-xs font-bold text-emerald-300 backdrop-blur-sm shadow-sm">
+                      {item.category}
+                    </span>
                   </div>
-                  <div class="p-6">
-                    <h3 class="text-lg font-bold tracking-tight text-slate-950">{i.title}</h3>
-                    {i.province ? <p class="mt-2 text-xs font-semibold uppercase tracking-wider text-emerald-700">{i.province}</p> : null}
-                    <p class="mt-2 text-sm leading-6 text-slate-600">{i.detail}</p>
+                  <div class="p-6 flex flex-col flex-grow">
+                    <div class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-emerald-700">
+                      <span>📍</span> {item.province}
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-950 mt-3 line-clamp-1">{item.title}</h3>
+                    <div class="mt-4 space-y-3 flex-grow">
+                      <p class="text-sm text-slate-700 leading-relaxed">
+                        <strong class="text-slate-950 font-bold block mb-1">สภาพเครื่อง:</strong> 
+                        <span class="text-slate-600">{item.condition}</span>
+                      </p>
+                      <p class="text-sm text-slate-700 leading-relaxed border-t border-slate-100 pt-3">
+                        <strong class="text-slate-950 font-bold block mb-1">จุดตรวจของ BuyHub:</strong> 
+                        <span class="text-slate-600">{item.audit}</span>
+                      </p>
+                    </div>
                   </div>
                 </li>
               ))}
             </ul>
-          </section>
+          </div>
         ))}
       </div>
 
-      <LongformSections sections={showcaseSections} tocHeading="หัวข้อสำคัญสำหรับหน้าผลงานรับซื้อจริง" />
+      <div class="mt-16">
+        <LongformSections sections={showcaseSections} tocHeading="หัวข้อสำคัญสำหรับหน้าผลงานรับซื้อจริง" />
+      </div>
     </div>
   </article>
 
@@ -384,3 +479,34 @@ showcaseSections.push({
     lineLabel={`แอด LINE ${LINE_AT}`}
   />
 </BaseLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const triggers = document.querySelectorAll('[data-tab-trigger]');
+    const contents = document.querySelectorAll('[data-tab-content]');
+
+    triggers.forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const targetId = trigger.getAttribute('data-tab-trigger');
+
+        triggers.forEach((t) => {
+          t.classList.remove('border-emerald-600', 'text-emerald-700', 'bg-emerald-50/40', 'rounded-t-xl');
+          t.classList.add('border-transparent', 'text-slate-500');
+        });
+        trigger.classList.add('border-emerald-600', 'text-emerald-700', 'bg-emerald-50/40', 'rounded-t-xl');
+        trigger.classList.remove('border-transparent', 'text-slate-500');
+
+        contents.forEach((content) => {
+          const contentId = content.getAttribute('data-tab-content');
+          if (contentId === targetId) {
+            content.classList.remove('hidden');
+            content.classList.add('block');
+          } else {
+            content.classList.remove('block');
+            content.classList.add('hidden');
+          }
+        });
+      });
+    });
+  });
+</script>

@@ -22,7 +22,10 @@ export const SELL_THAI_ROUTES: Record<string, string> = {
   'gaming-pc': '/รับซื้อคอมเกมมิ่ง',
   'pc-assembled': '/รับซื้อ-pc-ประกอบ',
   printer: '/รับซื้อเครื่องปริ้น',
-  'office-it': '/รับซื้ออุปกรณ์สำนักงาน-it'
+  'office-it': '/รับซื้ออุปกรณ์สำนักงาน-it',
+  jbl: '/รับซื้อ-jbl',
+  marshall: '/รับซื้อ-marshall',
+  ps5: '/รับซื้อ-ps5'
 };
 
 export const AREA_THAI_ROUTES: Record<string, string> = {

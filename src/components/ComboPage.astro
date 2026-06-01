@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import CtaBand from './CtaBand.astro';
 import ContentVisualPanel from './ContentVisualPanel.astro';
 import FaqAccordion from './FaqAccordion.astro';
-import KeywordIntentPanel from './KeywordIntentPanel.astro';
+
 import LineCtaButton from './LineCtaButton.astro';
 import PhoneCtaButton from './PhoneCtaButton.astro';
 import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd } from '../lib/schema';
@@ -496,6 +496,37 @@ const tocItems = (() => {
 })();
 
 const dedupedInternalLinks = dedupeLinks(internalLinks);
+
+const groupedLinks = (() => {
+  const relatedProducts: { href: string; label: string }[] = [];
+  const serviceAreas: { href: string; label: string }[] = [];
+  const articles: { href: string; label: string }[] = [];
+  const portfolios: { href: string; label: string }[] = [];
+  const infoAndContact: { href: string; label: string }[] = [];
+
+  dedupedInternalLinks.forEach((link) => {
+    const href = link.href.toLowerCase();
+    if (href.includes('/พื้นที่ให้บริการ') || href.includes('-ขอนแก่น') || href.includes('-นครราชสีมา') || href.includes('-อุดรธานี') || href.includes('-อุบลราชธานี') || href.includes('พื้นที่ให้บริการ')) {
+      serviceAreas.push(link);
+    } else if (href.startsWith('/บทความ') || href.includes('คู่มือ') || href.includes('ขั้นตอนการขาย') || href.includes('คำถามที่พบบ่อย') || href.includes('เงื่อนไขการใช้บริการ') || href.includes('นโยบายความเป็นส่วนตัว')) {
+      articles.push(link);
+    } else if (href.startsWith('/ผลงาน') || href.startsWith('/รีวิว') || href.includes('รีวิวลูกค้า')) {
+      portfolios.push(link);
+    } else if ((href.startsWith('/รับซื้อ') || href.startsWith('/sell/')) && !href.includes('/พื้นที่') && !href.includes('-ขอนแก่น') && !href.includes('-นครราชสีมา') && !href.includes('-อุดรธานี') && !href.includes('-อุบลราชธานี')) {
+      relatedProducts.push(link);
+    } else {
+      infoAndContact.push(link);
+    }
+  });
+
+  return {
+    relatedProducts,
+    serviceAreas,
+    articles,
+    portfolios,
+    infoAndContact
+  };
+})();
 const sellKeywordLocal = sellKeywordCluster.localIntent ?? sellKeywordCluster.secondary.slice(0, 6);
 const sellKeywordModels = sellKeywordCluster.modelIntent ?? sellKeywordCluster.secondary.slice(6, 10);
 const sellKeywordIssues = sellKeywordCluster.issueIntent ?? sellKeywordCluster.secondary.slice(10, 14);
@@ -547,6 +578,66 @@ const localSupportContext = getSellAreaSupportLinksByMainPath(path);
 const getGradeTableData = (prodName: string) => {
   const isCompanyOrOffice = prodName.includes('คอมบริษัท') || prodName.includes('สำนักงาน') || prodName.includes('อุปกรณ์');
   
+  if (prodName.toLowerCase() === 'jbl') {
+    return [
+      {
+        grade: 'สวยนางฟ้า (Grade A)',
+        criteria: 'ของแท้ 100%, ตะแกรงโลหะและบอดี้ไร้รอยบุบ, แบตเตอรี่เก็บไฟทนทาน, ลำโพงเสียงปกติไม่แตกพร่า, มีกล่องเดิมและสายชาร์จแท้ครบ',
+        priceRange: '85% - 95% ของราคาตลาดมือสอง'
+      },
+      {
+        grade: 'สภาพใช้งานทั่วไป (Grade B)',
+        criteria: 'ของแท้, มีรอยขีดข่วนทั่วไปตามการตั้งวาง, แบตเตอรี่ยังเก็บไฟได้ดี (เสื่อมเล็กน้อย), ลำโพงเสียงปกติ, มีสายชาร์จ (ไม่มีกล่อง)',
+        priceRange: '70% - 80% ของราคาตลาดมือสอง'
+      },
+      {
+        grade: 'มีตำหนิชัดเจน (Grade C / ตีสภาพจริง)',
+        criteria: 'ของแท้, มีรอยบุบกระแทกหนัก, ตะแกรงยุบตัว, ลำโพงเสียงแตกพร่า, หรือแบตเตอรี่เสื่อมบวม (เปิดดังสุดแล้วเครื่องดับทันที)',
+        priceRange: 'ประเมินหักลบราคาเสนอตามอาการอะไหล่'
+      }
+    ];
+  }
+
+  if (prodName.toLowerCase() === 'marshall') {
+    return [
+      {
+        grade: 'สวยสะสม (Grade A)',
+        criteria: 'ของแท้ (ศูนย์ไทย Ash Asia หรือนำเข้า), บอดี้หนังหุ้มเรียบสวยไร้รอยฉีกขาด, แผงลูกบิดทองเหลืองสมบูรณ์, เสียงปกติ, อุปกรณ์ครบกล่อง',
+        priceRange: '85% - 95% ของราคาตลาดมือสอง'
+      },
+      {
+        grade: 'สภาพใช้งานทั่วไป (Grade B)',
+        criteria: 'ของแท้, หนังหุ้มมีคราบฝุ่นหรือรอยเคสกัดประปราย, ลูกบิดหมุนปรับได้ปกติ, แบตเก็บไฟได้ดี (รุ่นพกพา), มีสายไฟ AC คู่ตัวลำโพง',
+        priceRange: '70% - 80% ของราคาตลาดมือสอง'
+      },
+      {
+        grade: 'มีตำหนิชัดเจน (Grade C / ตีสภาพจริง)',
+        criteria: 'หนังหุ้มลอกหรือขาดหนัก, ตะแกรงหน้าบุบ, ลูกบิดปรับ Bass/Treble ชำรุด, เสียงลำโพงแตก, แบตเสื่อม (รุ่นพกพา) หรือมีเฉพาะตัวเครื่อง',
+        priceRange: 'ประเมินราคาตามจุดชำรุดจริงของตัวลำโพง'
+      }
+    ];
+  }
+
+  if (prodName.toLowerCase() === 'ps5') {
+    return [
+      {
+        grade: 'สวยนางฟ้า (Grade A)',
+        criteria: 'ตัวเครื่องไร้รอยบิ่นแตกหรือคราบข่วนลึก, จอย DualSense ปุ่มเด้งแน่นไม่ดริฟต์, เล่นออนไลน์ได้ปกติไม่โดนแบน PSN, สายพ่วงและกล่องแท้ครบ',
+        priceRange: '85% - 95% ของราคาตลาดมือสอง'
+      },
+      {
+        grade: 'สภาพใช้งานทั่วไป (Grade B)',
+        criteria: 'ตัวเครื่องมีรอยขนแมวประปราย, จอย DualSense ใช้งานได้ดีปกติ, พอร์ตเชื่อมต่อและช่องอ่านแผ่นปกติ, มีตัวเครื่อง สายไฟ และจอย (ไม่มีกล่อง)',
+        priceRange: '70% - 80% ของราคาตลาดมือสอง'
+      },
+      {
+        grade: 'มีตำหนิชัดเจน (Grade C / ตีสภาพจริง)',
+        criteria: 'จอย DualSense ดริฟต์ปุ่มอนาล็อกเดินเอง, ช่องอ่านแผ่นฝืดอ่านช้า, พัดลมเครื่องดังหนาผิดปกติ, หรือโดนแบนถาวรจากระบบ PSN',
+        priceRange: 'ประเมินหักลบราคาตามราคาซ่อมเปลี่ยนอะไหล่'
+      }
+    ];
+  }
+
   if (isCompanyOrOffice) {
     return [
       {
@@ -667,17 +758,7 @@ const midArticleIndex =
         ]}
       />
 
-      <KeywordIntentPanel
-        sectionId="combo-keywords"
-        title={`คำค้นที่คนอยาก${sellProductText} ใน ${provinceName} มักใช้ก่อนตัดสินใจ`}
-        className="mt-8"
-        intro={[
-          `หน้านี้ตั้งใจตอบคำค้นหลักอย่าง “${sellKeywordCluster.primary}” พร้อมคำค้นรองอย่าง ${sellKeywordLead} เพื่อให้คนที่กำลังมองหา ${buyProductText} ใน ${provinceName} ได้ทั้งภาพรวมเรื่องราคา ขั้นตอนส่งข้อมูล และบริบทพื้นที่ในหน้าเดียว`,
-          `ถ้าคุณกำลังค้นหาทั้ง ${sellKeywordSupport || 'คำค้นตามรุ่นที่ใกล้กับเครื่องของคุณ'} รวมถึง ${sellKeywordCondition || 'คำค้นตามสภาพเครื่องที่กำลังกังวล'} เนื้อหาชุดนี้จะช่วยเชื่อมไปยังหน้าที่ตรงกับสิ่งที่ต้องการรู้จริง โดยไม่ต้องยัดคีย์เวิร์ดทุกแบบไว้ในย่อหน้าเดียว`,
-          `ส่วนคำค้นเชิงราคาอย่าง ${sellKeywordPriceLead || 'คำค้นช่วงราคาประเมิน'} และคำค้นเชิงตัดสินใจอย่าง ${sellKeywordDecisionLead || 'คำค้นก่อนเลือกช่องทางขาย'} จะถูกพาไปต่อผ่านหน้ารองและลิงก์ที่เกี่ยวข้อง เพื่อให้โครงสร้างทั้งคลัสเตอร์ดูเป็นธรรมชาติและอ่านง่ายกว่าเดิม`
-        ]}
-        groups={sellKeywordPanelGroups}
-      />
+
 
       {
         supportTopicLinks.length > 0 && (
@@ -985,18 +1066,85 @@ const midArticleIndex =
         class="mt-12 rounded-2xl border border-slate-200 bg-slate-50/70 p-6"
         aria-labelledby="combo-links"
       >
-        <h2 id="combo-links" class="text-lg font-bold tracking-tight text-slate-950">
-          ลิงก์ที่เกี่ยวข้อง
+        <h2 id="combo-links" class="text-xl font-bold tracking-tight text-slate-950">
+          ลิงก์แนะนำและข้อมูลที่เกี่ยวข้อง
         </h2>
-        <ul class="mt-4 grid gap-2 text-sm sm:grid-cols-2">
-          {dedupedInternalLinks.map((link) => (
-            <li class="min-w-0">
-              <a class="break-words font-semibold text-emerald-700 hover:underline" href={link.href}>
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div class="mt-6 space-y-6">
+          {groupedLinks.relatedProducts.length > 0 && (
+            <div>
+              <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">หมวดหมู่และสินค้าใกล้เคียง</h3>
+              <ul class="mt-2 grid gap-2 text-sm sm:grid-cols-2">
+                {groupedLinks.relatedProducts.map((link) => (
+                  <li class="min-w-0">
+                    <a class="break-words font-semibold text-emerald-700 hover:underline" href={link.href}>
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {groupedLinks.serviceAreas.length > 0 && (
+            <div>
+              <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">พื้นที่ให้บริการหลัก</h3>
+              <ul class="mt-2 grid gap-2 text-sm sm:grid-cols-2">
+                {groupedLinks.serviceAreas.map((link) => (
+                  <li class="min-w-0">
+                    <a class="break-words font-semibold text-emerald-700 hover:underline" href={link.href}>
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {groupedLinks.articles.length > 0 && (
+            <div>
+              <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">บทความความรู้และวิธีเช็กก่อนขาย</h3>
+              <ul class="mt-2 grid gap-2 text-sm sm:grid-cols-2">
+                {groupedLinks.articles.map((link) => (
+                  <li class="min-w-0">
+                    <a class="break-words font-semibold text-emerald-700 hover:underline" href={link.href}>
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {groupedLinks.portfolios.length > 0 && (
+            <div>
+              <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">ผลงานรับซื้อและรีวิวจากผู้ใช้จริง</h3>
+              <ul class="mt-2 grid gap-2 text-sm sm:grid-cols-2">
+                {groupedLinks.portfolios.map((link) => (
+                  <li class="min-w-0">
+                    <a class="break-words font-semibold text-emerald-700 hover:underline" href={link.href}>
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {groupedLinks.infoAndContact.length > 0 && (
+            <div>
+              <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">ข้อมูลอื่นๆ และช่องทางติดต่อ</h3>
+              <ul class="mt-2 grid gap-2 text-sm sm:grid-cols-2">
+                {groupedLinks.infoAndContact.map((link) => (
+                  <li class="min-w-0">
+                    <a class="break-words font-semibold text-emerald-700 hover:underline" href={link.href}>
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
       </section>
     </div>
   </article>

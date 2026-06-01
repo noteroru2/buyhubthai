@@ -133,6 +133,15 @@ const ARTICLE_LINKS_BY_SELL_ID: Record<string, LinkItem[]> = {
   ],
   playstation: [
     { href: '/บทความ/ขาย-playstation-มือสอง-ได้ราคา-เท่าไหร่', label: 'ขาย PlayStation มือสองได้ราคาเท่าไหร่' }
+  ],
+  jbl: [
+    { href: '/บทความ/ขาย-jbl-มือสอง-ได้ราคา-เท่าไหร่', label: 'ขายลำโพง JBL มือสองได้ราคาเท่าไหร่' }
+  ],
+  marshall: [
+    { href: '/บทความ/ขาย-marshall-มือสอง-ได้ราคา-เท่าไหร่', label: 'ขายลำโพง Marshall มือสองได้ราคาเท่าไหร่' }
+  ],
+  ps5: [
+    { href: '/บทความ/ขาย-playstation-มือสอง-ได้ราคา-เท่าไหร่', label: 'ขาย PlayStation มือสองได้ราคาเท่าไหร่' }
   ]
 };
 
@@ -287,7 +296,10 @@ const SELL_DISPLAY_NAMES: Record<string, string> = {
   'gaming-pc': 'คอมเกมมิ่ง',
   'pc-assembled': 'PC ประกอบ',
   printer: 'เครื่องปริ้น',
-  'office-it': 'อุปกรณ์สำนักงาน IT'
+  'office-it': 'อุปกรณ์สำนักงาน IT',
+  jbl: 'JBL',
+  marshall: 'Marshall',
+  ps5: 'PS5'
 };
 
 const dedupeLinks = (links: LinkItem[]) => {
