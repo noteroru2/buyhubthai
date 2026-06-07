@@ -40,6 +40,7 @@ interface Props {
   internalLinks: { href: string; label: string }[];
   faqs: { question: string; answer: string }[];
   longContentSections?: LongContentSection[];
+  customVisual?: { imageSrc: string; imageAlt: string; ogImage: string; };
 }
 
 const {
@@ -58,12 +59,13 @@ const {
   howToSend,
   internalLinks,
   faqs,
-  longContentSections = []
+  longContentSections = [],
+  customVisual
 } = Astro.props;
 
 const jsonLd = [
   breadcrumbJsonLd(breadcrumbs),
-  serviceJsonLd({ name: serviceName, description, url: path }),
+  serviceJsonLd({ name: serviceName, description, url: path, areas }),
   faqPageJsonLd(faqs)
 ];
 
@@ -335,7 +337,7 @@ const getProductVisual = (name: string, province: string): ProductVisual => {
 };
 
 const productNarrative = getProductNarrative(productName);
-const productVisual = getProductVisual(productName, provinceName);
+const productVisual = customVisual ?? getProductVisual(productName, provinceName);
 const sellEditorialSlug = path.replace(/^\/+/, '');
 const sellKeywordCluster = buildSellKeywordCluster({ productName, provinceName, serviceName });
 const productUsesLeadingSpace = /^[A-Za-z0-9]/.test(productName);

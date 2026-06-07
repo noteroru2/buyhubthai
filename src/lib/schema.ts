@@ -140,7 +140,11 @@ export function webPageJsonLd(params: {
   };
 }
 
-export function serviceJsonLd(params: { name: string; description: string; url: string }) {
+export function serviceJsonLd(params: { name: string; description: string; url: string; areas?: string[] }) {
+  const areaServed = params.areas && params.areas.length > 0
+    ? params.areas.map(area => ({ '@type': 'AdministrativeArea', name: area }))
+    : { '@type': 'Country', name: 'Thailand' };
+
   return {
     '@context': 'https://schema.org',
     '@type': 'Service',
@@ -149,10 +153,7 @@ export function serviceJsonLd(params: { name: string; description: string; url: 
     url: absoluteUrl(params.url),
     serviceType: params.name,
     provider: { '@id': `${SITE_URL}/#localbusiness` },
-    areaServed: {
-      '@type': 'Country',
-      name: 'Thailand'
-    }
+    areaServed: areaServed
   };
 }
 

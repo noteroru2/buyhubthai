@@ -1,0 +1,313 @@
+---
+import ComboPage from '../components/ComboPage.astro';
+import { SEO_KEYWORDS } from '../data/seoKeywords';
+import { getAreaCoverageProfile } from '../data/areaCoverageProfiles';
+
+export async function getStaticPaths() {
+  const EXCLUDED_SLUGS = [
+    'รับซื้อ-iphone',
+    'รับซื้อ-ipad',
+    'รับซื้อ-macbook',
+    'รับซื้อโน๊ตบุ๊ค',
+    'รับซื้อคอมบริษัท',
+    'รับซื้อคอมพิวเตอร์มือสอง',
+    'รับซื้อคอมเกมมิ่ง',
+    'รับซื้อจอคอม',
+    'รับซื้อมือถือ',
+    'รับซื้ออุปกรณ์สำนักงาน-it',
+    'รับซื้ออุปกรณ์เกมมิ่ง',
+    'รับซื้ออุปกรณ์เสริม-it',
+    'รับซื้อเครื่องปริ้น',
+    'รับซื้อเครื่องเกม',
+    'รับซื้อแท็บเล็ต',
+    'รับซื้อโน๊ตบุ๊คมือสอง',
+    'รับซื้อ-jbl',
+    'รับซื้อ-marshall',
+    'รับซื้อ-nintendo-switch',
+    'รับซื้อ-pc-ประกอบ',
+    'รับซื้อ-playstation',
+    'รับซื้อ-ps5',
+    'รับซื้อ-samsung',
+    'รับซื้อ',
+    'รับซื้อกล้อง',
+    'รับซื้อการ์ดจอ'
+  ];
+
+  const PROVINCES = [
+    { id: 'khon-kaen', name: 'ขอนแก่น' },
+    { id: 'nakhon-ratchasima', name: 'นครราชสีมา' },
+    { id: 'udon-thani', name: 'อุดรธานี' },
+    { id: 'ubon-ratchathani', name: 'อุบลราชธานี' },
+    { id: 'amnat-charoen', name: 'อำนาจเจริญ' },
+    { id: 'bueng-kan', name: 'บึงกาฬ' },
+    { id: 'buriram', name: 'บุรีรัมย์' },
+    { id: 'chaiyaphum', name: 'ชัยภูมิ' },
+    { id: 'kalasin', name: 'กาฬสินธุ์' },
+    { id: 'loei', name: 'เลย' },
+    { id: 'maha-sarakham', name: 'มหาสารคาม' },
+    { id: 'mukdahan', name: 'มุกดาหาร' },
+    { id: 'nakhon-phanom', name: 'นครพนม' },
+    { id: 'nong-bua-lamphu', name: 'หนองบัวลำภู' },
+    { id: 'nong-khai', name: 'หนองคาย' },
+    { id: 'roi-et', name: 'ร้อยเอ็ด' },
+    { id: 'sakon-nakhon', name: 'สกลนคร' },
+    { id: 'sisaket', name: 'ศรีสะเกษ' },
+    { id: 'surin', name: 'สุรินทร์' },
+    { id: 'yasothon', name: 'ยโสธร' }
+  ];
+
+  const paths = [];
+
+  for (const keyword of SEO_KEYWORDS) {
+    const slugBase = keyword.trim().toLowerCase().replace(/[\s\/]+/g, '-');
+    
+    // Check exclusion to avoid collision with existing files
+    if (EXCLUDED_SLUGS.includes(slugBase)) continue;
+
+    // 1. Base Money Page
+    paths.push({
+      params: { seoSlug: slugBase },
+      props: { keyword, province: null, isLocal: false }
+    });
+
+    // 2. Local Pages
+    for (const province of PROVINCES) {
+      const localSlug = `${slugBase}-${province.name}`;
+      paths.push({
+        params: { seoSlug: localSlug },
+        props: { keyword, province, isLocal: true }
+      });
+    }
+  }
+
+  return paths;
+}
+
+const { keyword, province, isLocal } = Astro.props;
+const { seoSlug } = Astro.params;
+const path = `/${seoSlug}`;
+
+const comboProductName = keyword; 
+const comboProvinceName = isLocal ? province.name : 'ทั่วประเทศ';
+const serviceName = isLocal ? `${keyword} ${province.name}` : `${keyword} ให้ราคาสูง`;
+
+// Fetch Districts for GEO Optimization
+let districtsText = '';
+if (isLocal && province?.id) {
+  const profile = getAreaCoverageProfile(province.id);
+  if (profile && profile.districts.length > 0) {
+    districtsText = ` ครอบคลุมพื้นที่ ${profile.districts.join(', ')} และอำเภออื่นๆ`;
+  }
+}
+
+// Categorization Logic for AEO/Intent Optimization
+const kw = keyword.toLowerCase();
+let category = 'general';
+if (kw.includes('server') || kw.includes('network') || kw.includes('nas') || kw.includes('ups') || kw.includes('rack') || kw.includes('cisco') || kw.includes('fortinet') || kw.includes('switch') || kw.includes('router') || kw.includes('firewall') || kw.includes('lan')) {
+  category = 'server';
+} else if (kw.includes('คอม') || kw.includes('pc') || kw.includes('nuc') || kw.includes('workstation') || kw.includes('aio') || kw.includes('keyboard') || kw.includes('mouse') || kw.includes('เม้าส์') || kw.includes('คีย์บอร์ด')) {
+  category = 'computer';
+} else if (kw.includes('notebook') || kw.includes('โน๊ตบุ๊ค') || kw.includes('macbook') || kw.includes('ipad') || kw.includes('tablet') || kw.includes('มือถือ') || kw.includes('iphone') || kw.includes('แท็บเล็ต') || kw.includes('ไอโฟน') || kw.includes('ไอแพด') || kw.includes('ไอแมค') || kw.includes('laptop')) {
+  category = 'mobile';
+} else if (kw.includes('ram') || kw.includes('แรม') || kw.includes('cpu') || kw.includes('vga') || kw.includes('การ์ดจอ') || kw.includes('harddisk') || kw.includes('ssd') || kw.includes('mainboard') || kw.includes('power supply') || kw.includes('case') || kw.includes('อะไหล่') || kw.includes('ฮาร์ดดิสก์') || kw.includes('flash drive')) {
+  category = 'component';
+} else if (kw.includes('กล้อง') || kw.includes('canon') || kw.includes('nikon') || kw.includes('sony') || kw.includes('ลำโพง') || kw.includes('เครื่องเสียง') || kw.includes('jbl') || kw.includes('marshall') || kw.includes('bose') || kw.includes('dyson') || kw.includes('แอร์') || kw.includes('เครื่องฟอกอากาศ') || kw.includes('เครื่องชงกาแฟ') || kw.includes('drone') || kw.includes('โดรน') || kw.includes('เครื่องใช้ไฟฟ้า') || kw.includes('เก้าอี้นวด') || kw.includes('เครื่องกรองน้ำ')) {
+  category = 'electronics';
+} else if (kw.includes('gaming') || kw.includes('เกมมิ่ง')) {
+  category = 'gaming';
+}
+
+// Specific Content Matrix
+let whatWeBuy = [];
+let pricingFactors = [];
+
+switch(category) {
+  case 'server':
+    whatWeBuy = [
+      `${keyword} แบรนด์ชั้นนำ (Dell, HP, IBM, Cisco, Lenovo เป็นต้น)`,
+      `เครื่องเซิร์ฟเวอร์หรืออุปกรณ์เน็ตเวิร์คตกรุ่น ปลดระวางจากองค์กร`,
+      `อะไหล่เซิร์ฟเวอร์แยกชิ้น (RAM ECC, SAS HDD, SSD Enterprise)`
+    ];
+    pricingFactors = [
+      'สเปกของเครื่อง (รุ่น CPU, ขนาดความจุ RAM, ประเภทของ Storage)',
+      'สถานะการทำงาน (ระบบเปิดติดปกติ, มี Error Log หรือไฟ Alarm หรือไม่)',
+      'อุปกรณ์เสริม (Rail Kit, หน้ากาก, สาย Power)',
+      'สภาพภายนอกและการรับประกันที่เหลืออยู่'
+    ];
+    break;
+  case 'computer':
+    whatWeBuy = [
+      `${keyword} ทั้งแบบแบรนด์เนมและเครื่องประกอบ`,
+      `คอมพิวเตอร์สำนักงานปลดระวาง หรือคอมพิวเตอร์ร้านเกมยกล็อต`,
+      `เครื่องสภาพใช้งานปกติ หรือมีตำหนิ/อาการเสียบางส่วน`
+    ];
+    pricingFactors = [
+      'สเปกฮาร์ดแวร์ (เจเนอเรชันของ CPU, การ์ดจอ, RAM, SSD)',
+      'สภาพภายนอกเคส (รอยขีดข่วน, สนิม, หรือรอยบุบ)',
+      'การทำงานของระบบประมวลผลและระบบระบายความร้อน',
+      'อุปกรณ์ที่มีให้ (สายชาร์จ/อะแดปเตอร์, หน้าจอ, คีย์บอร์ด, เมาส์)'
+    ];
+    break;
+  case 'mobile':
+    whatWeBuy = [
+      `${keyword} รุ่นใหม่และรุ่นเก่า หลากหลายยี่ห้อ`,
+      `เครื่องมือสองสภาพนางฟ้า หรือมีรอยขีดข่วนตามการใช้งาน`,
+      `เครื่องติดสัญญา, เครื่องจอแตก, แบตเสื่อม หรืออาการเสียอื่นๆ (รับประเมินตามสภาพ)`
+    ];
+    pricingFactors = [
+      'รุ่น ปีที่ผลิต และความจุของตัวเครื่อง (Storage)',
+      'สุขภาพแบตเตอรี่ (Battery Health) และการทำงานของหน้าจอ (ทัชสกรีน, Dead Pixel)',
+      'สภาพตัวเครื่องภายนอก (รอยตกหล่น, บุบ, บิ่น)',
+      'สถานะการล็อค (ต้องไม่ติด iCloud, Google Account หรือ MDM ล็อคบริษัท)'
+    ];
+    break;
+  case 'component':
+    whatWeBuy = [
+      `${keyword} ทุกรุ่น ทุกความจุ ทั้งแบบใช้งานปกติและมีปัญหา`,
+      `อะไหล่จากการอัปเกรดเครื่อง หรือจากการถอดแยกชิ้นส่วน`,
+      `อะไหล่ยกล็อตจากร้านคอมพิวเตอร์หรือบริษัท`
+    ];
+    pricingFactors = [
+      'รุ่นแบรนด์ ความจุ และสเปกความเร็ว (เช่น บัส RAM, ความเร็วอ่านเขียน SSD)',
+      'สภาพแผงวงจร (ไม่มีรอยไหม้, ชิปหลุด, หรือคราบน้ำ)',
+      'ผลการเทสการทำงาน (เช่น ไม่ติด Bad Sector, อุณหภูมิปกติ)',
+      'กล่องและประกันศูนย์ที่เหลืออยู่ (ถ้ามี)'
+    ];
+    break;
+  case 'electronics':
+    whatWeBuy = [
+      `${keyword} แบรนด์ยอดนิยม สภาพพร้อมใช้งาน`,
+      `สินค้าที่มีตำหนิเล็กน้อย หรือผ่านการซ่อมแซมมาบ้าง`,
+      `สินค้าที่ไม่ได้ใช้งานแล้ว ต้องการเปลี่ยนเป็นเงินสด`
+    ];
+    pricingFactors = [
+      'รุ่น ยี่ห้อ และความนิยมในตลาดปัจจุบัน',
+      'สภาพการทำงานของฟังก์ชันต่างๆ (ระบบเซนเซอร์, มอเตอร์, หรือเลนส์)',
+      'สภาพภายนอก (ริ้วรอย, สีลอก, รอยแตกหัก)',
+      'อุปกรณ์เสริมแท้ที่มากับเครื่อง และกล่องบรรจุภัณฑ์'
+    ];
+    break;
+  case 'gaming':
+    whatWeBuy = [
+      `${keyword} แบรนด์เกมมิ่งเกียร์ชั้นนำ (Razer, Logitech, Corsair ฯลฯ)`,
+      `อุปกรณ์สภาพสวย หรือมีตำหนิการใช้งาน`,
+      `รับซื้อแบบแยกชิ้น หรือเหมาทั้งเซ็ตห้องสตรีมเมอร์`
+    ];
+    pricingFactors = [
+      'รุ่นและฟีเจอร์การใช้งาน (เช่น สวิตช์คีย์บอร์ด, เซนเซอร์เมาส์, ระบบไฟ RGB)',
+      'สภาพภายนอกและการตอบสนองของปุ่มกด/สวิตช์',
+      'อุปกรณ์เสริมภายในกล่อง (สายเชื่อมต่อ, ตัวรับสัญญาณไร้สาย)',
+      'สภาพฟองน้ำ/หนังรองหูฟัง หรือสภาพเบาะ (สำหรับเก้าอี้)'
+    ];
+    break;
+  default:
+    whatWeBuy = [
+      `${keyword} หลากหลายรุ่นและยี่ห้อ`,
+      `สินค้าสภาพใช้งานปกติ สภาพสวย หรือมีตำหนิเล็กน้อย`,
+      `สินค้ายกล็อตจากองค์กร บริษัท หรือหน่วยงาน`
+    ];
+    pricingFactors = [
+      'รุ่น สเปก และปีของสินค้า',
+      'สภาพการใช้งานภายนอก (รอยขีดข่วน, ตำหนิ)',
+      'การทำงานของระบบและฮาร์ดแวร์ภายใน',
+      'อุปกรณ์เสริมที่มาพร้อมกับสินค้า (กล่อง, สายชาร์จ, คู่มือ)'
+    ];
+    break;
+}
+
+const title = isLocal 
+  ? `${keyword} ${province.name} ประเมินราคาฟรีถึงที่ | BuyHub` 
+  : `${keyword} ประเมินราคาฟรี ให้ราคาสูง โอนไว | BuyHub`;
+
+const description = isLocal
+  ? `บริการ ${keyword} ในพื้นที่ ${province.name}${districtsText} ประเมินราคาฟรีถึงที่ ให้ราคาเป็นธรรม แจ้งแนวราคาก่อนตัดสินใจขาย ติดต่อด่วนทาง LINE @buyhub`
+  : `บริการ ${keyword} ให้ราคาสูง ประเมินราคาฟรีจากรูปภาพ แจ้งราคาก่อนตัดสินใจขาย โอนเงินทันทีเมื่อตรวจสภาพสินค้าเสร็จ ติดต่อ LINE @buyhub`;
+
+const h1 = serviceName;
+
+const breadcrumbs = [
+  { name: 'หน้าแรก', href: '/' },
+  { name: 'บริการรับซื้อ', href: '/รับซื้อ' },
+];
+
+if (isLocal) {
+  breadcrumbs.push({ name: keyword, href: `/${keyword.trim().toLowerCase().replace(/[\s\/]+/g, '-')}` });
+  breadcrumbs.push({ name: `${keyword} ${province.name}`, href: path });
+} else {
+  breadcrumbs.push({ name: keyword, href: path });
+}
+
+const intro = [
+  `ถ้าคุณกำลังมองหาบริการ **${keyword}** สิ่งสำคัญที่สุดคือการได้รับราคาประเมินที่ยุติธรรมและรวดเร็ว BuyHub ยินดีให้คำปรึกษาและประเมินราคาฟรีจากรูปภาพหรือข้อมูลเบื้องต้นที่คุณส่งมา`,
+  isLocal 
+    ? `สำหรับลูกค้าในพื้นที่ **${province.name}** เรามีบริการที่ครอบคลุม สะดวก รวดเร็ว พร้อมให้แนวราคาก่อนตัดสินใจขาย${districtsText}` 
+    : `เรามีบริการที่ครอบคลุม ไม่ว่าคุณจะอยู่ที่ไหน ก็สามารถส่งรายละเอียดมาให้เราประเมินก่อนได้`,
+  `ต้องการเช็คราคาด่วน ทัก LINE @buyhub ส่งรูป แจ้งรายละเอียด แล้วรอรับราคาประเมินได้เลย ไม่มีค่าใช้จ่ายแอบแฝง`
+];
+
+const areas = isLocal 
+  ? [`${province.name}${districtsText ? ` (${districtsText.replace(' ครอบคลุมพื้นที่ ', '').replace(' และอำเภออื่นๆ', '')})` : ''}`] 
+  : ['ขอนแก่น', 'นครราชสีมา', 'อุดรธานี', 'อุบลราชธานี', 'และจังหวัดอื่นๆ ในภาคอีสาน'];
+
+const howToSend = [
+  'ถ่ายรูปสินค้าให้ชัดเจน (ด้านหน้า, ด้านหลัง, ตำหนิถ้ามี)',
+  'แจ้งรุ่น, สเปก, หรืออาการเสีย (ถ้ามี)',
+  'แจ้งอุปกรณ์เสริมที่มีในชุด',
+  isLocal ? `แจ้งจุดนัดพบใน ${province.name} หรือวิธีการส่งมอบที่คุณสะดวก` : 'แจ้งจังหวัดหรือพื้นที่ที่คุณสะดวกนัดหมาย'
+];
+
+const internalLinks = [
+  { href: '/รับซื้อ', label: 'บริการรับซื้อทั้งหมด' },
+  { href: '/ติดต่อเรา', label: 'ติดต่อ BuyHub' }
+];
+
+const faqs = [
+  {
+    question: `บริการ ${keyword} ${isLocal ? `ใน ${province.name} ` : ''}ประเมินราคาฟรีไหม?`,
+    answer: 'ประเมินราคาฟรี ไม่มีค่าใช้จ่าย 100% เพียงส่งรูปและรายละเอียดผ่าน LINE @buyhub'
+  },
+  {
+    question: 'ต้องเตรียมอะไรบ้างก่อนส่งมอบสินค้า?',
+    answer: category === 'mobile' || category === 'computer' 
+      ? 'ควรสำรองข้อมูลส่วนตัว (Backup) ออกจากระบบบัญชีต่างๆ เช่น iCloud หรือ Google Account และตรวจสอบอุปกรณ์เสริมให้ครบถ้วนเพื่อให้ได้ราคาประเมินที่ดีที่สุด'
+      : category === 'server'
+      ? 'ควรสำรองข้อมูล ล้างข้อมูลในฮาร์ดดิสก์ (Format) และปลดล็อครหัสผ่านการเข้าถึงระบบต่างๆ พร้อมตรวจสอบอุปกรณ์สายเชื่อมต่อให้ครบถ้วน'
+      : 'ควรทำความสะอาดเบื้องต้น และตรวจสอบอุปกรณ์เสริม สายชาร์จ หรือกล่องให้ครบถ้วน เพื่อให้ได้ราคาประเมินที่ดีที่สุด'
+  }
+];
+
+const imageMap: Record<string, string> = {
+  server: '/images/category/server_cover.webp',
+  computer: '/images/category/computer_cover.webp',
+  mobile: '/images/category/mobile_cover.webp',
+  component: '/images/category/component_cover.webp',
+  electronics: '/images/category/electronics_cover.webp',
+  gaming: '/images/category/gaming_cover.webp',
+  general: '/images/category/electronics_cover.webp'
+};
+
+const customVisual = {
+  imageSrc: imageMap[category] || imageMap['general'],
+  imageAlt: `ตัวอย่างการประเมินราคา ${keyword} ${isLocal ? `ในพื้นที่จังหวัด${province.name}` : ''} ให้ได้ราคาสูงที่สุด`,
+  ogImage: imageMap[category] || imageMap['general']
+};
+---
+
+<ComboPage
+  path={path}
+  title={title}
+  description={description}
+  h1={h1}
+  serviceName={serviceName}
+  breadcrumbs={breadcrumbs}
+  provinceName={comboProvinceName}
+  productName={comboProductName}
+  intro={intro}
+  areas={areas}
+  whatWeBuy={whatWeBuy}
+  pricingFactors={pricingFactors}
+  howToSend={howToSend}
+  internalLinks={internalLinks}
+  faqs={faqs}
+  customVisual={customVisual}
+/>
