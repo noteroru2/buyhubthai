@@ -5,7 +5,8 @@ export const SITE_TAGLINE = 'ศูนย์รับซื้อสินค้
 export const LINE_AT = '@buyhub';
 export const LINE_URL = 'https://line.me/R/ti/p/@buyhub';
 export const FACEBOOK_URL = 'https://www.facebook.com/buyhubthai' as const;
-export const GOOGLE_MAPS_URL = 'https://maps.google.com/?cid=12345678901234567890' as const;
+/** Geo-based map link (replace with Google Business Profile URL when available). */
+export const GOOGLE_MAPS_URL = 'https://www.google.com/maps?q=16.4322,102.8236' as const;
 export const EDITORIAL_REVIEWED_AT = '2026-05-10' as const;
 export const EDITORIAL_REVIEWER = 'คุณอำพล' as const;
 export const EDITORIAL_REVIEWER_TITLE = 'CEO & ผู้เชี่ยวชาญการประเมินราคาสินค้าไอทีประจำ BuyHub' as const;

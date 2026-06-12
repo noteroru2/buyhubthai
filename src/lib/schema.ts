@@ -16,7 +16,7 @@ export function orgJsonLd() {
     url: SITE_URL,
     logo: `${SITE_URL}/favicon.svg`,
     description: SITE_TAGLINE,
-    sameAs: [LINE_URL, FACEBOOK_URL, GOOGLE_MAPS_URL],
+    sameAs: [LINE_URL, FACEBOOK_URL],
     foundingDate: '2018-03-15',
     contactPoint: {
       '@type': 'ContactPoint',
@@ -72,7 +72,8 @@ export function localBusinessJsonLd() {
       '@type': 'AdministrativeArea',
       name: prov
     })),
-    sameAs: [LINE_URL, FACEBOOK_URL, GOOGLE_MAPS_URL],
+    hasMap: GOOGLE_MAPS_URL,
+    sameAs: [LINE_URL, FACEBOOK_URL],
     parentOrganization: { '@id': `${SITE_URL}/#organization` }
   };
 }

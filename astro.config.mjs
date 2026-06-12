@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
+import { isProgrammaticSeoLocalPage } from './src/lib/sitemap-paths.mjs';
 
 const LEGACY_ALIAS_PATHS = [
   '/about',
@@ -19,7 +20,15 @@ function shouldIncludeInSitemap(page) {
     return false;
   }
 
-  return !LEGACY_ALIAS_PATHS.some((legacyPath) => pathname === legacyPath || pathname.startsWith(`${legacyPath}/`));
+  if (LEGACY_ALIAS_PATHS.some((legacyPath) => pathname === legacyPath || pathname.startsWith(`${legacyPath}/`))) {
+    return false;
+  }
+
+  if (isProgrammaticSeoLocalPage(pathname)) {
+    return false;
+  }
+
+  return true;
 }
 
 const disableAstroToolbarOptimizer = () => ({
@@ -63,6 +72,7 @@ const disableAstroToolbarOptimizer = () => ({
 // https://astro.build/config
 export default defineConfig({
   site: 'https://buyhubthai.com',
+  trailingSlash: 'never',
   compressHTML: true,
   devToolbar: {
     enabled: false

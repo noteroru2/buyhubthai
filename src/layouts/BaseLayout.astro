@@ -7,6 +7,7 @@ import DesktopLineFab from '../components/DesktopLineFab.astro';
 import JsonLd from '../components/JsonLd.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { DEFAULT_DESCRIPTION, SITE_NAME, SITE_URL } from '../lib/constants';
+import { buildCanonicalUrl } from '../lib/url';
 import { orgJsonLd, localBusinessJsonLd, websiteJsonLd } from '../lib/schema';
 import type { BreadcrumbItem } from '../lib/types';
 
@@ -32,7 +33,7 @@ const {
   jsonLd = []
 } = Astro.props;
 
-const canonicalUrl = new URL(canonical ?? Astro.url.pathname, SITE_URL).href;
+const canonicalUrl = buildCanonicalUrl(canonical ?? Astro.url.pathname);
 const ogImageAbs = new URL(ogImage, SITE_URL).href;
 const titleAlreadyIncludesSiteName =
   title === SITE_NAME ||
