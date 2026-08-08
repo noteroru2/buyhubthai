@@ -743,10 +743,21 @@ Artifacts: `docs/seoslug-classification.json`, `src/lib/seoSlugPolicy.ts`, `src/
 | | Count |
 |--|------:|
 | Before this batch | 422 |
-| After (local build) | **261** |
+| After (local + production) | **261** |
 | Hubs removed from sitemap | 161 |
 
 Money accidentally noindexed: **0** · Topic pages still noindex (not deleted)
+
+### Git / Production
+
+| Field | Value |
+|-------|--------|
+| Release SHA | `359d509ab3afc934850329adc68d9158a2fef607` |
+| Origin/Main | `359d509` |
+| Production SHA | **NOT ATTESTED** |
+| Production Matches Main | **YES (behavioral)** — sitemap 261, KEEP indexable, MERGE/NOINDEX hubs noindex+canonical |
+
+Production samples verified 2026-08-08: 12 money · 10 KEEP · 10 NOINDEX/MERGE · 5 area — all PASS
 
 ### Internal linking upgrades
 
