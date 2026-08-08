@@ -47,7 +47,15 @@ export const SEO_SLUG_EXCLUDED_SLUGS = new Set([
 ]);
 
 export function keywordToSlug(keyword: string): string {
-  return keyword.trim().toLowerCase().replace(/[\s/]+/g, '-');
+  return keyword
+    .trim()
+    .toLowerCase()
+    // HTML hrefs truncate at bare "&"; also normalize punctuation for stable paths.
+    .replace(/[&]+/g, ' ')
+    .replace(/[\s/]+/g, '-')
+    .replace(/[^a-z0-9\u0E00-\u0E7F-]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
 }
 
 export function isSeoSlugExcluded(keyword: string): boolean {

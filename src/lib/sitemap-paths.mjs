@@ -53,3 +53,22 @@ export function isProgrammaticSeoLocalPage(pathname) {
 
   return !INDEXABLE_PROVINCE_PATH_PREFIXES.some((prefix) => clean.startsWith(prefix));
 }
+
+/**
+ * Nested sell support routes under /รับซื้อ/{product}/... (topic + area-topic).
+ * These are near-duplicate support pages — noindex and exclude from sitemap.
+ * @param {string} pathname
+ */
+export function isSellSupportTopicPage(pathname) {
+  const clean = decodePathname(pathname).replace(/\/$/, '') || '/';
+  if (!clean.startsWith('/รับซื้อ/')) return false;
+
+  const parts = clean.split('/').filter(Boolean);
+  // รับซื้อ / product / topic  OR  รับซื้อ / product / province / topic
+  return parts.length === 3 || parts.length === 4;
+}
+
+/** @param {string} pathname */
+export function shouldExcludeFromSitemap(pathname) {
+  return isProgrammaticSeoLocalPage(pathname) || isSellSupportTopicPage(pathname);
+}

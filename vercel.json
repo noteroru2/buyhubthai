@@ -5,6 +5,13 @@
       "source": "/:path+/",
       "destination": "/:path+",
       "permanent": true
-    }
+    },
+    { "source": "/about", "destination": "/เกี่ยวกับเรา", "permanent": true },
+    { "source": "/contact", "destination": "/ติดต่อเรา", "permanent": true },
+    { "source": "/how-it-works", "destination": "/ขั้นตอนการขาย", "permanent": true },
+    { "source": "/blog", "destination": "/บทความ", "permanent": true },
+    { "source": "/blog/:slug", "destination": "/บทความ/:slug", "permanent": true },
+    { "source": "/sell", "destination": "/รับซื้อ", "permanent": true },
+    { "source": "/service-area", "destination": "/พื้นที่ให้บริการ", "permanent": true }
   ]
 }

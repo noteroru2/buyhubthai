@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
-import { isProgrammaticSeoLocalPage } from './src/lib/sitemap-paths.mjs';
+import { shouldExcludeFromSitemap } from './src/lib/sitemap-paths.mjs';
 
 const LEGACY_ALIAS_PATHS = [
   '/about',
@@ -24,7 +24,7 @@ function shouldIncludeInSitemap(page) {
     return false;
   }
 
-  if (isProgrammaticSeoLocalPage(pathname)) {
+  if (shouldExcludeFromSitemap(pathname)) {
     return false;
   }
 

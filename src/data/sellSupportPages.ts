@@ -135,10 +135,10 @@ const ARTICLE_LINKS_BY_SELL_ID: Record<string, LinkItem[]> = {
     { href: '/บทความ/ขาย-playstation-มือสอง-ได้ราคา-เท่าไหร่', label: 'ขาย PlayStation มือสองได้ราคาเท่าไหร่' }
   ],
   jbl: [
-    { href: '/บทความ/ขาย-jbl-มือสอง-ได้ราคา-เท่าไหร่', label: 'ขายลำโพง JBL มือสองได้ราคาเท่าไหร่' }
+    { href: '/รับซื้อ-jbl', label: 'หน้ารับซื้อลำโพง JBL' }
   ],
   marshall: [
-    { href: '/บทความ/ขาย-marshall-มือสอง-ได้ราคา-เท่าไหร่', label: 'ขายลำโพง Marshall มือสองได้ราคาเท่าไหร่' }
+    { href: '/รับซื้อ-marshall', label: 'หน้ารับซื้อลำโพง Marshall' }
   ],
   ps5: [
     { href: '/บทความ/ขาย-playstation-มือสอง-ได้ราคา-เท่าไหร่', label: 'ขาย PlayStation มือสองได้ราคาเท่าไหร่' }
