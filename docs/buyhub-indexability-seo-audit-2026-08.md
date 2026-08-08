@@ -879,14 +879,17 @@ Delta ≈ 10 soft-cannibal hubs removed from sitemap.
 
 ## BATCH — GSC RANKING INTELLIGENCE (2026-08-08)
 
-**Verdict: INSUFFICIENT_GSC_DATA**
+**Verdict: PASS WITH WARNING** (owner exports ingested)
 
-- Repo search: no Performance CSV/JSON/XLSX; prior audits already marked OWNER DATA REQUIRED
-- Tooling added: `scripts/analyze-gsc-query-page.mjs`
-- Owner guide: `docs/gsc-owner-export-guide.md`
-- Stub reports: `docs/gsc-ranking-opportunities.{json,md}`, `docs/gsc-primary-query-registry.json`
-- Site changes: **NONE** (implementation gate CLOSED)
-- Drop folder: `docs/gsc/`
+- Sources: `docs/gsc/*Performance*.xlsx` + Coverage / Coverage-Valid (3 เดือนล่าสุด)
+- Normalized: `queries-3m.csv`, `pages-3m.csv` via `scripts/export-gsc-xlsx-to-csv.py`
+- Analyzer: `scripts/analyze-gsc-query-page.mjs` (Thai column aliases)
+- Reports: `docs/gsc-ranking-opportunities.{json,md}`, `docs/gsc-primary-query-registry.json`
+- Page signals: **6 clicks / 244 impressions / 27 pages**; queries visible: **3**
+- Money NEAR WIN: อุปกรณ์เกมมิ่ง, iPad, โน๊ตบุ๊ค
+- Province PROVEN: สุรินทร์, อุบลราชธานี
+- Query×Page: **NO** → GSC P0/P1 cannibalization **not validated**
+- Site changes: **NONE** (implementation gate PARTIAL — Tier-1 plan only)
 
 ### OWNER ACTION REQUIRED
 

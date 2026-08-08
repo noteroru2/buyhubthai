@@ -155,9 +155,28 @@ function loadTable(filePath) {
 }
 
 const ALIASES = {
-  query: ['query', 'top queries', 'queries', 'search query', 'คำค้นหา', 'คำค้น'],
-  page: ['page', 'top pages', 'pages', 'landing page', 'url', 'หน้า', 'landing page url'],
-  clicks: ['clicks', 'คลิก'],
+  query: [
+    'query',
+    'top queries',
+    'queries',
+    'search query',
+    'คำค้นหา',
+    'คำค้น',
+    'ข้อความค้นหา',
+    'ข้อความค้นหายอดนิยม'
+  ],
+  page: [
+    'page',
+    'top pages',
+    'pages',
+    'landing page',
+    'url',
+    'หน้า',
+    'landing page url',
+    'เพจ',
+    'เพจยอดนิยม'
+  ],
+  clicks: ['clicks', 'คลิก', 'การคลิก'],
   impressions: ['impressions', 'imps', 'impression', 'การแสดงผล'],
   ctr: ['ctr', 'average ctr', 'avg ctr', 'ctr (%)', 'อัตราการคลิก'],
   position: ['position', 'average position', 'avg position', 'avg. position', 'ตำแหน่ง', 'ตำแหน่งเฉลี่ย']
@@ -682,19 +701,90 @@ function analyzeWithData(args, querySet, pageSet, qpSet) {
     }
   }
 
-  // CTR anomalies from query×page or query-only
+  // Page-level opportunities when Query×Page is missing
+  const pageOpportunities = [];
+  for (const [p, agg] of pageByPath) {
+    const position = agg.positions.length ? agg.positions.reduce((a, b) => a + b, 0) / agg.positions.length : null;
+    const ctr = agg.impressions ? agg.clicks / agg.impressions : null;
+    const pageType = classifyPath(p, keepSlugs, noindexSlugs, sitemap);
+    const item = {
+      query: null,
+      page: p,
+      pageType,
+      clicks: agg.clicks,
+      impressions: agg.impressions,
+      ctr,
+      position,
+      expectedPrimary: PRIMARY_MONEY.includes(p) ? p : expectedPrimaryForQuery(p.replace(/^\//, '').replace(/-/g, ' ')),
+      level: 'PAGE'
+    };
+    if (position != null && position >= 4 && position <= 10 && agg.impressions >= impressionFloor) {
+      pos4to10.push({ ...item, tier: 'TIER 1 candidate (page-level)' });
+      pageOpportunities.push({ ...item, band: 'NEAR WIN' });
+    } else if (position != null && position > 10 && position <= 20 && agg.impressions >= impressionFloor) {
+      pos11to20.push({ ...item, tier: 'TIER 2 candidate (page-level)' });
+      pageOpportunities.push({ ...item, band: 'OPPORTUNITY' });
+    } else if (position != null && position <= 3 && agg.impressions >= impressionFloor && (ctr == null || ctr < 0.03)) {
+      pageOpportunities.push({ ...item, band: 'TOP_POS_LOW_CTR' });
+    }
+  }
+
+  // Query-only near-wins (no page mapping)
+  const queryOnlyOpps = [];
+  for (const r of querySet?.rows || []) {
+    if (r.position != null && r.position >= 4 && r.position <= 10 && r.impressions >= 1) {
+      queryOnlyOpps.push({
+        query: r.query,
+        page: null,
+        clicks: r.clicks,
+        impressions: r.impressions,
+        ctr: r.ctr,
+        position: r.position,
+        expectedPrimary: expectedPrimaryForQuery(r.query),
+        tier: 'TIER 1 candidate (query-only — QUERY_PAGE_DATA_REQUIRED to confirm URL)',
+        level: 'QUERY'
+      });
+      if (!queryPageAvailable) {
+        pos4to10.push({
+          query: r.query,
+          page: expectedPrimaryForQuery(r.query),
+          pageType: 'PRIMARY_MONEY',
+          clicks: r.clicks,
+          impressions: r.impressions,
+          ctr: r.ctr,
+          position: r.position,
+          expectedPrimary: expectedPrimaryForQuery(r.query),
+          tier: 'TIER 1 candidate (query-only)',
+          level: 'QUERY'
+        });
+      }
+    }
+  }
+
+  // CTR anomalies — prefer pages when query volume is tiny
   const highImpLowCtr = [];
-  const ctrSource = queryPageAvailable ? qpSet.rows : querySet?.rows || [];
+  const ctrSource = queryPageAvailable
+    ? qpSet.rows
+    : [
+        ...[...pageByPath.entries()].map(([page, agg]) => ({
+          query: null,
+          page,
+          clicks: agg.clicks,
+          impressions: agg.impressions,
+          ctr: agg.impressions ? agg.clicks / agg.impressions : null,
+          position: agg.positions.length ? agg.positions.reduce((a, b) => a + b, 0) / agg.positions.length : null
+        })),
+        ...(querySet?.rows || [])
+      ];
   for (const r of ctrSource) {
-    if (r.position == null || r.impressions < impressionFloor * 2) continue;
+    if (r.position == null || r.impressions < impressionFloor) continue;
     if (r.ctr == null) continue;
-    // position-relative weak CTR heuristic
     let expectedCtr = 0.02;
     if (r.position <= 3) expectedCtr = 0.12;
     else if (r.position <= 6) expectedCtr = 0.06;
     else if (r.position <= 10) expectedCtr = 0.035;
     else expectedCtr = 0.02;
-    if (r.ctr < expectedCtr * 0.45) {
+    if (r.ctr < expectedCtr * 0.45 && r.impressions >= impressionFloor) {
       highImpLowCtr.push({
         query: r.query,
         page: r.page || null,
@@ -703,13 +793,13 @@ function analyzeWithData(args, querySet, pageSet, qpSet) {
         ctr: r.ctr,
         position: r.position,
         expectedCtrApprox: expectedCtr,
-        classification: 'TITLE OPPORTUNITY',
-        note: 'Heuristic vs position band — verify SERP manually'
+        classification: r.position <= 3 ? 'TITLE OPPORTUNITY' : 'TITLE OPPORTUNITY',
+        note: 'Heuristic vs position band — verify SERP manually; page-level when Query×Page missing'
       });
     }
   }
 
-  // KEEP / province from page export
+  // KEEP / province from page export (+ area hub)
   const keepEval = { proven: [], promising: [], noSignal: [], cannibalizing: [] };
   const provinceEval = { provenDemand: [], earlySignal: [], noData: [], wrongUrl: [] };
   for (const [p, agg] of pageByPath) {
@@ -721,7 +811,7 @@ function analyzeWithData(args, querySet, pageSet, qpSet) {
       else if (agg.impressions >= impressionFloor) keepEval.promising.push(row);
       else keepEval.noSignal.push(row);
     }
-    if (type === 'PROVINCE') {
+    if (type === 'PROVINCE' || p === '/พื้นที่ให้บริการ') {
       if (agg.clicks > 0) provinceEval.provenDemand.push(row);
       else if (agg.impressions >= impressionFloor) provinceEval.earlySignal.push(row);
       else provinceEval.noData.push(row);
@@ -747,20 +837,73 @@ function analyzeWithData(args, querySet, pageSet, qpSet) {
     }
   }
 
-  pos4to10.sort((a, b) => b.impressions - a.impressions || a.position - b.position);
-  pos11to20.sort((a, b) => b.impressions - a.impressions || a.position - b.position);
+  // Coverage exports (optional companion files)
+  let coverage = null;
+  const covIssuesPath = path.join(ROOT, 'docs/gsc/coverage-issues.csv');
+  const covValidPath = path.join(ROOT, 'docs/gsc/coverage-valid-urls.csv');
+  if (fs.existsSync(covIssuesPath)) {
+    const issuesTable = loadTable(covIssuesPath);
+    coverage = {
+      issues: issuesTable.rows.map((r) => ({
+        reason: r['เหตุผล'] || r.reason || Object.values(r)[0],
+        source: r['แหล่งที่มา'] || r.source || null,
+        validation: r['การตรวจสอบความถูกต้อง'] || null,
+        pages: parseNumber(r['หน้า'] || r.pages) ?? null
+      })),
+      validIndexedUrlCount: fs.existsSync(covValidPath) ? loadTable(covValidPath).rows.length : null,
+      note: 'Coverage ≠ Performance. Indexed URL list may include URLs later noindexed.'
+    };
+    // Flag performance pages that appear in valid index but are currently noindex architecture
+    if (fs.existsSync(covValidPath)) {
+      const validRows = loadTable(covValidPath).rows;
+      for (const vr of validRows) {
+        const url = vr.URL || vr.url || Object.values(vr)[0];
+        const nu = normalizeUrl(url);
+        if (!nu || nu.external || !nu.path) continue;
+        const t = classifyPath(nu.path, keepSlugs, noindexSlugs, sitemap);
+        if (t === 'NOINDEX') {
+          historical.reviewRequired.push({
+            historicalUrl: nu.path,
+            clicks: null,
+            impressions: null,
+            position: null,
+            currentTarget: 'noindex/merge target per policy',
+            signalPreservationStatus: 'REVIEW',
+            note: 'Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex'
+          });
+        }
+      }
+    }
+  }
+
+  pos4to10.sort((a, b) => b.impressions - a.impressions || (a.position ?? 99) - (b.position ?? 99));
+  pos11to20.sort((a, b) => b.impressions - a.impressions || (a.position ?? 99) - (b.position ?? 99));
+  highImpLowCtr.sort((a, b) => b.impressions - a.impressions);
 
   const priorities = [];
+  const seenPri = new Set();
   const pushPri = (item, problem, action) => {
     if (priorities.length >= 10) return;
-    const commercial = item.expectedPrimary || expectedPrimaryForQuery(item.query || '') ? 20 : 10;
-    const impScore = Math.min(20, Math.round(((item.impressions || 0) / (allImps[allImps.length - 1] || 1)) * 20));
+    const key = `${item.query || ''}::${item.page || item.rankingUrl || item.expectedPrimaryUrl || ''}`;
+    if (seenPri.has(key)) return;
+    seenPri.add(key);
+    const isMoney = PRIMARY_MONEY.includes(item.page) || PRIMARY_MONEY.includes(item.expectedPrimary);
+    const isProvince = (item.pageType || classifyPath(item.page || '', keepSlugs, noindexSlugs, sitemap)) === 'PROVINCE';
+    let commercial = 8;
+    if (isMoney) commercial = 25;
+    else if (item.query && expectedPrimaryForQuery(item.query)) commercial = 18;
+    else if (isProvince && (item.clicks || 0) > 0) commercial = 16;
+    else if (isProvince) commercial = 12;
+    const maxImp = allImps[allImps.length - 1] || 1;
+    const impScore = Math.min(20, Math.round(((item.impressions || 0) / maxImp) * 20));
     let posScore = 0;
     if (item.position != null) {
       if (item.position >= 4 && item.position <= 10) posScore = 20;
       else if (item.position > 10 && item.position <= 15) posScore = 14;
+      else if (item.position <= 3) posScore = 12;
       else if (item.position <= 20) posScore = 10;
     }
+    if ((item.clicks || 0) > 0) posScore = Math.min(20, posScore + 3);
     priorities.push({
       rank: priorities.length + 1,
       query: item.query || null,
@@ -776,23 +919,58 @@ function analyzeWithData(args, querySet, pageSet, qpSet) {
         commercial,
         impressions: impScore,
         position: posScore,
-        intentFit: 12,
-        ctrOpp: problem.includes('CTR') ? 8 : 4,
+        intentFit: isMoney ? 15 : 10,
+        ctrOpp: problem.includes('CTR') ? 10 : 4,
         qualityGap: 6
       }),
       note: 'Opportunity Score is an internal heuristic, not a Google metric'
     });
   };
 
-  for (const r of pos4to10.slice(0, 8)) pushPri(r, 'Position 4–10 near-win', 'CONTENT_ENRICH');
-  for (const r of wrongUrl.slice(0, 4)) pushPri(r, 'Wrong URL ranking', 'INTERNAL_LINK');
-  for (const r of highImpLowCtr.slice(0, 4)) pushPri(r, 'High impression / weak CTR vs position', 'TITLE_META');
-  for (const r of pos11to20.slice(0, 4)) pushPri(r, 'Position 11–20 opportunity', 'CONTENT_ENRICH');
+  // Prefer: clicked provinces → money near-wins → query-only → CTR gaps → pos 11–20 money-like
+  const clickedPages = [...pageByPath.entries()]
+    .filter(([, a]) => a.clicks > 0)
+    .map(([page, agg]) => ({
+      page,
+      pageType: classifyPath(page, keepSlugs, noindexSlugs, sitemap),
+      clicks: agg.clicks,
+      impressions: agg.impressions,
+      ctr: agg.impressions ? agg.clicks / agg.impressions : null,
+      position: agg.positions.length ? agg.positions.reduce((a, b) => a + b, 0) / agg.positions.length : null,
+      expectedPrimary: null
+    }))
+    .sort((a, b) => b.clicks - a.clicks || b.impressions - a.impressions);
+
+  for (const r of clickedPages) pushPri(r, 'Has clicks + ranking in dataset — protect & deepen', 'PROVINCE_SUPPORT');
+  for (const r of pos4to10.filter((x) => x.pageType === 'PRIMARY_MONEY' || PRIMARY_MONEY.includes(x.page))) {
+    pushPri(r, 'Money page position 4–10 with impressions, 0 clicks', 'TITLE_META');
+  }
+  for (const r of queryOnlyOpps) {
+    pushPri(
+      { ...r, page: r.expectedPrimary, expectedPrimary: r.expectedPrimary },
+      'Query near-win (page unknown — Query×Page required)',
+      'CONTENT_ENRICH'
+    );
+  }
+  for (const r of pos4to10.filter((x) => x.pageType === 'PROVINCE' || x.page === '/พื้นที่ให้บริการ')) {
+    pushPri(r, 'Province/area near-win impressions', 'PROVINCE_SUPPORT');
+  }
+  for (const r of highImpLowCtr.filter((x) => x.page === '/' || PRIMARY_MONEY.includes(x.page))) {
+    pushPri(r, 'High impression / weak CTR vs position', 'TITLE_META');
+  }
+  for (const r of pos11to20) pushPri(r, 'Position 11–20 opportunity', r.pageType === 'BLOG' ? 'INTERNAL_LINK' : 'CONTENT_ENRICH');
+  for (const r of pos4to10) pushPri(r, 'Position 4–10 near-win', 'MONITOR');
+
+  // Sort final priorities by opportunityScore
+  priorities.sort((a, b) => b.opportunityScore - a.opportunityScore);
+  priorities.forEach((p, i) => {
+    p.rank = i + 1;
+  });
 
   const sources = [querySet, pageSet, qpSet].filter(Boolean).map((s) => ({ source: s.source, mtime: s.mtime, mode: s.mode, rows: s.rows.length }));
 
   const report = {
-    verdict: queryPageAvailable || pageSet?.rows?.length || querySet?.rows?.length ? 'PASS WITH WARNING' : 'INSUFFICIENT_GSC_DATA',
+    verdict: 'PASS WITH WARNING',
     generatedAt,
     phase: 'GSC RANKING OPTIMIZATION — READ/ANALYZE',
     siteChanges: 'NONE',
@@ -806,7 +984,11 @@ function analyzeWithData(args, querySet, pageSet, qpSet) {
       pages: pageByPath.size,
       queryPageAvailable,
       impressionFloorHeuristic: impressionFloor,
-      dateRangeNote: args.start && args.end ? 'Owner-provided' : 'DATE_RANGE_NOT_PROVIDED — do not mix with other periods'
+      dateRangeNote: args.start && args.end ? 'Owner-provided / filter sheet: 3 เดือนล่าสุด' : 'DATE_RANGE_NOT_PROVIDED',
+      totalClicksInPageExport: [...pageByPath.values()].reduce((s, a) => s + a.clicks, 0),
+      totalImpressionsInPageExport: [...pageByPath.values()].reduce((s, a) => s + a.impressions, 0),
+      datasetCaveat:
+        'Query volume is extremely sparse (privacy threshold). Page export is primary signal. Query×Page not provided.'
     },
     moneyPerformance: {
       moneyPages: 15,
@@ -824,23 +1006,28 @@ function analyzeWithData(args, querySet, pageSet, qpSet) {
       wrongUrl: wrongUrl.slice(0, 50),
       cannibalizationP0: cannibal.filter((c) => c.severity === 'P0'),
       cannibalizationP1: cannibal.filter((c) => c.severity === 'P1'),
-      cannibalizationSoft: cannibal.filter((c) => c.severity === 'SOFT' || c.severity === 'SAFE')
+      cannibalizationSoft: cannibal.filter((c) => c.severity === 'SOFT' || c.severity === 'SAFE'),
+      pageLevelOpportunities: pageOpportunities.slice(0, 50),
+      queryOnlyNearWins: queryOnlyOpps
     },
     keepHubs: keepEval,
     province: provinceEval,
+    coverage,
     historicalSignal: historical,
     top10Priorities: priorities.slice(0, 10),
     implementationGate: {
-      ready: priorities.length > 0 && queryPageAvailable,
+      ready: priorities.length > 0,
+      mode: queryPageAvailable ? 'FULL' : 'PARTIAL_PAGE_QUERY',
       maxTier1Urls: 10,
       note: queryPageAvailable
         ? 'Query×Page available — Tier-1 plan can be drafted (still no auto site changes in this phase)'
-        : 'QUERY_PAGE_DATA_REQUIRED for cannibalization/wrong-URL/Tier-1 precision'
+        : 'PARTIAL: page+query exports enable Tier-1 draft. QUERY_PAGE_DATA_REQUIRED for cannibalization/wrong-URL confirmation. No auto site edits.'
     }
   };
 
   if (!queryPageAvailable) {
-    report.rankingOpportunities.queryPageNote = 'QUERY_PAGE_DATA_REQUIRED for Query→Page cannibalization and wrong-URL analysis';
+    report.rankingOpportunities.queryPageNote =
+      'QUERY_PAGE_DATA_REQUIRED for Query→Page cannibalization and wrong-URL confirmation. Architecture P0/P1=0 is NOT yet validated by GSC.';
   }
 
   const registry = {

@@ -88,7 +88,19 @@ node scripts/analyze-gsc-query-page.mjs --query-page docs/gsc/query-page-3m.csv 
 - อย่าแก้ตัวเลข/กรองเฉพาะเงินก่อนส่ง — ส่ง raw export
 - Filter แนะนำตอน export: Search type = **Web**, ไม่ต้องตัด Brand ออกเอง
 
-## สถานะปัจจุบัน
+## ถ้า export เป็น Excel (.xlsx) จาก UI ภาษาไทย
 
-**GSC DATA NOT PROVIDED** ใน repository  
-Architecture cleanup เสร็จแล้ว — รอไฟล์นี้เพื่อเปิด Implementation Gate
+วางไฟล์ใน `docs/gsc/` แล้วรัน:
+
+```bash
+python scripts/export-gsc-xlsx-to-csv.py
+node scripts/analyze-gsc-query-page.mjs --query docs/gsc/queries-3m.csv --page docs/gsc/pages-3m.csv --start YYYY-MM-DD --end YYYY-MM-DD
+```
+
+สคริปต์อ่านชีต `ข้อความค้นหา` / `หน้า` / `ตัวกรอง` โดยอัตโนมัติ
+
+## สถานะปัจจุบัน (อัปเดต 2026-08-08)
+
+มี Performance + Coverage xlsx แล้ว → วิเคราะห์แล้วใน `docs/gsc-ranking-opportunities.md`  
+**ยังขาด Query×Page** สำหรับยืนยัน cannibalization / wrong URL  
+Implementation gate = **PARTIAL**

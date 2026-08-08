@@ -1,255 +1,204 @@
 {
-  "generatedAt": "2026-08-08T04:31:06.214Z",
-  "status": "INSUFFICIENT_GSC_DATA",
-  "note": "Primary URL registry from architecture only. GSC metrics are null until owner export is provided.",
+  "generatedAt": "2026-08-08T05:50:00.000Z",
+  "status": "PARTIAL_PAGE_QUERY",
   "queryPageAvailable": false,
+  "dateRange": { "start": "2026-05-09", "end": "2026-08-08", "label": "3 เดือนล่าสุด" },
+  "note": "Metrics from Pages/Queries export only. currentRankingUrl for queries without Query×Page is expected primary, not confirmed landing URL.",
   "intents": [
     {
       "intent": "รับซื้อ iPhone",
-      "queryExamples": [
-        "รับซื้อ iphone",
-        "รับซื้อไอโฟน",
-        "ขาย iphone"
-      ],
+      "queryExamples": ["รับซื้อ iphone", "รับซื้อไอโฟน"],
       "primaryUrl": "/รับซื้อ-iphone",
       "supportingUrls": [],
       "currentRankingUrl": null,
-      "clicks": null,
-      "impressions": null,
+      "clicks": 0,
+      "impressions": 0,
       "position": null,
       "ctr": null,
-      "status": "AWAITING_GSC",
-      "recommendedAction": "OWNER_DATA"
+      "status": "NO_SIGNAL_IN_EXPORT",
+      "recommendedAction": "MONITOR"
     },
     {
       "intent": "รับซื้อ iPad",
-      "queryExamples": [
-        "รับซื้อ ipad",
-        "รับซื้อไอแพด",
-        "ขาย ipad"
-      ],
+      "queryExamples": ["รับซื้อ ipad", "ประเมินราคาไอแพด"],
       "primaryUrl": "/รับซื้อ-ipad",
       "supportingUrls": [],
-      "currentRankingUrl": null,
-      "clicks": null,
-      "impressions": null,
-      "position": null,
-      "ctr": null,
-      "status": "AWAITING_GSC",
-      "recommendedAction": "OWNER_DATA"
+      "currentRankingUrl": "/รับซื้อ-ipad",
+      "clicks": 0,
+      "impressions": 12,
+      "position": 10,
+      "ctr": 0,
+      "status": "NEAR_WIN_PAGE",
+      "recommendedAction": "TITLE_META",
+      "relatedQueryInExport": { "query": "ประเมินราคาไอแพด", "impressions": 1, "position": 47 }
     },
     {
       "intent": "รับซื้อ MacBook",
-      "queryExamples": [
-        "รับซื้อ macbook",
-        "รับซื้อแมคบุ๊ค",
-        "ขาย macbook"
-      ],
+      "queryExamples": ["รับซื้อ macbook"],
       "primaryUrl": "/รับซื้อ-macbook",
-      "supportingUrls": [],
+      "supportingUrls": ["/รับซื้อ-macbook-หนองคาย"],
       "currentRankingUrl": null,
-      "clicks": null,
-      "impressions": null,
+      "clicks": 0,
+      "impressions": 0,
       "position": null,
       "ctr": null,
-      "status": "AWAITING_GSC",
-      "recommendedAction": "OWNER_DATA"
+      "status": "NO_SIGNAL_IN_EXPORT",
+      "recommendedAction": "MONITOR",
+      "note": "Province URL /รับซื้อ-macbook-หนองคาย had 1 impression in pages export"
     },
     {
       "intent": "รับซื้อโน๊ตบุ๊ค",
-      "queryExamples": [
-        "รับซื้อโน๊ตบุ๊ค",
-        "รับซื้อ notebook",
-        "ขายโน๊ตบุ๊ค"
-      ],
+      "queryExamples": ["รับซื้อโน๊ตบุ๊ค"],
       "primaryUrl": "/รับซื้อโน๊ตบุ๊คมือสอง",
-      "supportingUrls": [],
-      "currentRankingUrl": null,
-      "clicks": null,
-      "impressions": null,
-      "position": null,
-      "ctr": null,
-      "status": "AWAITING_GSC",
-      "recommendedAction": "OWNER_DATA"
+      "supportingUrls": ["/รับซื้อโน๊ตบุ๊ค-หนองคาย"],
+      "currentRankingUrl": "/รับซื้อโน๊ตบุ๊คมือสอง",
+      "clicks": 0,
+      "impressions": 6,
+      "position": 9.33,
+      "ctr": 0,
+      "status": "NEAR_WIN_PAGE",
+      "recommendedAction": "TITLE_META"
     },
     {
       "intent": "รับซื้อคอมพิวเตอร์",
-      "queryExamples": [
-        "รับซื้อคอมพิวเตอร์",
-        "รับซื้อคอม",
-        "ขายคอมมือสอง"
-      ],
+      "queryExamples": ["รับซื้อคอมพิวเตอร์ ใกล้ฉัน", "รับซื้อคอมพิวเตอร์"],
       "primaryUrl": "/รับซื้อคอมพิวเตอร์มือสอง",
       "supportingUrls": [],
       "currentRankingUrl": null,
-      "clicks": null,
-      "impressions": null,
+      "clicks": 0,
+      "impressions": 0,
       "position": null,
       "ctr": null,
-      "status": "AWAITING_GSC",
-      "recommendedAction": "OWNER_DATA"
+      "status": "QUERY_NEAR_WIN_UNCONFIRMED_URL",
+      "recommendedAction": "CONTENT_ENRICH",
+      "relatedQueryInExport": { "query": "รับซื้อคอมพิวเตอร์ ใกล้ฉัน", "impressions": 1, "position": 4 }
     },
     {
       "intent": "รับซื้อคอมเกมมิ่ง",
-      "queryExamples": [
-        "รับซื้อคอมเกมมิ่ง",
-        "รับซื้อ gaming pc"
-      ],
       "primaryUrl": "/รับซื้อคอมเกมมิ่ง",
       "supportingUrls": [],
       "currentRankingUrl": null,
-      "clicks": null,
-      "impressions": null,
+      "clicks": 0,
+      "impressions": 0,
       "position": null,
-      "ctr": null,
-      "status": "AWAITING_GSC",
-      "recommendedAction": "OWNER_DATA"
+      "status": "NO_SIGNAL_IN_EXPORT",
+      "recommendedAction": "MONITOR"
     },
     {
       "intent": "รับซื้อมือถือ",
-      "queryExamples": [
-        "รับซื้อมือถือ",
-        "รับซื้อโทรศัพท์",
-        "ขายมือถือ"
-      ],
       "primaryUrl": "/รับซื้อมือถือ",
       "supportingUrls": [],
       "currentRankingUrl": null,
-      "clicks": null,
-      "impressions": null,
+      "clicks": 0,
+      "impressions": 0,
       "position": null,
-      "ctr": null,
-      "status": "AWAITING_GSC",
-      "recommendedAction": "OWNER_DATA"
+      "status": "NO_SIGNAL_IN_EXPORT",
+      "recommendedAction": "MONITOR"
     },
     {
       "intent": "รับซื้อแท็บเล็ต",
-      "queryExamples": [
-        "รับซื้อแท็บเล็ต",
-        "รับซื้อ tablet"
-      ],
       "primaryUrl": "/รับซื้อแท็บเล็ต",
       "supportingUrls": [],
       "currentRankingUrl": null,
-      "clicks": null,
-      "impressions": null,
+      "clicks": 0,
+      "impressions": 0,
       "position": null,
-      "ctr": null,
-      "status": "AWAITING_GSC",
-      "recommendedAction": "OWNER_DATA"
+      "status": "NO_SIGNAL_IN_EXPORT",
+      "recommendedAction": "MONITOR"
     },
     {
       "intent": "รับซื้อกล้อง",
-      "queryExamples": [
-        "รับซื้อกล้อง",
-        "ขายกล้อง"
-      ],
       "primaryUrl": "/รับซื้อกล้อง",
       "supportingUrls": [],
       "currentRankingUrl": null,
-      "clicks": null,
-      "impressions": null,
+      "clicks": 0,
+      "impressions": 0,
       "position": null,
-      "ctr": null,
-      "status": "AWAITING_GSC",
-      "recommendedAction": "OWNER_DATA"
+      "status": "NO_SIGNAL_IN_EXPORT",
+      "recommendedAction": "MONITOR"
     },
     {
       "intent": "รับซื้อการ์ดจอ",
-      "queryExamples": [
-        "รับซื้อการ์ดจอ",
-        "รับซื้อ gpu",
-        "ขายการ์ดจอ"
-      ],
       "primaryUrl": "/รับซื้อการ์ดจอ",
-      "supportingUrls": [],
-      "currentRankingUrl": null,
-      "clicks": null,
-      "impressions": null,
-      "position": null,
-      "ctr": null,
-      "status": "AWAITING_GSC",
-      "recommendedAction": "OWNER_DATA"
+      "supportingUrls": ["/บทความ/ขาย-การ์ดจอ-มือสอง-ต้องระวังอะไร"],
+      "currentRankingUrl": "/บทความ/ขาย-การ์ดจอ-มือสอง-ต้องระวังอะไร",
+      "clicks": 0,
+      "impressions": 3,
+      "position": 5.33,
+      "status": "BLOG_HAS_SIGNAL_MONEY_SILENT",
+      "recommendedAction": "INTERNAL_LINK",
+      "note": "Blog has impressions; money page absent from export — possible wrong-URL risk; Query×Page required"
     },
     {
       "intent": "รับซื้อจอคอม",
-      "queryExamples": [
-        "รับซื้อจอคอม",
-        "รับซื้อ monitor"
-      ],
       "primaryUrl": "/รับซื้อจอคอม",
       "supportingUrls": [],
       "currentRankingUrl": null,
-      "clicks": null,
-      "impressions": null,
+      "clicks": 0,
+      "impressions": 0,
       "position": null,
-      "ctr": null,
-      "status": "AWAITING_GSC",
-      "recommendedAction": "OWNER_DATA"
+      "status": "NO_SIGNAL_IN_EXPORT",
+      "recommendedAction": "MONITOR"
     },
     {
       "intent": "รับซื้อคอมบริษัท",
-      "queryExamples": [
-        "รับซื้อคอมบริษัท",
-        "รับซื้อคอมสำนักงาน"
-      ],
       "primaryUrl": "/รับซื้อคอมบริษัท",
       "supportingUrls": [],
       "currentRankingUrl": null,
-      "clicks": null,
-      "impressions": null,
+      "clicks": 0,
+      "impressions": 0,
       "position": null,
-      "ctr": null,
-      "status": "AWAITING_GSC",
-      "recommendedAction": "OWNER_DATA"
+      "status": "NO_SIGNAL_IN_EXPORT",
+      "recommendedAction": "MONITOR"
     },
     {
-      "intent": "รับซื้อ PS5",
-      "queryExamples": [
-        "รับซื้อ ps5",
-        "ขาย ps5"
-      ],
+      "intent": "รับซื้อ PS5 / เครื่องเกม",
+      "queryExamples": ["รับซื้อ ps5", "playstation"],
       "primaryUrl": "/รับซื้อ-ps5",
-      "supportingUrls": [],
-      "currentRankingUrl": null,
-      "clicks": null,
-      "impressions": null,
-      "position": null,
-      "ctr": null,
-      "status": "AWAITING_GSC",
-      "recommendedAction": "OWNER_DATA"
-    },
-    {
-      "intent": "รับซื้อเครื่องเกม",
-      "queryExamples": [
-        "รับซื้อเครื่องเกม",
-        "รับซื้อ nintendo"
-      ],
-      "primaryUrl": "/รับซื้อเครื่องเกม",
-      "supportingUrls": [],
-      "currentRankingUrl": null,
-      "clicks": null,
-      "impressions": null,
-      "position": null,
-      "ctr": null,
-      "status": "AWAITING_GSC",
-      "recommendedAction": "OWNER_DATA"
+      "supportingUrls": ["/รับซื้อ-playstation", "/รับซื้อเครื่องเกม", "/บทความ/ขาย-playstation-มือสอง-ได้ราคา-เท่าไหร่"],
+      "currentRankingUrl": "/บทความ/ขาย-playstation-มือสอง-ได้ราคา-เท่าไหร่",
+      "clicks": 0,
+      "impressions": 8,
+      "position": 9.75,
+      "status": "BLOG_OUTRANKING_SIGNAL",
+      "recommendedAction": "INTERNAL_LINK",
+      "pageExportNotes": {
+        "blog": { "path": "/บทความ/ขาย-playstation-มือสอง-ได้ราคา-เท่าไหร่", "impressions": 8, "position": 9.75 },
+        "playstation": { "path": "/รับซื้อ-playstation", "impressions": 3, "position": 5 },
+        "ps5": { "path": "/รับซื้อ-ps5", "impressions": 1, "position": 7 }
+      }
     },
     {
       "intent": "รับซื้ออุปกรณ์เกมมิ่ง",
-      "queryExamples": [
-        "รับซื้ออุปกรณ์เกมมิ่ง",
-        "รับซื้อเกมมิ่งเกียร์"
-      ],
       "primaryUrl": "/รับซื้ออุปกรณ์เกมมิ่ง",
       "supportingUrls": [],
-      "currentRankingUrl": null,
-      "clicks": null,
-      "impressions": null,
+      "currentRankingUrl": "/รับซื้ออุปกรณ์เกมมิ่ง",
+      "clicks": 0,
+      "impressions": 16,
+      "position": 6.75,
+      "ctr": 0,
+      "status": "NEAR_WIN_PAGE",
+      "recommendedAction": "TITLE_META"
+    },
+    {
+      "intent": "จังหวัด / พื้นที่ให้บริการ",
+      "primaryUrl": "/พื้นที่ให้บริการ",
+      "supportingUrls": [
+        "/พื้นที่ให้บริการ/สุรินทร์",
+        "/พื้นที่ให้บริการ/อุบลราชธานี",
+        "/พื้นที่ให้บริการ/เลย",
+        "/พื้นที่ให้บริการ/นครพนม"
+      ],
+      "currentRankingUrl": "/พื้นที่ให้บริการ/สุรินทร์",
+      "clicks": 6,
+      "impressions": 118,
       "position": null,
-      "ctr": null,
-      "status": "AWAITING_GSC",
-      "recommendedAction": "OWNER_DATA"
+      "status": "PROVEN_DEMAND",
+      "recommendedAction": "PROVINCE_SUPPORT",
+      "breakdown": [
+        { "path": "/พื้นที่ให้บริการ/สุรินทร์", "clicks": 4, "impressions": 64, "position": 9.84 },
+        { "path": "/พื้นที่ให้บริการ/อุบลราชธานี", "clicks": 2, "impressions": 33, "position": 8.12 }
+      ]
     }
   ]
 }

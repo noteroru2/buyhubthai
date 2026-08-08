@@ -1,208 +1,1586 @@
 {
-  "verdict": "INSUFFICIENT_GSC_DATA",
-  "generatedAt": "2026-08-08T04:31:06.214Z",
+  "verdict": "PASS WITH WARNING",
+  "generatedAt": "2026-08-08T05:50:02.370Z",
   "phase": "GSC RANKING OPTIMIZATION — READ/ANALYZE",
-  "siteChanges": "NONE (gate closed until GSC data)",
+  "siteChanges": "NONE",
   "data": {
-    "source": null,
-    "startDate": null,
-    "endDate": null,
-    "rowsRaw": 0,
-    "rowsNormalized": 0,
-    "queries": 0,
-    "pages": 0,
+    "sources": [
+      {
+        "source": "C:\\Users\\User\\Desktop\\project ทั้งหมด\\buyhubthai\\docs\\gsc\\queries-3m.csv",
+        "mtime": "2026-08-08T05:48:29.558Z",
+        "mode": "query",
+        "rows": 3
+      },
+      {
+        "source": "C:\\Users\\User\\Desktop\\project ทั้งหมด\\buyhubthai\\docs\\gsc\\pages-3m.csv",
+        "mtime": "2026-08-08T05:48:29.562Z",
+        "mode": "page",
+        "rows": 29
+      }
+    ],
+    "startDate": "2026-05-09",
+    "endDate": "2026-08-08",
+    "rowsRaw": 32,
+    "rowsNormalized": 32,
+    "queries": 3,
+    "pages": 27,
     "queryPageAvailable": false,
-    "reason": "GSC DATA NOT PROVIDED — no CSV/JSON Performance export found in repository",
-    "freshness": "N/A — no dataset"
-  },
-  "architectureBaseline": {
-    "sitemap": 251,
-    "money": 15,
-    "keep": 63,
-    "provinceNearOrphansApprox": 90,
-    "note": "From prior verified batch; not from GSC"
+    "impressionFloorHeuristic": 3,
+    "dateRangeNote": "Owner-provided / filter sheet: 3 เดือนล่าสุด",
+    "totalClicksInPageExport": 6,
+    "totalImpressionsInPageExport": 244,
+    "datasetCaveat": "Query volume is extremely sparse (privacy threshold). Page export is primary signal. Query×Page not provided."
   },
   "moneyPerformance": {
     "moneyPages": 15,
-    "WINNER": null,
-    "NEAR_WIN": null,
-    "OPPORTUNITY": null,
-    "WEAK": null,
-    "NO_SIGNAL": null,
+    "WINNER": 0,
+    "NEAR_WIN": 3,
+    "OPPORTUNITY": 0,
+    "WEAK": 0,
+    "NO_SIGNAL": 12,
     "pages": [
       {
         "path": "/รับซื้อ-iphone",
-        "clicks": null,
-        "impressions": null,
+        "clicks": 0,
+        "impressions": 0,
         "ctr": null,
         "position": null,
         "band": "NO SIGNAL",
-        "reason": "INSUFFICIENT_GSC_DATA"
+        "type": "PRIMARY_MONEY"
       },
       {
         "path": "/รับซื้อ-ipad",
-        "clicks": null,
-        "impressions": null,
-        "ctr": null,
-        "position": null,
-        "band": "NO SIGNAL",
-        "reason": "INSUFFICIENT_GSC_DATA"
+        "clicks": 0,
+        "impressions": 12,
+        "ctr": 0,
+        "position": 10,
+        "type": "PRIMARY_MONEY",
+        "band": "NEAR WIN"
       },
       {
         "path": "/รับซื้อ-macbook",
-        "clicks": null,
-        "impressions": null,
+        "clicks": 0,
+        "impressions": 0,
         "ctr": null,
         "position": null,
         "band": "NO SIGNAL",
-        "reason": "INSUFFICIENT_GSC_DATA"
+        "type": "PRIMARY_MONEY"
       },
       {
         "path": "/รับซื้อโน๊ตบุ๊คมือสอง",
-        "clicks": null,
-        "impressions": null,
-        "ctr": null,
-        "position": null,
-        "band": "NO SIGNAL",
-        "reason": "INSUFFICIENT_GSC_DATA"
+        "clicks": 0,
+        "impressions": 6,
+        "ctr": 0,
+        "position": 9.33,
+        "type": "PRIMARY_MONEY",
+        "band": "NEAR WIN"
       },
       {
         "path": "/รับซื้อคอมพิวเตอร์มือสอง",
-        "clicks": null,
-        "impressions": null,
+        "clicks": 0,
+        "impressions": 0,
         "ctr": null,
         "position": null,
         "band": "NO SIGNAL",
-        "reason": "INSUFFICIENT_GSC_DATA"
+        "type": "PRIMARY_MONEY"
       },
       {
         "path": "/รับซื้อคอมเกมมิ่ง",
-        "clicks": null,
-        "impressions": null,
+        "clicks": 0,
+        "impressions": 0,
         "ctr": null,
         "position": null,
         "band": "NO SIGNAL",
-        "reason": "INSUFFICIENT_GSC_DATA"
+        "type": "PRIMARY_MONEY"
       },
       {
         "path": "/รับซื้อมือถือ",
-        "clicks": null,
-        "impressions": null,
+        "clicks": 0,
+        "impressions": 0,
         "ctr": null,
         "position": null,
         "band": "NO SIGNAL",
-        "reason": "INSUFFICIENT_GSC_DATA"
+        "type": "PRIMARY_MONEY"
       },
       {
         "path": "/รับซื้อแท็บเล็ต",
-        "clicks": null,
-        "impressions": null,
+        "clicks": 0,
+        "impressions": 0,
         "ctr": null,
         "position": null,
         "band": "NO SIGNAL",
-        "reason": "INSUFFICIENT_GSC_DATA"
+        "type": "PRIMARY_MONEY"
       },
       {
         "path": "/รับซื้อกล้อง",
-        "clicks": null,
-        "impressions": null,
+        "clicks": 0,
+        "impressions": 0,
         "ctr": null,
         "position": null,
         "band": "NO SIGNAL",
-        "reason": "INSUFFICIENT_GSC_DATA"
+        "type": "PRIMARY_MONEY"
       },
       {
         "path": "/รับซื้อการ์ดจอ",
-        "clicks": null,
-        "impressions": null,
+        "clicks": 0,
+        "impressions": 0,
         "ctr": null,
         "position": null,
         "band": "NO SIGNAL",
-        "reason": "INSUFFICIENT_GSC_DATA"
+        "type": "PRIMARY_MONEY"
       },
       {
         "path": "/รับซื้อจอคอม",
-        "clicks": null,
-        "impressions": null,
+        "clicks": 0,
+        "impressions": 0,
         "ctr": null,
         "position": null,
         "band": "NO SIGNAL",
-        "reason": "INSUFFICIENT_GSC_DATA"
+        "type": "PRIMARY_MONEY"
       },
       {
         "path": "/รับซื้อคอมบริษัท",
-        "clicks": null,
-        "impressions": null,
+        "clicks": 0,
+        "impressions": 0,
         "ctr": null,
         "position": null,
         "band": "NO SIGNAL",
-        "reason": "INSUFFICIENT_GSC_DATA"
+        "type": "PRIMARY_MONEY"
       },
       {
         "path": "/รับซื้อ-ps5",
-        "clicks": null,
-        "impressions": null,
-        "ctr": null,
-        "position": null,
-        "band": "NO SIGNAL",
-        "reason": "INSUFFICIENT_GSC_DATA"
+        "clicks": 0,
+        "impressions": 1,
+        "ctr": 0,
+        "position": 7,
+        "type": "PRIMARY_MONEY",
+        "band": "NO SIGNAL"
       },
       {
         "path": "/รับซื้อเครื่องเกม",
-        "clicks": null,
-        "impressions": null,
+        "clicks": 0,
+        "impressions": 0,
         "ctr": null,
         "position": null,
         "band": "NO SIGNAL",
-        "reason": "INSUFFICIENT_GSC_DATA"
+        "type": "PRIMARY_MONEY"
       },
       {
         "path": "/รับซื้ออุปกรณ์เกมมิ่ง",
-        "clicks": null,
-        "impressions": null,
-        "ctr": null,
-        "position": null,
-        "band": "NO SIGNAL",
-        "reason": "INSUFFICIENT_GSC_DATA"
+        "clicks": 0,
+        "impressions": 16,
+        "ctr": 0,
+        "position": 6.75,
+        "type": "PRIMARY_MONEY",
+        "band": "NEAR WIN"
       }
     ]
   },
   "rankingOpportunities": {
-    "position4to10": [],
-    "position11to20": [],
-    "highImpressionLowCtr": [],
+    "position4to10": [
+      {
+        "query": null,
+        "page": "/พื้นที่ให้บริการ/สุรินทร์",
+        "pageType": "PROVINCE",
+        "clicks": 4,
+        "impressions": 64,
+        "ctr": 0.0625,
+        "position": 9.84,
+        "expectedPrimary": null,
+        "level": "PAGE",
+        "tier": "TIER 1 candidate (page-level)"
+      },
+      {
+        "query": null,
+        "page": "/พื้นที่ให้บริการ/อุบลราชธานี",
+        "pageType": "PROVINCE",
+        "clicks": 2,
+        "impressions": 33,
+        "ctr": 0.06060606060606061,
+        "position": 8.12,
+        "expectedPrimary": null,
+        "level": "PAGE",
+        "tier": "TIER 1 candidate (page-level)"
+      },
+      {
+        "query": null,
+        "page": "/รับซื้ออุปกรณ์เกมมิ่ง",
+        "pageType": "PRIMARY_MONEY",
+        "clicks": 0,
+        "impressions": 16,
+        "ctr": 0,
+        "position": 6.75,
+        "expectedPrimary": "/รับซื้ออุปกรณ์เกมมิ่ง",
+        "level": "PAGE",
+        "tier": "TIER 1 candidate (page-level)"
+      },
+      {
+        "query": null,
+        "page": "/พื้นที่ให้บริการ",
+        "pageType": "PROVINCE",
+        "clicks": 0,
+        "impressions": 15,
+        "ctr": 0,
+        "position": 6.93,
+        "expectedPrimary": null,
+        "level": "PAGE",
+        "tier": "TIER 1 candidate (page-level)"
+      },
+      {
+        "query": null,
+        "page": "/ติดต่อเรา",
+        "pageType": "TRUST",
+        "clicks": 0,
+        "impressions": 13,
+        "ctr": 0,
+        "position": 7.92,
+        "expectedPrimary": null,
+        "level": "PAGE",
+        "tier": "TIER 1 candidate (page-level)"
+      },
+      {
+        "query": null,
+        "page": "/รับซื้อ-ipad",
+        "pageType": "PRIMARY_MONEY",
+        "clicks": 0,
+        "impressions": 12,
+        "ctr": 0,
+        "position": 10,
+        "expectedPrimary": "/รับซื้อ-ipad",
+        "level": "PAGE",
+        "tier": "TIER 1 candidate (page-level)"
+      },
+      {
+        "query": null,
+        "page": "/เกี่ยวกับเรา",
+        "pageType": "TRUST",
+        "clicks": 0,
+        "impressions": 9,
+        "ctr": 0,
+        "position": 4.67,
+        "expectedPrimary": null,
+        "level": "PAGE",
+        "tier": "TIER 1 candidate (page-level)"
+      },
+      {
+        "query": null,
+        "page": "/บทความ/ขาย-playstation-มือสอง-ได้ราคา-เท่าไหร่",
+        "pageType": "BLOG",
+        "clicks": 0,
+        "impressions": 8,
+        "ctr": 0,
+        "position": 9.75,
+        "expectedPrimary": "/รับซื้อ-ps5",
+        "level": "PAGE",
+        "tier": "TIER 1 candidate (page-level)"
+      },
+      {
+        "query": null,
+        "page": "/เงื่อนไขการใช้บริการ",
+        "pageType": "TRUST",
+        "clicks": 0,
+        "impressions": 6,
+        "ctr": 0,
+        "position": 7.125,
+        "expectedPrimary": null,
+        "level": "PAGE",
+        "tier": "TIER 1 candidate (page-level)"
+      },
+      {
+        "query": null,
+        "page": "/รับซื้อโน๊ตบุ๊คมือสอง",
+        "pageType": "PRIMARY_MONEY",
+        "clicks": 0,
+        "impressions": 6,
+        "ctr": 0,
+        "position": 9.33,
+        "expectedPrimary": "/รับซื้อโน๊ตบุ๊คมือสอง",
+        "level": "PAGE",
+        "tier": "TIER 1 candidate (page-level)"
+      },
+      {
+        "query": null,
+        "page": "/ขั้นตอนการขาย",
+        "pageType": "TRUST",
+        "clicks": 0,
+        "impressions": 4,
+        "ctr": 0,
+        "position": 8,
+        "expectedPrimary": null,
+        "level": "PAGE",
+        "tier": "TIER 1 candidate (page-level)"
+      },
+      {
+        "query": null,
+        "page": "/รับซื้อ-playstation",
+        "pageType": "UNKNOWN",
+        "clicks": 0,
+        "impressions": 3,
+        "ctr": 0,
+        "position": 5,
+        "expectedPrimary": "/รับซื้อ-ps5",
+        "level": "PAGE",
+        "tier": "TIER 1 candidate (page-level)"
+      },
+      {
+        "query": null,
+        "page": "/บทความ/ขาย-การ์ดจอ-มือสอง-ต้องระวังอะไร",
+        "pageType": "BLOG",
+        "clicks": 0,
+        "impressions": 3,
+        "ctr": 0,
+        "position": 5.33,
+        "expectedPrimary": "/รับซื้อการ์ดจอ",
+        "level": "PAGE",
+        "tier": "TIER 1 candidate (page-level)"
+      },
+      {
+        "query": null,
+        "page": "/พื้นที่ให้บริการ/นครพนม",
+        "pageType": "PROVINCE",
+        "clicks": 0,
+        "impressions": 3,
+        "ctr": 0,
+        "position": 9,
+        "expectedPrimary": null,
+        "level": "PAGE",
+        "tier": "TIER 1 candidate (page-level)"
+      },
+      {
+        "query": "รับซื้อคอมพิวเตอร์ ใกล้ฉัน",
+        "page": "/รับซื้อคอมพิวเตอร์มือสอง",
+        "pageType": "PRIMARY_MONEY",
+        "clicks": 0,
+        "impressions": 1,
+        "ctr": 0,
+        "position": 4,
+        "expectedPrimary": "/รับซื้อคอมพิวเตอร์มือสอง",
+        "tier": "TIER 1 candidate (query-only)",
+        "level": "QUERY"
+      }
+    ],
+    "position11to20": [
+      {
+        "query": null,
+        "page": "/รับซื้อ-jbl",
+        "pageType": "UNKNOWN",
+        "clicks": 0,
+        "impressions": 7,
+        "ctr": 0,
+        "position": 18,
+        "expectedPrimary": null,
+        "level": "PAGE",
+        "tier": "TIER 2 candidate (page-level)"
+      }
+    ],
+    "highImpressionLowCtr": [
+      {
+        "query": null,
+        "page": "/",
+        "clicks": 0,
+        "impressions": 18,
+        "ctr": 0,
+        "position": 1.72,
+        "expectedCtrApprox": 0.12,
+        "classification": "TITLE OPPORTUNITY",
+        "note": "Heuristic vs position band — verify SERP manually; page-level when Query×Page missing"
+      },
+      {
+        "query": null,
+        "page": "/รับซื้ออุปกรณ์เกมมิ่ง",
+        "clicks": 0,
+        "impressions": 16,
+        "ctr": 0,
+        "position": 6.75,
+        "expectedCtrApprox": 0.035,
+        "classification": "TITLE OPPORTUNITY",
+        "note": "Heuristic vs position band — verify SERP manually; page-level when Query×Page missing"
+      },
+      {
+        "query": null,
+        "page": "/พื้นที่ให้บริการ",
+        "clicks": 0,
+        "impressions": 15,
+        "ctr": 0,
+        "position": 6.93,
+        "expectedCtrApprox": 0.035,
+        "classification": "TITLE OPPORTUNITY",
+        "note": "Heuristic vs position band — verify SERP manually; page-level when Query×Page missing"
+      },
+      {
+        "query": null,
+        "page": "/ติดต่อเรา",
+        "clicks": 0,
+        "impressions": 13,
+        "ctr": 0,
+        "position": 7.92,
+        "expectedCtrApprox": 0.035,
+        "classification": "TITLE OPPORTUNITY",
+        "note": "Heuristic vs position band — verify SERP manually; page-level when Query×Page missing"
+      },
+      {
+        "query": null,
+        "page": "/รับซื้อ-ipad",
+        "clicks": 0,
+        "impressions": 12,
+        "ctr": 0,
+        "position": 10,
+        "expectedCtrApprox": 0.035,
+        "classification": "TITLE OPPORTUNITY",
+        "note": "Heuristic vs position band — verify SERP manually; page-level when Query×Page missing"
+      },
+      {
+        "query": null,
+        "page": "/เกี่ยวกับเรา",
+        "clicks": 0,
+        "impressions": 9,
+        "ctr": 0,
+        "position": 4.67,
+        "expectedCtrApprox": 0.06,
+        "classification": "TITLE OPPORTUNITY",
+        "note": "Heuristic vs position band — verify SERP manually; page-level when Query×Page missing"
+      },
+      {
+        "query": null,
+        "page": "/บทความ/ขาย-playstation-มือสอง-ได้ราคา-เท่าไหร่",
+        "clicks": 0,
+        "impressions": 8,
+        "ctr": 0,
+        "position": 9.75,
+        "expectedCtrApprox": 0.035,
+        "classification": "TITLE OPPORTUNITY",
+        "note": "Heuristic vs position band — verify SERP manually; page-level when Query×Page missing"
+      },
+      {
+        "query": null,
+        "page": "/รับซื้อ-jbl",
+        "clicks": 0,
+        "impressions": 7,
+        "ctr": 0,
+        "position": 18,
+        "expectedCtrApprox": 0.02,
+        "classification": "TITLE OPPORTUNITY",
+        "note": "Heuristic vs position band — verify SERP manually; page-level when Query×Page missing"
+      },
+      {
+        "query": null,
+        "page": "/บทความ",
+        "clicks": 0,
+        "impressions": 7,
+        "ctr": 0,
+        "position": 3.375,
+        "expectedCtrApprox": 0.06,
+        "classification": "TITLE OPPORTUNITY",
+        "note": "Heuristic vs position band — verify SERP manually; page-level when Query×Page missing"
+      },
+      {
+        "query": null,
+        "page": "/รับซื้อโน๊ตบุ๊คมือสอง",
+        "clicks": 0,
+        "impressions": 6,
+        "ctr": 0,
+        "position": 9.33,
+        "expectedCtrApprox": 0.035,
+        "classification": "TITLE OPPORTUNITY",
+        "note": "Heuristic vs position band — verify SERP manually; page-level when Query×Page missing"
+      },
+      {
+        "query": null,
+        "page": "/เงื่อนไขการใช้บริการ",
+        "clicks": 0,
+        "impressions": 6,
+        "ctr": 0,
+        "position": 7.125,
+        "expectedCtrApprox": 0.035,
+        "classification": "TITLE OPPORTUNITY",
+        "note": "Heuristic vs position band — verify SERP manually; page-level when Query×Page missing"
+      },
+      {
+        "query": null,
+        "page": "/บทความ/ขาย-อุปกรณ์สำนักงาน-it-ต้องเตรียมรายการยังไง",
+        "clicks": 0,
+        "impressions": 4,
+        "ctr": 0,
+        "position": 1,
+        "expectedCtrApprox": 0.12,
+        "classification": "TITLE OPPORTUNITY",
+        "note": "Heuristic vs position band — verify SERP manually; page-level when Query×Page missing"
+      },
+      {
+        "query": null,
+        "page": "/ขั้นตอนการขาย",
+        "clicks": 0,
+        "impressions": 4,
+        "ctr": 0,
+        "position": 8,
+        "expectedCtrApprox": 0.035,
+        "classification": "TITLE OPPORTUNITY",
+        "note": "Heuristic vs position band — verify SERP manually; page-level when Query×Page missing"
+      },
+      {
+        "query": null,
+        "page": "/ผลงานรับซื้อจริง",
+        "clicks": 0,
+        "impressions": 3,
+        "ctr": 0,
+        "position": 1.67,
+        "expectedCtrApprox": 0.12,
+        "classification": "TITLE OPPORTUNITY",
+        "note": "Heuristic vs position band — verify SERP manually; page-level when Query×Page missing"
+      },
+      {
+        "query": null,
+        "page": "/พื้นที่ให้บริการ/เลย",
+        "clicks": 0,
+        "impressions": 3,
+        "ctr": 0,
+        "position": 3.67,
+        "expectedCtrApprox": 0.06,
+        "classification": "TITLE OPPORTUNITY",
+        "note": "Heuristic vs position band — verify SERP manually; page-level when Query×Page missing"
+      },
+      {
+        "query": null,
+        "page": "/รับซื้อ-playstation",
+        "clicks": 0,
+        "impressions": 3,
+        "ctr": 0,
+        "position": 5,
+        "expectedCtrApprox": 0.06,
+        "classification": "TITLE OPPORTUNITY",
+        "note": "Heuristic vs position band — verify SERP manually; page-level when Query×Page missing"
+      },
+      {
+        "query": null,
+        "page": "/บทความ/ขาย-การ์ดจอ-มือสอง-ต้องระวังอะไร",
+        "clicks": 0,
+        "impressions": 3,
+        "ctr": 0,
+        "position": 5.33,
+        "expectedCtrApprox": 0.06,
+        "classification": "TITLE OPPORTUNITY",
+        "note": "Heuristic vs position band — verify SERP manually; page-level when Query×Page missing"
+      },
+      {
+        "query": null,
+        "page": "/พื้นที่ให้บริการ/นครพนม",
+        "clicks": 0,
+        "impressions": 3,
+        "ctr": 0,
+        "position": 9,
+        "expectedCtrApprox": 0.035,
+        "classification": "TITLE OPPORTUNITY",
+        "note": "Heuristic vs position band — verify SERP manually; page-level when Query×Page missing"
+      }
+    ],
     "wrongUrl": [],
     "cannibalizationP0": [],
-    "cannibalizationP1": []
+    "cannibalizationP1": [],
+    "cannibalizationSoft": [],
+    "pageLevelOpportunities": [
+      {
+        "query": null,
+        "page": "/พื้นที่ให้บริการ/สุรินทร์",
+        "pageType": "PROVINCE",
+        "clicks": 4,
+        "impressions": 64,
+        "ctr": 0.0625,
+        "position": 9.84,
+        "expectedPrimary": null,
+        "level": "PAGE",
+        "band": "NEAR WIN"
+      },
+      {
+        "query": null,
+        "page": "/พื้นที่ให้บริการ/อุบลราชธานี",
+        "pageType": "PROVINCE",
+        "clicks": 2,
+        "impressions": 33,
+        "ctr": 0.06060606060606061,
+        "position": 8.12,
+        "expectedPrimary": null,
+        "level": "PAGE",
+        "band": "NEAR WIN"
+      },
+      {
+        "query": null,
+        "page": "/",
+        "pageType": "TRUST",
+        "clicks": 0,
+        "impressions": 18,
+        "ctr": 0,
+        "position": 1.72,
+        "expectedPrimary": null,
+        "level": "PAGE",
+        "band": "TOP_POS_LOW_CTR"
+      },
+      {
+        "query": null,
+        "page": "/รับซื้ออุปกรณ์เกมมิ่ง",
+        "pageType": "PRIMARY_MONEY",
+        "clicks": 0,
+        "impressions": 16,
+        "ctr": 0,
+        "position": 6.75,
+        "expectedPrimary": "/รับซื้ออุปกรณ์เกมมิ่ง",
+        "level": "PAGE",
+        "band": "NEAR WIN"
+      },
+      {
+        "query": null,
+        "page": "/พื้นที่ให้บริการ",
+        "pageType": "PROVINCE",
+        "clicks": 0,
+        "impressions": 15,
+        "ctr": 0,
+        "position": 6.93,
+        "expectedPrimary": null,
+        "level": "PAGE",
+        "band": "NEAR WIN"
+      },
+      {
+        "query": null,
+        "page": "/ติดต่อเรา",
+        "pageType": "TRUST",
+        "clicks": 0,
+        "impressions": 13,
+        "ctr": 0,
+        "position": 7.92,
+        "expectedPrimary": null,
+        "level": "PAGE",
+        "band": "NEAR WIN"
+      },
+      {
+        "query": null,
+        "page": "/รับซื้อ-ipad",
+        "pageType": "PRIMARY_MONEY",
+        "clicks": 0,
+        "impressions": 12,
+        "ctr": 0,
+        "position": 10,
+        "expectedPrimary": "/รับซื้อ-ipad",
+        "level": "PAGE",
+        "band": "NEAR WIN"
+      },
+      {
+        "query": null,
+        "page": "/เกี่ยวกับเรา",
+        "pageType": "TRUST",
+        "clicks": 0,
+        "impressions": 9,
+        "ctr": 0,
+        "position": 4.67,
+        "expectedPrimary": null,
+        "level": "PAGE",
+        "band": "NEAR WIN"
+      },
+      {
+        "query": null,
+        "page": "/บทความ/ขาย-playstation-มือสอง-ได้ราคา-เท่าไหร่",
+        "pageType": "BLOG",
+        "clicks": 0,
+        "impressions": 8,
+        "ctr": 0,
+        "position": 9.75,
+        "expectedPrimary": "/รับซื้อ-ps5",
+        "level": "PAGE",
+        "band": "NEAR WIN"
+      },
+      {
+        "query": null,
+        "page": "/รับซื้อ-jbl",
+        "pageType": "UNKNOWN",
+        "clicks": 0,
+        "impressions": 7,
+        "ctr": 0,
+        "position": 18,
+        "expectedPrimary": null,
+        "level": "PAGE",
+        "band": "OPPORTUNITY"
+      },
+      {
+        "query": null,
+        "page": "/รับซื้อโน๊ตบุ๊คมือสอง",
+        "pageType": "PRIMARY_MONEY",
+        "clicks": 0,
+        "impressions": 6,
+        "ctr": 0,
+        "position": 9.33,
+        "expectedPrimary": "/รับซื้อโน๊ตบุ๊คมือสอง",
+        "level": "PAGE",
+        "band": "NEAR WIN"
+      },
+      {
+        "query": null,
+        "page": "/บทความ/ขาย-อุปกรณ์สำนักงาน-it-ต้องเตรียมรายการยังไง",
+        "pageType": "BLOG",
+        "clicks": 0,
+        "impressions": 4,
+        "ctr": 0,
+        "position": 1,
+        "expectedPrimary": "/รับซื้อคอมบริษัท",
+        "level": "PAGE",
+        "band": "TOP_POS_LOW_CTR"
+      },
+      {
+        "query": null,
+        "page": "/เงื่อนไขการใช้บริการ",
+        "pageType": "TRUST",
+        "clicks": 0,
+        "impressions": 6,
+        "ctr": 0,
+        "position": 7.125,
+        "expectedPrimary": null,
+        "level": "PAGE",
+        "band": "NEAR WIN"
+      },
+      {
+        "query": null,
+        "page": "/ขั้นตอนการขาย",
+        "pageType": "TRUST",
+        "clicks": 0,
+        "impressions": 4,
+        "ctr": 0,
+        "position": 8,
+        "expectedPrimary": null,
+        "level": "PAGE",
+        "band": "NEAR WIN"
+      },
+      {
+        "query": null,
+        "page": "/ผลงานรับซื้อจริง",
+        "pageType": "TRUST",
+        "clicks": 0,
+        "impressions": 3,
+        "ctr": 0,
+        "position": 1.67,
+        "expectedPrimary": null,
+        "level": "PAGE",
+        "band": "TOP_POS_LOW_CTR"
+      },
+      {
+        "query": null,
+        "page": "/รับซื้อ-playstation",
+        "pageType": "UNKNOWN",
+        "clicks": 0,
+        "impressions": 3,
+        "ctr": 0,
+        "position": 5,
+        "expectedPrimary": "/รับซื้อ-ps5",
+        "level": "PAGE",
+        "band": "NEAR WIN"
+      },
+      {
+        "query": null,
+        "page": "/บทความ/ขาย-การ์ดจอ-มือสอง-ต้องระวังอะไร",
+        "pageType": "BLOG",
+        "clicks": 0,
+        "impressions": 3,
+        "ctr": 0,
+        "position": 5.33,
+        "expectedPrimary": "/รับซื้อการ์ดจอ",
+        "level": "PAGE",
+        "band": "NEAR WIN"
+      },
+      {
+        "query": null,
+        "page": "/พื้นที่ให้บริการ/นครพนม",
+        "pageType": "PROVINCE",
+        "clicks": 0,
+        "impressions": 3,
+        "ctr": 0,
+        "position": 9,
+        "expectedPrimary": null,
+        "level": "PAGE",
+        "band": "NEAR WIN"
+      }
+    ],
+    "queryOnlyNearWins": [
+      {
+        "query": "รับซื้อคอมพิวเตอร์ ใกล้ฉัน",
+        "page": null,
+        "clicks": 0,
+        "impressions": 1,
+        "ctr": 0,
+        "position": 4,
+        "expectedPrimary": "/รับซื้อคอมพิวเตอร์มือสอง",
+        "tier": "TIER 1 candidate (query-only — QUERY_PAGE_DATA_REQUIRED to confirm URL)",
+        "level": "QUERY"
+      }
+    ],
+    "queryPageNote": "QUERY_PAGE_DATA_REQUIRED for Query→Page cannibalization and wrong-URL confirmation. Architecture P0/P1=0 is NOT yet validated by GSC."
   },
   "keepHubs": {
     "proven": [],
     "promising": [],
     "noSignal": [],
-    "cannibalizing": [],
-    "note": "Requires page or query×page GSC export"
+    "cannibalizing": []
   },
   "province": {
-    "provenDemand": [],
-    "earlySignal": [],
-    "noData": [],
-    "wrongUrl": [],
-    "note": "Requires GSC page/query×page export"
+    "provenDemand": [
+      {
+        "path": "/พื้นที่ให้บริการ/สุรินทร์",
+        "clicks": 4,
+        "impressions": 64,
+        "position": 9.84,
+        "type": "PROVINCE"
+      },
+      {
+        "path": "/พื้นที่ให้บริการ/อุบลราชธานี",
+        "clicks": 2,
+        "impressions": 33,
+        "position": 8.12,
+        "type": "PROVINCE"
+      }
+    ],
+    "earlySignal": [
+      {
+        "path": "/พื้นที่ให้บริการ",
+        "clicks": 0,
+        "impressions": 15,
+        "position": 6.93,
+        "type": "PROVINCE"
+      },
+      {
+        "path": "/พื้นที่ให้บริการ/เลย",
+        "clicks": 0,
+        "impressions": 3,
+        "position": 3.67,
+        "type": "PROVINCE"
+      },
+      {
+        "path": "/พื้นที่ให้บริการ/นครพนม",
+        "clicks": 0,
+        "impressions": 3,
+        "position": 9,
+        "type": "PROVINCE"
+      }
+    ],
+    "noData": [
+      {
+        "path": "/รับซื้อ-macbook-หนองคาย",
+        "clicks": 0,
+        "impressions": 1,
+        "position": 9,
+        "type": "PROVINCE"
+      },
+      {
+        "path": "/รับซื้อโน๊ตบุ๊ค-หนองคาย",
+        "clicks": 0,
+        "impressions": 1,
+        "position": 13,
+        "type": "PROVINCE"
+      }
+    ],
+    "wrongUrl": []
+  },
+  "coverage": {
+    "issues": [
+      {
+        "reason": "รวบรวมข้อมูลแล้ว - ยังไม่ได้จัดทำดัชนี",
+        "source": "ระบบของ Google",
+        "validation": "ล้มเหลว",
+        "pages": 174
+      },
+      {
+        "reason": "ถูกยกเว้นโดยแท็ก \"noindex\"",
+        "source": "เว็บไซต์",
+        "validation": "ยังไม่ได้เริ่มต้น",
+        "pages": 30
+      },
+      {
+        "reason": "หน้าที่มีการเปลี่ยนเส้นทาง",
+        "source": "เว็บไซต์",
+        "validation": "ยังไม่ได้เริ่มต้น",
+        "pages": 19
+      },
+      {
+        "reason": "หน้าเว็บสำรองที่มีแท็กตามรูปแบบบัญญัติที่ถูกต้อง",
+        "source": "เว็บไซต์",
+        "validation": "ยังไม่ได้เริ่มต้น",
+        "pages": 1
+      },
+      {
+        "reason": "ซ้ำ Google เลือกรูปแบบบัญญัติที่ต่างจากผู้ใช้",
+        "source": "ระบบของ Google",
+        "validation": "ไม่มี",
+        "pages": 0
+      },
+      {
+        "reason": "พบแล้ว - ยังไม่ได้จัดทำดัชนี",
+        "source": "ระบบของ Google",
+        "validation": "ผ่าน",
+        "pages": 0
+      }
+    ],
+    "validIndexedUrlCount": 95,
+    "note": "Coverage ≠ Performance. Indexed URL list may include URLs later noindexed."
   },
   "historicalSignal": {
     "currentNoindexWithSignal": [],
     "mergedWithSignal": [],
-    "reviewRequired": [],
-    "note": "Cannot evaluate without historical GSC page export covering noindexed URLs"
+    "reviewRequired": [
+      {
+        "historicalUrl": "/รับซื้อ/corporate-it/สกลนคร/ขายหลายชิ้น",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/marshall/ขายด่วน",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/macbook/บุรีรัมย์/ต่างจังหวัดใช้บริการยังไง",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/corporate-it/หนองคาย/ประเมินออนไลน์",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ-asus-nuc",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/samsung/ต่างจังหวัดใช้บริการยังไง",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/ps5/ต่างจังหวัดใช้บริการยังไง",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/jbl/ต้องเตรียมอะไรบ้าง",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/jbl/รุ่นไหนขายได้บ้าง",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/notebook/กาฬสินธุ์/มีรอยยังขายได้ไหม",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/monitor/ต่างจังหวัดใช้บริการยังไง",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/jbl/ขายด่วน",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/iphone/กาฬสินธุ์/ต่างจังหวัดใช้บริการยังไง",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/notebook/อำนาจเจริญ/ต่างจังหวัดใช้บริการยังไง",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/corporate-it/อำนาจเจริญ/เช็กราคาก่อนขาย",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/corporate-it/ศรีสะเกษ/ต้องเตรียมอะไรบ้าง",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ-leica",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/ps5/ต่างจังหวัดใช้บริการยังไง",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ-switch",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/jbl/ต่างจังหวัดใช้บริการยังไง",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/jbl/ต่างจังหวัดใช้บริการยังไง",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับประมูลงานคอมพิวเตอร์",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ-harddisk-synology",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ-harddisk-hitachi",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/pc-assembled/สภาพดีได้ราคาดี",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/pc-assembled/สภาพดีได้ราคาดี",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ-pc-lenovo",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ-ups-syndome",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ-server-fujitsu",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/corporate-it/ชัยภูมิ/อุปกรณ์ไม่ครบ",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/corporate-it/สกลนคร/ต่างจังหวัดใช้บริการยังไง",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/macbook/มุกดาหาร/ส่งข้อมูลอะไรบ้าง",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/jbl/รุ่นไหนขายได้บ้าง",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ-notebook-gaming",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/jbl/ต้องเตรียมอะไรบ้าง",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/marshall/เช็กราคาก่อนขาย",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/corporate-it/ขอนแก่น/ขายหลายชิ้น",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/corporate-it/ขอนแก่น/ขายหลายชิ้น",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ-ups-cyberpower",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ-ssd-western",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/jbl/มีรอยยังขายได้ไหม",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ-ssd-wd",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ-ssd-toshiba",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ-ssd-kioxia",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ-server-lenovo",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ-magic-keyboard",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/jbl/ขายด่วน",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ-magic-mouse",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ-pc-aio",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/corporate-it/มุกดาหาร/ต่างจังหวัดใช้บริการยังไง",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อซาก-server",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/notebook/ขายด่วน",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/pc-assembled/ต่างจังหวัดใช้บริการยังไง",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อฮาร์ดดิสก์",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/corporate-it/เลย/ต้องเตรียมอะไรบ้าง",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/playstation/ราคาขึ้นกับอะไร",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      },
+      {
+        "historicalUrl": "/รับซื้อ/macbook/อุปกรณ์ไม่ครบ",
+        "clicks": null,
+        "impressions": null,
+        "position": null,
+        "currentTarget": "noindex/merge target per policy",
+        "signalPreservationStatus": "REVIEW",
+        "note": "Appeared in Coverage Valid (indexed) export; now classified NOINDEX in architecture — do not auto-reindex"
+      }
+    ]
   },
-  "top10Priorities": [],
+  "top10Priorities": [
+    {
+      "rank": 1,
+      "query": null,
+      "primaryUrl": "/พื้นที่ให้บริการ/สุรินทร์",
+      "rankingUrl": "/พื้นที่ให้บริการ/สุรินทร์",
+      "clicks": 4,
+      "impressions": 64,
+      "ctr": 0.0625,
+      "position": 9.84,
+      "problem": "Has clicks + ranking in dataset — protect & deepen",
+      "recommendedAction": "PROVINCE_SUPPORT",
+      "opportunityScore": 76,
+      "note": "Opportunity Score is an internal heuristic, not a Google metric"
+    },
+    {
+      "rank": 2,
+      "query": null,
+      "primaryUrl": "/รับซื้ออุปกรณ์เกมมิ่ง",
+      "rankingUrl": "/รับซื้ออุปกรณ์เกมมิ่ง",
+      "clicks": 0,
+      "impressions": 16,
+      "ctr": 0,
+      "position": 6.75,
+      "problem": "Money page position 4–10 with impressions, 0 clicks",
+      "recommendedAction": "TITLE_META",
+      "opportunityScore": 75,
+      "note": "Opportunity Score is an internal heuristic, not a Google metric"
+    },
+    {
+      "rank": 3,
+      "query": null,
+      "primaryUrl": "/รับซื้อ-ipad",
+      "rankingUrl": "/รับซื้อ-ipad",
+      "clicks": 0,
+      "impressions": 12,
+      "ctr": 0,
+      "position": 10,
+      "problem": "Money page position 4–10 with impressions, 0 clicks",
+      "recommendedAction": "TITLE_META",
+      "opportunityScore": 74,
+      "note": "Opportunity Score is an internal heuristic, not a Google metric"
+    },
+    {
+      "rank": 4,
+      "query": null,
+      "primaryUrl": "/รับซื้อโน๊ตบุ๊คมือสอง",
+      "rankingUrl": "/รับซื้อโน๊ตบุ๊คมือสอง",
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "position": 9.33,
+      "problem": "Money page position 4–10 with impressions, 0 clicks",
+      "recommendedAction": "TITLE_META",
+      "opportunityScore": 72,
+      "note": "Opportunity Score is an internal heuristic, not a Google metric"
+    },
+    {
+      "rank": 5,
+      "query": "รับซื้อคอมพิวเตอร์ ใกล้ฉัน",
+      "primaryUrl": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "rankingUrl": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 4,
+      "problem": "Money page position 4–10 with impressions, 0 clicks",
+      "recommendedAction": "TITLE_META",
+      "opportunityScore": 70,
+      "note": "Opportunity Score is an internal heuristic, not a Google metric"
+    },
+    {
+      "rank": 6,
+      "query": null,
+      "primaryUrl": "/พื้นที่ให้บริการ/อุบลราชธานี",
+      "rankingUrl": "/พื้นที่ให้บริการ/อุบลราชธานี",
+      "clicks": 2,
+      "impressions": 33,
+      "ctr": 0.06060606060606061,
+      "position": 8.12,
+      "problem": "Has clicks + ranking in dataset — protect & deepen",
+      "recommendedAction": "PROVINCE_SUPPORT",
+      "opportunityScore": 66,
+      "note": "Opportunity Score is an internal heuristic, not a Google metric"
+    },
+    {
+      "rank": 7,
+      "query": null,
+      "primaryUrl": "/พื้นที่ให้บริการ",
+      "rankingUrl": "/พื้นที่ให้บริการ",
+      "clicks": 0,
+      "impressions": 15,
+      "ctr": 0,
+      "position": 6.93,
+      "problem": "Province/area near-win impressions",
+      "recommendedAction": "PROVINCE_SUPPORT",
+      "opportunityScore": 57,
+      "note": "Opportunity Score is an internal heuristic, not a Google metric"
+    },
+    {
+      "rank": 8,
+      "query": null,
+      "primaryUrl": "/พื้นที่ให้บริการ/นครพนม",
+      "rankingUrl": "/พื้นที่ให้บริการ/นครพนม",
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "position": 9,
+      "problem": "Province/area near-win impressions",
+      "recommendedAction": "PROVINCE_SUPPORT",
+      "opportunityScore": 53,
+      "note": "Opportunity Score is an internal heuristic, not a Google metric"
+    },
+    {
+      "rank": 9,
+      "query": null,
+      "primaryUrl": "/",
+      "rankingUrl": "/",
+      "clicks": 0,
+      "impressions": 18,
+      "ctr": 0,
+      "position": 1.72,
+      "problem": "High impression / weak CTR vs position",
+      "recommendedAction": "TITLE_META",
+      "opportunityScore": 52,
+      "note": "Opportunity Score is an internal heuristic, not a Google metric"
+    },
+    {
+      "rank": 10,
+      "query": null,
+      "primaryUrl": "/รับซื้อ-jbl",
+      "rankingUrl": "/รับซื้อ-jbl",
+      "clicks": 0,
+      "impressions": 7,
+      "ctr": 0,
+      "position": 18,
+      "problem": "Position 11–20 opportunity",
+      "recommendedAction": "CONTENT_ENRICH",
+      "opportunityScore": 40,
+      "note": "Opportunity Score is an internal heuristic, not a Google metric"
+    }
+  ],
   "implementationGate": {
-    "ready": false,
+    "ready": true,
+    "mode": "PARTIAL_PAGE_QUERY",
     "maxTier1Urls": 10,
-    "condition": "Provide GSC exports per docs/gsc-owner-export-guide.md then re-run this script"
-  },
-  "nextCommandExamples": [
-    "node scripts/analyze-gsc-query-page.mjs --query docs/gsc/queries-3m.csv --page docs/gsc/pages-3m.csv --start 2026-05-08 --end 2026-08-08",
-    "node scripts/analyze-gsc-query-page.mjs --query-page docs/gsc/query-page-3m.csv --start 2026-05-08 --end 2026-08-08"
-  ]
+    "note": "PARTIAL: page+query exports enable Tier-1 draft. QUERY_PAGE_DATA_REQUIRED for cannibalization/wrong-URL confirmation. No auto site edits."
+  }
 }
