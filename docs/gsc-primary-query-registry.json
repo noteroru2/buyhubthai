@@ -1,0 +1,255 @@
+{
+  "generatedAt": "2026-08-08T04:31:06.214Z",
+  "status": "INSUFFICIENT_GSC_DATA",
+  "note": "Primary URL registry from architecture only. GSC metrics are null until owner export is provided.",
+  "queryPageAvailable": false,
+  "intents": [
+    {
+      "intent": "รับซื้อ iPhone",
+      "queryExamples": [
+        "รับซื้อ iphone",
+        "รับซื้อไอโฟน",
+        "ขาย iphone"
+      ],
+      "primaryUrl": "/รับซื้อ-iphone",
+      "supportingUrls": [],
+      "currentRankingUrl": null,
+      "clicks": null,
+      "impressions": null,
+      "position": null,
+      "ctr": null,
+      "status": "AWAITING_GSC",
+      "recommendedAction": "OWNER_DATA"
+    },
+    {
+      "intent": "รับซื้อ iPad",
+      "queryExamples": [
+        "รับซื้อ ipad",
+        "รับซื้อไอแพด",
+        "ขาย ipad"
+      ],
+      "primaryUrl": "/รับซื้อ-ipad",
+      "supportingUrls": [],
+      "currentRankingUrl": null,
+      "clicks": null,
+      "impressions": null,
+      "position": null,
+      "ctr": null,
+      "status": "AWAITING_GSC",
+      "recommendedAction": "OWNER_DATA"
+    },
+    {
+      "intent": "รับซื้อ MacBook",
+      "queryExamples": [
+        "รับซื้อ macbook",
+        "รับซื้อแมคบุ๊ค",
+        "ขาย macbook"
+      ],
+      "primaryUrl": "/รับซื้อ-macbook",
+      "supportingUrls": [],
+      "currentRankingUrl": null,
+      "clicks": null,
+      "impressions": null,
+      "position": null,
+      "ctr": null,
+      "status": "AWAITING_GSC",
+      "recommendedAction": "OWNER_DATA"
+    },
+    {
+      "intent": "รับซื้อโน๊ตบุ๊ค",
+      "queryExamples": [
+        "รับซื้อโน๊ตบุ๊ค",
+        "รับซื้อ notebook",
+        "ขายโน๊ตบุ๊ค"
+      ],
+      "primaryUrl": "/รับซื้อโน๊ตบุ๊คมือสอง",
+      "supportingUrls": [],
+      "currentRankingUrl": null,
+      "clicks": null,
+      "impressions": null,
+      "position": null,
+      "ctr": null,
+      "status": "AWAITING_GSC",
+      "recommendedAction": "OWNER_DATA"
+    },
+    {
+      "intent": "รับซื้อคอมพิวเตอร์",
+      "queryExamples": [
+        "รับซื้อคอมพิวเตอร์",
+        "รับซื้อคอม",
+        "ขายคอมมือสอง"
+      ],
+      "primaryUrl": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "supportingUrls": [],
+      "currentRankingUrl": null,
+      "clicks": null,
+      "impressions": null,
+      "position": null,
+      "ctr": null,
+      "status": "AWAITING_GSC",
+      "recommendedAction": "OWNER_DATA"
+    },
+    {
+      "intent": "รับซื้อคอมเกมมิ่ง",
+      "queryExamples": [
+        "รับซื้อคอมเกมมิ่ง",
+        "รับซื้อ gaming pc"
+      ],
+      "primaryUrl": "/รับซื้อคอมเกมมิ่ง",
+      "supportingUrls": [],
+      "currentRankingUrl": null,
+      "clicks": null,
+      "impressions": null,
+      "position": null,
+      "ctr": null,
+      "status": "AWAITING_GSC",
+      "recommendedAction": "OWNER_DATA"
+    },
+    {
+      "intent": "รับซื้อมือถือ",
+      "queryExamples": [
+        "รับซื้อมือถือ",
+        "รับซื้อโทรศัพท์",
+        "ขายมือถือ"
+      ],
+      "primaryUrl": "/รับซื้อมือถือ",
+      "supportingUrls": [],
+      "currentRankingUrl": null,
+      "clicks": null,
+      "impressions": null,
+      "position": null,
+      "ctr": null,
+      "status": "AWAITING_GSC",
+      "recommendedAction": "OWNER_DATA"
+    },
+    {
+      "intent": "รับซื้อแท็บเล็ต",
+      "queryExamples": [
+        "รับซื้อแท็บเล็ต",
+        "รับซื้อ tablet"
+      ],
+      "primaryUrl": "/รับซื้อแท็บเล็ต",
+      "supportingUrls": [],
+      "currentRankingUrl": null,
+      "clicks": null,
+      "impressions": null,
+      "position": null,
+      "ctr": null,
+      "status": "AWAITING_GSC",
+      "recommendedAction": "OWNER_DATA"
+    },
+    {
+      "intent": "รับซื้อกล้อง",
+      "queryExamples": [
+        "รับซื้อกล้อง",
+        "ขายกล้อง"
+      ],
+      "primaryUrl": "/รับซื้อกล้อง",
+      "supportingUrls": [],
+      "currentRankingUrl": null,
+      "clicks": null,
+      "impressions": null,
+      "position": null,
+      "ctr": null,
+      "status": "AWAITING_GSC",
+      "recommendedAction": "OWNER_DATA"
+    },
+    {
+      "intent": "รับซื้อการ์ดจอ",
+      "queryExamples": [
+        "รับซื้อการ์ดจอ",
+        "รับซื้อ gpu",
+        "ขายการ์ดจอ"
+      ],
+      "primaryUrl": "/รับซื้อการ์ดจอ",
+      "supportingUrls": [],
+      "currentRankingUrl": null,
+      "clicks": null,
+      "impressions": null,
+      "position": null,
+      "ctr": null,
+      "status": "AWAITING_GSC",
+      "recommendedAction": "OWNER_DATA"
+    },
+    {
+      "intent": "รับซื้อจอคอม",
+      "queryExamples": [
+        "รับซื้อจอคอม",
+        "รับซื้อ monitor"
+      ],
+      "primaryUrl": "/รับซื้อจอคอม",
+      "supportingUrls": [],
+      "currentRankingUrl": null,
+      "clicks": null,
+      "impressions": null,
+      "position": null,
+      "ctr": null,
+      "status": "AWAITING_GSC",
+      "recommendedAction": "OWNER_DATA"
+    },
+    {
+      "intent": "รับซื้อคอมบริษัท",
+      "queryExamples": [
+        "รับซื้อคอมบริษัท",
+        "รับซื้อคอมสำนักงาน"
+      ],
+      "primaryUrl": "/รับซื้อคอมบริษัท",
+      "supportingUrls": [],
+      "currentRankingUrl": null,
+      "clicks": null,
+      "impressions": null,
+      "position": null,
+      "ctr": null,
+      "status": "AWAITING_GSC",
+      "recommendedAction": "OWNER_DATA"
+    },
+    {
+      "intent": "รับซื้อ PS5",
+      "queryExamples": [
+        "รับซื้อ ps5",
+        "ขาย ps5"
+      ],
+      "primaryUrl": "/รับซื้อ-ps5",
+      "supportingUrls": [],
+      "currentRankingUrl": null,
+      "clicks": null,
+      "impressions": null,
+      "position": null,
+      "ctr": null,
+      "status": "AWAITING_GSC",
+      "recommendedAction": "OWNER_DATA"
+    },
+    {
+      "intent": "รับซื้อเครื่องเกม",
+      "queryExamples": [
+        "รับซื้อเครื่องเกม",
+        "รับซื้อ nintendo"
+      ],
+      "primaryUrl": "/รับซื้อเครื่องเกม",
+      "supportingUrls": [],
+      "currentRankingUrl": null,
+      "clicks": null,
+      "impressions": null,
+      "position": null,
+      "ctr": null,
+      "status": "AWAITING_GSC",
+      "recommendedAction": "OWNER_DATA"
+    },
+    {
+      "intent": "รับซื้ออุปกรณ์เกมมิ่ง",
+      "queryExamples": [
+        "รับซื้ออุปกรณ์เกมมิ่ง",
+        "รับซื้อเกมมิ่งเกียร์"
+      ],
+      "primaryUrl": "/รับซื้ออุปกรณ์เกมมิ่ง",
+      "supportingUrls": [],
+      "currentRankingUrl": null,
+      "clicks": null,
+      "impressions": null,
+      "position": null,
+      "ctr": null,
+      "status": "AWAITING_GSC",
+      "recommendedAction": "OWNER_DATA"
+    }
+  ]
+}

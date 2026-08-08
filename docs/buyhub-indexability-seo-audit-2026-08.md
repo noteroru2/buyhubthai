@@ -869,11 +869,24 @@ Delta ≈ 10 soft-cannibal hubs removed from sitemap.
 
 ### NEXT SEO BATCH (priority)
 
-1. GSC resubmit sitemap + inspect Tier-1 money + KEEP ACCEPTABLE hubs
-2. OWNER: NAP/GBP confirmation
-3. Blog contextual inline links (beyond panel) where editorial fit exists
-4. Reduce remaining near-orphan province-local money via selective parent↔child links
-5. Custom HTML 404 + CWV lab (P2)
+1. **GSC Ranking Intelligence** — owner export → `docs/gsc/` → `node scripts/analyze-gsc-query-page.mjs` (see `docs/gsc-owner-export-guide.md`)
+2. Implement only Tier-1 opportunities from GSC matrix (≤10 URLs)
+3. OWNER: NAP/GBP confirmation
+4. Blog contextual inline links only when GSC shows wrong-URL / CTR evidence
+5. Province near-orphan decisions driven by GSC province demand (not zero-click alone)
+
+---
+
+## BATCH — GSC RANKING INTELLIGENCE (2026-08-08)
+
+**Verdict: INSUFFICIENT_GSC_DATA**
+
+- Repo search: no Performance CSV/JSON/XLSX; prior audits already marked OWNER DATA REQUIRED
+- Tooling added: `scripts/analyze-gsc-query-page.mjs`
+- Owner guide: `docs/gsc-owner-export-guide.md`
+- Stub reports: `docs/gsc-ranking-opportunities.{json,md}`, `docs/gsc-primary-query-registry.json`
+- Site changes: **NONE** (implementation gate CLOSED)
+- Drop folder: `docs/gsc/`
 
 ### OWNER ACTION REQUIRED
 

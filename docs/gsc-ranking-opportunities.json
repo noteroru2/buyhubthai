@@ -1,0 +1,208 @@
+{
+  "verdict": "INSUFFICIENT_GSC_DATA",
+  "generatedAt": "2026-08-08T04:31:06.214Z",
+  "phase": "GSC RANKING OPTIMIZATION — READ/ANALYZE",
+  "siteChanges": "NONE (gate closed until GSC data)",
+  "data": {
+    "source": null,
+    "startDate": null,
+    "endDate": null,
+    "rowsRaw": 0,
+    "rowsNormalized": 0,
+    "queries": 0,
+    "pages": 0,
+    "queryPageAvailable": false,
+    "reason": "GSC DATA NOT PROVIDED — no CSV/JSON Performance export found in repository",
+    "freshness": "N/A — no dataset"
+  },
+  "architectureBaseline": {
+    "sitemap": 251,
+    "money": 15,
+    "keep": 63,
+    "provinceNearOrphansApprox": 90,
+    "note": "From prior verified batch; not from GSC"
+  },
+  "moneyPerformance": {
+    "moneyPages": 15,
+    "WINNER": null,
+    "NEAR_WIN": null,
+    "OPPORTUNITY": null,
+    "WEAK": null,
+    "NO_SIGNAL": null,
+    "pages": [
+      {
+        "path": "/รับซื้อ-iphone",
+        "clicks": null,
+        "impressions": null,
+        "ctr": null,
+        "position": null,
+        "band": "NO SIGNAL",
+        "reason": "INSUFFICIENT_GSC_DATA"
+      },
+      {
+        "path": "/รับซื้อ-ipad",
+        "clicks": null,
+        "impressions": null,
+        "ctr": null,
+        "position": null,
+        "band": "NO SIGNAL",
+        "reason": "INSUFFICIENT_GSC_DATA"
+      },
+      {
+        "path": "/รับซื้อ-macbook",
+        "clicks": null,
+        "impressions": null,
+        "ctr": null,
+        "position": null,
+        "band": "NO SIGNAL",
+        "reason": "INSUFFICIENT_GSC_DATA"
+      },
+      {
+        "path": "/รับซื้อโน๊ตบุ๊คมือสอง",
+        "clicks": null,
+        "impressions": null,
+        "ctr": null,
+        "position": null,
+        "band": "NO SIGNAL",
+        "reason": "INSUFFICIENT_GSC_DATA"
+      },
+      {
+        "path": "/รับซื้อคอมพิวเตอร์มือสอง",
+        "clicks": null,
+        "impressions": null,
+        "ctr": null,
+        "position": null,
+        "band": "NO SIGNAL",
+        "reason": "INSUFFICIENT_GSC_DATA"
+      },
+      {
+        "path": "/รับซื้อคอมเกมมิ่ง",
+        "clicks": null,
+        "impressions": null,
+        "ctr": null,
+        "position": null,
+        "band": "NO SIGNAL",
+        "reason": "INSUFFICIENT_GSC_DATA"
+      },
+      {
+        "path": "/รับซื้อมือถือ",
+        "clicks": null,
+        "impressions": null,
+        "ctr": null,
+        "position": null,
+        "band": "NO SIGNAL",
+        "reason": "INSUFFICIENT_GSC_DATA"
+      },
+      {
+        "path": "/รับซื้อแท็บเล็ต",
+        "clicks": null,
+        "impressions": null,
+        "ctr": null,
+        "position": null,
+        "band": "NO SIGNAL",
+        "reason": "INSUFFICIENT_GSC_DATA"
+      },
+      {
+        "path": "/รับซื้อกล้อง",
+        "clicks": null,
+        "impressions": null,
+        "ctr": null,
+        "position": null,
+        "band": "NO SIGNAL",
+        "reason": "INSUFFICIENT_GSC_DATA"
+      },
+      {
+        "path": "/รับซื้อการ์ดจอ",
+        "clicks": null,
+        "impressions": null,
+        "ctr": null,
+        "position": null,
+        "band": "NO SIGNAL",
+        "reason": "INSUFFICIENT_GSC_DATA"
+      },
+      {
+        "path": "/รับซื้อจอคอม",
+        "clicks": null,
+        "impressions": null,
+        "ctr": null,
+        "position": null,
+        "band": "NO SIGNAL",
+        "reason": "INSUFFICIENT_GSC_DATA"
+      },
+      {
+        "path": "/รับซื้อคอมบริษัท",
+        "clicks": null,
+        "impressions": null,
+        "ctr": null,
+        "position": null,
+        "band": "NO SIGNAL",
+        "reason": "INSUFFICIENT_GSC_DATA"
+      },
+      {
+        "path": "/รับซื้อ-ps5",
+        "clicks": null,
+        "impressions": null,
+        "ctr": null,
+        "position": null,
+        "band": "NO SIGNAL",
+        "reason": "INSUFFICIENT_GSC_DATA"
+      },
+      {
+        "path": "/รับซื้อเครื่องเกม",
+        "clicks": null,
+        "impressions": null,
+        "ctr": null,
+        "position": null,
+        "band": "NO SIGNAL",
+        "reason": "INSUFFICIENT_GSC_DATA"
+      },
+      {
+        "path": "/รับซื้ออุปกรณ์เกมมิ่ง",
+        "clicks": null,
+        "impressions": null,
+        "ctr": null,
+        "position": null,
+        "band": "NO SIGNAL",
+        "reason": "INSUFFICIENT_GSC_DATA"
+      }
+    ]
+  },
+  "rankingOpportunities": {
+    "position4to10": [],
+    "position11to20": [],
+    "highImpressionLowCtr": [],
+    "wrongUrl": [],
+    "cannibalizationP0": [],
+    "cannibalizationP1": []
+  },
+  "keepHubs": {
+    "proven": [],
+    "promising": [],
+    "noSignal": [],
+    "cannibalizing": [],
+    "note": "Requires page or query×page GSC export"
+  },
+  "province": {
+    "provenDemand": [],
+    "earlySignal": [],
+    "noData": [],
+    "wrongUrl": [],
+    "note": "Requires GSC page/query×page export"
+  },
+  "historicalSignal": {
+    "currentNoindexWithSignal": [],
+    "mergedWithSignal": [],
+    "reviewRequired": [],
+    "note": "Cannot evaluate without historical GSC page export covering noindexed URLs"
+  },
+  "top10Priorities": [],
+  "implementationGate": {
+    "ready": false,
+    "maxTier1Urls": 10,
+    "condition": "Provide GSC exports per docs/gsc-owner-export-guide.md then re-run this script"
+  },
+  "nextCommandExamples": [
+    "node scripts/analyze-gsc-query-page.mjs --query docs/gsc/queries-3m.csv --page docs/gsc/pages-3m.csv --start 2026-05-08 --end 2026-08-08",
+    "node scripts/analyze-gsc-query-page.mjs --query-page docs/gsc/query-page-3m.csv --start 2026-05-08 --end 2026-08-08"
+  ]
+}
