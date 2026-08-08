@@ -862,7 +862,8 @@ Delta ≈ 10 soft-cannibal hubs removed from sitemap.
 | Field | Value |
 |-------|--------|
 | Initial SHA | `52a602c` |
-| Release SHA | *(set after commit)* |
+| Release SHA | `a81cc61` |
+| Docs SHA | `a81cc61` |
 | Production SHA | **NOT ATTESTED** |
 | Production Matches Main | verify sitemap ~251 + KEEP enrichment samples after deploy |
 
