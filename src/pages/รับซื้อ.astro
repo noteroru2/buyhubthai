@@ -13,6 +13,7 @@ import { buildSellHubKeywordCluster, joinThaiKeywordPreview } from '../lib/keywo
 import { breadcrumbJsonLd, faqPageJsonLd, webPageJsonLd } from '../lib/schema';
 import { EDITORIAL_REVIEWED_AT, EDITORIAL_REVIEWER, LINE_AT } from '../lib/constants';
 import { sellThaiHref } from '../lib/thaiRoutes';
+import { HUB_DISCOVERY_GROUPS } from '../data/hubDiscoveryLinks';
 
 const entries = await getCollection('sell', ({ data }) => !data.draft);
 const sorted = entries.sort((a, b) => a.data.title.localeCompare(b.data.title, 'th'));
@@ -322,6 +323,26 @@ sellHubLongSections.push({
                   </li>
                 );
               })}
+            </ul>
+          </section>
+        ))}
+      </div>
+
+      <div class="mt-16 space-y-12">
+        {HUB_DISCOVERY_GROUPS.map((group) => (
+          <section aria-labelledby={`hub-discovery-${group.title}`}>
+            <h2 id={`hub-discovery-${group.title}`} class="text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl">
+              {group.title}
+            </h2>
+            <p class="mt-3 max-w-3xl text-base leading-8 text-slate-600">{group.sub}</p>
+            <ul class="mt-6 grid gap-2 text-sm sm:grid-cols-2 lg:grid-cols-3">
+              {group.links.map((link) => (
+                <li>
+                  <a class="font-semibold text-emerald-700 hover:underline" href={link.href}>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </section>
         ))}

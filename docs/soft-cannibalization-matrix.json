@@ -1,0 +1,228 @@
+{
+  "summary": {
+    "generatedAt": "2026-08-08T04:18:22.016Z",
+    "P0": 0,
+    "P1": 0,
+    "P2": 0,
+    "SAFE": 24,
+    "softCannibalDowngradesThisBatch": 10
+  },
+  "rows": [
+    {
+      "intent": "desktop",
+      "primaryUrl": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "supportingUrl": "/รับซื้อ-ram",
+      "overlapScore": 8,
+      "titleOverlap": 9,
+      "severity": "SAFE",
+      "note": "component category hub"
+    },
+    {
+      "intent": "desktop",
+      "primaryUrl": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "supportingUrl": "/รับซื้อ-ram-pc",
+      "overlapScore": 7,
+      "titleOverlap": 8,
+      "severity": "SAFE",
+      "note": "component category hub"
+    },
+    {
+      "intent": "desktop",
+      "primaryUrl": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "supportingUrl": "/รับซื้อ-ram-notebook",
+      "overlapScore": 6,
+      "titleOverlap": 7,
+      "severity": "SAFE",
+      "note": "component category hub"
+    },
+    {
+      "intent": "desktop",
+      "primaryUrl": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "supportingUrl": "/รับซื้อ-cpu",
+      "overlapScore": 6,
+      "titleOverlap": 7,
+      "severity": "SAFE",
+      "note": "component category hub"
+    },
+    {
+      "intent": "desktop",
+      "primaryUrl": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "supportingUrl": "/รับซื้อ-keyboard",
+      "overlapScore": 8,
+      "titleOverlap": 9,
+      "severity": "SAFE",
+      "note": "component category hub"
+    },
+    {
+      "intent": "desktop",
+      "primaryUrl": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "supportingUrl": "/รับซื้อ-ram-ecc",
+      "overlapScore": 6,
+      "titleOverlap": 7,
+      "severity": "SAFE",
+      "note": "component category hub"
+    },
+    {
+      "intent": "desktop",
+      "primaryUrl": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "supportingUrl": "/รับซื้อ-mouse",
+      "overlapScore": 8,
+      "titleOverlap": 9,
+      "severity": "SAFE",
+      "note": "component category hub"
+    },
+    {
+      "intent": "desktop",
+      "primaryUrl": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "supportingUrl": "/รับซื้อ-mainboard",
+      "overlapScore": 6,
+      "titleOverlap": 7,
+      "severity": "SAFE",
+      "note": "component category hub"
+    },
+    {
+      "intent": "desktop",
+      "primaryUrl": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "supportingUrl": "/รับซื้อ-power-supply",
+      "overlapScore": 6,
+      "titleOverlap": 6,
+      "severity": "SAFE",
+      "note": "component category hub"
+    },
+    {
+      "intent": "desktop",
+      "primaryUrl": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "supportingUrl": "/รับซื้อ-case-คอมพิวเตอร์",
+      "overlapScore": 7,
+      "titleOverlap": 8,
+      "severity": "SAFE",
+      "note": "component category hub"
+    },
+    {
+      "intent": "desktop",
+      "primaryUrl": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "supportingUrl": "/รับซื้ออะไหล่คอม",
+      "overlapScore": 8,
+      "titleOverlap": 9,
+      "severity": "SAFE",
+      "note": "component category hub"
+    },
+    {
+      "intent": "desktop",
+      "primaryUrl": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "supportingUrl": "/รับซื้อ-harddisk",
+      "overlapScore": 6,
+      "titleOverlap": 7,
+      "severity": "SAFE",
+      "note": "component category hub"
+    },
+    {
+      "intent": "corporate",
+      "primaryUrl": "/รับซื้อคอมบริษัท",
+      "supportingUrl": "/รับเหมาอุปกรณ์ไอที",
+      "overlapScore": 8,
+      "titleOverlap": 9,
+      "severity": "SAFE",
+      "note": "B2B/auction intent"
+    },
+    {
+      "intent": "corporate",
+      "primaryUrl": "/รับซื้อคอมบริษัท",
+      "supportingUrl": "/รับซื้อทรัพย์สินไอทีบริษัท",
+      "overlapScore": 8,
+      "titleOverlap": 9,
+      "severity": "SAFE",
+      "note": "B2B/auction intent"
+    },
+    {
+      "intent": "corporate",
+      "primaryUrl": "/รับซื้อคอมบริษัท",
+      "supportingUrl": "/รับเหมาคอมพิวเตอร์",
+      "overlapScore": 8,
+      "titleOverlap": 9,
+      "severity": "SAFE",
+      "note": "B2B/auction intent"
+    },
+    {
+      "intent": "corporate",
+      "primaryUrl": "/รับซื้อคอมบริษัท",
+      "supportingUrl": "/รับประมูลคอมพิวเตอร์",
+      "overlapScore": 7,
+      "titleOverlap": 8,
+      "severity": "SAFE",
+      "note": "B2B/auction intent"
+    },
+    {
+      "intent": "corporate",
+      "primaryUrl": "/รับซื้อคอมบริษัท",
+      "supportingUrl": "/รับซื้อ-fortinet",
+      "overlapScore": 6,
+      "titleOverlap": 7,
+      "severity": "SAFE",
+      "note": "infra/network intent (no money page)"
+    },
+    {
+      "intent": "corporate",
+      "primaryUrl": "/รับซื้อคอมบริษัท",
+      "supportingUrl": "/รับซื้อ-aruba",
+      "overlapScore": 6,
+      "titleOverlap": 6,
+      "severity": "SAFE",
+      "note": "infra/network intent (no money page)"
+    },
+    {
+      "intent": "corporate",
+      "primaryUrl": "/รับซื้อคอมบริษัท",
+      "supportingUrl": "/รับซื้อ-ubiquiti-network",
+      "overlapScore": 5,
+      "titleOverlap": 6,
+      "severity": "SAFE",
+      "note": "infra/network intent (no money page)"
+    },
+    {
+      "intent": "corporate",
+      "primaryUrl": "/รับซื้อคอมบริษัท",
+      "supportingUrl": "/รับซื้ออุปกรณ์-network",
+      "overlapScore": 6,
+      "titleOverlap": 6,
+      "severity": "SAFE",
+      "note": "infra/network intent (no money page)"
+    },
+    {
+      "intent": "corporate",
+      "primaryUrl": "/รับซื้อคอมบริษัท",
+      "supportingUrl": "/รับซื้อ-buffalo-network",
+      "overlapScore": 6,
+      "titleOverlap": 6,
+      "severity": "SAFE",
+      "note": "infra/network intent (no money page)"
+    },
+    {
+      "intent": "corporate",
+      "primaryUrl": "/รับซื้อคอมบริษัท",
+      "supportingUrl": "/รับซื้อ-access-point",
+      "overlapScore": 6,
+      "titleOverlap": 7,
+      "severity": "SAFE",
+      "note": "infra/network intent (no money page)"
+    },
+    {
+      "intent": "corporate",
+      "primaryUrl": "/รับซื้อคอมบริษัท",
+      "supportingUrl": "/รับซื้อ-network-switch",
+      "overlapScore": 6,
+      "titleOverlap": 7,
+      "severity": "SAFE",
+      "note": "infra/network intent (no money page)"
+    },
+    {
+      "intent": "corporate",
+      "primaryUrl": "/รับซื้อคอมบริษัท",
+      "supportingUrl": "/รับซื้อ-mikrotik",
+      "overlapScore": 6,
+      "titleOverlap": 7,
+      "severity": "SAFE",
+      "note": "infra/network intent (no money page)"
+    }
+  ]
+}

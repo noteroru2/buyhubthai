@@ -766,31 +766,113 @@ Production samples verified 2026-08-08: 12 money · 10 KEEP · 10 NOINDEX/MERGE 
 - Blog: `PrimaryMoneyLinkPanel` → related money pages
 - seoSlug hubs: consolidation / related money links
 
-### Deferred
+### Deferred (superseded by KEEP HUB QUALITY batch below)
 
-- Content enrichment for KEEP 73 hubs (no invented prices)
+- ~~Content enrichment for KEEP 73 hubs~~ → done in next batch
 - GSC / GBP / NAP owner data
 - Do not delete noindex topic or seoSlug hubs yet
 
 ---
 
-## NEXT SEO BATCH (priority)
+## BATCH — KEEP HUB QUALITY / FULL INTERNAL LINK GRAPH (2026-08-08)
 
-1. GSC resubmit sitemap + inspect Tier-1 money URLs
-2. Enrich KEEP seoSlug hubs (73) with real information gain
-3. Soft overlap cleanup remaining after MERGE/NOINDEX
-4. OWNER: NAP/GBP confirmation
-5. Custom HTML 404 + CWV lab
+### KEEP HUB QUALITY
 
----
+| Metric | Before | After |
+|--------|-------:|------:|
+| KEEP indexable | 73 | **63** |
+| Soft-cannibal downgrades (NOINDEX) | — | **10** |
+| KEEP STRONG | — | 0 |
+| KEEP ACCEPTABLE | — | **63** |
+| MERGE (this batch) | — | 0 additional |
+| NOINDEX (this batch soft overlap) | — | 10 |
+| OWNER DATA REQUIRED | — | 0 |
+| Avg quality score | ~template-thin | **73/100** |
+| Information Gain avg (/20) | low | **16** |
+| Template-heavy (>60%) | high | 60 (CTA/process shared; main checks unique) |
+| Pages enriched | 0 | **63** |
 
-## PHASE 27+ remaining
+Soft-cannibal NOINDEX targets (canonical → parent hub):
+`เครื่องเสียง`, `Bose`, `Harddisk Synology`, `Harddisk Nas`, `UPS Server`, `UPS Rack`, `อุปกรณ์ไอทีเก่าบริษัท`, `รับเหมาคอมสำนักงาน`, `รับประมูลงานคอมพิวเตอร์`, `เครื่องบดกาแฟ`
 
-- Enrich KEEP seoSlug hubs (73)
-- OWNER: GSC + NAP/GBP
-- Custom HTML 404
-- Full CWV lab pass
-- Do **not** delete 1,524 noindex topics or 161 noindex/merge hubs yet
+Artifacts:
+- `docs/seoslug-keep-quality.json`
+- `src/data/seoSlugHubEnrichment.ts`
+- `src/data/hubDiscoveryLinks.ts`
+- `src/data/supportingHubLinks.ts`
+
+Business facts invented: **0** · Fake prices: **0** · Fake reviews: **0**
+
+### FULL INTERNAL LINK GRAPH
+
+| Metric | Value |
+|--------|------:|
+| Indexable URLs analyzed | **251** |
+| Total internal edges | **13,358+** |
+| Orphans before remediation | 122 |
+| Orphans after | **0** |
+| Near-orphans after | **94** (mostly province-local money with 1 contextual source) |
+| Depth >3 after | **0** |
+| Homepage unique outbound | 44 · link-dump risk **OK** |
+
+Artifact: `docs/internal-link-graph.json`  
+Note: authority score is an **internal heuristic** (unique sources + placement + depth), not PageRank.
+
+### PRIMARY MONEY AUTHORITY
+
+| Band | Before (approx) | After |
+|------|----------------:|------:|
+| STRONG | partial / footer-inflated | **15/15** (with contextual inbound ≥3) |
+| WEAK | some supporting-only | **0** |
+| CRITICAL | — | **0** |
+
+Money pages still get sitewide footer links; contextual body/related links confirmed separately.
+
+### SOFT CANNIBALIZATION
+
+| | Before | After |
+|--|-------:|------:|
+| P0 | partial risk among KEEP siblings | **0** |
+| P1 | present | **0** (matrix sample) |
+| P2 | — | 0 |
+| SAFE supporting clusters | — | yes |
+
+Artifact: `docs/soft-cannibalization-matrix.json`
+
+### SITEMAP
+
+| | Count |
+|--|------:|
+| Before this batch | 261 |
+| After (local build) | **251** |
+| Noindex in sitemap | 0 (filter PASS) |
+
+Delta ≈ 10 soft-cannibal hubs removed from sitemap.
+
+### INTERNAL LINK REMEDIATION
+
+- `/รับซื้อ` hub discovery groups → specialty KEEP hubs
+- Money pages → supporting hubs via `supportingHubLinks`
+- KEEP hubs → parent money + related hubs (enrichment)
+- Province `AreaLocalSections` → province-local money pages (5 intents) + national parents
+- Blog: `PrimaryMoneyLinkPanel` remains supplemental
+
+### PRODUCTION VERIFICATION
+
+| Field | Value |
+|-------|--------|
+| Initial SHA | `52a602c` |
+| Release SHA | *(set after commit)* |
+| Production SHA | **NOT ATTESTED** |
+| Production Matches Main | verify sitemap ~251 + KEEP enrichment samples after deploy |
+
+### NEXT SEO BATCH (priority)
+
+1. GSC resubmit sitemap + inspect Tier-1 money + KEEP ACCEPTABLE hubs
+2. OWNER: NAP/GBP confirmation
+3. Blog contextual inline links (beyond panel) where editorial fit exists
+4. Reduce remaining near-orphan province-local money via selective parent↔child links
+5. Custom HTML 404 + CWV lab (P2)
 
 ### OWNER ACTION REQUIRED
 

@@ -11,6 +11,7 @@ import { buildSellKeywordCluster, joinThaiKeywordPreview } from '../lib/keywordC
 import { buildComboEditorialSections, getSellEditorialSections } from '../data/editorialProfiles';
 import { getSellAreaSupportLinksByMainPath } from '../data/sellAreaSupportPages';
 import { findSellIdByMainPath, getSellSupportLinks } from '../data/sellSupportPages';
+import { getSupportingHubsForMoneyPath } from '../data/supportingHubLinks';
 import type { BreadcrumbItem } from '../lib/types';
 
 type LongContentSection = {
@@ -501,7 +502,8 @@ const tocItems = (() => {
   }, []);
 })();
 
-const dedupedInternalLinks = dedupeLinks(internalLinks);
+const supportingHubs = getSupportingHubsForMoneyPath(path);
+const dedupedInternalLinks = dedupeLinks([...supportingHubs, ...internalLinks]);
 
 const groupedLinks = (() => {
   const relatedProducts: { href: string; label: string }[] = [];

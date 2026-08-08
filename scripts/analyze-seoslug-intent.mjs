@@ -155,38 +155,72 @@ function classify(keyword) {
     return { action: 'NOINDEX', primary: '/รับซื้อ-server-มือสอง', reason: 'server brand/condition doorway', score: 44, cluster: 'server-brand' };
   }
 
+  // Soft cannibalization among former KEEP siblings
+  if (/^รับซื้อเครื่องเสียง$/i.test(keyword.trim()))
+    return { action: 'NOINDEX', primary: '/รับซื้อลำโพง', reason: 'soft overlap → speaker category', score: 48, cluster: 'soft-cannibal' };
+  if (/^รับซื้อ\s*bose$/i.test(keyword.trim()))
+    return { action: 'NOINDEX', primary: '/รับซื้อลำโพง', reason: 'speaker brand doorway', score: 42, cluster: 'soft-cannibal' };
+  if (/harddisk\s*synology/i.test(keyword))
+    return { action: 'NOINDEX', primary: '/รับซื้อ-synology', reason: 'soft overlap → Synology hub', score: 50, cluster: 'soft-cannibal' };
+  if (/harddisk\s*nas/i.test(keyword))
+    return { action: 'NOINDEX', primary: '/รับซื้อ-nas-storage', reason: 'soft overlap → NAS storage', score: 50, cluster: 'soft-cannibal' };
+  if (/ups\s*(server|rack)/i.test(keyword))
+    return { action: 'NOINDEX', primary: '/รับซื้อ-ups', reason: 'soft overlap → UPS category', score: 50, cluster: 'soft-cannibal' };
+  if (/รับซื้ออุปกรณ์ไอทีเก่าบริษัท/i.test(keyword))
+    return { action: 'NOINDEX', primary: '/รับซื้อทรัพย์สินไอทีบริษัท', reason: 'soft overlap B2B asset', score: 52, cluster: 'soft-cannibal' };
+  if (/รับเหมาคอมสำนักงาน/i.test(keyword))
+    return { action: 'NOINDEX', primary: '/รับเหมาคอมพิวเตอร์', reason: 'soft overlap B2B bulk', score: 52, cluster: 'soft-cannibal' };
+  if (/รับประมูลงานคอมพิวเตอร์/i.test(keyword))
+    return { action: 'NOINDEX', primary: '/รับประมูลคอมพิวเตอร์', reason: 'soft overlap auction', score: 52, cluster: 'soft-cannibal' };
+  if (/^รับซื้อเครื่องบดกาแฟ$/i.test(keyword.trim()))
+    return { action: 'NOINDEX', primary: '/รับซื้อเครื่องชงกาแฟ', reason: 'soft overlap coffee gear', score: 48, cluster: 'soft-cannibal' };
+
   // KEEP: B2B / infra / unique category hubs without money pages
-  if (/รับเหมา|รับประมูล|รับซื้อทรัพย์สิน|รับซื้ออุปกรณ์ไอทีเก่า|รับซื้ออุปกรณ์ไอที$/i.test(keyword)) {
-    return { action: 'KEEP', primary: null, reason: 'B2B/auction intent', score: 78, cluster: 'b2b' };
+  if (/รับเหมา|รับประมูล|รับซื้อทรัพย์สิน|รับซื้ออุปกรณ์ไอที$/i.test(keyword)) {
+    return { action: 'KEEP', primary: PRIMARY.corporate, reason: 'B2B/auction intent', score: 78, cluster: 'b2b' };
   }
   if (
     /server|nas|network|fortinet|aruba|ubiquiti|mikrotik|synology|qnap|firewall|router|switch|access\s*point|สาย\s*lan|ip\s*phone|ตู้\s*rack|storage|netapp|ruijie|zyxel|netgear|buffalo/i.test(
       keyword
     )
   ) {
-    return { action: 'KEEP', primary: null, reason: 'infra/network intent (no money page)', score: 76, cluster: 'infra' };
+    return {
+      action: 'KEEP',
+      primary: /server|nas|storage|rack|synology|qnap|netapp/i.test(keyword)
+        ? '/รับซื้อ-server-มือสอง'
+        : PRIMARY.corporate,
+      reason: 'infra/network intent (no money page)',
+      score: 76,
+      cluster: 'infra'
+    };
   }
-  if (/^รับซื้อ\s*ups$/i.test(keyword.trim()) || /แบตเตอรี่\s*ups|ups\s*server|ups\s*rack/i.test(keyword)) {
-    return { action: 'KEEP', primary: null, reason: 'UPS category', score: 74, cluster: 'ups' };
+  if (/^รับซื้อ\s*ups$/i.test(keyword.trim()) || /แบตเตอรี่\s*ups/i.test(keyword)) {
+    return { action: 'KEEP', primary: '/รับซื้อ-server-มือสอง', reason: 'UPS category', score: 74, cluster: 'ups' };
   }
   if (
     /^รับซื้อ\s*(ram|cpu|ssd|harddisk|mainboard|power\s*supply|flash\s*drive|อะไหล่คอม|ram\s*pc|ram\s*notebook|ram\s*ecc|ssd\s*m\.2|ssd\s*nvme|external\s*harddisk|case\s*คอมพิวเตอร์|keyboard|คีย์บอร์ด|mouse|เม้าส์)$/i.test(
       keyword.trim()
     )
   ) {
-    return { action: 'KEEP', primary: null, reason: 'component category hub', score: 72, cluster: 'component' };
+    return { action: 'KEEP', primary: PRIMARY.desktop, reason: 'component category hub', score: 72, cluster: 'component' };
   }
   if (
-    /^รับซื้อ\s*(ลำโพง|เครื่องเสียง|bose|เครื่องใช้ไฟฟ้า|พัดลม|แอร์|เครื่องฟอกอากาศ|เครื่องกรองน้ำ|เก้าอี้นวด|เครื่องชงกาแฟ|เครื่องบดกาแฟ|ของย้ายบ้าน|drone|dyson)$/i.test(
+    /^รับซื้อ\s*(ลำโพง|เครื่องใช้ไฟฟ้า|พัดลม|แอร์|เครื่องฟอกอากาศ|เครื่องกรองน้ำ|เก้าอี้นวด|เครื่องชงกาแฟ|ของย้ายบ้าน|drone|dyson)$/i.test(
       keyword.trim()
     )
   ) {
-    return { action: 'KEEP', primary: null, reason: 'electronics category hub', score: 70, cluster: 'electronics' };
+    return { action: 'KEEP', primary: PRIMARY.sellHub, reason: 'electronics category hub', score: 70, cluster: 'electronics' };
   }
 
   // Remaining harddisk specials / SSD specials that are category not brand
-  if (/harddisk\s*(server|sas|กล้อง|synology|nas)/i.test(keyword) || /ssd\s*(server|m\.2|nvme)/i.test(keyword)) {
-    return { action: 'KEEP', primary: null, reason: 'storage specialty hub', score: 68, cluster: 'storage' };
+  if (/harddisk\s*(server|sas|กล้อง)/i.test(keyword) || /ssd\s*(server|m\.2|nvme)/i.test(keyword)) {
+    return {
+      action: 'KEEP',
+      primary: /ssd|harddisk/i.test(keyword) ? PRIMARY.desktop : '/รับซื้อ-server-มือสอง',
+      reason: 'storage specialty hub',
+      score: 68,
+      cluster: 'storage'
+    };
   }
 
   return { action: 'NOINDEX', primary: PRIMARY.sellHub, reason: 'low information-gain template', score: 35, cluster: 'default-thin' };

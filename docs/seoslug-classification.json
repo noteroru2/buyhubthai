@@ -5,7 +5,7 @@
       "slug": "รับเหมาอุปกรณ์ไอที",
       "path": "/รับเหมาอุปกรณ์ไอที",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมบริษัท",
       "reason": "B2B/auction intent",
       "score": 78,
       "cluster": "b2b"
@@ -15,7 +15,7 @@
       "slug": "รับซื้อทรัพย์สินไอทีบริษัท",
       "path": "/รับซื้อทรัพย์สินไอทีบริษัท",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมบริษัท",
       "reason": "B2B/auction intent",
       "score": 78,
       "cluster": "b2b"
@@ -24,18 +24,18 @@
       "keyword": "รับซื้ออุปกรณ์ไอทีเก่าบริษัท",
       "slug": "รับซื้ออุปกรณ์ไอทีเก่าบริษัท",
       "path": "/รับซื้ออุปกรณ์ไอทีเก่าบริษัท",
-      "action": "KEEP",
-      "primary": null,
-      "reason": "B2B/auction intent",
-      "score": 78,
-      "cluster": "b2b"
+      "action": "NOINDEX",
+      "primary": "/รับซื้อทรัพย์สินไอทีบริษัท",
+      "reason": "soft overlap B2B asset",
+      "score": 52,
+      "cluster": "soft-cannibal"
     },
     {
       "keyword": "รับเหมาคอมพิวเตอร์",
       "slug": "รับเหมาคอมพิวเตอร์",
       "path": "/รับเหมาคอมพิวเตอร์",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมบริษัท",
       "reason": "B2B/auction intent",
       "score": 78,
       "cluster": "b2b"
@@ -44,18 +44,18 @@
       "keyword": "รับเหมาคอมสำนักงาน",
       "slug": "รับเหมาคอมสำนักงาน",
       "path": "/รับเหมาคอมสำนักงาน",
-      "action": "KEEP",
-      "primary": null,
-      "reason": "B2B/auction intent",
-      "score": 78,
-      "cluster": "b2b"
+      "action": "NOINDEX",
+      "primary": "/รับเหมาคอมพิวเตอร์",
+      "reason": "soft overlap B2B bulk",
+      "score": 52,
+      "cluster": "soft-cannibal"
     },
     {
       "keyword": "รับประมูลคอมพิวเตอร์",
       "slug": "รับประมูลคอมพิวเตอร์",
       "path": "/รับประมูลคอมพิวเตอร์",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมบริษัท",
       "reason": "B2B/auction intent",
       "score": 78,
       "cluster": "b2b"
@@ -64,18 +64,18 @@
       "keyword": "รับประมูลงานคอมพิวเตอร์",
       "slug": "รับประมูลงานคอมพิวเตอร์",
       "path": "/รับประมูลงานคอมพิวเตอร์",
-      "action": "KEEP",
-      "primary": null,
-      "reason": "B2B/auction intent",
-      "score": 78,
-      "cluster": "b2b"
+      "action": "NOINDEX",
+      "primary": "/รับประมูลคอมพิวเตอร์",
+      "reason": "soft overlap auction",
+      "score": 52,
+      "cluster": "soft-cannibal"
     },
     {
       "keyword": "รับซื้อ Server มือสอง",
       "slug": "รับซื้อ-server-มือสอง",
       "path": "/รับซื้อ-server-มือสอง",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อ-server-มือสอง",
       "reason": "infra/network intent (no money page)",
       "score": 76,
       "cluster": "infra"
@@ -195,7 +195,7 @@
       "slug": "รับซื้อ-fortinet",
       "path": "/รับซื้อ-fortinet",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมบริษัท",
       "reason": "infra/network intent (no money page)",
       "score": 76,
       "cluster": "infra"
@@ -205,7 +205,7 @@
       "slug": "รับซื้อ-netapp-storage",
       "path": "/รับซื้อ-netapp-storage",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อ-server-มือสอง",
       "reason": "infra/network intent (no money page)",
       "score": 76,
       "cluster": "infra"
@@ -215,7 +215,7 @@
       "slug": "รับซื้อ-ssd-server",
       "path": "/รับซื้อ-ssd-server",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อ-server-มือสอง",
       "reason": "infra/network intent (no money page)",
       "score": 76,
       "cluster": "infra"
@@ -234,7 +234,7 @@
       "slug": "รับซื้อ-aruba",
       "path": "/รับซื้อ-aruba",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมบริษัท",
       "reason": "infra/network intent (no money page)",
       "score": 76,
       "cluster": "infra"
@@ -244,7 +244,7 @@
       "slug": "รับซื้อ-nas-storage",
       "path": "/รับซื้อ-nas-storage",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อ-server-มือสอง",
       "reason": "infra/network intent (no money page)",
       "score": 76,
       "cluster": "infra"
@@ -254,7 +254,7 @@
       "slug": "รับซื้อ-ubiquiti-network",
       "path": "/รับซื้อ-ubiquiti-network",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมบริษัท",
       "reason": "infra/network intent (no money page)",
       "score": 76,
       "cluster": "infra"
@@ -264,7 +264,7 @@
       "slug": "รับซื้อ-ram-server",
       "path": "/รับซื้อ-ram-server",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อ-server-มือสอง",
       "reason": "infra/network intent (no money page)",
       "score": 76,
       "cluster": "infra"
@@ -274,7 +274,7 @@
       "slug": "รับซื้อตู้-rack-server",
       "path": "/รับซื้อตู้-rack-server",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อ-server-มือสอง",
       "reason": "infra/network intent (no money page)",
       "score": 76,
       "cluster": "infra"
@@ -284,7 +284,7 @@
       "slug": "รับซื้อ-storage-server",
       "path": "/รับซื้อ-storage-server",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อ-server-มือสอง",
       "reason": "infra/network intent (no money page)",
       "score": 76,
       "cluster": "infra"
@@ -294,7 +294,7 @@
       "slug": "รับซื้ออุปกรณ์-network",
       "path": "/รับซื้ออุปกรณ์-network",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมบริษัท",
       "reason": "infra/network intent (no money page)",
       "score": 76,
       "cluster": "infra"
@@ -304,7 +304,7 @@
       "slug": "รับซื้อ-harddisk-server",
       "path": "/รับซื้อ-harddisk-server",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อ-server-มือสอง",
       "reason": "infra/network intent (no money page)",
       "score": 76,
       "cluster": "infra"
@@ -314,7 +314,7 @@
       "slug": "รับซื้อ-buffalo-network",
       "path": "/รับซื้อ-buffalo-network",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมบริษัท",
       "reason": "infra/network intent (no money page)",
       "score": 76,
       "cluster": "infra"
@@ -324,7 +324,7 @@
       "slug": "รับซื้อ-synology",
       "path": "/รับซื้อ-synology",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อ-server-มือสอง",
       "reason": "infra/network intent (no money page)",
       "score": 76,
       "cluster": "infra"
@@ -334,7 +334,7 @@
       "slug": "รับซื้อ-qnap",
       "path": "/รับซื้อ-qnap",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อ-server-มือสอง",
       "reason": "infra/network intent (no money page)",
       "score": 76,
       "cluster": "infra"
@@ -344,7 +344,7 @@
       "slug": "รับซื้อ-access-point",
       "path": "/รับซื้อ-access-point",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมบริษัท",
       "reason": "infra/network intent (no money page)",
       "score": 76,
       "cluster": "infra"
@@ -354,7 +354,7 @@
       "slug": "รับซื้อ-network-switch",
       "path": "/รับซื้อ-network-switch",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมบริษัท",
       "reason": "infra/network intent (no money page)",
       "score": 76,
       "cluster": "infra"
@@ -364,7 +364,7 @@
       "slug": "รับซื้อ-mikrotik",
       "path": "/รับซื้อ-mikrotik",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมบริษัท",
       "reason": "infra/network intent (no money page)",
       "score": 76,
       "cluster": "infra"
@@ -374,7 +374,7 @@
       "slug": "รับซื้อ-ruijie",
       "path": "/รับซื้อ-ruijie",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมบริษัท",
       "reason": "infra/network intent (no money page)",
       "score": 76,
       "cluster": "infra"
@@ -384,7 +384,7 @@
       "slug": "รับซื้อสาย-lan",
       "path": "/รับซื้อสาย-lan",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมบริษัท",
       "reason": "infra/network intent (no money page)",
       "score": 76,
       "cluster": "infra"
@@ -394,7 +394,7 @@
       "slug": "รับซื้อ-ip-phone",
       "path": "/รับซื้อ-ip-phone",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมบริษัท",
       "reason": "infra/network intent (no money page)",
       "score": 76,
       "cluster": "infra"
@@ -404,7 +404,7 @@
       "slug": "รับซื้อ-router",
       "path": "/รับซื้อ-router",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมบริษัท",
       "reason": "infra/network intent (no money page)",
       "score": 76,
       "cluster": "infra"
@@ -414,7 +414,7 @@
       "slug": "รับซื้อ-firewall",
       "path": "/รับซื้อ-firewall",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมบริษัท",
       "reason": "infra/network intent (no money page)",
       "score": 76,
       "cluster": "infra"
@@ -452,7 +452,7 @@
       "slug": "รับซื้อ-zyxel",
       "path": "/รับซื้อ-zyxel",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมบริษัท",
       "reason": "infra/network intent (no money page)",
       "score": 76,
       "cluster": "infra"
@@ -462,7 +462,7 @@
       "slug": "รับซื้อ-netgear",
       "path": "/รับซื้อ-netgear",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมบริษัท",
       "reason": "infra/network intent (no money page)",
       "score": 76,
       "cluster": "infra"
@@ -471,21 +471,21 @@
       "keyword": "รับซื้อ Harddisk Synology",
       "slug": "รับซื้อ-harddisk-synology",
       "path": "/รับซื้อ-harddisk-synology",
-      "action": "KEEP",
-      "primary": null,
-      "reason": "infra/network intent (no money page)",
-      "score": 76,
-      "cluster": "infra"
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-synology",
+      "reason": "soft overlap → Synology hub",
+      "score": 50,
+      "cluster": "soft-cannibal"
     },
     {
       "keyword": "รับซื้อ Harddisk Nas",
       "slug": "รับซื้อ-harddisk-nas",
       "path": "/รับซื้อ-harddisk-nas",
-      "action": "KEEP",
-      "primary": null,
-      "reason": "infra/network intent (no money page)",
-      "score": 76,
-      "cluster": "infra"
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-nas-storage",
+      "reason": "soft overlap → NAS storage",
+      "score": 50,
+      "cluster": "soft-cannibal"
     },
     {
       "keyword": "รับซื้อคอมประกอบ",
@@ -511,7 +511,7 @@
       "slug": "รับซื้อ-ram",
       "path": "/รับซื้อ-ram",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
       "reason": "component category hub",
       "score": 72,
       "cluster": "component"
@@ -521,7 +521,7 @@
       "slug": "รับซื้อ-ram-pc",
       "path": "/รับซื้อ-ram-pc",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
       "reason": "component category hub",
       "score": 72,
       "cluster": "component"
@@ -531,7 +531,7 @@
       "slug": "รับซื้อ-ram-notebook",
       "path": "/รับซื้อ-ram-notebook",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
       "reason": "component category hub",
       "score": 72,
       "cluster": "component"
@@ -541,7 +541,7 @@
       "slug": "รับซื้อ-cpu",
       "path": "/รับซื้อ-cpu",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
       "reason": "component category hub",
       "score": 72,
       "cluster": "component"
@@ -560,7 +560,7 @@
       "slug": "รับซื้อ-keyboard",
       "path": "/รับซื้อ-keyboard",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
       "reason": "component category hub",
       "score": 72,
       "cluster": "component"
@@ -717,7 +717,7 @@
       "slug": "รับซื้อ-ram-ecc",
       "path": "/รับซื้อ-ram-ecc",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
       "reason": "component category hub",
       "score": 72,
       "cluster": "component"
@@ -820,7 +820,7 @@
       "slug": "รับซื้อ-mouse",
       "path": "/รับซื้อ-mouse",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
       "reason": "component category hub",
       "score": 72,
       "cluster": "component"
@@ -840,7 +840,7 @@
       "slug": "รับซื้อ-mainboard",
       "path": "/รับซื้อ-mainboard",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
       "reason": "component category hub",
       "score": 72,
       "cluster": "component"
@@ -850,7 +850,7 @@
       "slug": "รับซื้อ-power-supply",
       "path": "/รับซื้อ-power-supply",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
       "reason": "component category hub",
       "score": 72,
       "cluster": "component"
@@ -860,7 +860,7 @@
       "slug": "รับซื้อ-case-คอมพิวเตอร์",
       "path": "/รับซื้อ-case-คอมพิวเตอร์",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
       "reason": "component category hub",
       "score": 72,
       "cluster": "component"
@@ -1014,7 +1014,7 @@
       "slug": "รับประมูลโน๊ตบุ๊ค",
       "path": "/รับประมูลโน๊ตบุ๊ค",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมบริษัท",
       "reason": "B2B/auction intent",
       "score": 78,
       "cluster": "b2b"
@@ -1042,7 +1042,7 @@
       "slug": "รับซื้ออะไหล่คอม",
       "path": "/รับซื้ออะไหล่คอม",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
       "reason": "component category hub",
       "score": 72,
       "cluster": "component"
@@ -1097,7 +1097,7 @@
       "slug": "รับซื้ออุปกรณ์ไอที",
       "path": "/รับซื้ออุปกรณ์ไอที",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมบริษัท",
       "reason": "B2B/auction intent",
       "score": 78,
       "cluster": "b2b"
@@ -1179,7 +1179,7 @@
       "slug": "รับซื้อ-harddisk",
       "path": "/รับซื้อ-harddisk",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
       "reason": "component category hub",
       "score": 72,
       "cluster": "component"
@@ -1198,7 +1198,7 @@
       "slug": "รับซื้อ-ssd",
       "path": "/รับซื้อ-ssd",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
       "reason": "component category hub",
       "score": 72,
       "cluster": "component"
@@ -1208,7 +1208,7 @@
       "slug": "รับซื้อ-external-harddisk",
       "path": "/รับซื้อ-external-harddisk",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
       "reason": "component category hub",
       "score": 72,
       "cluster": "component"
@@ -1218,7 +1218,7 @@
       "slug": "รับซื้อ-ssd-m-2",
       "path": "/รับซื้อ-ssd-m-2",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
       "reason": "component category hub",
       "score": 72,
       "cluster": "component"
@@ -1228,7 +1228,7 @@
       "slug": "รับซื้อ-flash-drive",
       "path": "/รับซื้อ-flash-drive",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
       "reason": "component category hub",
       "score": 72,
       "cluster": "component"
@@ -1408,7 +1408,7 @@
       "slug": "รับซื้อ-ssd-nvme",
       "path": "/รับซื้อ-ssd-nvme",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
       "reason": "component category hub",
       "score": 72,
       "cluster": "component"
@@ -1418,7 +1418,7 @@
       "slug": "รับซื้อ-harddisk-sas",
       "path": "/รับซื้อ-harddisk-sas",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
       "reason": "storage specialty hub",
       "score": 68,
       "cluster": "storage"
@@ -1518,7 +1518,7 @@
       "slug": "รับซื้อ-harddisk-กล้องวงจรปิด",
       "path": "/รับซื้อ-harddisk-กล้องวงจรปิด",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
       "reason": "storage specialty hub",
       "score": 68,
       "cluster": "storage"
@@ -1789,7 +1789,7 @@
       "slug": "รับซื้อ-ups",
       "path": "/รับซื้อ-ups",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อ-server-มือสอง",
       "reason": "UPS category",
       "score": 74,
       "cluster": "ups"
@@ -1918,7 +1918,7 @@
       "slug": "รับซื้อแบตเตอรี่-ups",
       "path": "/รับซื้อแบตเตอรี่-ups",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อ-server-มือสอง",
       "reason": "UPS category",
       "score": 74,
       "cluster": "ups"
@@ -1937,11 +1937,11 @@
       "keyword": "รับซื้อ UPS Server",
       "slug": "รับซื้อ-ups-server",
       "path": "/รับซื้อ-ups-server",
-      "action": "KEEP",
-      "primary": null,
-      "reason": "infra/network intent (no money page)",
-      "score": 76,
-      "cluster": "infra"
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ups",
+      "reason": "soft overlap → UPS category",
+      "score": 50,
+      "cluster": "soft-cannibal"
     },
     {
       "keyword": "รับซื้อ UPS Huawei",
@@ -1957,11 +1957,11 @@
       "keyword": "รับซื้อ UPS Rack",
       "slug": "รับซื้อ-ups-rack",
       "path": "/รับซื้อ-ups-rack",
-      "action": "KEEP",
-      "primary": null,
-      "reason": "UPS category",
-      "score": 74,
-      "cluster": "ups"
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ups",
+      "reason": "soft overlap → UPS category",
+      "score": 50,
+      "cluster": "soft-cannibal"
     },
     {
       "keyword": "รับซื้อคอมร้านเกม",
@@ -2056,7 +2056,7 @@
       "slug": "รับซื้อลำโพง",
       "path": "/รับซื้อลำโพง",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อ",
       "reason": "electronics category hub",
       "score": 70,
       "cluster": "electronics"
@@ -2065,21 +2065,21 @@
       "keyword": "รับซื้อเครื่องเสียง",
       "slug": "รับซื้อเครื่องเสียง",
       "path": "/รับซื้อเครื่องเสียง",
-      "action": "KEEP",
-      "primary": null,
-      "reason": "electronics category hub",
-      "score": 70,
-      "cluster": "electronics"
+      "action": "NOINDEX",
+      "primary": "/รับซื้อลำโพง",
+      "reason": "soft overlap → speaker category",
+      "score": 48,
+      "cluster": "soft-cannibal"
     },
     {
       "keyword": "รับซื้อ Bose",
       "slug": "รับซื้อ-bose",
       "path": "/รับซื้อ-bose",
-      "action": "KEEP",
-      "primary": null,
-      "reason": "electronics category hub",
-      "score": 70,
-      "cluster": "electronics"
+      "action": "NOINDEX",
+      "primary": "/รับซื้อลำโพง",
+      "reason": "speaker brand doorway",
+      "score": 42,
+      "cluster": "soft-cannibal"
     },
     {
       "keyword": "รับซื้อ Harman/Kardon",
@@ -2136,7 +2136,7 @@
       "slug": "รับซื้อเครื่องใช้ไฟฟ้า",
       "path": "/รับซื้อเครื่องใช้ไฟฟ้า",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อ",
       "reason": "electronics category hub",
       "score": 70,
       "cluster": "electronics"
@@ -2155,7 +2155,7 @@
       "slug": "รับซื้อ-dyson",
       "path": "/รับซื้อ-dyson",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อ",
       "reason": "electronics category hub",
       "score": 70,
       "cluster": "electronics"
@@ -2165,7 +2165,7 @@
       "slug": "รับซื้อพัดลม",
       "path": "/รับซื้อพัดลม",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อ",
       "reason": "electronics category hub",
       "score": 70,
       "cluster": "electronics"
@@ -2175,7 +2175,7 @@
       "slug": "รับซื้อแอร์",
       "path": "/รับซื้อแอร์",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อ",
       "reason": "electronics category hub",
       "score": 70,
       "cluster": "electronics"
@@ -2185,7 +2185,7 @@
       "slug": "รับซื้อเครื่องฟอกอากาศ",
       "path": "/รับซื้อเครื่องฟอกอากาศ",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อ",
       "reason": "electronics category hub",
       "score": 70,
       "cluster": "electronics"
@@ -2195,7 +2195,7 @@
       "slug": "รับซื้อเครื่องกรองน้ำ",
       "path": "/รับซื้อเครื่องกรองน้ำ",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อ",
       "reason": "electronics category hub",
       "score": 70,
       "cluster": "electronics"
@@ -2205,7 +2205,7 @@
       "slug": "รับซื้อเก้าอี้นวด",
       "path": "/รับซื้อเก้าอี้นวด",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อ",
       "reason": "electronics category hub",
       "score": 70,
       "cluster": "electronics"
@@ -2215,7 +2215,7 @@
       "slug": "รับซื้อเครื่องชงกาแฟ",
       "path": "/รับซื้อเครื่องชงกาแฟ",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อ",
       "reason": "electronics category hub",
       "score": 70,
       "cluster": "electronics"
@@ -2224,18 +2224,18 @@
       "keyword": "รับซื้อเครื่องบดกาแฟ",
       "slug": "รับซื้อเครื่องบดกาแฟ",
       "path": "/รับซื้อเครื่องบดกาแฟ",
-      "action": "KEEP",
-      "primary": null,
-      "reason": "electronics category hub",
-      "score": 70,
-      "cluster": "electronics"
+      "action": "NOINDEX",
+      "primary": "/รับซื้อเครื่องชงกาแฟ",
+      "reason": "soft overlap coffee gear",
+      "score": 48,
+      "cluster": "soft-cannibal"
     },
     {
       "keyword": "รับซื้อของย้ายบ้าน",
       "slug": "รับซื้อของย้ายบ้าน",
       "path": "/รับซื้อของย้ายบ้าน",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อ",
       "reason": "electronics category hub",
       "score": 70,
       "cluster": "electronics"
@@ -2245,7 +2245,7 @@
       "slug": "รับซื้อ-drone",
       "path": "/รับซื้อ-drone",
       "action": "KEEP",
-      "primary": null,
+      "primary": "/รับซื้อ",
       "reason": "electronics category hub",
       "score": 70,
       "cluster": "electronics"
@@ -2261,9 +2261,9 @@
     }
   ],
   "counts": {
-    "KEEP": 73,
-    "NOINDEX": 90,
+    "KEEP": 63,
+    "NOINDEX": 100,
     "MERGE": 71
   },
-  "generatedAt": "2026-08-08T03:10:12.370Z"
+  "generatedAt": "2026-08-08T04:04:03.797Z"
 }

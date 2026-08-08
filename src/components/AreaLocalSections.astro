@@ -37,16 +37,18 @@ const areaKeywordDecision = joinThaiKeywordPreview(areaKeywordCluster.decisionIn
 
 const readMoreLinks = [
   { href: '/รับซื้อ', label: 'ดูหน้ารับซื้อทั้งหมด' },
-  { href: '/รับซื้อ-iphone', label: 'เช็กรับซื้อ iPhone' },
-  { href: '/รับซื้อ-ipad', label: 'เช็กรับซื้อ iPad' },
-  { href: '/รับซื้อ-macbook', label: 'เช็กรับซื้อ MacBook' },
-  { href: '/รับซื้อโน๊ตบุ๊คมือสอง', label: 'เช็กรับซื้อโน๊ตบุ๊ค' },
+  // Province-local money pages (indexable) — contextual to this province, not a 12-service dump
+  { href: `/รับซื้อ-iphone-${provinceName}`, label: `รับซื้อ iPhone ${provinceName}` },
+  { href: `/รับซื้อ-ipad-${provinceName}`, label: `รับซื้อ iPad ${provinceName}` },
+  { href: `/รับซื้อ-macbook-${provinceName}`, label: `รับซื้อ MacBook ${provinceName}` },
+  { href: `/รับซื้อโน๊ตบุ๊ค-${provinceName}`, label: `รับซื้อโน๊ตบุ๊ค ${provinceName}` },
+  { href: `/รับซื้อคอมบริษัท-${provinceName}`, label: `รับซื้อคอมบริษัท ${provinceName}` },
+  // National money parents for broader intent
   { href: '/รับซื้อคอมพิวเตอร์มือสอง', label: 'เช็กรับซื้อคอมพิวเตอร์' },
   { href: '/รับซื้อมือถือ', label: 'เช็กรับซื้อมือถือ' },
   { href: '/รับซื้อกล้อง', label: 'เช็กรับซื้อกล้อง' },
   { href: '/รับซื้อการ์ดจอ', label: 'เช็กรับซื้อการ์ดจอ' },
   { href: '/รับซื้อจอคอม', label: 'เช็กรับซื้อจอคอม' },
-  { href: '/รับซื้อคอมบริษัท', label: 'เช็กรับซื้อคอมบริษัท' },
   { href: '/รับซื้อ-ps5', label: 'เช็กรับซื้อ PS5' },
   { href: '/คู่มือเตรียมสินค้าก่อนขาย', label: 'อ่านคู่มือเตรียมสินค้าก่อนขาย' },
   { href: '/ผลงานรับซื้อจริง', label: 'ดูผลงานรับซื้อจริง' },

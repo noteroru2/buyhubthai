@@ -2,6 +2,7 @@
 import ComboPage from '../components/ComboPage.astro';
 import { SEO_KEYWORDS } from '../data/seoKeywords';
 import { getAreaCoverageProfile } from '../data/areaCoverageProfiles';
+import { getSeoSlugHubEnrichment } from '../data/seoSlugHubEnrichment';
 import {
   SEO_PROVINCES,
   isSeoSlugExcluded,
@@ -166,15 +167,19 @@ switch(category) {
     break;
 }
 
-const title = isLocal 
-  ? `${keyword} ${province.name} ประเมินราคาฟรีถึงที่ | BuyHub` 
-  : `${keyword} ประเมินราคาฟรี ให้ราคาสูง โอนไว | BuyHub`;
+const hubPolicy = isLocal ? null : getSeoSlugHubPolicy(keyword);
+const enrichment = !isLocal && hubPolicy?.action === 'KEEP' ? getSeoSlugHubEnrichment(keyword) : null;
+
+const title = isLocal
+  ? `${keyword} ${province.name} ประเมินราคาฟรีถึงที่ | BuyHub`
+  : enrichment?.title || `${keyword} ประเมินจากปัจจัยเฉพาะ | BuyHub`;
 
 const description = isLocal
   ? `บริการ ${keyword} ในพื้นที่ ${province.name}${districtsText} ประเมินราคาฟรีถึงที่ ให้ราคาเป็นธรรม แจ้งแนวราคาก่อนตัดสินใจขาย ติดต่อด่วนทาง LINE @buyhub`
-  : `บริการ ${keyword} ให้ราคาสูง ประเมินราคาฟรีจากรูปภาพ แจ้งราคาก่อนตัดสินใจขาย โอนเงินทันทีเมื่อตรวจสภาพสินค้าเสร็จ ติดต่อ LINE @buyhub`;
+  : enrichment?.description ||
+    `บริการ ${keyword} ประเมินจากรูปและรายละเอียด แจ้งแนวราคาก่อนตัดสินใจขาย ติดต่อ LINE @buyhub`;
 
-const h1 = serviceName;
+const h1 = isLocal ? serviceName : enrichment?.h1 || `${keyword} — ประเมินจากปัจจัยเฉพาะ`;
 
 const breadcrumbs = [
   { name: 'หน้าแรก', href: '/' },
@@ -188,31 +193,39 @@ if (isLocal) {
   breadcrumbs.push({ name: keyword, href: path });
 }
 
-const intro = [
+const intro = enrichment?.intro || [
   `ถ้าคุณกำลังมองหาบริการ **${keyword}** สิ่งสำคัญที่สุดคือการได้รับราคาประเมินที่ยุติธรรมและรวดเร็ว BuyHub ยินดีให้คำปรึกษาและประเมินราคาฟรีจากรูปภาพหรือข้อมูลเบื้องต้นที่คุณส่งมา`,
-  isLocal 
-    ? `สำหรับลูกค้าในพื้นที่ **${province.name}** เรามีบริการที่ครอบคลุม สะดวก รวดเร็ว พร้อมให้แนวราคาก่อนตัดสินใจขาย${districtsText}` 
+  isLocal
+    ? `สำหรับลูกค้าในพื้นที่ **${province.name}** เรามีบริการที่ครอบคลุม สะดวก รวดเร็ว พร้อมให้แนวราคาก่อนตัดสินใจขาย${districtsText}`
     : `เรามีบริการที่ครอบคลุม ไม่ว่าคุณจะอยู่ที่ไหน ก็สามารถส่งรายละเอียดมาให้เราประเมินก่อนได้`,
   `ต้องการเช็คราคาด่วน ทัก LINE @buyhub ส่งรูป แจ้งรายละเอียด แล้วรอรับราคาประเมินได้เลย ไม่มีค่าใช้จ่ายแอบแฝง`
 ];
 
-const areas = isLocal 
-  ? [`${province.name}${districtsText ? ` (${districtsText.replace(' ครอบคลุมพื้นที่ ', '').replace(' และอำเภออื่นๆ', '')})` : ''}`] 
+if (enrichment) {
+  whatWeBuy = enrichment.whatWeBuy;
+  pricingFactors = enrichment.pricingFactors;
+}
+
+const areas = isLocal
+  ? [`${province.name}${districtsText ? ` (${districtsText.replace(' ครอบคลุมพื้นที่ ', '').replace(' และอำเภออื่นๆ', '')})` : ''}`]
   : ['ขอนแก่น', 'นครราชสีมา', 'อุดรธานี', 'อุบลราชธานี', 'และจังหวัดอื่นๆ ในภาคอีสาน'];
 
-const howToSend = [
+const howToSend = enrichment?.howToSend || [
   'ถ่ายรูปสินค้าให้ชัดเจน (ด้านหน้า, ด้านหลัง, ตำหนิถ้ามี)',
   'แจ้งรุ่น, สเปก, หรืออาการเสีย (ถ้ามี)',
   'แจ้งอุปกรณ์เสริมที่มีในชุด',
   isLocal ? `แจ้งจุดนัดพบใน ${province.name} หรือวิธีการส่งมอบที่คุณสะดวก` : 'แจ้งจังหวัดหรือพื้นที่ที่คุณสะดวกนัดหมาย'
 ];
 
-const hubPolicy = isLocal ? null : getSeoSlugHubPolicy(keyword);
 const relatedMoney = relatedMoneyLinksFromText(keyword, 4);
-const internalLinks = [
-  ...(hubPolicy?.primary
+const parentLink =
+  hubPolicy?.primary
     ? [{ href: hubPolicy.primary, label: 'ดูหน้าบริการหลักที่เกี่ยวข้อง' }]
-    : relatedMoney),
+    : relatedMoney;
+const relatedHubLinks = enrichment?.relatedHubs || [];
+const internalLinks = [
+  ...parentLink,
+  ...relatedHubLinks,
   { href: '/รับซื้อ', label: 'บริการรับซื้อทั้งหมด' },
   { href: '/ติดต่อเรา', label: 'ติดต่อ BuyHub' }
 ];
@@ -228,20 +241,26 @@ const canonicalPath =
     ? hubPolicy.primary
     : path;
 
-const faqs = [
+const faqs = enrichment?.faqs || [
   {
     question: `บริการ ${keyword} ${isLocal ? `ใน ${province.name} ` : ''}ประเมินราคาฟรีไหม?`,
     answer: 'ประเมินราคาฟรี ไม่มีค่าใช้จ่าย 100% เพียงส่งรูปและรายละเอียดผ่าน LINE @buyhub'
   },
   {
     question: 'ต้องเตรียมอะไรบ้างก่อนส่งมอบสินค้า?',
-    answer: category === 'mobile' || category === 'computer' 
+    answer: category === 'mobile' || category === 'computer'
       ? 'ควรสำรองข้อมูลส่วนตัว (Backup) ออกจากระบบบัญชีต่างๆ เช่น iCloud หรือ Google Account และตรวจสอบอุปกรณ์เสริมให้ครบถ้วนเพื่อให้ได้ราคาประเมินที่ดีที่สุด'
       : category === 'server'
       ? 'ควรสำรองข้อมูล ล้างข้อมูลในฮาร์ดดิสก์ (Format) และปลดล็อครหัสผ่านการเข้าถึงระบบต่างๆ พร้อมตรวจสอบอุปกรณ์สายเชื่อมต่อให้ครบถ้วน'
       : 'ควรทำความสะอาดเบื้องต้น และตรวจสอบอุปกรณ์เสริม สายชาร์จ หรือกล่องให้ครบถ้วน เพื่อให้ได้ราคาประเมินที่ดีที่สุด'
   }
 ];
+
+const longContentSections = enrichment?.longContentSections?.map((section) => ({
+  heading: section.heading,
+  paragraphs: section.paragraphs,
+  list: section.bullets
+})) || [];
 
 const imageMap: Record<string, string> = {
   server: '/images/category/server_cover.webp',
@@ -265,7 +284,7 @@ const customVisual = {
   title={title}
   description={description}
   h1={h1}
-  serviceName={serviceName}
+  serviceName={isLocal ? serviceName : h1}
   breadcrumbs={breadcrumbs}
   provinceName={comboProvinceName}
   productName={comboProductName}
@@ -276,6 +295,7 @@ const customVisual = {
   howToSend={howToSend}
   internalLinks={internalLinks}
   faqs={faqs}
+  longContentSections={longContentSections}
   customVisual={customVisual}
   robots={robotsMeta}
   canonical={canonicalPath}
