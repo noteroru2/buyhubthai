@@ -6,7 +6,7 @@
   "gscWindow": { "start": "2026-05-09", "end": "2026-08-08", "label": "3 เดือนล่าสุด" },
   "queryPageAvailable": false,
   "initialSha": "56a0b89bc45815353503ed33a6bc2ec86967daa7",
-  "releaseSha": "PENDING_COMMIT",
+  "releaseSha": "6ec6f4b02371d2ed54348fb54db9a365a1bbecda",
   "strategy": "PRESERVE_RELEVANCE + IMPROVE_SERP_FIT + TARGETED_INFORMATION_GAIN + SELECTIVE_INTERNAL_LINKS",
   "constraints": [
     "No mass-edit",
