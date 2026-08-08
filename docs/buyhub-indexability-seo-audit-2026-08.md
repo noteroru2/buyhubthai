@@ -863,9 +863,9 @@ Delta ≈ 10 soft-cannibal hubs removed from sitemap.
 |-------|--------|
 | Initial SHA | `52a602c` |
 | Release SHA | `a81cc61` |
-| Docs SHA | `a81cc61` |
-| Production SHA | **NOT ATTESTED** |
-| Production Matches Main | verify sitemap ~251 + KEEP enrichment samples after deploy |
+| Docs SHA | `9025449` |
+| Production SHA | **NOT ATTESTED** (no Vercel/gh deploy SHA API) |
+| Production Matches Main | **YES (behavioral)** — sitemap **251**, KEEP H1 enrichment live, soft-cannibal `เครื่องเสียง` = `noindex,follow` + canonical → `/รับซื้อลำโพง`, money indexable |
 
 ### NEXT SEO BATCH (priority)
 
