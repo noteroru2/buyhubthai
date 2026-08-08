@@ -7,6 +7,8 @@ import {
   isSeoSlugExcluded,
   keywordToSlug
 } from '../lib/seoSlug';
+import { getSeoSlugHubPolicy } from '../lib/seoSlugPolicy';
+import { relatedMoneyLinksFromText } from '../data/primaryMoneyLinks';
 
 export async function getStaticPaths() {
   const paths = [];
@@ -205,10 +207,26 @@ const howToSend = [
   isLocal ? `แจ้งจุดนัดพบใน ${province.name} หรือวิธีการส่งมอบที่คุณสะดวก` : 'แจ้งจังหวัดหรือพื้นที่ที่คุณสะดวกนัดหมาย'
 ];
 
+const hubPolicy = isLocal ? null : getSeoSlugHubPolicy(keyword);
+const relatedMoney = relatedMoneyLinksFromText(keyword, 4);
 const internalLinks = [
+  ...(hubPolicy?.primary
+    ? [{ href: hubPolicy.primary, label: 'ดูหน้าบริการหลักที่เกี่ยวข้อง' }]
+    : relatedMoney),
   { href: '/รับซื้อ', label: 'บริการรับซื้อทั้งหมด' },
   { href: '/ติดต่อเรา', label: 'ติดต่อ BuyHub' }
 ];
+
+const robotsMeta = isLocal
+  ? 'noindex,follow'
+  : hubPolicy && hubPolicy.action !== 'KEEP'
+    ? 'noindex,follow'
+    : undefined;
+
+const canonicalPath =
+  !isLocal && hubPolicy && hubPolicy.action !== 'KEEP' && hubPolicy.primary
+    ? hubPolicy.primary
+    : path;
 
 const faqs = [
   {
@@ -259,5 +277,6 @@ const customVisual = {
   internalLinks={internalLinks}
   faqs={faqs}
   customVisual={customVisual}
-  robots={isLocal ? 'noindex,follow' : undefined}
+  robots={robotsMeta}
+  canonical={canonicalPath}
 />

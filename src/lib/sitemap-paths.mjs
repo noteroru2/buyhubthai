@@ -1,5 +1,7 @@
 /** Shared sitemap filter helpers (plain JS for astro.config.mjs). */
 
+import { SEO_SLUG_NOINDEX_HUB_SLUGS } from '../data/seoSlugHubIndexPolicy.mjs';
+
 export const SEO_PROVINCE_NAMES = [
   'ขอนแก่น',
   'นครราชสีมา',
@@ -68,7 +70,22 @@ export function isSellSupportTopicPage(pathname) {
   return parts.length === 3 || parts.length === 4;
 }
 
+/**
+ * seoSlug hubs classified MERGE/NOINDEX — keep crawlable but out of sitemap.
+ * @param {string} pathname
+ */
+export function isNonIndexableSeoSlugHub(pathname) {
+  const clean = decodePathname(pathname).replace(/\/$/, '') || '/';
+  if (clean === '/' || clean.slice(1).includes('/')) return false;
+  const slug = clean.replace(/^\//, '');
+  return SEO_SLUG_NOINDEX_HUB_SLUGS.has(slug);
+}
+
 /** @param {string} pathname */
 export function shouldExcludeFromSitemap(pathname) {
-  return isProgrammaticSeoLocalPage(pathname) || isSellSupportTopicPage(pathname);
+  return (
+    isProgrammaticSeoLocalPage(pathname) ||
+    isSellSupportTopicPage(pathname) ||
+    isNonIndexableSeoSlugHub(pathname)
+  );
 }

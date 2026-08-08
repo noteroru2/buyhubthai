@@ -42,6 +42,7 @@ interface Props {
   longContentSections?: LongContentSection[];
   customVisual?: { imageSrc: string; imageAlt: string; ogImage: string; };
   robots?: string;
+  canonical?: string;
 }
 
 const {
@@ -62,7 +63,8 @@ const {
   faqs,
   longContentSections = [],
   customVisual,
-  robots
+  robots,
+  canonical
 } = Astro.props;
 
 const jsonLd = [
@@ -687,7 +689,7 @@ const midArticleIndex =
   allLongContentSections.length > 2 ? Math.floor((allLongContentSections.length - 1) / 2) : -1;
 ---
 
-<BaseLayout title={title} description={description} ogImage={productVisual.ogImage} jsonLd={jsonLd} breadcrumbs={breadcrumbs} robots={robots}>
+<BaseLayout title={title} description={description} ogImage={productVisual.ogImage} jsonLd={jsonLd} breadcrumbs={breadcrumbs} robots={robots} canonical={canonical}>
   <article class="bg-white">
     <div class="mx-auto min-w-0 max-w-3xl px-4 py-14 sm:px-6 sm:py-16">
       <header class="min-w-0">

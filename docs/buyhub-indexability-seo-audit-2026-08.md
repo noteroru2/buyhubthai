@@ -724,24 +724,62 @@ Pushed: `0ba4cab..58aa62a` → `origin/main` (no force push)
 
 ---
 
+## BATCH — SEO SLUG / INTENT / INTERNAL LINKING (2026-08-08)
+
+### Classification (234 seoSlug hubs verified)
+
+| Action | Count | Treatment |
+|--------|------:|-----------|
+| KEEP INDEX | **73** | indexable + in sitemap |
+| MERGE | **71** | `noindex,follow` + canonical → primary money + out of sitemap |
+| NOINDEX | **90** | `noindex,follow` + canonical → parent when known + out of sitemap |
+| IMPROVE | 0 | kept as KEEP with later enrichment backlog |
+| OWNER REVIEW | 0 | needs GSC |
+
+Artifacts: `docs/seoslug-classification.json`, `src/lib/seoSlugPolicy.ts`, `src/data/seoSlugHubIndexPolicy.mjs`
+
+### Sitemap
+
+| | Count |
+|--|------:|
+| Before this batch | 422 |
+| After (local build) | **261** |
+| Hubs removed from sitemap | 161 |
+
+Money accidentally noindexed: **0** · Topic pages still noindex (not deleted)
+
+### Internal linking upgrades
+
+- Footer: +มือถือ / การ์ดจอ / จอคอม / PS5
+- Province `AreaLocalSections`: expanded money links
+- Blog: `PrimaryMoneyLinkPanel` → related money pages
+- seoSlug hubs: consolidation / related money links
+
+### Deferred
+
+- Content enrichment for KEEP 73 hubs (no invented prices)
+- GSC / GBP / NAP owner data
+- Do not delete noindex topic or seoSlug hubs yet
+
+---
+
 ## NEXT SEO BATCH (priority)
 
-1. Curate/noindex weak seoSlug hubs (~234)
-2. One-intent matrix cleanup for remaining cannibalization
-3. Strengthen internal links homepage/hub/blog → money
-4. OWNER: NAP/GBP + schema address confirmation
+1. GSC resubmit sitemap + inspect Tier-1 money URLs
+2. Enrich KEEP seoSlug hubs (73) with real information gain
+3. Soft overlap cleanup remaining after MERGE/NOINDEX
+4. OWNER: NAP/GBP confirmation
 5. Custom HTML 404 + CWV lab
 
 ---
 
 ## PHASE 27+ remaining
 
-- Curate/noindex weak seoSlug hubs (234)
-- Strengthen money-page internal links
+- Enrich KEEP seoSlug hubs (73)
 - OWNER: GSC + NAP/GBP
 - Custom HTML 404
 - Full CWV lab pass
-- Do **not** delete 1,524 noindex topics yet
+- Do **not** delete 1,524 noindex topics or 161 noindex/merge hubs yet
 
 ### OWNER ACTION REQUIRED
 

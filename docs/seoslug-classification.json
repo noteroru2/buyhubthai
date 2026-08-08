@@ -1,0 +1,2269 @@
+{
+  "hubs": [
+    {
+      "keyword": "รับเหมาอุปกรณ์ไอที",
+      "slug": "รับเหมาอุปกรณ์ไอที",
+      "path": "/รับเหมาอุปกรณ์ไอที",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "B2B/auction intent",
+      "score": 78,
+      "cluster": "b2b"
+    },
+    {
+      "keyword": "รับซื้อทรัพย์สินไอทีบริษัท",
+      "slug": "รับซื้อทรัพย์สินไอทีบริษัท",
+      "path": "/รับซื้อทรัพย์สินไอทีบริษัท",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "B2B/auction intent",
+      "score": 78,
+      "cluster": "b2b"
+    },
+    {
+      "keyword": "รับซื้ออุปกรณ์ไอทีเก่าบริษัท",
+      "slug": "รับซื้ออุปกรณ์ไอทีเก่าบริษัท",
+      "path": "/รับซื้ออุปกรณ์ไอทีเก่าบริษัท",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "B2B/auction intent",
+      "score": 78,
+      "cluster": "b2b"
+    },
+    {
+      "keyword": "รับเหมาคอมพิวเตอร์",
+      "slug": "รับเหมาคอมพิวเตอร์",
+      "path": "/รับเหมาคอมพิวเตอร์",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "B2B/auction intent",
+      "score": 78,
+      "cluster": "b2b"
+    },
+    {
+      "keyword": "รับเหมาคอมสำนักงาน",
+      "slug": "รับเหมาคอมสำนักงาน",
+      "path": "/รับเหมาคอมสำนักงาน",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "B2B/auction intent",
+      "score": 78,
+      "cluster": "b2b"
+    },
+    {
+      "keyword": "รับประมูลคอมพิวเตอร์",
+      "slug": "รับประมูลคอมพิวเตอร์",
+      "path": "/รับประมูลคอมพิวเตอร์",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "B2B/auction intent",
+      "score": 78,
+      "cluster": "b2b"
+    },
+    {
+      "keyword": "รับประมูลงานคอมพิวเตอร์",
+      "slug": "รับประมูลงานคอมพิวเตอร์",
+      "path": "/รับประมูลงานคอมพิวเตอร์",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "B2B/auction intent",
+      "score": 78,
+      "cluster": "b2b"
+    },
+    {
+      "keyword": "รับซื้อ Server มือสอง",
+      "slug": "รับซื้อ-server-มือสอง",
+      "path": "/รับซื้อ-server-มือสอง",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้อ Server เสีย",
+      "slug": "รับซื้อ-server-เสีย",
+      "path": "/รับซื้อ-server-เสีย",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-server-มือสอง",
+      "reason": "server brand/condition doorway",
+      "score": 44,
+      "cluster": "server-brand"
+    },
+    {
+      "keyword": "รับซื้อซาก Server",
+      "slug": "รับซื้อซาก-server",
+      "path": "/รับซื้อซาก-server",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-server-มือสอง",
+      "reason": "server brand/condition doorway",
+      "score": 44,
+      "cluster": "server-brand"
+    },
+    {
+      "keyword": "รับซื้อ Server Dell",
+      "slug": "รับซื้อ-server-dell",
+      "path": "/รับซื้อ-server-dell",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-server-มือสอง",
+      "reason": "server brand/condition doorway",
+      "score": 44,
+      "cluster": "server-brand"
+    },
+    {
+      "keyword": "รับซื้อ Server HP",
+      "slug": "รับซื้อ-server-hp",
+      "path": "/รับซื้อ-server-hp",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-server-มือสอง",
+      "reason": "server brand/condition doorway",
+      "score": 44,
+      "cluster": "server-brand"
+    },
+    {
+      "keyword": "รับซื้อ Server Cisco",
+      "slug": "รับซื้อ-server-cisco",
+      "path": "/รับซื้อ-server-cisco",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-server-มือสอง",
+      "reason": "server brand/condition doorway",
+      "score": 44,
+      "cluster": "server-brand"
+    },
+    {
+      "keyword": "รับซื้อ Server Lenovo",
+      "slug": "รับซื้อ-server-lenovo",
+      "path": "/รับซื้อ-server-lenovo",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-server-มือสอง",
+      "reason": "server brand/condition doorway",
+      "score": 44,
+      "cluster": "server-brand"
+    },
+    {
+      "keyword": "รับซื้อ Server Fujitsu",
+      "slug": "รับซื้อ-server-fujitsu",
+      "path": "/รับซื้อ-server-fujitsu",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-server-มือสอง",
+      "reason": "server brand/condition doorway",
+      "score": 44,
+      "cluster": "server-brand"
+    },
+    {
+      "keyword": "รับซื้อ Server Huawei",
+      "slug": "รับซื้อ-server-huawei",
+      "path": "/รับซื้อ-server-huawei",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-server-มือสอง",
+      "reason": "server brand/condition doorway",
+      "score": 44,
+      "cluster": "server-brand"
+    },
+    {
+      "keyword": "รับซื้อ Server Hitachi",
+      "slug": "รับซื้อ-server-hitachi",
+      "path": "/รับซื้อ-server-hitachi",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-server-มือสอง",
+      "reason": "server brand/condition doorway",
+      "score": 44,
+      "cluster": "server-brand"
+    },
+    {
+      "keyword": "รับซื้อ Server IBM",
+      "slug": "รับซื้อ-server-ibm",
+      "path": "/รับซื้อ-server-ibm",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-server-มือสอง",
+      "reason": "server brand/condition doorway",
+      "score": 44,
+      "cluster": "server-brand"
+    },
+    {
+      "keyword": "รับซื้อ Server Oracle",
+      "slug": "รับซื้อ-server-oracle",
+      "path": "/รับซื้อ-server-oracle",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-server-มือสอง",
+      "reason": "server brand/condition doorway",
+      "score": 44,
+      "cluster": "server-brand"
+    },
+    {
+      "keyword": "รับซื้อ Fortinet",
+      "slug": "รับซื้อ-fortinet",
+      "path": "/รับซื้อ-fortinet",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้อ Netapp Storage",
+      "slug": "รับซื้อ-netapp-storage",
+      "path": "/รับซื้อ-netapp-storage",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้อ SSD Server",
+      "slug": "รับซื้อ-ssd-server",
+      "path": "/รับซื้อ-ssd-server",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้อ PC Workstation",
+      "slug": "รับซื้อ-pc-workstation",
+      "path": "/รับซื้อ-pc-workstation",
+      "action": "MERGE",
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "reason": "→ desktop money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ Aruba",
+      "slug": "รับซื้อ-aruba",
+      "path": "/รับซื้อ-aruba",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้อ NAS Storage",
+      "slug": "รับซื้อ-nas-storage",
+      "path": "/รับซื้อ-nas-storage",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้อ ubiquiti Network",
+      "slug": "รับซื้อ-ubiquiti-network",
+      "path": "/รับซื้อ-ubiquiti-network",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้อ Ram Server",
+      "slug": "รับซื้อ-ram-server",
+      "path": "/รับซื้อ-ram-server",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้อตู้ Rack Server",
+      "slug": "รับซื้อตู้-rack-server",
+      "path": "/รับซื้อตู้-rack-server",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้อ Storage Server",
+      "slug": "รับซื้อ-storage-server",
+      "path": "/รับซื้อ-storage-server",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้ออุปกรณ์ network",
+      "slug": "รับซื้ออุปกรณ์-network",
+      "path": "/รับซื้ออุปกรณ์-network",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้อ Harddisk Server",
+      "slug": "รับซื้อ-harddisk-server",
+      "path": "/รับซื้อ-harddisk-server",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้อ Buffalo network",
+      "slug": "รับซื้อ-buffalo-network",
+      "path": "/รับซื้อ-buffalo-network",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้อ Synology",
+      "slug": "รับซื้อ-synology",
+      "path": "/รับซื้อ-synology",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้อ Qnap",
+      "slug": "รับซื้อ-qnap",
+      "path": "/รับซื้อ-qnap",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้อ Access Point",
+      "slug": "รับซื้อ-access-point",
+      "path": "/รับซื้อ-access-point",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้อ Network Switch",
+      "slug": "รับซื้อ-network-switch",
+      "path": "/รับซื้อ-network-switch",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้อ Mikrotik",
+      "slug": "รับซื้อ-mikrotik",
+      "path": "/รับซื้อ-mikrotik",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้อ Ruijie",
+      "slug": "รับซื้อ-ruijie",
+      "path": "/รับซื้อ-ruijie",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้อสาย Lan",
+      "slug": "รับซื้อสาย-lan",
+      "path": "/รับซื้อสาย-lan",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้อ iP Phone",
+      "slug": "รับซื้อ-ip-phone",
+      "path": "/รับซื้อ-ip-phone",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้อ Router",
+      "slug": "รับซื้อ-router",
+      "path": "/รับซื้อ-router",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้อ Firewall",
+      "slug": "รับซื้อ-firewall",
+      "path": "/รับซื้อ-firewall",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้อ Server Supermicro",
+      "slug": "รับซื้อ-server-supermicro",
+      "path": "/รับซื้อ-server-supermicro",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-server-มือสอง",
+      "reason": "server brand/condition doorway",
+      "score": 44,
+      "cluster": "server-brand"
+    },
+    {
+      "keyword": "รับซื้อ Switch",
+      "slug": "รับซื้อ-switch",
+      "path": "/รับซื้อ-switch",
+      "action": "MERGE",
+      "primary": "/รับซื้อ-nintendo-switch",
+      "reason": "→ Switch money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อไมโครติก",
+      "slug": "รับซื้อไมโครติก",
+      "path": "/รับซื้อไมโครติก",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-mikrotik",
+      "reason": "synonym of Mikrotik",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ Zyxel",
+      "slug": "รับซื้อ-zyxel",
+      "path": "/รับซื้อ-zyxel",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้อ Netgear",
+      "slug": "รับซื้อ-netgear",
+      "path": "/รับซื้อ-netgear",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้อ Harddisk Synology",
+      "slug": "รับซื้อ-harddisk-synology",
+      "path": "/รับซื้อ-harddisk-synology",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้อ Harddisk Nas",
+      "slug": "รับซื้อ-harddisk-nas",
+      "path": "/รับซื้อ-harddisk-nas",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้อคอมประกอบ",
+      "slug": "รับซื้อคอมประกอบ",
+      "path": "/รับซื้อคอมประกอบ",
+      "action": "MERGE",
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "reason": "→ desktop money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ PC",
+      "slug": "รับซื้อ-pc",
+      "path": "/รับซื้อ-pc",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ",
+      "reason": "low information-gain template",
+      "score": 35,
+      "cluster": "default-thin"
+    },
+    {
+      "keyword": "รับซื้อ Ram",
+      "slug": "รับซื้อ-ram",
+      "path": "/รับซื้อ-ram",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "component category hub",
+      "score": 72,
+      "cluster": "component"
+    },
+    {
+      "keyword": "รับซื้อ Ram PC",
+      "slug": "รับซื้อ-ram-pc",
+      "path": "/รับซื้อ-ram-pc",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "component category hub",
+      "score": 72,
+      "cluster": "component"
+    },
+    {
+      "keyword": "รับซื้อ Ram Notebook",
+      "slug": "รับซื้อ-ram-notebook",
+      "path": "/รับซื้อ-ram-notebook",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "component category hub",
+      "score": 72,
+      "cluster": "component"
+    },
+    {
+      "keyword": "รับซื้อ CPU",
+      "slug": "รับซื้อ-cpu",
+      "path": "/รับซื้อ-cpu",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "component category hub",
+      "score": 72,
+      "cluster": "component"
+    },
+    {
+      "keyword": "รับซื้อแรม",
+      "slug": "รับซื้อแรม",
+      "path": "/รับซื้อแรม",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ram",
+      "reason": "synonym of รับซื้อ Ram",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ keyboard",
+      "slug": "รับซื้อ-keyboard",
+      "path": "/รับซื้อ-keyboard",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "component category hub",
+      "score": 72,
+      "cluster": "component"
+    },
+    {
+      "keyword": "รับซื้อซากคอมพิวเตอร์",
+      "slug": "รับซื้อซากคอมพิวเตอร์",
+      "path": "/รับซื้อซากคอมพิวเตอร์",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "reason": "desktop condition doorway",
+      "score": 38,
+      "cluster": "pc-condition"
+    },
+    {
+      "keyword": "รับซื้อโน๊ตบุ๊คเสีย",
+      "slug": "รับซื้อโน๊ตบุ๊คเสีย",
+      "path": "/รับซื้อโน๊ตบุ๊คเสีย",
+      "action": "MERGE",
+      "primary": "/รับซื้อโน๊ตบุ๊คมือสอง",
+      "reason": "→ notebook money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ Notebook เสีย",
+      "slug": "รับซื้อ-notebook-เสีย",
+      "path": "/รับซื้อ-notebook-เสีย",
+      "action": "MERGE",
+      "primary": "/รับซื้อโน๊ตบุ๊คมือสอง",
+      "reason": "→ notebook money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อซากโน๊ตบุ๊ค",
+      "slug": "รับซื้อซากโน๊ตบุ๊ค",
+      "path": "/รับซื้อซากโน๊ตบุ๊ค",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อโน๊ตบุ๊คมือสอง",
+      "reason": "notebook condition doorway",
+      "score": 38,
+      "cluster": "nb-condition"
+    },
+    {
+      "keyword": "รับซื้อคอมสำนักงาน",
+      "slug": "รับซื้อคอมสำนักงาน",
+      "path": "/รับซื้อคอมสำนักงาน",
+      "action": "MERGE",
+      "primary": "/รับซื้อคอมบริษัท",
+      "reason": "→ corporate money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ Pc Acer",
+      "slug": "รับซื้อ-pc-acer",
+      "path": "/รับซื้อ-pc-acer",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "reason": "PC brand/form doorway → desktop",
+      "score": 36,
+      "cluster": "pc-brand"
+    },
+    {
+      "keyword": "รับซื้อ Pc Dell",
+      "slug": "รับซื้อ-pc-dell",
+      "path": "/รับซื้อ-pc-dell",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "reason": "PC brand/form doorway → desktop",
+      "score": 36,
+      "cluster": "pc-brand"
+    },
+    {
+      "keyword": "รับซื้อ Pc Hp",
+      "slug": "รับซื้อ-pc-hp",
+      "path": "/รับซื้อ-pc-hp",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "reason": "PC brand/form doorway → desktop",
+      "score": 36,
+      "cluster": "pc-brand"
+    },
+    {
+      "keyword": "รับซื้อ Pc Lenovo",
+      "slug": "รับซื้อ-pc-lenovo",
+      "path": "/รับซื้อ-pc-lenovo",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "reason": "PC brand/form doorway → desktop",
+      "score": 36,
+      "cluster": "pc-brand"
+    },
+    {
+      "keyword": "รับซื้อ mini pc",
+      "slug": "รับซื้อ-mini-pc",
+      "path": "/รับซื้อ-mini-pc",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "reason": "PC brand/form doorway → desktop",
+      "score": 36,
+      "cluster": "pc-brand"
+    },
+    {
+      "keyword": "รับซื้อ nuc pc",
+      "slug": "รับซื้อ-nuc-pc",
+      "path": "/รับซื้อ-nuc-pc",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "reason": "PC brand/form doorway → desktop",
+      "score": 36,
+      "cluster": "pc-brand"
+    },
+    {
+      "keyword": "รับซื้อ intel nuc",
+      "slug": "รับซื้อ-intel-nuc",
+      "path": "/รับซื้อ-intel-nuc",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "reason": "PC brand/form doorway → desktop",
+      "score": 36,
+      "cluster": "pc-brand"
+    },
+    {
+      "keyword": "รับซื้อ Asus nuc",
+      "slug": "รับซื้อ-asus-nuc",
+      "path": "/รับซื้อ-asus-nuc",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "reason": "PC brand/form doorway → desktop",
+      "score": 36,
+      "cluster": "pc-brand"
+    },
+    {
+      "keyword": "รับซื้อ PC All in one",
+      "slug": "รับซื้อ-pc-all-in-one",
+      "path": "/รับซื้อ-pc-all-in-one",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "reason": "PC brand/form doorway → desktop",
+      "score": 36,
+      "cluster": "pc-brand"
+    },
+    {
+      "keyword": "รับซื้อ Pc Aio",
+      "slug": "รับซื้อ-pc-aio",
+      "path": "/รับซื้อ-pc-aio",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "reason": "PC brand/form doorway → desktop",
+      "score": 36,
+      "cluster": "pc-brand"
+    },
+    {
+      "keyword": "รับซื้อ Ram ECC",
+      "slug": "รับซื้อ-ram-ecc",
+      "path": "/รับซื้อ-ram-ecc",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "component category hub",
+      "score": 72,
+      "cluster": "component"
+    },
+    {
+      "keyword": "รับซื้อ notebook dell",
+      "slug": "รับซื้อ-notebook-dell",
+      "path": "/รับซื้อ-notebook-dell",
+      "action": "MERGE",
+      "primary": "/รับซื้อโน๊ตบุ๊คมือสอง",
+      "reason": "→ notebook money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ notebook hp",
+      "slug": "รับซื้อ-notebook-hp",
+      "path": "/รับซื้อ-notebook-hp",
+      "action": "MERGE",
+      "primary": "/รับซื้อโน๊ตบุ๊คมือสอง",
+      "reason": "→ notebook money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ notebook Lenovo",
+      "slug": "รับซื้อ-notebook-lenovo",
+      "path": "/รับซื้อ-notebook-lenovo",
+      "action": "MERGE",
+      "primary": "/รับซื้อโน๊ตบุ๊คมือสอง",
+      "reason": "→ notebook money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ notebook Acer",
+      "slug": "รับซื้อ-notebook-acer",
+      "path": "/รับซื้อ-notebook-acer",
+      "action": "MERGE",
+      "primary": "/รับซื้อโน๊ตบุ๊คมือสอง",
+      "reason": "→ notebook money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ notebook Msi",
+      "slug": "รับซื้อ-notebook-msi",
+      "path": "/รับซื้อ-notebook-msi",
+      "action": "MERGE",
+      "primary": "/รับซื้อโน๊ตบุ๊คมือสอง",
+      "reason": "→ notebook money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อคอมเสีย",
+      "slug": "รับซื้อคอมเสีย",
+      "path": "/รับซื้อคอมเสีย",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "reason": "desktop condition doorway",
+      "score": 38,
+      "cluster": "pc-condition"
+    },
+    {
+      "keyword": "รับซื้อโน๊ตบุ๊คจอแตก",
+      "slug": "รับซื้อโน๊ตบุ๊คจอแตก",
+      "path": "/รับซื้อโน๊ตบุ๊คจอแตก",
+      "action": "MERGE",
+      "primary": "/รับซื้อโน๊ตบุ๊คมือสอง",
+      "reason": "→ notebook money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ notebook จอแตก",
+      "slug": "รับซื้อ-notebook-จอแตก",
+      "path": "/รับซื้อ-notebook-จอแตก",
+      "action": "MERGE",
+      "primary": "/รับซื้อโน๊ตบุ๊คมือสอง",
+      "reason": "→ notebook money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อซาก notebook",
+      "slug": "รับซื้อซาก-notebook",
+      "path": "/รับซื้อซาก-notebook",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อโน๊ตบุ๊คมือสอง",
+      "reason": "notebook condition doorway",
+      "score": 38,
+      "cluster": "nb-condition"
+    },
+    {
+      "keyword": "รับซื้อคีย์บอร์ด",
+      "slug": "รับซื้อคีย์บอร์ด",
+      "path": "/รับซื้อคีย์บอร์ด",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-keyboard",
+      "reason": "synonym of kept component hub",
+      "score": 40,
+      "cluster": "component"
+    },
+    {
+      "keyword": "รับซื้อ mouse",
+      "slug": "รับซื้อ-mouse",
+      "path": "/รับซื้อ-mouse",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "component category hub",
+      "score": 72,
+      "cluster": "component"
+    },
+    {
+      "keyword": "รับซื้อเม้าส์",
+      "slug": "รับซื้อเม้าส์",
+      "path": "/รับซื้อเม้าส์",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-mouse",
+      "reason": "synonym of kept component hub",
+      "score": 40,
+      "cluster": "component"
+    },
+    {
+      "keyword": "รับซื้อ Mainboard",
+      "slug": "รับซื้อ-mainboard",
+      "path": "/รับซื้อ-mainboard",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "component category hub",
+      "score": 72,
+      "cluster": "component"
+    },
+    {
+      "keyword": "รับซื้อ Power Supply",
+      "slug": "รับซื้อ-power-supply",
+      "path": "/รับซื้อ-power-supply",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "component category hub",
+      "score": 72,
+      "cluster": "component"
+    },
+    {
+      "keyword": "รับซื้อ Case คอมพิวเตอร์",
+      "slug": "รับซื้อ-case-คอมพิวเตอร์",
+      "path": "/รับซื้อ-case-คอมพิวเตอร์",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "component category hub",
+      "score": 72,
+      "cluster": "component"
+    },
+    {
+      "keyword": "รับซื้อคอมออฟฟิศ",
+      "slug": "รับซื้อคอมออฟฟิศ",
+      "path": "/รับซื้อคอมออฟฟิศ",
+      "action": "MERGE",
+      "primary": "/รับซื้อคอมบริษัท",
+      "reason": "→ corporate money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อคอมองค์กร",
+      "slug": "รับซื้อคอมองค์กร",
+      "path": "/รับซื้อคอมองค์กร",
+      "action": "MERGE",
+      "primary": "/รับซื้อคอมบริษัท",
+      "reason": "→ corporate money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อคอมโรงงาน",
+      "slug": "รับซื้อคอมโรงงาน",
+      "path": "/รับซื้อคอมโรงงาน",
+      "action": "MERGE",
+      "primary": "/รับซื้อคอมบริษัท",
+      "reason": "→ corporate money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อคอมโรงเรียน",
+      "slug": "รับซื้อคอมโรงเรียน",
+      "path": "/รับซื้อคอมโรงเรียน",
+      "action": "MERGE",
+      "primary": "/รับซื้อคอมบริษัท",
+      "reason": "→ corporate money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อคอมยกชุด",
+      "slug": "รับซื้อคอมยกชุด",
+      "path": "/รับซื้อคอมยกชุด",
+      "action": "MERGE",
+      "primary": "/รับซื้อคอมบริษัท",
+      "reason": "→ corporate money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อคอมปลดระวาง",
+      "slug": "รับซื้อคอมปลดระวาง",
+      "path": "/รับซื้อคอมปลดระวาง",
+      "action": "MERGE",
+      "primary": "/รับซื้อคอมบริษัท",
+      "reason": "→ corporate money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อคอมตกรุ่น",
+      "slug": "รับซื้อคอมตกรุ่น",
+      "path": "/รับซื้อคอมตกรุ่น",
+      "action": "MERGE",
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "reason": "→ desktop money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อคอมเก่าจากสำนักงาน",
+      "slug": "รับซื้อคอมเก่าจากสำนักงาน",
+      "path": "/รับซื้อคอมเก่าจากสำนักงาน",
+      "action": "MERGE",
+      "primary": "/รับซื้อคอมบริษัท",
+      "reason": "→ corporate money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อคอมแบรนด์",
+      "slug": "รับซื้อคอมแบรนด์",
+      "path": "/รับซื้อคอมแบรนด์",
+      "action": "MERGE",
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "reason": "→ desktop money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อคอมสเปคสูง",
+      "slug": "รับซื้อคอมสเปคสูง",
+      "path": "/รับซื้อคอมสเปคสูง",
+      "action": "MERGE",
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "reason": "→ desktop money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อคอมทำงาน",
+      "slug": "รับซื้อคอมทำงาน",
+      "path": "/รับซื้อคอมทำงาน",
+      "action": "MERGE",
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "reason": "→ desktop money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อคอมตัดต่อ",
+      "slug": "รับซื้อคอมตัดต่อ",
+      "path": "/รับซื้อคอมตัดต่อ",
+      "action": "MERGE",
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "reason": "→ desktop money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ Notebook Asus",
+      "slug": "รับซื้อ-notebook-asus",
+      "path": "/รับซื้อ-notebook-asus",
+      "action": "MERGE",
+      "primary": "/รับซื้อโน๊ตบุ๊คมือสอง",
+      "reason": "→ notebook money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ Notebook Gigabyte",
+      "slug": "รับซื้อ-notebook-gigabyte",
+      "path": "/รับซื้อ-notebook-gigabyte",
+      "action": "MERGE",
+      "primary": "/รับซื้อโน๊ตบุ๊คมือสอง",
+      "reason": "→ notebook money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อโน๊ตบุ๊คบริษัท",
+      "slug": "รับซื้อโน๊ตบุ๊คบริษัท",
+      "path": "/รับซื้อโน๊ตบุ๊คบริษัท",
+      "action": "MERGE",
+      "primary": "/รับซื้อโน๊ตบุ๊คมือสอง",
+      "reason": "→ notebook money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อโน๊ตบุ๊คยกล็อต",
+      "slug": "รับซื้อโน๊ตบุ๊คยกล็อต",
+      "path": "/รับซื้อโน๊ตบุ๊คยกล็อต",
+      "action": "MERGE",
+      "primary": "/รับซื้อโน๊ตบุ๊คมือสอง",
+      "reason": "→ notebook money",
+      "score": 40
+    },
+    {
+      "keyword": "รับประมูลโน๊ตบุ๊ค",
+      "slug": "รับประมูลโน๊ตบุ๊ค",
+      "path": "/รับประมูลโน๊ตบุ๊ค",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "B2B/auction intent",
+      "score": 78,
+      "cluster": "b2b"
+    },
+    {
+      "keyword": "รับซื้อคอมประกอบออฟฟิศ",
+      "slug": "รับซื้อคอมประกอบออฟฟิศ",
+      "path": "/รับซื้อคอมประกอบออฟฟิศ",
+      "action": "MERGE",
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "reason": "→ desktop money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อคอมประกอบบริษัท",
+      "slug": "รับซื้อคอมประกอบบริษัท",
+      "path": "/รับซื้อคอมประกอบบริษัท",
+      "action": "MERGE",
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "reason": "→ desktop money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้ออะไหล่คอม",
+      "slug": "รับซื้ออะไหล่คอม",
+      "path": "/รับซื้ออะไหล่คอม",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "component category hub",
+      "score": 72,
+      "cluster": "component"
+    },
+    {
+      "keyword": "รับซื้อคอมทำงานกราฟิก",
+      "slug": "รับซื้อคอมทำงานกราฟิก",
+      "path": "/รับซื้อคอมทำงานกราฟิก",
+      "action": "MERGE",
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "reason": "→ desktop money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อคอมตั้งโต๊ะ",
+      "slug": "รับซื้อคอมตั้งโต๊ะ",
+      "path": "/รับซื้อคอมตั้งโต๊ะ",
+      "action": "MERGE",
+      "primary": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "reason": "→ desktop money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ notebook gaming",
+      "slug": "รับซื้อ-notebook-gaming",
+      "path": "/รับซื้อ-notebook-gaming",
+      "action": "MERGE",
+      "primary": "/รับซื้อโน๊ตบุ๊คมือสอง",
+      "reason": "→ notebook money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ notebook เกมมิ่ง",
+      "slug": "รับซื้อ-notebook-เกมมิ่ง",
+      "path": "/รับซื้อ-notebook-เกมมิ่ง",
+      "action": "MERGE",
+      "primary": "/รับซื้อโน๊ตบุ๊คมือสอง",
+      "reason": "→ notebook money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อโน๊ตบุ๊คเกมมิ่ง",
+      "slug": "รับซื้อโน๊ตบุ๊คเกมมิ่ง",
+      "path": "/รับซื้อโน๊ตบุ๊คเกมมิ่ง",
+      "action": "MERGE",
+      "primary": "/รับซื้อโน๊ตบุ๊คมือสอง",
+      "reason": "→ notebook money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้ออุปกรณ์ไอที",
+      "slug": "รับซื้ออุปกรณ์ไอที",
+      "path": "/รับซื้ออุปกรณ์ไอที",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "B2B/auction intent",
+      "score": 78,
+      "cluster": "b2b"
+    },
+    {
+      "keyword": "รับซื้ออุปกรณ์ Gaming",
+      "slug": "รับซื้ออุปกรณ์-gaming",
+      "path": "/รับซื้ออุปกรณ์-gaming",
+      "action": "MERGE",
+      "primary": "/รับซื้ออุปกรณ์เกมมิ่ง",
+      "reason": "→ gaming gear money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อเกมมิ่งเกียร์",
+      "slug": "รับซื้อเกมมิ่งเกียร์",
+      "path": "/รับซื้อเกมมิ่งเกียร์",
+      "action": "MERGE",
+      "primary": "/รับซื้ออุปกรณ์เกมมิ่ง",
+      "reason": "→ gaming gear money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อหูฟังเกมมิ่ง",
+      "slug": "รับซื้อหูฟังเกมมิ่ง",
+      "path": "/รับซื้อหูฟังเกมมิ่ง",
+      "action": "MERGE",
+      "primary": "/รับซื้ออุปกรณ์เกมมิ่ง",
+      "reason": "→ gaming gear money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อเก้าอี้เกมมิ่ง",
+      "slug": "รับซื้อเก้าอี้เกมมิ่ง",
+      "path": "/รับซื้อเก้าอี้เกมมิ่ง",
+      "action": "MERGE",
+      "primary": "/รับซื้ออุปกรณ์เกมมิ่ง",
+      "reason": "→ gaming gear money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อโต๊ะ Gaming",
+      "slug": "รับซื้อโต๊ะ-gaming",
+      "path": "/รับซื้อโต๊ะ-gaming",
+      "action": "MERGE",
+      "primary": "/รับซื้ออุปกรณ์เกมมิ่ง",
+      "reason": "→ gaming gear money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อชุดน้ำคอม Gaming",
+      "slug": "รับซื้อชุดน้ำคอม-gaming",
+      "path": "/รับซื้อชุดน้ำคอม-gaming",
+      "action": "MERGE",
+      "primary": "/รับซื้ออุปกรณ์เกมมิ่ง",
+      "reason": "→ gaming gear money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อคอมสตรีมเกม",
+      "slug": "รับซื้อคอมสตรีมเกม",
+      "path": "/รับซื้อคอมสตรีมเกม",
+      "action": "MERGE",
+      "primary": "/รับซื้อคอมเกมมิ่ง",
+      "reason": "→ gaming PC money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อคอมเกมมิ่งประกอบ",
+      "slug": "รับซื้อคอมเกมมิ่งประกอบ",
+      "path": "/รับซื้อคอมเกมมิ่งประกอบ",
+      "action": "MERGE",
+      "primary": "/รับซื้อคอมเกมมิ่ง",
+      "reason": "→ gaming PC money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ Harddisk",
+      "slug": "รับซื้อ-harddisk",
+      "path": "/รับซื้อ-harddisk",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "component category hub",
+      "score": 72,
+      "cluster": "component"
+    },
+    {
+      "keyword": "รับซื้อฮาร์ดดิสก์",
+      "slug": "รับซื้อฮาร์ดดิสก์",
+      "path": "/รับซื้อฮาร์ดดิสก์",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-harddisk",
+      "reason": "synonym of Harddisk",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ SSD",
+      "slug": "รับซื้อ-ssd",
+      "path": "/รับซื้อ-ssd",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "component category hub",
+      "score": 72,
+      "cluster": "component"
+    },
+    {
+      "keyword": "รับซื้อ external harddisk",
+      "slug": "รับซื้อ-external-harddisk",
+      "path": "/รับซื้อ-external-harddisk",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "component category hub",
+      "score": 72,
+      "cluster": "component"
+    },
+    {
+      "keyword": "รับซื้อ SSD M.2",
+      "slug": "รับซื้อ-ssd-m-2",
+      "path": "/รับซื้อ-ssd-m-2",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "component category hub",
+      "score": 72,
+      "cluster": "component"
+    },
+    {
+      "keyword": "รับซื้อ Flash Drive",
+      "slug": "รับซื้อ-flash-drive",
+      "path": "/รับซื้อ-flash-drive",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "component category hub",
+      "score": 72,
+      "cluster": "component"
+    },
+    {
+      "keyword": "รับซื้อ SSD Kingston",
+      "slug": "รับซื้อ-ssd-kingston",
+      "path": "/รับซื้อ-ssd-kingston",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ssd",
+      "reason": "SSD brand doorway",
+      "score": 32,
+      "cluster": "ssd-brand"
+    },
+    {
+      "keyword": "รับซื้อ SSD Samsung",
+      "slug": "รับซื้อ-ssd-samsung",
+      "path": "/รับซื้อ-ssd-samsung",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ssd",
+      "reason": "SSD brand doorway",
+      "score": 32,
+      "cluster": "ssd-brand"
+    },
+    {
+      "keyword": "รับซื้อ SSD WD",
+      "slug": "รับซื้อ-ssd-wd",
+      "path": "/รับซื้อ-ssd-wd",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ssd",
+      "reason": "SSD brand doorway",
+      "score": 32,
+      "cluster": "ssd-brand"
+    },
+    {
+      "keyword": "รับซื้อ SSD Western",
+      "slug": "รับซื้อ-ssd-western",
+      "path": "/รับซื้อ-ssd-western",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ssd",
+      "reason": "SSD brand doorway",
+      "score": 32,
+      "cluster": "ssd-brand"
+    },
+    {
+      "keyword": "รับซื้อ SSD SanDisk",
+      "slug": "รับซื้อ-ssd-sandisk",
+      "path": "/รับซื้อ-ssd-sandisk",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ssd",
+      "reason": "SSD brand doorway",
+      "score": 32,
+      "cluster": "ssd-brand"
+    },
+    {
+      "keyword": "รับซื้อ SSD Crucial",
+      "slug": "รับซื้อ-ssd-crucial",
+      "path": "/รับซื้อ-ssd-crucial",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ssd",
+      "reason": "SSD brand doorway",
+      "score": 32,
+      "cluster": "ssd-brand"
+    },
+    {
+      "keyword": "รับซื้อ SSD Seagate",
+      "slug": "รับซื้อ-ssd-seagate",
+      "path": "/รับซื้อ-ssd-seagate",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ssd",
+      "reason": "SSD brand doorway",
+      "score": 32,
+      "cluster": "ssd-brand"
+    },
+    {
+      "keyword": "รับซื้อ SSD Intel",
+      "slug": "รับซื้อ-ssd-intel",
+      "path": "/รับซื้อ-ssd-intel",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ssd",
+      "reason": "SSD brand doorway",
+      "score": 32,
+      "cluster": "ssd-brand"
+    },
+    {
+      "keyword": "รับซื้อ SSD Micron",
+      "slug": "รับซื้อ-ssd-micron",
+      "path": "/รับซื้อ-ssd-micron",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ssd",
+      "reason": "SSD brand doorway",
+      "score": 32,
+      "cluster": "ssd-brand"
+    },
+    {
+      "keyword": "รับซื้อ SSD Toshiba",
+      "slug": "รับซื้อ-ssd-toshiba",
+      "path": "/รับซื้อ-ssd-toshiba",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ssd",
+      "reason": "SSD brand doorway",
+      "score": 32,
+      "cluster": "ssd-brand"
+    },
+    {
+      "keyword": "รับซื้อ SSD Kioxia",
+      "slug": "รับซื้อ-ssd-kioxia",
+      "path": "/รับซื้อ-ssd-kioxia",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ssd",
+      "reason": "SSD brand doorway",
+      "score": 32,
+      "cluster": "ssd-brand"
+    },
+    {
+      "keyword": "รับซื้อ SSD ADATA",
+      "slug": "รับซื้อ-ssd-adata",
+      "path": "/รับซื้อ-ssd-adata",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ssd",
+      "reason": "SSD brand doorway",
+      "score": 32,
+      "cluster": "ssd-brand"
+    },
+    {
+      "keyword": "รับซื้อ SSD XPG",
+      "slug": "รับซื้อ-ssd-xpg",
+      "path": "/รับซื้อ-ssd-xpg",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ssd",
+      "reason": "SSD brand doorway",
+      "score": 32,
+      "cluster": "ssd-brand"
+    },
+    {
+      "keyword": "รับซื้อ SSD Transcend",
+      "slug": "รับซื้อ-ssd-transcend",
+      "path": "/รับซื้อ-ssd-transcend",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ssd",
+      "reason": "SSD brand doorway",
+      "score": 32,
+      "cluster": "ssd-brand"
+    },
+    {
+      "keyword": "รับซื้อ SSD Corsair",
+      "slug": "รับซื้อ-ssd-corsair",
+      "path": "/รับซื้อ-ssd-corsair",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ssd",
+      "reason": "SSD brand doorway",
+      "score": 32,
+      "cluster": "ssd-brand"
+    },
+    {
+      "keyword": "รับซื้อ SSD Apacer",
+      "slug": "รับซื้อ-ssd-apacer",
+      "path": "/รับซื้อ-ssd-apacer",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ssd",
+      "reason": "SSD brand doorway",
+      "score": 32,
+      "cluster": "ssd-brand"
+    },
+    {
+      "keyword": "รับซื้อ SSD Lexar",
+      "slug": "รับซื้อ-ssd-lexar",
+      "path": "/รับซื้อ-ssd-lexar",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ssd",
+      "reason": "SSD brand doorway",
+      "score": 32,
+      "cluster": "ssd-brand"
+    },
+    {
+      "keyword": "รับซื้อ SSD NVMe",
+      "slug": "รับซื้อ-ssd-nvme",
+      "path": "/รับซื้อ-ssd-nvme",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "component category hub",
+      "score": 72,
+      "cluster": "component"
+    },
+    {
+      "keyword": "รับซื้อ Harddisk SAS",
+      "slug": "รับซื้อ-harddisk-sas",
+      "path": "/รับซื้อ-harddisk-sas",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "storage specialty hub",
+      "score": 68,
+      "cluster": "storage"
+    },
+    {
+      "keyword": "รับซื้อ Harddisk Seagate",
+      "slug": "รับซื้อ-harddisk-seagate",
+      "path": "/รับซื้อ-harddisk-seagate",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-harddisk",
+      "reason": "HDD brand doorway",
+      "score": 32,
+      "cluster": "hdd-brand"
+    },
+    {
+      "keyword": "รับซื้อ Harddisk WD",
+      "slug": "รับซื้อ-harddisk-wd",
+      "path": "/รับซื้อ-harddisk-wd",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-harddisk",
+      "reason": "HDD brand doorway",
+      "score": 32,
+      "cluster": "hdd-brand"
+    },
+    {
+      "keyword": "รับซื้อ Harddisk Toshib",
+      "slug": "รับซื้อ-harddisk-toshib",
+      "path": "/รับซื้อ-harddisk-toshib",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-harddisk",
+      "reason": "HDD brand doorway",
+      "score": 32,
+      "cluster": "hdd-brand"
+    },
+    {
+      "keyword": "รับซื้อ Harddisk Hitachi",
+      "slug": "รับซื้อ-harddisk-hitachi",
+      "path": "/รับซื้อ-harddisk-hitachi",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-harddisk",
+      "reason": "HDD brand doorway",
+      "score": 32,
+      "cluster": "hdd-brand"
+    },
+    {
+      "keyword": "รับซื้อ Harddisk HGST",
+      "slug": "รับซื้อ-harddisk-hgst",
+      "path": "/รับซื้อ-harddisk-hgst",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-harddisk",
+      "reason": "HDD brand doorway",
+      "score": 32,
+      "cluster": "hdd-brand"
+    },
+    {
+      "keyword": "รับซื้อ Harddisk Samsung",
+      "slug": "รับซื้อ-harddisk-samsung",
+      "path": "/รับซื้อ-harddisk-samsung",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-harddisk",
+      "reason": "HDD brand doorway",
+      "score": 32,
+      "cluster": "hdd-brand"
+    },
+    {
+      "keyword": "รับซื้อ Harddisk Dell",
+      "slug": "รับซื้อ-harddisk-dell",
+      "path": "/รับซื้อ-harddisk-dell",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-harddisk",
+      "reason": "HDD brand doorway",
+      "score": 32,
+      "cluster": "hdd-brand"
+    },
+    {
+      "keyword": "รับซื้อ Harddisk HP",
+      "slug": "รับซื้อ-harddisk-hp",
+      "path": "/รับซื้อ-harddisk-hp",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-harddisk",
+      "reason": "HDD brand doorway",
+      "score": 32,
+      "cluster": "hdd-brand"
+    },
+    {
+      "keyword": "รับซื้อ Harddisk Lenovo",
+      "slug": "รับซื้อ-harddisk-lenovo",
+      "path": "/รับซื้อ-harddisk-lenovo",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-harddisk",
+      "reason": "HDD brand doorway",
+      "score": 32,
+      "cluster": "hdd-brand"
+    },
+    {
+      "keyword": "รับซื้อ Harddisk กล้องวงจรปิด",
+      "slug": "รับซื้อ-harddisk-กล้องวงจรปิด",
+      "path": "/รับซื้อ-harddisk-กล้องวงจรปิด",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "storage specialty hub",
+      "score": 68,
+      "cluster": "storage"
+    },
+    {
+      "keyword": "รับซื้อ iMac",
+      "slug": "รับซื้อ-imac",
+      "path": "/รับซื้อ-imac",
+      "action": "MERGE",
+      "primary": "/รับซื้อ-macbook",
+      "reason": "→ MacBook money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ Tablet",
+      "slug": "รับซื้อ-tablet",
+      "path": "/รับซื้อ-tablet",
+      "action": "MERGE",
+      "primary": "/รับซื้อแท็บเล็ต",
+      "reason": "→ tablet money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ Mac Mini",
+      "slug": "รับซื้อ-mac-mini",
+      "path": "/รับซื้อ-mac-mini",
+      "action": "MERGE",
+      "primary": "/รับซื้อ-macbook",
+      "reason": "→ MacBook money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ Mac Pro",
+      "slug": "รับซื้อ-mac-pro",
+      "path": "/รับซื้อ-mac-pro",
+      "action": "MERGE",
+      "primary": "/รับซื้อ-macbook",
+      "reason": "→ MacBook money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ Apple Studio Display",
+      "slug": "รับซื้อ-apple-studio-display",
+      "path": "/รับซื้อ-apple-studio-display",
+      "action": "NOINDEX",
+      "primary": "/รับซื้ออุปกรณ์เสริม-it",
+      "reason": "accessory doorway",
+      "score": 42
+    },
+    {
+      "keyword": "รับซื้อ Mac Studio",
+      "slug": "รับซื้อ-mac-studio",
+      "path": "/รับซื้อ-mac-studio",
+      "action": "MERGE",
+      "primary": "/รับซื้อ-macbook",
+      "reason": "→ MacBook money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ Magic Mouse",
+      "slug": "รับซื้อ-magic-mouse",
+      "path": "/รับซื้อ-magic-mouse",
+      "action": "NOINDEX",
+      "primary": "/รับซื้ออุปกรณ์เสริม-it",
+      "reason": "accessory doorway",
+      "score": 42
+    },
+    {
+      "keyword": "รับซื้อ Magic Keyboard",
+      "slug": "รับซื้อ-magic-keyboard",
+      "path": "/รับซื้อ-magic-keyboard",
+      "action": "NOINDEX",
+      "primary": "/รับซื้ออุปกรณ์เสริม-it",
+      "reason": "accessory doorway",
+      "score": 42
+    },
+    {
+      "keyword": "รับซื้อ Microsoft Surface",
+      "slug": "รับซื้อ-microsoft-surface",
+      "path": "/รับซื้อ-microsoft-surface",
+      "action": "NOINDEX",
+      "primary": "/รับซื้ออุปกรณ์เสริม-it",
+      "reason": "accessory doorway",
+      "score": 42
+    },
+    {
+      "keyword": "รับซื้อ tablet สำนักงาน",
+      "slug": "รับซื้อ-tablet-สำนักงาน",
+      "path": "/รับซื้อ-tablet-สำนักงาน",
+      "action": "MERGE",
+      "primary": "/รับซื้อแท็บเล็ต",
+      "reason": "→ tablet money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ Samsung Tablet",
+      "slug": "รับซื้อ-samsung-tablet",
+      "path": "/รับซื้อ-samsung-tablet",
+      "action": "MERGE",
+      "primary": "/รับซื้อแท็บเล็ต",
+      "reason": "→ tablet money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อแท็บเล็ต Android",
+      "slug": "รับซื้อแท็บเล็ต-android",
+      "path": "/รับซื้อแท็บเล็ต-android",
+      "action": "MERGE",
+      "primary": "/รับซื้อแท็บเล็ต",
+      "reason": "→ tablet money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ Android Tablet",
+      "slug": "รับซื้อ-android-tablet",
+      "path": "/รับซื้อ-android-tablet",
+      "action": "MERGE",
+      "primary": "/รับซื้อแท็บเล็ต",
+      "reason": "→ tablet money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ Xiaomi Tablet",
+      "slug": "รับซื้อ-xiaomi-tablet",
+      "path": "/รับซื้อ-xiaomi-tablet",
+      "action": "MERGE",
+      "primary": "/รับซื้อแท็บเล็ต",
+      "reason": "→ tablet money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ Redmi Pad",
+      "slug": "รับซื้อ-redmi-pad",
+      "path": "/รับซื้อ-redmi-pad",
+      "action": "MERGE",
+      "primary": "/รับซื้อแท็บเล็ต",
+      "reason": "→ tablet money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อแท็บเล็ตใส่ซิม",
+      "slug": "รับซื้อแท็บเล็ตใส่ซิม",
+      "path": "/รับซื้อแท็บเล็ตใส่ซิม",
+      "action": "MERGE",
+      "primary": "/รับซื้อแท็บเล็ต",
+      "reason": "→ tablet money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อแท็บเล็ตโรงเรียน",
+      "slug": "รับซื้อแท็บเล็ตโรงเรียน",
+      "path": "/รับซื้อแท็บเล็ตโรงเรียน",
+      "action": "MERGE",
+      "primary": "/รับซื้อแท็บเล็ต",
+      "reason": "→ tablet money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อแท็บเล็ตองค์กร",
+      "slug": "รับซื้อแท็บเล็ตองค์กร",
+      "path": "/รับซื้อแท็บเล็ตองค์กร",
+      "action": "MERGE",
+      "primary": "/รับซื้อแท็บเล็ต",
+      "reason": "→ tablet money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อแท็บเล็ตยกล็อต",
+      "slug": "รับซื้อแท็บเล็ตยกล็อต",
+      "path": "/รับซื้อแท็บเล็ตยกล็อต",
+      "action": "MERGE",
+      "primary": "/รับซื้อแท็บเล็ต",
+      "reason": "→ tablet money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อมือถือ Samsung",
+      "slug": "รับซื้อมือถือ-samsung",
+      "path": "/รับซื้อมือถือ-samsung",
+      "action": "MERGE",
+      "primary": "/รับซื้อมือถือ",
+      "reason": "→ phone money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อมือถือ Android",
+      "slug": "รับซื้อมือถือ-android",
+      "path": "/รับซื้อมือถือ-android",
+      "action": "MERGE",
+      "primary": "/รับซื้อมือถือ",
+      "reason": "→ phone money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อมือถือ Vivo",
+      "slug": "รับซื้อมือถือ-vivo",
+      "path": "/รับซื้อมือถือ-vivo",
+      "action": "MERGE",
+      "primary": "/รับซื้อมือถือ",
+      "reason": "→ phone money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อมือถือ OPPO",
+      "slug": "รับซื้อมือถือ-oppo",
+      "path": "/รับซื้อมือถือ-oppo",
+      "action": "MERGE",
+      "primary": "/รับซื้อมือถือ",
+      "reason": "→ phone money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อมือถือ Xiaomi",
+      "slug": "รับซื้อมือถือ-xiaomi",
+      "path": "/รับซื้อมือถือ-xiaomi",
+      "action": "MERGE",
+      "primary": "/รับซื้อมือถือ",
+      "reason": "→ phone money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อมือถือ Realme",
+      "slug": "รับซื้อมือถือ-realme",
+      "path": "/รับซื้อมือถือ-realme",
+      "action": "MERGE",
+      "primary": "/รับซื้อมือถือ",
+      "reason": "→ phone money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อมือถือ Honor",
+      "slug": "รับซื้อมือถือ-honor",
+      "path": "/รับซื้อมือถือ-honor",
+      "action": "MERGE",
+      "primary": "/รับซื้อมือถือ",
+      "reason": "→ phone money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อมือถือ POCO",
+      "slug": "รับซื้อมือถือ-poco",
+      "path": "/รับซื้อมือถือ-poco",
+      "action": "MERGE",
+      "primary": "/รับซื้อมือถือ",
+      "reason": "→ phone money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ Huawei Tablet",
+      "slug": "รับซื้อ-huawei-tablet",
+      "path": "/รับซื้อ-huawei-tablet",
+      "action": "MERGE",
+      "primary": "/รับซื้อแท็บเล็ต",
+      "reason": "→ tablet money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อมือถือ Huawei",
+      "slug": "รับซื้อมือถือ-huawei",
+      "path": "/รับซื้อมือถือ-huawei",
+      "action": "MERGE",
+      "primary": "/รับซื้อมือถือ",
+      "reason": "→ phone money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ UPS",
+      "slug": "รับซื้อ-ups",
+      "path": "/รับซื้อ-ups",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "UPS category",
+      "score": 74,
+      "cluster": "ups"
+    },
+    {
+      "keyword": "รับซื้อเครื่องสำรองไฟ",
+      "slug": "รับซื้อเครื่องสำรองไฟ",
+      "path": "/รับซื้อเครื่องสำรองไฟ",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ups",
+      "reason": "synonym of UPS",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ UPS APC",
+      "slug": "รับซื้อ-ups-apc",
+      "path": "/รับซื้อ-ups-apc",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ups",
+      "reason": "UPS brand doorway",
+      "score": 34,
+      "cluster": "ups-brand"
+    },
+    {
+      "keyword": "รับซื้อ UPS True Online",
+      "slug": "รับซื้อ-ups-true-online",
+      "path": "/รับซื้อ-ups-true-online",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ups",
+      "reason": "UPS brand doorway",
+      "score": 34,
+      "cluster": "ups-brand"
+    },
+    {
+      "keyword": "รับซื้อ UPS ปิดกิจการ",
+      "slug": "รับซื้อ-ups-ปิดกิจการ",
+      "path": "/รับซื้อ-ups-ปิดกิจการ",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ups",
+      "reason": "UPS brand doorway",
+      "score": 34,
+      "cluster": "ups-brand"
+    },
+    {
+      "keyword": "รับซื้อ UPS Syndome",
+      "slug": "รับซื้อ-ups-syndome",
+      "path": "/รับซื้อ-ups-syndome",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ups",
+      "reason": "UPS brand doorway",
+      "score": 34,
+      "cluster": "ups-brand"
+    },
+    {
+      "keyword": "รับซื้อ UPS Leonics",
+      "slug": "รับซื้อ-ups-leonics",
+      "path": "/รับซื้อ-ups-leonics",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ups",
+      "reason": "UPS brand doorway",
+      "score": 34,
+      "cluster": "ups-brand"
+    },
+    {
+      "keyword": "รับซื้อ UPS Cleanline",
+      "slug": "รับซื้อ-ups-cleanline",
+      "path": "/รับซื้อ-ups-cleanline",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ups",
+      "reason": "UPS brand doorway",
+      "score": 34,
+      "cluster": "ups-brand"
+    },
+    {
+      "keyword": "รับซื้อ UPS Schneider",
+      "slug": "รับซื้อ-ups-schneider",
+      "path": "/รับซื้อ-ups-schneider",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ups",
+      "reason": "UPS brand doorway",
+      "score": 34,
+      "cluster": "ups-brand"
+    },
+    {
+      "keyword": "รับซื้อ UPS CyberPower",
+      "slug": "รับซื้อ-ups-cyberpower",
+      "path": "/รับซื้อ-ups-cyberpower",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ups",
+      "reason": "UPS brand doorway",
+      "score": 34,
+      "cluster": "ups-brand"
+    },
+    {
+      "keyword": "รับซื้อ UPS Eaton",
+      "slug": "รับซื้อ-ups-eaton",
+      "path": "/รับซื้อ-ups-eaton",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ups",
+      "reason": "UPS brand doorway",
+      "score": 34,
+      "cluster": "ups-brand"
+    },
+    {
+      "keyword": "รับซื้อ UPS Dell",
+      "slug": "รับซื้อ-ups-dell",
+      "path": "/รับซื้อ-ups-dell",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ups",
+      "reason": "UPS brand doorway",
+      "score": 34,
+      "cluster": "ups-brand"
+    },
+    {
+      "keyword": "รับซื้อ UPS Prolink",
+      "slug": "รับซื้อ-ups-prolink",
+      "path": "/รับซื้อ-ups-prolink",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ups",
+      "reason": "UPS brand doorway",
+      "score": 34,
+      "cluster": "ups-brand"
+    },
+    {
+      "keyword": "รับซื้อแบตเตอรี่ UPS",
+      "slug": "รับซื้อแบตเตอรี่-ups",
+      "path": "/รับซื้อแบตเตอรี่-ups",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "UPS category",
+      "score": 74,
+      "cluster": "ups"
+    },
+    {
+      "keyword": "รับซื้อ UPS Zircon",
+      "slug": "รับซื้อ-ups-zircon",
+      "path": "/รับซื้อ-ups-zircon",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ups",
+      "reason": "UPS brand doorway",
+      "score": 34,
+      "cluster": "ups-brand"
+    },
+    {
+      "keyword": "รับซื้อ UPS Server",
+      "slug": "รับซื้อ-ups-server",
+      "path": "/รับซื้อ-ups-server",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "infra/network intent (no money page)",
+      "score": 76,
+      "cluster": "infra"
+    },
+    {
+      "keyword": "รับซื้อ UPS Huawei",
+      "slug": "รับซื้อ-ups-huawei",
+      "path": "/รับซื้อ-ups-huawei",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-ups",
+      "reason": "UPS brand doorway",
+      "score": 34,
+      "cluster": "ups-brand"
+    },
+    {
+      "keyword": "รับซื้อ UPS Rack",
+      "slug": "รับซื้อ-ups-rack",
+      "path": "/รับซื้อ-ups-rack",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "UPS category",
+      "score": 74,
+      "cluster": "ups"
+    },
+    {
+      "keyword": "รับซื้อคอมร้านเกม",
+      "slug": "รับซื้อคอมร้านเกม",
+      "path": "/รับซื้อคอมร้านเกม",
+      "action": "MERGE",
+      "primary": "/รับซื้อคอมเกมมิ่ง",
+      "reason": "→ gaming PC money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อคอมเล่นเกม",
+      "slug": "รับซื้อคอมเล่นเกม",
+      "path": "/รับซื้อคอมเล่นเกม",
+      "action": "MERGE",
+      "primary": "/รับซื้อคอมเกมมิ่ง",
+      "reason": "→ gaming PC money",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อคอมประกอบร้านเกม",
+      "slug": "รับซื้อคอมประกอบร้านเกม",
+      "path": "/รับซื้อคอมประกอบร้านเกม",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ",
+      "reason": "low information-gain template",
+      "score": 35,
+      "cluster": "default-thin"
+    },
+    {
+      "keyword": "รับซื้อกล้อง Canon",
+      "slug": "รับซื้อกล้อง-canon",
+      "path": "/รับซื้อกล้อง-canon",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อกล้อง",
+      "reason": "camera brand doorway",
+      "score": 38,
+      "cluster": "camera-brand"
+    },
+    {
+      "keyword": "รับซื้อกล้องแคนนอน",
+      "slug": "รับซื้อกล้องแคนนอน",
+      "path": "/รับซื้อกล้องแคนนอน",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อกล้อง",
+      "reason": "camera brand doorway",
+      "score": 38,
+      "cluster": "camera-brand"
+    },
+    {
+      "keyword": "รับซื้อกล้อง nikon",
+      "slug": "รับซื้อกล้อง-nikon",
+      "path": "/รับซื้อกล้อง-nikon",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อกล้อง",
+      "reason": "camera brand doorway",
+      "score": 38,
+      "cluster": "camera-brand"
+    },
+    {
+      "keyword": "รับซื้อกล้องนิคอน",
+      "slug": "รับซื้อกล้องนิคอน",
+      "path": "/รับซื้อกล้องนิคอน",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อกล้อง",
+      "reason": "camera brand doorway",
+      "score": 38,
+      "cluster": "camera-brand"
+    },
+    {
+      "keyword": "รับซื้อกล้อง Sony",
+      "slug": "รับซื้อกล้อง-sony",
+      "path": "/รับซื้อกล้อง-sony",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อกล้อง",
+      "reason": "camera brand doorway",
+      "score": 38,
+      "cluster": "camera-brand"
+    },
+    {
+      "keyword": "รับซื้อกล้องโซนี่",
+      "slug": "รับซื้อกล้องโซนี่",
+      "path": "/รับซื้อกล้องโซนี่",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อกล้อง",
+      "reason": "camera brand doorway",
+      "score": 38,
+      "cluster": "camera-brand"
+    },
+    {
+      "keyword": "รับซื้อลำโพง",
+      "slug": "รับซื้อลำโพง",
+      "path": "/รับซื้อลำโพง",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "electronics category hub",
+      "score": 70,
+      "cluster": "electronics"
+    },
+    {
+      "keyword": "รับซื้อเครื่องเสียง",
+      "slug": "รับซื้อเครื่องเสียง",
+      "path": "/รับซื้อเครื่องเสียง",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "electronics category hub",
+      "score": 70,
+      "cluster": "electronics"
+    },
+    {
+      "keyword": "รับซื้อ Bose",
+      "slug": "รับซื้อ-bose",
+      "path": "/รับซื้อ-bose",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "electronics category hub",
+      "score": 70,
+      "cluster": "electronics"
+    },
+    {
+      "keyword": "รับซื้อ Harman/Kardon",
+      "slug": "รับซื้อ-harman-kardon",
+      "path": "/รับซื้อ-harman-kardon",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อลำโพง",
+      "reason": "speaker brand doorway",
+      "score": 36,
+      "cluster": "speaker-brand"
+    },
+    {
+      "keyword": "รับซื้อ Bang & Olufsen",
+      "slug": "รับซื้อ-bang-olufsen",
+      "path": "/รับซื้อ-bang-olufsen",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ",
+      "reason": "low information-gain template",
+      "score": 35,
+      "cluster": "default-thin"
+    },
+    {
+      "keyword": "รับซื้อ Fujifilm",
+      "slug": "รับซื้อ-fujifilm",
+      "path": "/รับซื้อ-fujifilm",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อกล้อง",
+      "reason": "camera brand doorway",
+      "score": 38,
+      "cluster": "camera-brand"
+    },
+    {
+      "keyword": "รับซื้อ Panasonic Lumix",
+      "slug": "รับซื้อ-panasonic-lumix",
+      "path": "/รับซื้อ-panasonic-lumix",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อกล้อง",
+      "reason": "camera brand doorway",
+      "score": 38,
+      "cluster": "camera-brand"
+    },
+    {
+      "keyword": "รับซื้อ Leica",
+      "slug": "รับซื้อ-leica",
+      "path": "/รับซื้อ-leica",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อกล้อง",
+      "reason": "camera brand doorway",
+      "score": 38,
+      "cluster": "camera-brand"
+    },
+    {
+      "keyword": "รับซื้อเครื่องใช้ไฟฟ้า",
+      "slug": "รับซื้อเครื่องใช้ไฟฟ้า",
+      "path": "/รับซื้อเครื่องใช้ไฟฟ้า",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "electronics category hub",
+      "score": 70,
+      "cluster": "electronics"
+    },
+    {
+      "keyword": "รับซื้อไดสัน",
+      "slug": "รับซื้อไดสัน",
+      "path": "/รับซื้อไดสัน",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-dyson",
+      "reason": "synonym of Dyson",
+      "score": 40
+    },
+    {
+      "keyword": "รับซื้อ Dyson",
+      "slug": "รับซื้อ-dyson",
+      "path": "/รับซื้อ-dyson",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "electronics category hub",
+      "score": 70,
+      "cluster": "electronics"
+    },
+    {
+      "keyword": "รับซื้อพัดลม",
+      "slug": "รับซื้อพัดลม",
+      "path": "/รับซื้อพัดลม",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "electronics category hub",
+      "score": 70,
+      "cluster": "electronics"
+    },
+    {
+      "keyword": "รับซื้อแอร์",
+      "slug": "รับซื้อแอร์",
+      "path": "/รับซื้อแอร์",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "electronics category hub",
+      "score": 70,
+      "cluster": "electronics"
+    },
+    {
+      "keyword": "รับซื้อเครื่องฟอกอากาศ",
+      "slug": "รับซื้อเครื่องฟอกอากาศ",
+      "path": "/รับซื้อเครื่องฟอกอากาศ",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "electronics category hub",
+      "score": 70,
+      "cluster": "electronics"
+    },
+    {
+      "keyword": "รับซื้อเครื่องกรองน้ำ",
+      "slug": "รับซื้อเครื่องกรองน้ำ",
+      "path": "/รับซื้อเครื่องกรองน้ำ",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "electronics category hub",
+      "score": 70,
+      "cluster": "electronics"
+    },
+    {
+      "keyword": "รับซื้อเก้าอี้นวด",
+      "slug": "รับซื้อเก้าอี้นวด",
+      "path": "/รับซื้อเก้าอี้นวด",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "electronics category hub",
+      "score": 70,
+      "cluster": "electronics"
+    },
+    {
+      "keyword": "รับซื้อเครื่องชงกาแฟ",
+      "slug": "รับซื้อเครื่องชงกาแฟ",
+      "path": "/รับซื้อเครื่องชงกาแฟ",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "electronics category hub",
+      "score": 70,
+      "cluster": "electronics"
+    },
+    {
+      "keyword": "รับซื้อเครื่องบดกาแฟ",
+      "slug": "รับซื้อเครื่องบดกาแฟ",
+      "path": "/รับซื้อเครื่องบดกาแฟ",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "electronics category hub",
+      "score": 70,
+      "cluster": "electronics"
+    },
+    {
+      "keyword": "รับซื้อของย้ายบ้าน",
+      "slug": "รับซื้อของย้ายบ้าน",
+      "path": "/รับซื้อของย้ายบ้าน",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "electronics category hub",
+      "score": 70,
+      "cluster": "electronics"
+    },
+    {
+      "keyword": "รับซื้อ drone",
+      "slug": "รับซื้อ-drone",
+      "path": "/รับซื้อ-drone",
+      "action": "KEEP",
+      "primary": null,
+      "reason": "electronics category hub",
+      "score": 70,
+      "cluster": "electronics"
+    },
+    {
+      "keyword": "รับซื้อโดรน",
+      "slug": "รับซื้อโดรน",
+      "path": "/รับซื้อโดรน",
+      "action": "NOINDEX",
+      "primary": "/รับซื้อ-drone",
+      "reason": "synonym of drone",
+      "score": 40
+    }
+  ],
+  "counts": {
+    "KEEP": 73,
+    "NOINDEX": 90,
+    "MERGE": 71
+  },
+  "generatedAt": "2026-08-08T03:10:12.370Z"
+}
