@@ -658,28 +658,41 @@ Goal: **Quality indexation**, not maximum URL count.
 
 | Field | Value |
 |-------|--------|
-| Initial SHA | `0ba4cab` |
-| Commit SHA | _(filled after commit)_ |
-| Origin/Main SHA | _(filled after push)_ |
-| Production SHA | _(filled after deploy verify)_ |
-| Production Matches Main | _(filled after verify)_ |
+| Initial SHA | `0ba4cab31d7da78979e95ab747405ad92d2d13db` |
+| Commit SHA | `58aa62afb738a80a9645c4306cef730db4f92a4e` |
+| Origin/Main SHA | `58aa62afb738a80a9645c4306cef730db4f92a4e` |
+| Production SHA | **NOT ATTESTED** (no Vercel/GitHub Deployments API access in this environment) |
+| Production Matches Main | **YES (behavioral)** — sitemap count, topic noindex, money indexability, EN redirects match release |
+
+Pushed: `0ba4cab..58aa62a` → `origin/main` (no force push)
 
 ---
 
-## PRODUCTION VERIFICATION
+## PRODUCTION VERIFICATION (2026-08-08)
 
-_(filled after deploy)_
+| Check | Result |
+|-------|--------|
+| `robots.txt` | `Allow: /` + sitemap absolute URL |
+| Production sitemap count | **422** (matches local) |
+| Topic leak in sitemap | **0** |
+| Money pages (13 sampled) | 200, indexable, H1 present |
+| Topic pages (10 sampled) | 200, `noindex,follow`, not deleted |
+| Location pages (5) | 200, indexable |
+| Trust/blog hubs (5) | 200, indexable |
+| EN hubs (`/about` etc.) | **308 permanent** → Thai targets (Vercel permanent redirect) |
+| Sitemap sample URLs | 200 + not noindex |
+| Money accidentally noindexed | **0** |
 
 ---
 
 ## POST-DEPLOY BASELINE
 
-| Metric | Pre-deploy prod | Target post-deploy |
-|--------|----------------:|-------------------:|
-| Sitemap count | 1,946 | ~422 |
-| Topic sample robots | indexable | noindex,follow |
+| Metric | Pre-deploy prod | Post-deploy prod |
+|--------|----------------:|-----------------:|
+| Sitemap count | 1,946 | **422** |
+| Topic sample robots | indexable | **noindex,follow** |
 | Money sample robots | indexable | indexable |
-| EN `/about` | 200 soft | 301 → Thai |
+| EN `/about` | 200 soft | **308 → Thai** |
 
 **Expectation:** Google must recrawl before Page Indexing counts change. No ranking guarantee. Do not delete the 1,524 topic pages until GSC URL-level analysis exists.
 
