@@ -1,0 +1,80 @@
+{
+  "generatedAt": "2026-08-08T06:00:00.000Z",
+  "initialSha": "56a0b89bc45815353503ed33a6bc2ec86967daa7",
+  "gscWindow": { "start": "2026-05-09", "end": "2026-08-08", "label": "3 เดือนล่าสุด" },
+  "queryPageAvailable": false,
+  "urls": [
+    {
+      "path": "/พื้นที่ให้บริการ/สุรินทร์",
+      "gsc": { "clicks": 4, "impressions": 64, "ctr": 0.0625, "position": 9.84 },
+      "before": {
+        "title": "รับซื้อสินค้าไอทีมือสอง สุรินทร์ รับซื้อคอม โน๊ตบุ๊ค มือถือ",
+        "description": "รับซื้อสินค้าไอทีในสุรินทร์และพื้นที่ใกล้เคียง ประเมินเร็ว ให้ราคาตามสภาพ",
+        "h1": "รับซื้อสินค้าไอทีมือสอง สุรินทร์",
+        "sourceFiles": ["src/pages/พื้นที่ให้บริการ/สุรินทร์.astro", "src/content/areas/surin.md"]
+      }
+    },
+    {
+      "path": "/รับซื้ออุปกรณ์เกมมิ่ง",
+      "gsc": { "clicks": 0, "impressions": 16, "ctr": 0, "position": 6.75 },
+      "before": {
+        "title": "รับซื้ออุปกรณ์เกมมิ่งมือสอง คีย์บอร์ด เมาส์ หูฟัง จอย ประเมินราคาฟรี | BuyHub",
+        "description": "BuyHub รับซื้ออุปกรณ์เกมมิ่งมือสอง คีย์บอร์ดเกมมิ่ง เมาส์เกมมิ่ง หูฟังเกมมิ่ง จอยเกมมิ่ง ไมค์ แผ่นรองเมาส์ และอุปกรณ์สตรีม ประเมินราคาฟรีจากรูป ติดต่อ LINE @buyhub",
+        "h1": "รับซื้ออุปกรณ์เกมมิ่งมือสอง ประเมินราคาฟรี ส่งรูปเช็กราคาได้",
+        "sourceFiles": ["src/pages/รับซื้ออุปกรณ์เกมมิ่ง.astro"]
+      }
+    },
+    {
+      "path": "/รับซื้อ-ipad",
+      "gsc": { "clicks": 0, "impressions": 12, "ctr": 0, "position": 10 },
+      "before": {
+        "title": "รับซื้อ iPad มือสอง iPad Pro iPad Air iPad Gen ประเมินราคาฟรี | BuyHub",
+        "description": "BuyHub รับซื้อ iPad มือสองทุกรุ่น ทั้ง iPad Pro, iPad Air, iPad Gen, iPad mini, Wi-Fi และ Cellular ประเมินราคาฟรีจากรูป เช็กสภาพจอ ทัช แบต อุปกรณ์ และ Apple ID ติดต่อ LINE @buyhub",
+        "h1": "รับซื้อ iPad มือสอง ประเมินราคาฟรี ส่งรูปเช็กราคาได้",
+        "sourceFiles": ["src/pages/รับซื้อ-ipad.astro"]
+      }
+    },
+    {
+      "path": "/รับซื้อโน๊ตบุ๊คมือสอง",
+      "gsc": { "clicks": 0, "impressions": 6, "ctr": 0, "position": 9.33 },
+      "before": {
+        "title": "รับซื้อโน๊ตบุ๊คมือสอง ทุกยี่ห้อ ประเมินราคาฟรี | BuyHub",
+        "description": "BuyHub รับซื้อโน๊ตบุ๊คมือสองทุกยี่ห้อ Dell, HP, Lenovo, ASUS, Acer, MSI, โน๊ตบุ๊คเกมมิ่ง โน๊ตบุ๊คทำงาน และโน๊ตบุ๊คบริษัท ประเมินราคาฟรีจากรูป ติดต่อ LINE @buyhub",
+        "h1": "รับซื้อโน๊ตบุ๊คมือสอง ประเมินราคาฟรี ส่งรูปเช็กราคาได้",
+        "sourceFiles": ["src/pages/รับซื้อโน๊ตบุ๊คมือสอง.astro"]
+      }
+    },
+    {
+      "path": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "gsc": {
+        "clicks": 0,
+        "impressions": 0,
+        "ctr": null,
+        "position": null,
+        "relatedQuerySignal": {
+          "query": "รับซื้อคอมพิวเตอร์ ใกล้ฉัน",
+          "impressions": 1,
+          "position": 4,
+          "confidence": "LOW — no Query×Page confirmation"
+        }
+      },
+      "before": {
+        "title": "รับซื้อคอมพิวเตอร์มือสอง คอมตั้งโต๊ะ คอมสำนักงาน ประเมินราคาฟรี | BuyHub",
+        "description": "BuyHub รับซื้อคอมพิวเตอร์มือสอง คอมตั้งโต๊ะ คอมสำนักงาน คอมแบรนด์ คอมประกอบ และคอมหลายเครื่อง ประเมินราคาฟรีจากรูป ให้ราคาตามสเปกและสภาพจริง ติดต่อ LINE @buyhub",
+        "h1": "รับซื้อคอมพิวเตอร์มือสอง ประเมินราคาฟรี ส่งรูปเช็กราคาได้",
+        "sourceFiles": ["src/pages/รับซื้อคอมพิวเตอร์มือสอง.astro"]
+      }
+    },
+    {
+      "path": "/พื้นที่ให้บริการ/อุบลราชธานี",
+      "gsc": { "clicks": 2, "impressions": 33, "ctr": 0.0606, "position": 8.12 },
+      "before": {
+        "title": "รับซื้อสินค้าไอทีมือสอง อุบลราชธานี ประเมินราคาฟรี",
+        "description": "รับซื้อสินค้าไอที มือหนึ่ง มือสอง ในพื้นที่อุบลราชธานีและใกล้เคียง นัดรับชัดเจน ประเมินราคาโปร่งใส",
+        "h1": "รับซื้อสินค้าไอทีมือสอง อุบลราชธานี",
+        "sourceFiles": ["src/pages/พื้นที่ให้บริการ/อุบลราชธานี.astro", "src/content/areas/ubon-ratchathani.md"],
+        "businessFactNote": "Schema address in repo points to Khon Kaen (OWNER FACT REQUIRED for Ubon storefront claims) — no invented branch"
+      }
+    }
+  ]
+}

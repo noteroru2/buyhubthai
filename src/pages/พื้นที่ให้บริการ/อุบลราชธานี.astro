@@ -14,7 +14,7 @@ const { Content } = await render(entry);
 const { data } = entry;
 
 const path = '/พื้นที่ให้บริการ/อุบลราชธานี';
-const title = 'รับซื้อสินค้าไอทีมือสอง อุบลราชธานี ประเมินราคาฟรี';
+const title = 'รับซื้อสินค้าไอทีมือสอง อุบลราชธานี ประเมินจากรูป | BuyHub';
 const description = data.description;
 const faqs = buildAreaFaqItems('ubon-ratchathani', data.province);
 
@@ -47,6 +47,10 @@ const jsonLd = [
     <div class="mx-auto max-w-3xl px-4 py-14 sm:px-6 sm:py-16">
       <h1 class="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">รับซื้อสินค้าไอทีมือสอง อุบลราชธานี</h1>
       <p class="mt-4 text-lg leading-8 text-slate-600">{description}</p>
+      <p class="mt-4 text-base leading-8 text-slate-700">
+        คนในอุบลราชธานีมักอยากเช็กความคุ้มก่อนเริ่มนัด เพราะระยะทางและเวลามีผลกับการตัดสินใจ
+        เริ่มจากส่งรูป รุ่น และสภาพผ่าน LINE @buyhub เพื่อประเมินแนวราคาก่อน แล้วแจ้งอำเภอหรือโซนโดยประมาณเพื่อวางขั้นตอนถัดไป
+      </p>
       <div class="mt-8 flex flex-col gap-4 border-y border-slate-100 py-8 sm:flex-row">
         <LineCtaButton variant="primary" class="sm:flex-1" />
         <PhoneCtaButton variant="light" class="sm:flex-1" />

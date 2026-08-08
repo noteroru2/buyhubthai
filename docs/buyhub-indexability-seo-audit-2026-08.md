@@ -897,3 +897,17 @@ Delta ≈ 10 soft-cannibal hubs removed from sitemap.
 - Confirm real business address / Google Business Profile URL
 - Confirm reviewer/experience claims for public trust copy
 - Confirm which provinces are true service coverage vs aspirational
+
+---
+
+## BATCH — TIER-1 GSC RANKING OPTIMIZATION (BATCH 1)
+
+**Status: TIER1_EXPERIMENT_ACTIVE**
+
+- Baseline: `docs/tier1-ranking-baseline.json`
+- Experiment log: `docs/gsc-tier1-ranking-experiment-2026-08.json`
+- URLs targeted: 6 only (Surin, Gaming, iPad, Notebook, Computer, Ubon)
+- Strategy: preserve relevance + improve SERP fit + targeted information gain
+- Freeze: **do not re-edit these 6 URLs from SEO intuition until next GSC measurement window**
+- No Query×Page overclaim; computer “ใกล้ฉัน” treated as LOW-confidence query-level signal only
+- No invented Surin/Ubon storefront (schema address remains Khon Kaen)

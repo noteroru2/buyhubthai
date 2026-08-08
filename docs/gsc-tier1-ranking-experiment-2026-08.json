@@ -1,0 +1,133 @@
+{
+  "experimentId": "BUYHUB_TIER1_RANKING_OPTIMIZATION_BATCH_1",
+  "status": "TIER1_EXPERIMENT_ACTIVE",
+  "freezeAfterDeploy": true,
+  "generatedAt": "2026-08-08",
+  "gscWindow": { "start": "2026-05-09", "end": "2026-08-08", "label": "3 เดือนล่าสุด" },
+  "queryPageAvailable": false,
+  "initialSha": "56a0b89bc45815353503ed33a6bc2ec86967daa7",
+  "releaseSha": "PENDING_COMMIT",
+  "strategy": "PRESERVE_RELEVANCE + IMPROVE_SERP_FIT + TARGETED_INFORMATION_GAIN + SELECTIVE_INTERNAL_LINKS",
+  "constraints": [
+    "No mass-edit",
+    "No new indexable URLs",
+    "No canonical/URL/robots architecture changes",
+    "No invented local storefronts",
+    "No expected-rank claims",
+    "No Query×Page overclaim"
+  ],
+  "urls": [
+    {
+      "path": "/พื้นที่ให้บริการ/สุรินทร์",
+      "baseline": { "clicks": 4, "impressions": 64, "ctr": 0.0625, "position": 9.84 },
+      "changeClass": "MULTIPLE",
+      "changes": [
+        "TITLE tightened (removed stuffed product list)",
+        "META clarified evaluate-before-meet CTA",
+        "INTRO answer-first paragraph",
+        "SECTION open + money contextual links",
+        "INTERNAL LINK support from area hub + money pages"
+      ],
+      "evidence": "Province PROVEN demand: 4 clicks / 64 impressions / pos 9.84",
+      "rationale": "Page already ranks near page 1; improve local commercial clarity and money-page pathways without inventing a Surin branch.",
+      "schema": "NO CHANGE"
+    },
+    {
+      "path": "/รับซื้ออุปกรณ์เกมมิ่ง",
+      "baseline": { "clicks": 0, "impressions": 16, "ctr": 0, "position": 6.75 },
+      "changeClass": "TITLE_META + INTRO + INTERNAL LINK",
+      "changes": [
+        "TITLE shortened for SERP fit",
+        "META focused on product types + evaluate CTA",
+        "H1 clarified",
+        "INTRO first sentence sell-intent alignment",
+        "INTERNAL LINK to Surin/Ubon area pages; inbound from PS blog"
+      ],
+      "evidence": "NEAR WIN: 16 impressions / pos 6.75 / 0 clicks",
+      "rationale": "Page already ranks around position 6.75; title/meta improvement aims to improve SERP fit without changing core peripheral-gear intent.",
+      "schema": "NO CHANGE"
+    },
+    {
+      "path": "/รับซื้อ-ipad",
+      "baseline": { "clicks": 0, "impressions": 12, "ctr": 0, "position": 10 },
+      "changeClass": "TITLE_META + INTRO + INTERNAL LINK",
+      "changes": [
+        "TITLE de-stuffed models",
+        "META sell-intent first",
+        "H1 clarified",
+        "INTRO first sentence sell-intent alignment",
+        "INTERNAL LINK to Surin/Ubon area pages"
+      ],
+      "evidence": "NEAR WIN: 12 impressions / pos 10 / 0 clicks",
+      "rationale": "Body already covers model/condition factors; SERP fit and above-the-fold sell intent tightened only.",
+      "schema": "NO CHANGE"
+    },
+    {
+      "path": "/รับซื้อโน๊ตบุ๊คมือสอง",
+      "baseline": { "clicks": 0, "impressions": 6, "ctr": 0, "position": 9.33 },
+      "changeClass": "TITLE_META + INTERNAL LINK",
+      "changes": [
+        "TITLE simplified",
+        "META emphasizes condition evaluation factors",
+        "H1 clarified",
+        "INTERNAL LINK to Surin/Ubon area pages",
+        "BODY otherwise preserved"
+      ],
+      "evidence": "NEAR WIN: 6 impressions / pos 9.33 / 0 clicks",
+      "rationale": "Commercial money intent already understood; improve SERP clarity without rewrite.",
+      "schema": "NO CHANGE"
+    },
+    {
+      "path": "/รับซื้อคอมพิวเตอร์มือสอง",
+      "baseline": {
+        "clicks": 0,
+        "impressions": 0,
+        "ctr": null,
+        "position": null,
+        "relatedQuerySignal": {
+          "query": "รับซื้อคอมพิวเตอร์ ใกล้ฉัน",
+          "impressions": 1,
+          "position": 4,
+          "confidence": "LOW — QUERY-LEVEL INTENT SIGNAL only; no Query×Page confirmation"
+        }
+      },
+      "changeClass": "META + INTRO + FAQ + INTERNAL LINK",
+      "changes": [
+        "TITLE NO CHANGE (avoid exact-match ใกล้ฉัน)",
+        "META service-area / contact clarity",
+        "INTRO local convenience paragraph",
+        "FAQ remote/different-district process",
+        "INTERNAL LINK to area hub + Surin + Ubon"
+      ],
+      "evidence": "LOW-confidence query-level near-me signal only",
+      "rationale": "Support local convenience intent via real service-area clarity and contact path; do not keyword-stuff ใกล้ฉัน.",
+      "schema": "NO CHANGE"
+    },
+    {
+      "path": "/พื้นที่ให้บริการ/อุบลราชธานี",
+      "baseline": { "clicks": 2, "impressions": 33, "ctr": 0.0606, "position": 8.12 },
+      "changeClass": "MULTIPLE",
+      "changes": [
+        "TITLE brand/clarity polish",
+        "META clarified (removed ambiguous มือหนึ่ง phrasing)",
+        "INTRO Ubon decision-context paragraph",
+        "SECTION unique open without inventing storefront",
+        "INTERNAL LINK money contextual links + area hub inbound"
+      ],
+      "evidence": "Province PROVEN demand: 2 clicks / 33 impressions / pos 8.12",
+      "rationale": "Strengthen local commercial completeness using verified process facts only; schema address remains Khon Kaen — no Ubon storefront invented.",
+      "schema": "NO CHANGE",
+      "ownerFactRequired": "Ubon storefront/NAP claims require owner verification before stronger entity claims"
+    }
+  ],
+  "sourcePagesTouchedForLinksOnly": [
+    "/พื้นที่ให้บริการ",
+    "/บทความ/ขาย-playstation-มือสอง-ได้ราคา-เท่าไหร่"
+  ],
+  "sitewideLinkDump": false,
+  "nextMeasurement": {
+    "compare": ["clicks", "impressions", "ctr", "position"],
+    "labels": ["IMPROVED", "NEUTRAL", "DECLINED", "INSUFFICIENT_DATA"],
+    "note": "Do not conclude from extremely low impressions alone"
+  }
+}
