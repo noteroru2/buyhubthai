@@ -125,6 +125,11 @@ function toRelativeDistPath(fullPath) {
   return path.relative(DIST_DIR, fullPath).replace(/\\/g, '/');
 }
 
+function isNoindexHtml(html) {
+  return /<meta\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/iu.test(html)
+    || /<meta\b[^>]*content=["'][^"']*noindex[^"']*["'][^>]*name=["']robots["']/iu.test(html);
+}
+
 function collectClusterParagraphs(files, cluster) {
   const paragraphMap = new Map();
 
@@ -133,6 +138,7 @@ function collectClusterParagraphs(files, cluster) {
     if (!cluster.match(relativePath)) continue;
 
     const html = fs.readFileSync(file, 'utf8');
+    if (isNoindexHtml(html)) continue;
     const pageId = `/${relativePath.replace(/\/index\.html$/u, '')}`;
 
     for (const paragraph of extractParagraphs(html)) {
@@ -149,9 +155,10 @@ const results = [];
 
 for (const cluster of CLUSTERS) {
   const clusterPages = new Set(
-    htmlFiles.filter((file) => cluster.match(toRelativeDistPath(file))).map((file) =>
-      `/${toRelativeDistPath(file).replace(/\/index\.html$/u, '')}`
-    )
+    htmlFiles
+      .filter((file) => cluster.match(toRelativeDistPath(file)))
+      .filter((file) => !isNoindexHtml(fs.readFileSync(file, 'utf8')))
+      .map((file) => `/${toRelativeDistPath(file).replace(/\/index\.html$/u, '')}`)
   );
   const paragraphMap = collectClusterParagraphs(htmlFiles, cluster);
   const commonThreshold = Math.max(cluster.maxOccurrences + 1, Math.ceil(clusterPages.size * cluster.commonRepeatRatio));
