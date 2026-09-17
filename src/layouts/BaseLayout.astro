@@ -6,9 +6,11 @@ import LineMobileDock from '../components/LineMobileDock.astro';
 import DesktopLineFab from '../components/DesktopLineFab.astro';
 import JsonLd from '../components/JsonLd.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
+import RecoveryAuthorityLinks from '../components/RecoveryAuthorityLinks.astro';
 import { DEFAULT_DESCRIPTION, SITE_NAME, SITE_URL } from '../lib/constants';
 import { buildCanonicalUrl } from '../lib/url';
 import { orgJsonLd, localBusinessJsonLd, websiteJsonLd } from '../lib/schema';
+import { getRecoveryRobots, shouldShowRecoveryAuthority } from '../lib/recovery-policy.mjs';
 import type { BreadcrumbItem } from '../lib/types';
 
 interface Props {
@@ -33,7 +35,11 @@ const {
   jsonLd = []
 } = Astro.props;
 
-const canonicalUrl = buildCanonicalUrl(canonical ?? Astro.url.pathname);
+const currentPath = Astro.url.pathname;
+const effectiveRobots = getRecoveryRobots(currentPath, robots);
+const showRecoveryAuthority = shouldShowRecoveryAuthority(currentPath);
+
+const canonicalUrl = buildCanonicalUrl(canonical ?? currentPath);
 const ogImageAbs = new URL(ogImage, SITE_URL).href;
 const titleAlreadyIncludesSiteName =
   title === SITE_NAME ||
@@ -57,7 +63,7 @@ const baseGraph = [orgJsonLd(), localBusinessJsonLd(), websiteJsonLd(), ...jsonL
     <meta name="generator" content={Astro.generator} />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    {robots ? <meta name="robots" content={robots} /> : null}
+    {effectiveRobots ? <meta name="robots" content={effectiveRobots} /> : null}
     <link rel="canonical" href={canonicalUrl} />
     <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:title" content={fullTitle} />
@@ -79,6 +85,7 @@ const baseGraph = [orgJsonLd(), localBusinessJsonLd(), websiteJsonLd(), ...jsonL
     {breadcrumbs?.length ? <Breadcrumbs items={breadcrumbs} /> : null}
     <main id="main-content" class="min-w-0 pb-40 md:pb-0">
       <slot />
+      {showRecoveryAuthority ? <RecoveryAuthorityLinks /> : null}
     </main>
     <SiteFooter />
     <LineMobileDock />

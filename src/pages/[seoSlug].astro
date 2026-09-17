@@ -4,7 +4,6 @@ import { SEO_KEYWORDS } from '../data/seoKeywords';
 import { getAreaCoverageProfile } from '../data/areaCoverageProfiles';
 import { getSeoSlugHubEnrichment } from '../data/seoSlugHubEnrichment';
 import {
-  SEO_PROVINCES,
   isSeoSlugExcluded,
   keywordToSlug
 } from '../lib/seoSlug';
@@ -24,12 +23,8 @@ export async function getStaticPaths() {
       props: { keyword, province: null, isLocal: false }
     });
 
-    for (const province of SEO_PROVINCES) {
-      paths.push({
-        params: { seoSlug: `${slugBase}-${province.name}` },
-        props: { keyword, province, isLocal: true }
-      });
-    }
+    // Recovery V1: do not generate keyword × province doorway pages here.
+    // Controlled product-local routes are owned by [sellRoute].astro / dedicated static pages.
   }
 
   return paths;

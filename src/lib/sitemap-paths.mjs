@@ -1,6 +1,7 @@
 /** Shared sitemap filter helpers (plain JS for astro.config.mjs). */
 
 import { SEO_SLUG_NOINDEX_HUB_SLUGS } from '../data/seoSlugHubIndexPolicy.mjs';
+import { isRecoverySuppressedPath } from './recovery-policy.mjs';
 
 export const SEO_PROVINCE_NAMES = [
   'ขอนแก่น',
@@ -66,7 +67,6 @@ export function isSellSupportTopicPage(pathname) {
   if (!clean.startsWith('/รับซื้อ/')) return false;
 
   const parts = clean.split('/').filter(Boolean);
-  // รับซื้อ / product / topic  OR  รับซื้อ / product / province / topic
   return parts.length === 3 || parts.length === 4;
 }
 
@@ -84,6 +84,7 @@ export function isNonIndexableSeoSlugHub(pathname) {
 /** @param {string} pathname */
 export function shouldExcludeFromSitemap(pathname) {
   return (
+    isRecoverySuppressedPath(pathname) ||
     isProgrammaticSeoLocalPage(pathname) ||
     isSellSupportTopicPage(pathname) ||
     isNonIndexableSeoSlugHub(pathname)

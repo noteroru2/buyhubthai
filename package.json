@@ -16,6 +16,7 @@
     "check:links": "node scripts/check-internal-links.mjs",
     "check:seo": "node scripts/check-seo-head.mjs",
     "qa": "npm run build && npm run check:wordcount && npm run check:blog-unique && npm run check:page-unique && npm run check:links && npm run check:seo",
+    "qa:recovery": "npm run qa && node scripts/qa-recovery-v1.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
