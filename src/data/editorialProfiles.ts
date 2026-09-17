@@ -977,11 +977,11 @@ const sellSectionsBySlug: Record<string, EditorialSection[]> = {
   ]
 };
 
-export function getProvinceProfileWithFallback(provinceName: string): ProvinceProfile {
+export function getProvinceProfileWithFallback(provinceName: string, productName = 'สินค้าไอที'): ProvinceProfile {
   return {
-    localEconomy: `มีตลาดความต้องการขายเครื่องไอทีและมือถือค่อนข้างคึกคัก ทั้งเครื่องสำหรับใช้งานส่วนตัวเพื่อการเรียน การทำงานประจำวัน และอุปกรณ์สำนักงานจากธุรกิจห้างร้านต่าง ๆ ที่ต้องการอัปเกรดเครื่องใหม่`,
-    travelNote: `สำหรับคนขายใน${provinceName}ที่อยู่ต่างอำเภอหรือนอกตัวเมืองหลัก การส่งรูปและสเปกเครื่องทาง LINE @buyhub เพื่อประเมินราคาล่วงหน้าฟรี เป็นตัวเลือกที่ช่วยอำนวยความสะดวกและลดขั้นตอนยุ่งยากได้อย่างดีเยี่ยม`,
-    geoIntent: `หน้าบริการเฉพาะนี้จึงตั้งใจช่วยเหลือให้ผู้อยู่อาศัยใน${provinceName}ได้รับข้อมูลราคาประเมินที่โปร่งใสและตรงตามจริง พร้อมทั้งแนะแนวทางการนัดหมายพื้นที่จัดเก็บหรือส่งมอบสินค้าที่สะดวกที่สุด`,
+    localEconomy: `มีตลาดความต้องการขาย ${productName} ทั้งจากผู้ใช้ทั่วไปและงานองค์กร การประเมินจึงควรเริ่มจากข้อมูลของสินค้ากลุ่มนี้โดยตรง ทั้งรุ่น สเปกหรือความจุ สภาพจริง อุปกรณ์ และความพร้อมในการส่งมอบ แทนการใช้ข้อความกว้างแบบเดียวกับทุกหมวด`,
+    travelNote: `สำหรับคนที่ต้องการขาย ${productName} ใน ${provinceName} โดยเฉพาะผู้ที่อยู่นอกตัวเมือง การส่งรูปพร้อมข้อมูลที่จำเป็นของสินค้ากลุ่มนี้ผ่าน LINE @buyhub ก่อน ช่วยให้ตรวจรายละเอียดและคุยแนวทางส่งมอบได้ตรงเคสมากกว่าการเริ่มจากชื่อพื้นที่เพียงอย่างเดียว`,
+    geoIntent: `หน้ารับซื้อ ${productName} นี้จึงเน้นเชื่อมเจตนาขายจริงใน ${provinceName} เข้ากับปัจจัยประเมินของสินค้าประเภทนี้ เพื่อให้ผู้ขายรู้ว่าต้องเตรียมข้อมูลอะไรและควรคาดหวังขั้นตอนถัดไปแบบใดก่อนตัดสินใจขาย`,
     sellerTypes: [
       `ผู้ใช้งานทั่วไปใน${provinceName}ที่ต้องการสำรวจราคาก่อนเปลี่ยนไปใช้รุ่นอื่น ๆ`,
       `นักเรียน นักศึกษา และคนทำงานที่ต้องการหมุนเวียนอุปกรณ์ไอทีที่ไม่ได้ใช้งานแล้ว`,
@@ -996,7 +996,7 @@ export function getProvinceProfileWithFallback(provinceName: string): ProvincePr
 }
 
 export function buildComboEditorialSections(productName: string, provinceName: string): EditorialSection[] {
-  const province = provinceProfiles[provinceName] ?? getProvinceProfileWithFallback(provinceName);
+  const province = provinceProfiles[provinceName] ?? getProvinceProfileWithFallback(provinceName, productName);
   const product = productProfiles[productName];
   const comboSection = provinceProductSections[`${productName}:${provinceName}`];
   const productUsesLeadingSpace = /^[A-Za-z0-9]/.test(productName);
