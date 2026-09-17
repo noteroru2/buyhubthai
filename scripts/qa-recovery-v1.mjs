@@ -40,7 +40,7 @@ const sitemapPath = path.join(dist, 'sitemap-0.xml');
 assert(fs.existsSync(sitemapPath), 'dist/sitemap-0.xml missing');
 const sitemap = fs.existsSync(sitemapPath) ? fs.readFileSync(sitemapPath, 'utf8') : '';
 const sitemapUrls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((m) => {
-  try { return new URL(m[1]).pathname.replace(/\/$/, '') || '/'; } catch { return m[1]; }
+  try { return decodeURIComponent(new URL(m[1]).pathname).replace(/\/$/, '') || '/'; } catch { return m[1]; }
 });
 
 for (const corePath of RECOVERY_CORE_MONEY_PATHS) {
