@@ -7,7 +7,7 @@ import EditorialTrustPanel from '../components/EditorialTrustPanel.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import LongformSections from '../components/LongformSections.astro';
 import { breadcrumbJsonLd, faqPageJsonLd, webPageJsonLd } from '../lib/schema';
-import { EDITORIAL_REVIEWED_AT, EDITORIAL_REVIEWER, SITE_NAME } from '../lib/constants';
+import { EDITORIAL_REVIEWED_AT, EDITORIAL_REVIEWER, SITE_NAME, PARENT_ORG_NAME, PARENT_ORG_URL, STORE_ADDRESS } from '../lib/constants';
 
 const title = 'เกี่ยวกับ BuyHub ศูนย์รับซื้อสินค้าไอทีมือสอง';
 const description =
@@ -225,6 +225,11 @@ aboutSections.push({
       </p>
       <p class="mt-4 text-base leading-8 text-slate-600">
         เราให้ความสำคัญกับการประเมินราคาตามสภาพจริง การแจ้งราคาก่อนตกลงซื้อขาย และการสื่อสารที่ชัดเจน เหมาะสำหรับลูกค้าทั่วไป ร้านค้า บริษัท สำนักงาน หรือหน่วยงานที่ต้องการขายสินค้า IT ทั้งชิ้นเดียวและจำนวนมาก
+      </p>
+      <p class="mt-4 text-base leading-8 text-slate-600">
+        BuyHub เป็นหนึ่งในช่องทางบริการของ <a href={PARENT_ORG_URL} class="font-semibold text-emerald-700 underline decoration-emerald-500/35 underline-offset-4 hover:text-emerald-800">{PARENT_ORG_NAME}</a>
+        โดยมีหน้าร้านหลักที่ {STORE_ADDRESS.street} {STORE_ADDRESS.locality} จังหวัด{STORE_ADDRESS.region} {STORE_ADDRESS.postalCode}
+        และใช้เว็บไซต์ BuyHub สำหรับการประเมินและประสานงานบริการรับซื้อในภาคอีสาน
       </p>
       <div class="mt-10 max-w-3xl">
         <EditorialTrustPanel

@@ -84,6 +84,16 @@ for (const p of ['/', '/รับซื้อ']) {
   assert(html.includes('/พื้นที่ให้บริการ/อุบลราชธานี'), `${p}: Ubon proven-area link missing from recovery surface`);
 }
 
+const aboutHtml = readHtml('/เกี่ยวกับเรา');
+assert(aboutHtml.includes('https://amphon.co.th'), '/เกี่ยวกับเรา: parent company link missing');
+assert(aboutHtml.includes('740/8 ถนนชยางกูร'), '/เกี่ยวกับเรา: authoritative Ubon storefront address missing');
+
+const homepageHtml = readHtml('/');
+assert(homepageHtml.includes('"parentOrganization"'), '/: Organization parentOrganization schema missing');
+assert(homepageHtml.includes('บริษัท อำพล เทรดดิ้ง จำกัด'), '/: parent organization name missing from schema');
+assert(homepageHtml.includes('740/8 ถนนชยางกูร'), '/: LocalBusiness storefront address is not aligned to Amphon source of truth');
+assert(!homepageHtml.includes('99/9 ถนนมิตรภาพ'), '/: stale Khon Kaen storefront address leaked into schema');
+
 assert(sitemapUrls.length >= 100, `sitemap unexpectedly small: ${sitemapUrls.length}`);
 assert(sitemapUrls.length <= 170, `sitemap recovery target exceeded: ${sitemapUrls.length} > 170`);
 

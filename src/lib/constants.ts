@@ -5,8 +5,18 @@ export const SITE_TAGLINE = 'ศูนย์รับซื้อสินค้
 export const LINE_AT = '@buyhub';
 export const LINE_URL = 'https://line.me/R/ti/p/@buyhub';
 export const FACEBOOK_URL = 'https://www.facebook.com/buyhubthai' as const;
-/** Geo-based map link (replace with Google Business Profile URL when available). */
-export const GOOGLE_MAPS_URL = 'https://www.google.com/maps?q=16.4322,102.8236' as const;
+export const PARENT_ORG_NAME = 'บริษัท อำพล เทรดดิ้ง จำกัด' as const;
+export const PARENT_ORG_URL = 'https://amphon.co.th' as const;
+export const PARENT_ORG_ALTERNATE_NAME = 'AMPHON TRADING' as const;
+export const STORE_ADDRESS = {
+  street: '740/8 ถนนชยางกูร',
+  locality: 'ตำบลในเมือง อำเภอเมืองอุบลราชธานี',
+  region: 'อุบลราชธานี',
+  postalCode: '34000',
+  country: 'TH'
+} as const;
+export const STORE_GEO = { latitude: 15.2664215, longitude: 104.844358 } as const;
+export const GOOGLE_MAPS_URL = 'https://maps.app.goo.gl/krv97o14jPTRrnpW8' as const;
 export const EDITORIAL_REVIEWED_AT = '2026-05-10' as const;
 export const EDITORIAL_REVIEWER = 'คุณอำพล' as const;
 export const EDITORIAL_REVIEWER_TITLE = 'CEO & ผู้เชี่ยวชาญการประเมินราคาสินค้าไอทีประจำ BuyHub' as const;

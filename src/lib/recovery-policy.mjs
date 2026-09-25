@@ -4,7 +4,7 @@
  * the real Ubon service market, and the two local URLs that still showed Search Console signal.
  */
 
-export const BUYHUB_RECOVERY_VERSION = '2026-09-18-v1';
+export const BUYHUB_RECOVERY_VERSION = '2026-09-25-v1.1';
 
 export const RECOVERY_PROVINCE_NAMES = [
   'ขอนแก่น','นครราชสีมา','อุดรธานี','อุบลราชธานี','อำนาจเจริญ','บึงกาฬ','บุรีรัมย์',
