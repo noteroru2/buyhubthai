@@ -1,0 +1,25 @@
+{
+  "release": "BUYHUB_RECOVERY_V1_1_ENTITY_BRIDGE",
+  "date": "2026-09-25",
+  "gscFinalizedThrough": "2026-09-22",
+  "baseline": {
+    "latest7": {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "position": 10
+    },
+    "latest28": {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "position": 22.2
+    }
+  },
+  "expected": {
+    "sitemapUrls": 149,
+    "parentOrganization": "บริษัท อำพล เทรดดิ้ง จำกัด",
+    "parentUrl": "https://amphon.co.th",
+    "storefront": "740/8 ถนนชยางกูร ตำบลในเมือง อำเภอเมืองอุบลราชธานี อุบลราชธานี 34000"
+  }
+}
