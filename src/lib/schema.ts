@@ -1,5 +1,5 @@
 import type { BreadcrumbItem } from './types';
-import { LINE_URL, PHONE_DISPLAY, PHONE_E164, SITE_NAME, SITE_URL, SITE_TAGLINE, FACEBOOK_URL, GOOGLE_MAPS_URL } from './constants';
+import { LINE_URL, PHONE_DISPLAY, PHONE_E164, SITE_NAME, SITE_URL, SITE_TAGLINE, FACEBOOK_URL, GOOGLE_MAPS_URL, PARENT_ORG_NAME, PARENT_ORG_URL, PARENT_ORG_ALTERNATE_NAME, STORE_ADDRESS, STORE_GEO } from './constants';
 
 export function absoluteUrl(path: string): string {
   if (path.startsWith('http')) return path;
@@ -17,7 +17,12 @@ export function orgJsonLd() {
     logo: `${SITE_URL}/favicon.svg`,
     description: SITE_TAGLINE,
     sameAs: [LINE_URL, FACEBOOK_URL],
-    foundingDate: '2018-03-15',
+    parentOrganization: {
+      '@type': 'Organization',
+      name: PARENT_ORG_NAME,
+      alternateName: PARENT_ORG_ALTERNATE_NAME,
+      url: PARENT_ORG_URL
+    },
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: PHONE_E164,
@@ -47,16 +52,16 @@ export function localBusinessJsonLd() {
     priceRange: '฿฿',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: '99/9 ถนนมิตรภาพ ตำบลในเมือง อำเภอเมืองขอนแก่น',
-      addressLocality: 'เมืองขอนแก่น',
-      addressRegion: 'Northeast (Isan)',
-      postalCode: '40000',
-      addressCountry: 'TH'
+      streetAddress: STORE_ADDRESS.street,
+      addressLocality: STORE_ADDRESS.locality,
+      addressRegion: STORE_ADDRESS.region,
+      postalCode: STORE_ADDRESS.postalCode,
+      addressCountry: STORE_ADDRESS.country
     },
     geo: {
       '@type': 'GeoCoordinates',
-      latitude: 16.4322,
-      longitude: 102.8236
+      latitude: STORE_GEO.latitude,
+      longitude: STORE_GEO.longitude
     },
     openingHoursSpecification: [
       {
@@ -64,8 +69,8 @@ export function localBusinessJsonLd() {
         dayOfWeek: [
           'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'
         ],
-        opens: '08:00',
-        closes: '23:00'
+        opens: '09:00',
+        closes: '21:00'
       }
     ],
     areaServed: isanProvinces.map((prov) => ({
