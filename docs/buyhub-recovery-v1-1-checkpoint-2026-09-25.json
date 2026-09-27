@@ -1,0 +1,31 @@
+{
+  "batch": "BUYHUB_RECOVERY_V1_1_CHECKPOINT",
+  "capturedDate": "2026-09-28",
+  "latestFinalizedGscDate": "2026-09-25",
+  "recoveryV1DeploymentDate": "2026-09-18",
+  "recoveryV11DeploymentDate": "2026-09-25",
+  "currentWindow": {
+    "dateFrom": "2026-09-20",
+    "dateTo": "2026-09-25",
+    "clicks": 0,
+    "impressions": 2,
+    "ctr": 0,
+    "position": 52
+  },
+  "sampleAssessment": "INSUFFICIENT_FOR_ARCHITECTURE_CHANGE",
+  "productionEvidence": {
+    "sitemapUrlCountExpected": 149,
+    "reciprocalAuthorityBridgeVerified": true,
+    "amphonToBuyhub": true,
+    "buyhubToAmphon": true,
+    "entityBridgeFingerprint": "/buyhub-recovery-v1-1.json"
+  },
+  "guard": {
+    "addIndexablePages": false,
+    "furtherNoindexBatch": false,
+    "rewriteMoneyTitlesOrH1": false,
+    "expandSitemap": false,
+    "firstSignalCheckAfterFinalizedDate": "2026-10-02"
+  },
+  "verdict": "FREEZE_AND_MEASURE"
+}
