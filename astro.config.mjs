@@ -84,7 +84,9 @@ export default defineConfig({
 
   integrations: [
     sitemap({
-      filter: shouldIncludeInSitemap
+      filter: shouldIncludeInSitemap,
+      changefreq: 'weekly',
+      priority: 0.7
     })
   ]
 });
