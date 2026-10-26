@@ -1,0 +1,5 @@
+---
+import { productPhotos } from '../data/serviceCatalog';
+const { limit = 6 } = Astro.props;
+---
+<div class="bh-product-grid">{productPhotos.slice(0, limit).map(item => <a class="bh-product" href={item.href}><img src={`/images/buyback/${item.image}`} alt={item.name} width="800" height="600" loading="lazy" decoding="async" /><div><h3>{item.name}</h3><span>ดูข้อมูลรับซื้อ <span aria-hidden="true">↗</span></span></div></a>)}</div>

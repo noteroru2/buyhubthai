@@ -1,0 +1,4 @@
+---
+import { sellingSteps } from '../data/serviceCatalog';
+---
+<ol class="bh-steps">{sellingSteps.map((step, i) => <li><span class="bh-step-number">0{i+1}</span><h3>{step.title}</h3><p>{step.detail}</p></li>)}</ol>

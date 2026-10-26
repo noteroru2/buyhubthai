@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BuyhubCta from './BuyhubCta.astro';
+import { LINE_URL } from '../lib/constants';
+import { featuredServices } from '../data/serviceCatalog';
+import { breadcrumbJsonLd, serviceJsonLd } from '../lib/schema';
+const {province} = Astro.props;
+const path = `/พื้นที่ให้บริการ/${province}`;
+const title = `รับซื้อสินค้าไอทีมือสอง ${province} ประเมินจากรูป | BuyHub`;
+const description = `ผู้ขายใน${province} ส่งรูปและรายละเอียดสินค้าให้ BuyHub ประเมินเบื้องต้นฟรี แจ้งอำเภอและจำนวนเพื่อตรวจสอบวิธีส่งมอบและคิวงานก่อนนัดหมาย`;
+const breadcrumbs = [{name:'หน้าแรก',href:'/'},{name:'พื้นที่ให้บริการ',href:'/พื้นที่ให้บริการ'},{name:province,href:path}];
+const isUbon = province === 'อุบลราชธานี';
+---
+<BaseLayout title={title} description={description} breadcrumbs={breadcrumbs} jsonLd={[breadcrumbJsonLd(breadcrumbs), serviceJsonLd({name:`ประเมินสินค้าไอทีสำหรับผู้ขายใน${province}`, description, url:path, areas:[province]})]}>
+  <section class="bh-page-head"><div class="bh-wrap"><p class="bh-eyebrow">ข้อมูลพื้นที่ · {province}</p><h1>อยู่{province}<br/>เริ่มเช็กราคาไอทีจากรูปได้</h1><p>{description}</p><div class="bh-actions"><a class="bh-button" href={LINE_URL} target="_blank" rel="noopener noreferrer">ส่งรูปพร้อมแจ้งพื้นที่ ↗</a></div></div></section>
+  <div class="bh-content bh-wrap bh-two-columns"><section><h2>วิธีเริ่มขายจาก{province}</h2><p>แจ้งรุ่น สเปก สภาพ อุปกรณ์ จำนวน จังหวัดและอำเภอ พร้อมรูปสินค้าให้ทีมงานดูเบื้องต้น ยังไม่ต้องเดินทางหรือส่งสินค้าก่อนทราบรายละเอียด</p><p>{isUbon ? 'ผู้ขายในอุบลราชธานีสามารถสอบถามการนำสินค้าเข้าหน้าร้านหลักของอำพล เทรดดิ้งที่ 740/8 ถนนชยางกูร ตำบลในเมือง อำเภอเมืองอุบลราชธานี โดยติดต่อยืนยันวันและเวลาก่อนเดินทาง' : `สำหรับผู้ขายใน${province} ทีมงานต้องตรวจสอบคิวนัดรับหรือความเหมาะสมในการจัดส่งตามจำนวน มูลค่า และพื้นที่จริง หน้านี้เป็นข้อมูลเริ่มติดต่อ ไม่ได้แสดงว่ามีสาขาในจังหวัด${province}`}</p><p>หากจัดส่ง กรุณายืนยันผู้รับ ที่อยู่ วิธีแพ็ก ค่าขนส่ง และเงื่อนไขกรณีไม่ได้ตกลงซื้อก่อนส่งทุกครั้ง</p><a class="bh-text-link" href="/ติดต่อเรา">ติดต่อและดูที่อยู่หน้าร้านหลัก ↗</a></section><section class="bh-checklist-card"><h2>ข้อมูลพื้นที่ที่ควรแจ้ง</h2><ul class="bh-check-list"><li>จังหวัด{province} และอำเภอที่อยู่</li><li>จำนวนสินค้าและประเภทแต่ละรายการ</li><li>นำเข้าร้าน นัดรับ หรือจัดส่งที่คุณสะดวก</li><li>วันและช่วงเวลาที่ต้องการทำรายการ</li></ul><p>ทีมงานต้องยืนยันพื้นที่และวิธีส่งมอบก่อนนัดหมายทุกครั้ง</p></section></div>
+  <section class="bh-section bh-tint"><div class="bh-wrap"><h2>เลือกข้อมูลให้ตรงกับสินค้าของคุณ</h2><div class="bh-link-list">{featuredServices.map(item => <a href={item.href}>รับซื้อ{item.name} ↗</a>)}</div></div></section><BuyhubCta/>
+</BaseLayout>

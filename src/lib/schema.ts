@@ -79,7 +79,7 @@ export function localBusinessJsonLd() {
     })),
     hasMap: GOOGLE_MAPS_URL,
     sameAs: [LINE_URL, FACEBOOK_URL],
-    parentOrganization: { '@id': `${SITE_URL}/#organization` }
+    parentOrganization: { '@type': 'Organization', name: PARENT_ORG_NAME, url: PARENT_ORG_URL }
   };
 }
 

@@ -1,0 +1,10 @@
+---
+import { LINE_URL, PHONE_E164, PHONE_DISPLAY } from '../lib/constants';
+const { heading = 'พร้อมเช็กราคาสินค้าของคุณแล้วหรือยัง?', text = 'ส่งรูป รุ่น สภาพ และจังหวัดให้ครบ ทีมงานช่วยประเมินเบื้องต้นฟรีก่อนตัดสินใจขาย' } = Astro.props;
+---
+<section class="bh-cta">
+  <div class="bh-wrap bh-cta-inner">
+    <div><p class="bh-eyebrow">เริ่มคุยกับ BuyHub</p><h2>{heading}</h2><p>{text}</p></div>
+    <div class="bh-actions"><a class="bh-button" href={LINE_URL} target="_blank" rel="noopener noreferrer">ส่งรูปทาง LINE @buyhub <span aria-hidden="true">↗</span></a><a class="bh-button bh-button-dark" href={`tel:${PHONE_E164}`}>โทร {PHONE_DISPLAY}</a></div>
+  </div>
+</section>
