@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BuyhubCta from './BuyhubCta.astro';
+import { breadcrumbJsonLd } from '../lib/schema';
+const { title, description, heading = title, label = 'BUYHUB', path, jsonLd = [], cta = true } = Astro.props;
+const breadcrumbs = [{ name: 'หน้าแรก', href: '/' }, { name: title, href: path }];
+---
+<BaseLayout title={title} description={description} breadcrumbs={breadcrumbs} jsonLd={[breadcrumbJsonLd(breadcrumbs), ...jsonLd]}>
+<section class="bh-page-head"><div class="bh-wrap"><p class="bh-eyebrow">{label}</p><h1>{heading}</h1><p>{description}</p></div></section>
+<div class="bh-wrap bh-content"><slot/></div>
+{cta && <BuyhubCta/>}
+</BaseLayout>

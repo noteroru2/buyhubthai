@@ -7,8 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "set ASTRO_TELEMETRY_DISABLED=1 && astro build",
-    "content:longform": "node scripts/enrich-longform-content.mjs",
+    "build": "astro build",
     "images:og": "node scripts/generate-og-images.mjs",
     "check:wordcount": "node scripts/check-public-word-count.mjs",
     "check:blog-unique": "node scripts/check-blog-uniqueness.mjs",
@@ -16,9 +15,10 @@
     "check:links": "node scripts/check-internal-links.mjs",
     "check:seo": "node scripts/check-seo-head.mjs",
     "qa": "npm run build && npm run check:wordcount && npm run check:blog-unique && npm run check:page-unique && npm run check:links && npm run check:seo",
-    "qa:recovery": "npm run qa && node scripts/qa-recovery-v1.mjs",
+    "qa:recovery": "npm run qa && node scripts/qa-recovery-v1.mjs && npm run check:rebuild",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check:rebuild": "node scripts/check-rebuild.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.2",

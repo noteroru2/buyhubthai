@@ -1,6 +1,6 @@
 export const SITE_URL = 'https://buyhubthai.com' as const;
 export const SITE_NAME = 'BuyHub';
-export const SITE_TAGLINE = 'ศูนย์รับซื้อสินค้าไอที มือหนึ่ง มือสอง';
+export const SITE_TAGLINE = 'ขายไอทีง่าย รู้ราคาก่อนตัดสินใจ';
 
 export const LINE_AT = '@buyhub';
 export const LINE_URL = 'https://line.me/R/ti/p/@buyhub';
@@ -20,7 +20,7 @@ export const GOOGLE_MAPS_URL = 'https://maps.app.goo.gl/krv97o14jPTRrnpW8' as co
 export const EDITORIAL_REVIEWED_AT = '2026-05-10' as const;
 export const EDITORIAL_REVIEWER = 'คุณอำพล' as const;
 export const EDITORIAL_REVIEWER_TITLE = 'CEO & ผู้เชี่ยวชาญการประเมินราคาสินค้าไอทีประจำ BuyHub' as const;
-export const EDITORIAL_REVIEWER_BIO = 'ผู้ก่อตั้งและประธานเจ้าหน้าที่บริหาร BuyHub มีประสบการณ์ประเมินราคากลางและตรวจสอบสภาพเครื่องอุปกรณ์ไอทีมือสองยาวนานกว่า 10 ปี มุ่งมั่นพัฒนามาตรฐานการบริการที่ยุติธรรม โปร่งใส และรวดเร็ว เพื่อผู้ใช้งานทั่วภาคตะวันออกเฉียงเหนือ' as const;
+export const EDITORIAL_REVIEWER_BIO = 'ทีมงานรับซื้อสินค้าไอทีของ BuyHub ในเครืออำพล เทรดดิ้ง ตรวจสอบรุ่น สเปก สภาพ และอุปกรณ์เพื่อประกอบการประเมินราคา' as const;
 export const EDITORIAL_REVIEWER_SOCIAL = 'https://www.facebook.com/buyhubthai' as const;
 
 
@@ -35,10 +35,10 @@ export const DEFAULT_DESCRIPTION =
   'BuyHub ศูนย์รับซื้อสินค้าไอที มือหนึ่ง มือสอง ประเมินไว โอนเงินทันที รับซื้อ iPhone iPad MacBook โน๊ตบุ๊ค และอุปกรณ์ไอที';
 
 export const NAV = [
-  { href: '/', label: 'หน้าแรก' },
-  { href: '/รับซื้อ', label: 'รับซื้ออะไรบ้าง' },
-  { href: '/พื้นที่ให้บริการ', label: 'พื้นที่ให้บริการ' },
-  { href: '/ขั้นตอนการขาย', label: 'ขั้นตอนการขาย' },
+  { href: '/รับซื้อ', label: 'สินค้าที่รับซื้อ' },
+  { href: '/ขั้นตอนการขาย', label: 'ขายอย่างไร' },
+  { href: '/รับซื้อคอมบริษัท', label: 'รับซื้อยกล็อต' },
+  { href: '/ผลงานรับซื้อจริง', label: 'ภาพสินค้า' },
   { href: '/บทความ', label: 'บทความ' },
   { href: '/ติดต่อเรา', label: 'ติดต่อเรา' }
 ] as const;

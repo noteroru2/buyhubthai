@@ -3,7 +3,6 @@ import '../styles/global.css';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import LineMobileDock from '../components/LineMobileDock.astro';
-import DesktopLineFab from '../components/DesktopLineFab.astro';
 import JsonLd from '../components/JsonLd.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import RecoveryAuthorityLinks from '../components/RecoveryAuthorityLinks.astro';
@@ -60,6 +59,7 @@ const baseGraph = [orgJsonLd(), localBusinessJsonLd(), websiteJsonLd(), ...jsonL
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href="/fonts/noto-sans-thai-thai-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
     <meta name="generator" content={Astro.generator} />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
@@ -83,12 +83,11 @@ const baseGraph = [orgJsonLd(), localBusinessJsonLd(), websiteJsonLd(), ...jsonL
     <a href="#main-content" class="skip-link">ข้ามไปยังเนื้อหา</a>
     <SiteHeader />
     {breadcrumbs?.length ? <Breadcrumbs items={breadcrumbs} /> : null}
-    <main id="main-content" class="min-w-0 pb-40 md:pb-0">
+    <main id="main-content" class="min-w-0">
       <slot />
       {showRecoveryAuthority ? <RecoveryAuthorityLinks /> : null}
     </main>
     <SiteFooter />
     <LineMobileDock />
-    <DesktopLineFab />
   </body>
 </html>
