@@ -15,6 +15,7 @@ export const STORE_ADDRESS = {
   postalCode: '34000',
   country: 'TH'
 } as const;
+export const STORE_LANDMARK = 'ติดปากซอยชยางกูร 32' as const;
 export const STORE_GEO = { latitude: 15.2664215, longitude: 104.844358 } as const;
 export const GOOGLE_MAPS_URL = 'https://maps.app.goo.gl/krv97o14jPTRrnpW8' as const;
 export const EDITORIAL_REVIEWED_AT = '2026-05-10' as const;
@@ -29,7 +30,7 @@ export const PHONE_DISPLAY = '095-547-9408';
 export const PHONE_E164 = '+66955479408';
 
 /** ช่วงเวลาทำการ (ปรับได้ตามร้านจริง) */
-export const BUSINESS_HOURS_SHORT = '08.00 น - 23.00 น ทุกวัน';
+export const BUSINESS_HOURS_SHORT = '09:00–19:00 น.';
 
 export const DEFAULT_DESCRIPTION =
   'BuyHub ศูนย์รับซื้อสินค้าไอที มือหนึ่ง มือสอง ประเมินไว โอนเงินทันที รับซื้อ iPhone iPad MacBook โน๊ตบุ๊ค และอุปกรณ์ไอที';
