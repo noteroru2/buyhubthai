@@ -33,7 +33,7 @@ export const PHONE_E164 = '+66955479408';
 export const BUSINESS_HOURS_SHORT = '09:00–19:00 น.';
 
 export const DEFAULT_DESCRIPTION =
-  'BuyHub ศูนย์รับซื้อสินค้าไอที มือหนึ่ง มือสอง ประเมินไว โอนเงินทันที รับซื้อ iPhone iPad MacBook โน๊ตบุ๊ค และอุปกรณ์ไอที';
+  'BuyHub รับประเมินสินค้าไอทีมือหนึ่งและมือสอง ประเมินตามรุ่น สภาพและข้อมูลจริง ชำระเงินหลังตรวจสินค้าและตกลงราคา รับพิจารณา iPhone iPad MacBook โน๊ตบุ๊ค และอุปกรณ์ไอที';
 
 export const NAV = [
   { href: '/รับซื้อ', label: 'สินค้าที่รับซื้อ' },
